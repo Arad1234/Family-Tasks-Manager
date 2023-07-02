@@ -1,9 +1,15 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-const userSchema = new mongoose.Schema({
+import { UserDocument } from "../types/mongoose";
+
+const userSchema = new mongoose.Schema<UserDocument>({
   username: { type: String, required: true, minLength: 2 },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true, minLength: 6 },
+  password: {
+    type: String,
+    required: true,
+    minLength: [6, "Password need to be at least 6 characters"],
+  },
 });
 
 userSchema.pre("save", async function () {

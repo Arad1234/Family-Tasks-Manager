@@ -6,8 +6,10 @@ import {
   setPassword,
   setUsername,
 } from "../../store/slices/auth-slice";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { username, email, password } = useAppSelector(
     (state) => state.authReducer
@@ -26,7 +28,15 @@ const Register = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(registerThunk({ username, email, password }));
+    const response = await dispatch(
+      registerThunk({ username, email, password })
+    );
+    if (response.error) {
+      console.log(response);
+      alert(response.payload);
+    } else {
+      navigate("/");
+    }
   };
   return (
     <form onSubmit={handleSubmit}>

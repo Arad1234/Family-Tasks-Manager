@@ -1,11 +1,10 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { loginThunk } from "../actions/auth-actions";
 interface InitialState {
   username: string;
   email: string;
   password: string;
   loading: boolean;
-  error: string | null;
   success: string | null;
 }
 
@@ -14,7 +13,6 @@ const initialState: InitialState = {
   email: "",
   password: "",
   loading: false,
-  error: null,
   success: null,
 };
 
@@ -41,8 +39,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.success = "Success!";
       }),
-      builder.addCase(loginThunk.rejected, (state, action) => {
-        state.error = action.error as any;
+      builder.addCase(loginThunk.rejected, (state) => {
         state.loading = false;
       });
   },
