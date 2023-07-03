@@ -12,7 +12,6 @@ export const verifyToken = (
     if (cookie) {
       const token = cookie.split("=")[1];
       const userInfo = jwt.verify(token, process.env.SECRET_KEY as string);
-      console.log(userInfo);
       req.user = userInfo;
       next();
     } else {

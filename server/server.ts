@@ -4,7 +4,7 @@ import { configDotenv } from "dotenv";
 import { verifyToken } from "./middlewares/verifyToken";
 import authRouter from "./routes/authRoutes";
 import roomsRouter from "./routes/roomsRoute";
-import mongoose from "mongoose";
+import mongoose, { PreMiddlewareFunction } from "mongoose";
 import cookieParser from "cookie-parser";
 configDotenv();
 

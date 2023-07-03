@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { PreMiddlewareFunction } from "mongoose";
 import bcrypt from "bcrypt";
 import { UserDocument } from "../types/mongoose";
 

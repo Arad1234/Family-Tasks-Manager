@@ -16,7 +16,7 @@ export const loginUser = async (req: Request, res: Response) => {
       if (isPasswordValid) {
         const token = generateToken(user._id, user.email);
         res.cookie("token", token, { httpOnly: true, maxAge: 900000 });
-        res.status(OK).json({ status: "ok" });
+        res.status(OK).json({ status: "ok", userId: user._id });
       } else {
         res.status(UNAUTHORIZED).json({ error: "Wrong email or password" });
       }

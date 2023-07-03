@@ -13,7 +13,7 @@ interface RegisterPayload {
 }
 
 export const loginThunk = createAsyncThunk<
-  string, // The type the function returns
+  { status: string; userId: string }, // The type the function returns
   LoginPayload // the arguments the function get.
 >("/auth/login", async ({ email, password }, thunkAPI) => {
   try {
@@ -28,7 +28,6 @@ export const loginThunk = createAsyncThunk<
     return data;
   } catch (error: any) {
     const { response } = error;
-    console.log(thunkAPI.rejectWithValue(response.data.error));
     return thunkAPI.rejectWithValue(response.data.error);
   }
 });

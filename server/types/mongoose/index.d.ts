@@ -7,7 +7,7 @@ export interface UserDocument extends Document {
 }
 
 export interface RoomDocument extends Document {
-  name: string;
+  roomName: string;
   creator: Types.ObjectId;
   familyMembers: Types.ObjectId[];
   maxMembers: number;

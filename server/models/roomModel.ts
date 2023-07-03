@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { RoomDocument } from "../types/mongoose";
 
 const roomSchema = new mongoose.Schema<RoomDocument>({
-  name: { type: String, required: true },
+  roomName: { type: String, required: true },
   creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "users",
