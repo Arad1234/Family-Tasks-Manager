@@ -2,9 +2,11 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { Circles } from "react-loader-spinner";
+import "./Home.scss";
 import { getRoomsThunk } from "../../store/actions/rooms-actions";
 import { reset } from "../../store/slices/auth-slice";
 import CreateRoomModal from "../Modals/CreateRoomModal/CreateRoomModal";
+import { setIsOpen } from "../../store/slices/modal-slice";
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -12,7 +14,9 @@ const Home = () => {
   const { rooms } = useAppSelector((state) => state.roomsReducer);
   const navigate = useNavigate();
 
-  const handleCreateRoom = () => {};
+  const handleCreateRoom = () => {
+    dispatch(setIsOpen(true));
+  };
 
   useEffect(() => {
     const getRooms = async () => {
@@ -47,7 +51,11 @@ const Home = () => {
           </div>
         );
       })}
-      <button onClick={handleCreateRoom}>Create Room</button>
+      <div className="main-buttons">
+        <button onClick={handleCreateRoom}>Create Room</button>
+        <button onClick={handleCreateRoom}>Join Room</button>
+      </div>
+
       <CreateRoomModal />
     </div>
   );

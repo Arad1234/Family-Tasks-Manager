@@ -1,4 +1,4 @@
-import Room from "../models/roomModel";
+import Room from "../models/room.model";
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { userInfoRequest } from "../types/express";
@@ -17,15 +17,16 @@ export const getFamilyRooms = async (req: Request, res: Response) => {
 
 export const createFamilyRoom = async (req: userInfoRequest, res: Response) => {
   const { roomName, maxMembers } = req.body;
-  const { _id } = req.user as JwtPayload;
+  const { userId } = req.user as JwtPayload;
+  console.log(userId);
   try {
-    await Room.create({
+    const newRoom = await Room.create({
       roomName: roomName,
       maxMembers: maxMembers,
-      creator: _id,
-      familyMembers: [_id],
+      creator: userId,
+      familyMembers: [userId],
     });
-    res.status(CREATED).json({ status: "ok" });
+    res.status(CREATED).json({ status: "ok", newRoom: newRoom });
   } catch (error) {
     res.status(BAD_REQUEST).json({ error: error });
   }

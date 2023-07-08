@@ -1,8 +1,9 @@
-import User from "../models/userModel";
+import User from "../models/user.model";
 import bcrypt from "bcrypt";
 import { StatusCodes } from "http-status-codes";
 import { generateToken } from "../utils/generateToken";
 import { Request, Response } from "express";
+import { CreateUserInput } from "../schema/user.schema";
 
 const { OK, UNAUTHORIZED, INTERNAL_SERVER_ERROR, CREATED, BAD_REQUEST } =
   StatusCodes;
@@ -15,7 +16,7 @@ export const loginUser = async (req: Request, res: Response) => {
       const isPasswordValid = await bcrypt.compare(password, user.password);
       if (isPasswordValid) {
         const token = generateToken(user._id, user.email);
-        res.cookie("token", token, { httpOnly: true, maxAge: 900000 });
+        res.cookie("token", token, { httpOnly: true, maxAge: 900000000 });
         res.status(OK).json({ status: "ok", userId: user._id });
       } else {
         res.status(UNAUTHORIZED).json({ error: "Wrong email or password" });
@@ -29,7 +30,11 @@ export const loginUser = async (req: Request, res: Response) => {
   }
 };
 
-export const registerUser = async (req: Request, res: Response) => {
+export const registerUser = async (
+  // Defining the type of the request body as "CreateUserInput" type.
+  req: Request<{}, {}, CreateUserInput>,
+  res: Response
+) => {
   const { username, email, password } = req.body;
   try {
     await User.create({
@@ -39,7 +44,7 @@ export const registerUser = async (req: Request, res: Response) => {
     });
 
     res.status(CREATED).json({ status: "ok" });
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
     res.status(BAD_REQUEST).json({ error: error });
   }

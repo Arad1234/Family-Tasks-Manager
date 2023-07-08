@@ -5,13 +5,13 @@ import { setLoading } from "../slices/auth-slice";
 export const getRoomsThunk = createAsyncThunk(
   "/rooms/getRooms",
   async (_, { dispatch, rejectWithValue }) => {
+    // Dispatch action to the auth slice.
     dispatch(setLoading(true));
     try {
       const response: AxiosResponse = await axios.get(
         "http://localhost:3000/api/v1/data/rooms"
       );
       const { data } = response;
-      console.log(data);
       return data;
     } catch (error: any) {
       const { response } = error;
@@ -22,7 +22,31 @@ export const getRoomsThunk = createAsyncThunk(
   }
 );
 
-export const createRoomThunk = createAsyncThunk(
+export const createRoomThunk = createAsyncThunk<
+  object,
+  { roomName: string; maxMembers: number }
+>(
   "/rooms/createRoom",
-  async ({ roomName, maxMembers }, { dispatch, rejectWithValue }) => {}
+  async ({ roomName, maxMembers }, { dispatch, rejectWithValue }) => {
+    // Dispatch action to the auth slice.
+    dispatch(setLoading(true));
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/data/createRoom",
+        {
+          roomName: roomName,
+          maxMembers: maxMembers,
+        }
+      );
+      dispatch(setLoading(false));
+
+      const { data } = response;
+      return data;
+    } catch (error: any) {
+      dispatch(setLoading(false));
+      const { data } = error.response;
+      console.log(data);
+      return rejectWithValue(data.error.message);
+    }
+  }
 );

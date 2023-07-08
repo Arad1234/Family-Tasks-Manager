@@ -24,7 +24,9 @@ const roomSlice = createSlice({
     builder.addCase(getRoomsThunk.fulfilled, (state, { payload }) => {
       state.rooms = payload.rooms;
     });
-    builder.addCase(createRoomThunk.fulfilled, (state, { payload }) => {});
+    builder.addCase(createRoomThunk.fulfilled, (state, { payload }) => {
+      state.rooms.push(payload.newRoom);
+    });
   },
 });
 

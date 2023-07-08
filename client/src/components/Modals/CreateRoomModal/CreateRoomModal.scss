@@ -2,5 +2,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50vh;
+  height: 100vh;
+
+  .MuiInputBase-input {
+    font-size: 28px;
+  }
+
+  .MuiFormLabel-root {
+    font-size: 25px;
+  }
 }
