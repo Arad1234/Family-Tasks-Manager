@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { setLoading } from "../../slices/Auth/auth-slice";
+import { axiosClient } from "../../../axiosClient";
 
 export const getRoomsThunk = createAsyncThunk(
   "/rooms/getRooms",
@@ -8,9 +9,7 @@ export const getRoomsThunk = createAsyncThunk(
     // Dispatch action to the auth slice.
     dispatch(setLoading(true));
     try {
-      const response: AxiosResponse = await axios.get(
-        "http://localhost:3000/api/v1/data/rooms"
-      );
+      const response: AxiosResponse = await axiosClient.get("/data/rooms");
       const { data } = response;
       return data;
     } catch (error: any) {
@@ -30,14 +29,12 @@ export const createRoomThunk = createAsyncThunk<
   async ({ roomName, maxMembers }, { dispatch, rejectWithValue }) => {
     // Dispatch action to the auth slice.
     dispatch(setLoading(true));
+    console.log(typeof maxMembers);
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/data/createRoom",
-        {
-          roomName: roomName,
-          maxMembers: maxMembers,
-        }
-      );
+      const response = await axiosClient.post("/data/createRoom", {
+        roomName: roomName,
+        maxMembers: maxMembers,
+      });
       dispatch(setLoading(false));
       const { data } = response;
       console.log(data);

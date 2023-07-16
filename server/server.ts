@@ -4,8 +4,9 @@ import { configDotenv } from "dotenv";
 import { verifyToken } from "./middlewares/verifyToken";
 import authRouter from "./routes/authRoutes";
 import roomsRouter from "./routes/roomsRoute";
-import mongoose, { PreMiddlewareFunction } from "mongoose";
+import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
+import { errorHandler } from "./middlewares/error-handler";
 configDotenv();
 
 const app = express();
@@ -29,6 +30,8 @@ mongoose
 
 app.use("/api/v1/user", authRouter);
 app.use("/api/v1/data", verifyToken as any, roomsRouter);
+
+app.use(errorHandler);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

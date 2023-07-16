@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { userInfoRequest } from "../types/express";
 import { JwtPayload } from "jsonwebtoken";
-import { OK, CREATED, BAD_REQUEST } from "../utils/constants";
+import { OK, CREATED } from "../utils/constants";
 import { createFamilyRoom, getFamilyRooms } from "../services/room.service";
 
 export const getFamilyRoomsHandler = async (
@@ -24,7 +24,7 @@ export const createFamilyRoomHandler = async (
 ) => {
   const { roomName, maxMembers } = req.body;
   const { userId } = req.user as JwtPayload;
-
+  console.log(userId);
   try {
     const newRoom = await createFamilyRoom({ userId, roomName, maxMembers });
 

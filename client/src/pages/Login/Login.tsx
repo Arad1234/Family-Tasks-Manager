@@ -1,10 +1,10 @@
 import React from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { loginThunk } from "../../store/actions/Auth/auth-actions";
-import { setEmail, setPassword } from "../../store/slices/Auth/auth-slice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { loginThunk } from "../../redux/actions/Auth/auth-actions";
+import { setEmail, setPassword } from "../../redux/slices/Auth/auth-slice";
 import { useNavigate } from "react-router-dom";
 import "./Login.scss";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import InputWrapper from "../../components/Auth-UI/InputWrapper";
 import AuthButton from "../../components/Auth-UI/AuthButton";
 import LabelComponent from "../../components/Auth-UI/Label/LabelComponent";
@@ -33,6 +33,7 @@ const Login = () => {
       navigate("/home");
     }
   };
+
   return (
     <form
       className="login-form"

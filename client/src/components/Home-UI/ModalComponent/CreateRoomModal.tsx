@@ -1,7 +1,7 @@
-import { createRoomThunk } from "../../../store/actions/Room/rooms-actions";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { resetRoom } from "../../../store/slices/Room/create-room";
-import { setIsOpen } from "../../../store/slices/Modal/modal-slice";
+import { createRoomThunk } from "../../../redux/actions/Room/rooms-actions";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { resetRoom } from "../../../redux/slices/Room/create-room";
+import { setIsOpen } from "../../../redux/slices/Modal/modal-slice";
 import "./CreateRoomModal.scss";
 import { Box, Typography, Modal } from "@mui/material";
 import { useNavigate } from "react-router-dom";

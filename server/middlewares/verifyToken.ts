@@ -8,6 +8,7 @@ export const verifyToken = (
   next: NextFunction
 ) => {
   try {
+    console.log(req.baseUrl);
     const { cookie } = req.headers;
     if (cookie) {
       const token = cookie.split("=")[1];

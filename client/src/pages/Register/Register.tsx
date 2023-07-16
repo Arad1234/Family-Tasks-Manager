@@ -1,12 +1,12 @@
 import React from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { registerThunk } from "../../store/actions/Auth/auth-actions";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { registerThunk } from "../../redux/actions/Auth/auth-actions";
 import {
   setConfirmPassword,
   setEmail,
   setPassword,
   setUsername,
-} from "../../store/slices/Auth/auth-slice";
+} from "../../redux/slices/Auth/auth-slice";
 import { useNavigate } from "react-router-dom";
 import "./Register.scss";
 import InputWrapper from "../../components/Auth-UI/InputWrapper";
@@ -50,6 +50,7 @@ const Register = () => {
       navigate("/");
     }
   };
+
   return (
     <form
       className="registerForm"

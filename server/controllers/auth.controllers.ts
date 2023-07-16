@@ -10,7 +10,7 @@ export const loginUserHandler = async (
 ) => {
   const { email, password } = req.body;
   try {
-    const { token, user } = await loginUser({ email, password });
+    const { user, token } = await loginUser({ email, password });
     res.cookie("token", token, { httpOnly: true, maxAge: 900000000 });
     res.status(OK).json({ status: "ok", userId: user?._id });
   } catch (error: any) {

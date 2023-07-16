@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { axiosClient } from "../../../axiosClient";
 
 interface LoginPayload {
   email: string;
@@ -18,17 +18,15 @@ export const loginThunk = createAsyncThunk<
   LoginPayload // the arguments the function get.
 >("/auth/login", async ({ email, password }, thunkAPI) => {
   try {
-    const response = await axios.post(
-      "http://localhost:3000/api/v1/user/login",
-      {
-        email,
-        password,
-      }
-    );
+    const response = await axiosClient.post("/user/login", {
+      email,
+      password,
+    });
     const { data } = response;
     return data;
   } catch (error: any) {
     const { response } = error;
+    console.log(error);
     return thunkAPI.rejectWithValue(response.data.error);
   }
 });
@@ -40,15 +38,12 @@ export const registerThunk = createAsyncThunk<
   "/auth/register",
   async ({ username, email, password, confirmPassword }, thunkAPI) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/user/register",
-        {
-          username,
-          email,
-          password,
-          confirmPassword,
-        }
-      );
+      const response = await axiosClient.post("/user/register", {
+        username,
+        email,
+        password,
+        confirmPassword,
+      });
       const { data } = response;
       return data;
     } catch (error: any) {

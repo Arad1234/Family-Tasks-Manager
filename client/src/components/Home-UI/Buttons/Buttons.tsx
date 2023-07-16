@@ -1,6 +1,6 @@
 import { Box, Button } from "@mui/material";
-import { useAppDispatch } from "../../../store/hooks";
-import { setIsOpen } from "../../../store/slices/Modal/modal-slice";
+import { useAppDispatch } from "../../../redux/hooks";
+import { setIsOpen } from "../../../redux/slices/Modal/modal-slice";
 
 const Buttons = () => {
   const dispatch = useAppDispatch();
