@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginThunk, registerThunk } from "../actions/auth-actions";
+import { loginThunk, registerThunk } from "../../actions/Auth/auth-actions";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 interface InitialState {
   username: string;
   email: string;
   password: string;
+  confirmPassword: string;
+
   loading: boolean;
   success: string | null;
   userId: string | null;
@@ -15,6 +17,7 @@ const initialState: InitialState = {
   username: "",
   email: "",
   password: "",
+  confirmPassword: "",
   loading: false,
   success: null,
   userId: null,
@@ -32,6 +35,9 @@ const authSlice = createSlice({
     },
     setPassword(state, { payload }) {
       state.password = payload;
+    },
+    setConfirmPassword(state, { payload }) {
+      state.confirmPassword = payload;
     },
     setLoading(state, { payload }) {
       state.loading = payload;
@@ -74,7 +80,13 @@ const persistConfig = {
 };
 const persistedAuthReducer = persistReducer(persistConfig, authSlice.reducer);
 
-export const { setUsername, setEmail, setPassword, setLoading, reset } =
-  authSlice.actions;
+export const {
+  setUsername,
+  setEmail,
+  setPassword,
+  setConfirmPassword,
+  setLoading,
+  reset,
+} = authSlice.actions;
 
 export default persistedAuthReducer;

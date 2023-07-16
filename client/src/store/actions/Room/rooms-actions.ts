@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosResponse } from "axios";
-import { setLoading } from "../slices/auth-slice";
+import { setLoading } from "../../slices/Auth/auth-slice";
 
 export const getRoomsThunk = createAsyncThunk(
   "/rooms/getRooms",
@@ -39,14 +39,18 @@ export const createRoomThunk = createAsyncThunk<
         }
       );
       dispatch(setLoading(false));
-
       const { data } = response;
+      console.log(data);
+
       return data;
     } catch (error: any) {
       dispatch(setLoading(false));
       const { data } = error.response;
-      console.log(data);
-      return rejectWithValue(data.error.message);
+      const { issues } = data.error;
+      console.log(issues);
+      return issues
+        ? rejectWithValue(issues[0].message)
+        : rejectWithValue(data.error);
     }
   }
 );

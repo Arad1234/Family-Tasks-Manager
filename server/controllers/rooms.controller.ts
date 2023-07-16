@@ -1,33 +1,35 @@
-import Room from "../models/room.model";
-import { Request, Response } from "express";
-import { StatusCodes } from "http-status-codes";
+import { NextFunction, Request, Response } from "express";
 import { userInfoRequest } from "../types/express";
 import { JwtPayload } from "jsonwebtoken";
+import { OK, CREATED, BAD_REQUEST } from "../utils/constants";
+import { createFamilyRoom, getFamilyRooms } from "../services/room.service";
 
-const { OK, CREATED, INTERNAL_SERVER_ERROR, BAD_REQUEST } = StatusCodes;
-
-export const getFamilyRooms = async (req: Request, res: Response) => {
+export const getFamilyRoomsHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const rooms = await Room.find();
+    const rooms = await getFamilyRooms();
     res.status(OK).json({ status: "ok", rooms: rooms });
   } catch (error) {
-    res.status(INTERNAL_SERVER_ERROR).json({ error: error });
+    next(error);
   }
 };
 
-export const createFamilyRoom = async (req: userInfoRequest, res: Response) => {
+export const createFamilyRoomHandler = async (
+  req: userInfoRequest<{ roomName: string; maxMembers: number }>,
+  res: Response,
+  next: NextFunction
+) => {
   const { roomName, maxMembers } = req.body;
   const { userId } = req.user as JwtPayload;
-  console.log(userId);
+
   try {
-    const newRoom = await Room.create({
-      roomName: roomName,
-      maxMembers: maxMembers,
-      creator: userId,
-      familyMembers: [userId],
-    });
+    const newRoom = await createFamilyRoom({ userId, roomName, maxMembers });
+
     res.status(CREATED).json({ status: "ok", newRoom: newRoom });
   } catch (error) {
-    res.status(BAD_REQUEST).json({ error: error });
+    next(error);
   }
 };

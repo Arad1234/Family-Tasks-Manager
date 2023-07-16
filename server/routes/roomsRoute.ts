@@ -1,11 +1,17 @@
 import express, { Application } from "express";
 import {
-  createFamilyRoom,
-  getFamilyRooms,
+  createFamilyRoomHandler,
+  getFamilyRoomsHandler,
 } from "../controllers/rooms.controller";
+import validateResource from "../middlewares/validateSchema";
+import { createRoomSchema } from "../schema/room.schema";
 const router = express.Router();
 
-router.get("/rooms", getFamilyRooms);
-router.post("/createRoom", createFamilyRoom as any);
+router.get("/rooms", getFamilyRoomsHandler);
+router.post(
+  "/createRoom",
+  validateResource(createRoomSchema),
+  createFamilyRoomHandler as any
+);
 
 export default router;

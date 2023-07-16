@@ -1,51 +1,35 @@
-import User from "../models/user.model";
-import bcrypt from "bcrypt";
-import { StatusCodes } from "http-status-codes";
-import { generateToken } from "../utils/generateToken";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { CreateUserInput } from "../schema/user.schema";
+import { createUser, loginUser } from "../services/auth.service";
+import { CREATED, OK } from "../utils/constants";
 
-const { OK, UNAUTHORIZED, INTERNAL_SERVER_ERROR, CREATED, BAD_REQUEST } =
-  StatusCodes;
-
-export const loginUser = async (req: Request, res: Response) => {
+export const loginUserHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { email, password } = req.body;
   try {
-    const user = await User.findOne({ email: email });
-    if (user) {
-      const isPasswordValid = await bcrypt.compare(password, user.password);
-      if (isPasswordValid) {
-        const token = generateToken(user._id, user.email);
-        res.cookie("token", token, { httpOnly: true, maxAge: 900000000 });
-        res.status(OK).json({ status: "ok", userId: user._id });
-      } else {
-        res.status(UNAUTHORIZED).json({ error: "Wrong email or password" });
-      }
-    } else {
-      res.status(UNAUTHORIZED).json({ error: "Wrong email or password" });
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(INTERNAL_SERVER_ERROR).json({ error: error });
+    const { token, user } = await loginUser({ email, password });
+    res.cookie("token", token, { httpOnly: true, maxAge: 900000000 });
+    res.status(OK).json({ status: "ok", userId: user?._id });
+  } catch (error: any) {
+    next(error);
   }
 };
 
-export const registerUser = async (
+export const createUserHandler = async (
   // Defining the type of the request body as "CreateUserInput" type.
   req: Request<{}, {}, CreateUserInput>,
-  res: Response
+  res: Response,
+  next: NextFunction
 ) => {
   const { username, email, password } = req.body;
   try {
-    await User.create({
-      username,
-      email,
-      password,
-    });
+    const user = await createUser({ username, email, password });
 
-    res.status(CREATED).json({ status: "ok" });
+    res.status(CREATED).json({ status: "ok", newUser: user });
   } catch (error: any) {
-    console.log(error);
-    res.status(BAD_REQUEST).json({ error: error });
+    next(error);
   }
 };

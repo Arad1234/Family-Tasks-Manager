@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistStore } from "redux-persist";
-import roomsSliceReducer from "./slices/rooms-slice";
-import persistedAuthReducer from "./slices/auth-slice";
-import modalSliceReducer from "./slices/modal-slice";
-import createRoomSliceReducer from "./slices/create-room";
+import roomsSliceReducer from "./slices/Room/rooms-slice";
+import persistedAuthReducer from "./slices/Auth/auth-slice";
+import modalSliceReducer from "./slices/Modal/modal-slice";
+import createRoomSliceReducer from "./slices/Room/create-room";
 
 export const store = configureStore({
   reducer: {

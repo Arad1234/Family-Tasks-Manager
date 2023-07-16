@@ -1,0 +1,68 @@
+import React from "react";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { loginThunk } from "../../store/actions/Auth/auth-actions";
+import { setEmail, setPassword } from "../../store/slices/Auth/auth-slice";
+import { useNavigate } from "react-router-dom";
+import "./Login.scss";
+import { Box, Typography } from "@mui/material";
+import InputWrapper from "../../components/Auth-UI/InputWrapper";
+import AuthButton from "../../components/Auth-UI/AuthButton";
+import LabelComponent from "../../components/Auth-UI/Label/LabelComponent";
+import TextInput from "../../components/Auth-UI/TextInput";
+import LabelWrapper from "../../components/Auth-UI/Label/LabelWrapper";
+
+const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { email, password } = useAppSelector((state) => state.authReducer);
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setEmail(e.target.value));
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setPassword(e.target.value));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const response = await dispatch(loginThunk({ email, password }));
+    console.log(response);
+    if (response.error) {
+      alert(response.payload);
+    } else {
+      navigate("/home");
+    }
+  };
+  return (
+    <form
+      className="login-form"
+      onSubmit={handleSubmit}
+    >
+      <Typography variant="h2">Login Page</Typography>
+      <InputWrapper>
+        <LabelWrapper>
+          <LabelComponent>Email</LabelComponent>
+        </LabelWrapper>
+        <TextInput
+          handleChange={handleEmailChange}
+          type="email"
+          name="email"
+        />
+      </InputWrapper>
+      <InputWrapper>
+        <LabelWrapper>
+          <LabelComponent>Password</LabelComponent>
+        </LabelWrapper>
+        <TextInput
+          handleChange={handlePasswordChange}
+          type="password"
+          name="password"
+        />
+      </InputWrapper>
+      <AuthButton>Login</AuthButton>
+      New to the app? <a href="/register">Register</a>
+    </form>
+  );
+};
+
+export default Login;

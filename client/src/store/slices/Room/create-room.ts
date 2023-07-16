@@ -18,9 +18,14 @@ const createRoomSlice = createSlice({
     setMaxMembers(state, { payload }) {
       state.maxMembers = payload;
     },
+    resetRoom(state) {
+      state.roomName = "";
+      state.maxMembers = null;
+    },
   },
 });
 
-export const { setMaxMembers, setRoomName } = createRoomSlice.actions;
+export const { setMaxMembers, setRoomName, resetRoom } =
+  createRoomSlice.actions;
 
 export default createRoomSlice.reducer;

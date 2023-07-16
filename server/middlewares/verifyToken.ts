@@ -3,7 +3,7 @@ import { Response, NextFunction } from "express";
 import { userInfoRequest } from "../types/express";
 
 export const verifyToken = (
-  req: userInfoRequest,
+  req: userInfoRequest<{}>,
   res: Response,
   next: NextFunction
 ) => {

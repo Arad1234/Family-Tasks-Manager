@@ -10,6 +10,7 @@ interface RegisterPayload {
   username: string;
   email: string;
   password: string;
+  confirmPassword: string;
 }
 
 export const loginThunk = createAsyncThunk<
@@ -35,26 +36,30 @@ export const loginThunk = createAsyncThunk<
 export const registerThunk = createAsyncThunk<
   string, // The type the function returns
   RegisterPayload // the arguments the function get.
->("/auth/register", async ({ username, email, password }, thunkAPI) => {
-  try {
-    const response = await axios.post(
-      "http://localhost:3000/api/v1/user/register",
-      {
-        username,
-        email,
-        password,
+>(
+  "/auth/register",
+  async ({ username, email, password, confirmPassword }, thunkAPI) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/user/register",
+        {
+          username,
+          email,
+          password,
+          confirmPassword,
+        }
+      );
+      const { data } = response;
+      return data;
+    } catch (error: any) {
+      const { data } = error.response;
+      if (data.error.code === 11000) {
+        return thunkAPI.rejectWithValue("Email already exists");
+      } else {
+        // Getting issues from "zod" validation on the server.
+        const { issues } = data.error;
+        return thunkAPI.rejectWithValue(issues[0].message);
       }
-    );
-    const { data } = response;
-    return data;
-  } catch (error: any) {
-    const { data } = error.response;
-    if (data.error.code === 11000) {
-      return thunkAPI.rejectWithValue("Email already exists");
-    } else {
-      // Getting issues from "zod" validation on the server.
-      const { issues } = data.error;
-      return thunkAPI.rejectWithValue(issues[0].message);
     }
   }
-});
+);
