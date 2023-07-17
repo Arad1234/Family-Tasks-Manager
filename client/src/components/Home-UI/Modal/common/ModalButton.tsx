@@ -1,16 +1,17 @@
 import { Button } from "@mui/material";
 
 interface Props {
-  handleCreateRoom: () => void;
+  handleClick: () => void;
+  children: React.ReactNode;
 }
 
-const ModalButton = ({ handleCreateRoom }: Props) => (
+const ModalButton = ({ handleClick, children }: Props) => (
   <Button
-    onClick={handleCreateRoom}
+    onClick={handleClick}
     sx={{ fontSize: "20px", fontFamily: "system-ui" }}
     variant="contained"
   >
-    Create
+    {children}
   </Button>
 );
 

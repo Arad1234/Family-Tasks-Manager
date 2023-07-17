@@ -2,14 +2,14 @@ import { Box, TextField, Typography } from "@mui/material";
 import {
   setMaxMembers,
   setRoomName,
-} from "../../../redux/slices/Room/create-room";
-import { ChangeEvent } from "../../../types/index";
-import { useAppDispatch } from "../../../redux/hooks";
+} from "../../../../redux/slices/Room/create-room";
+import { ChangeEvent } from "../../../../types/index";
+import { useAppDispatch } from "../../../../redux/hooks";
 
 const ModalInputs = () => {
   const dispatch = useAppDispatch();
   return (
-    <Box>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
       <Box>
         <Typography sx={{ fontSize: "20px" }}>Room name</Typography>
         <TextField

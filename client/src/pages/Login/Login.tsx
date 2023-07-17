@@ -7,9 +7,8 @@ import "./Login.scss";
 import { Typography } from "@mui/material";
 import InputWrapper from "../../components/Auth-UI/InputWrapper";
 import AuthButton from "../../components/Auth-UI/AuthButton";
-import LabelComponent from "../../components/Auth-UI/Label/LabelComponent";
+import LabelComponent from "../../components/Auth-UI/LabelComponent";
 import TextInput from "../../components/Auth-UI/TextInput";
-import LabelWrapper from "../../components/Auth-UI/Label/LabelWrapper";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -41,9 +40,7 @@ const Login = () => {
     >
       <Typography variant="h2">Login Page</Typography>
       <InputWrapper>
-        <LabelWrapper>
-          <LabelComponent>Email</LabelComponent>
-        </LabelWrapper>
+        <LabelComponent>Email</LabelComponent>
         <TextInput
           handleChange={handleEmailChange}
           type="email"
@@ -51,9 +48,7 @@ const Login = () => {
         />
       </InputWrapper>
       <InputWrapper>
-        <LabelWrapper>
-          <LabelComponent>Password</LabelComponent>
-        </LabelWrapper>
+        <LabelComponent>Password</LabelComponent>
         <TextInput
           handleChange={handlePasswordChange}
           type="password"

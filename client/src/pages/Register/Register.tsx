@@ -11,8 +11,7 @@ import { useNavigate } from "react-router-dom";
 import "./Register.scss";
 import InputWrapper from "../../components/Auth-UI/InputWrapper";
 import AuthButton from "../../components/Auth-UI/AuthButton";
-import LabelComponent from "../../components/Auth-UI/Label/LabelComponent";
-import LabelWrapper from "../../components/Auth-UI/Label/LabelWrapper";
+import LabelComponent from "../../components/Auth-UI/LabelComponent";
 import TextInput from "../../components/Auth-UI/TextInput";
 import { ChangeEvent } from "../../types";
 
@@ -57,9 +56,7 @@ const Register = () => {
       onSubmit={handleSubmit}
     >
       <InputWrapper>
-        <LabelWrapper>
-          <LabelComponent>Username</LabelComponent>
-        </LabelWrapper>
+        <LabelComponent>Username</LabelComponent>
         <TextInput
           handleChange={handleUsernameChange}
           name="name"
@@ -68,9 +65,7 @@ const Register = () => {
       </InputWrapper>
 
       <InputWrapper>
-        <LabelWrapper>
-          <LabelComponent>Email</LabelComponent>
-        </LabelWrapper>
+        <LabelComponent>Email</LabelComponent>
 
         <TextInput
           handleChange={handleEmailChange}
@@ -80,9 +75,7 @@ const Register = () => {
       </InputWrapper>
 
       <InputWrapper>
-        <LabelWrapper>
-          <LabelComponent>Password</LabelComponent>
-        </LabelWrapper>
+        <LabelComponent>Password</LabelComponent>
         <TextInput
           handleChange={handlePasswordChange}
           type="password"
@@ -91,9 +84,7 @@ const Register = () => {
       </InputWrapper>
 
       <InputWrapper>
-        <LabelWrapper>
-          <LabelComponent>Confirm Password</LabelComponent>
-        </LabelWrapper>
+        <LabelComponent>Confirm Password</LabelComponent>
 
         <TextInput
           handleChange={handleConfirmPasswordChange}

@@ -4,8 +4,12 @@ import { setIsOpen } from "../../../redux/slices/Modal/modal-slice";
 
 const Buttons = () => {
   const dispatch = useAppDispatch();
-  const handleCreateRoom = async () => {
-    dispatch(setIsOpen(true));
+  const handleCreateRoom = () => {
+    dispatch(setIsOpen({ isOpen: true, status: "create" }));
+  };
+
+  const handleJoinRoom = () => {
+    dispatch(setIsOpen({ isOpen: true, status: "join" }));
   };
 
   return (
@@ -26,7 +30,7 @@ const Buttons = () => {
       </Button>
       <Button
         variant="contained"
-        onClick={handleCreateRoom}
+        onClick={handleJoinRoom}
       >
         Join Room
       </Button>
