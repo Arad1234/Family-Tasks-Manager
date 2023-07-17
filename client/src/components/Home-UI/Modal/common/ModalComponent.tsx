@@ -1,7 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { setIsOpen } from "../../../../redux/slices/Modal/modal-slice";
-import { Modal } from "@mui/material";
-import ModalBox from "./ModalBox";
+import { Box, Modal } from "@mui/material";
 import { ChildrenProps } from "../../../../types";
 
 const ModalComponent = ({ children }: ChildrenProps) => {
@@ -19,7 +18,21 @@ const ModalComponent = ({ children }: ChildrenProps) => {
         height: "100vh",
       }}
     >
-      <ModalBox>{children}</ModalBox>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          width: "70vw",
+          bgcolor: "background.paper",
+          border: "1px solid #000",
+          borderRadius: "20px",
+          boxShadow: 24,
+          p: 4,
+          gap: "20px",
+        }}
+      >
+        {children}
+      </Box>
     </Modal>
   );
 };

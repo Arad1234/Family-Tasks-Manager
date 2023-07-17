@@ -3,7 +3,7 @@ import {
   setMaxMembers,
   setRoomName,
 } from "../../../../redux/slices/Room/create-room";
-import { ChangeEvent } from "../../../../types/index";
+import { InputChangeEvent } from "../../../../types/index";
 import { useAppDispatch } from "../../../../redux/hooks";
 
 const ModalInputs = () => {
@@ -13,7 +13,7 @@ const ModalInputs = () => {
       <Box>
         <Typography sx={{ fontSize: "20px" }}>Room name</Typography>
         <TextField
-          onChange={(e: ChangeEvent) => {
+          onChange={(e: InputChangeEvent) => {
             dispatch(setRoomName(e.target.value));
           }}
           sx={{ width: "100%" }}
@@ -25,7 +25,7 @@ const ModalInputs = () => {
       <Box>
         <Typography sx={{ fontSize: "20px" }}>Maximum members</Typography>
         <TextField
-          onChange={(e: ChangeEvent) =>
+          onChange={(e: InputChangeEvent) =>
             dispatch(setMaxMembers(e.target.valueAsNumber))
           }
           sx={{ width: "100%" }}

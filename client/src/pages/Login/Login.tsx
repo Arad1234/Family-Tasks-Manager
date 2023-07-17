@@ -5,20 +5,24 @@ import { setEmail, setPassword } from "../../redux/slices/Auth/auth-slice";
 import { useNavigate } from "react-router-dom";
 import "./Login.scss";
 import { Typography } from "@mui/material";
-import InputWrapper from "../../components/Auth-UI/InputWrapper";
 import AuthButton from "../../components/Auth-UI/AuthButton";
 import LabelComponent from "../../components/Auth-UI/LabelComponent";
-import TextInput from "../../components/Auth-UI/TextInput";
+import InputComponent from "../../components/Auth-UI/InputComponent";
+import InputLabelWrapper from "../../components/Auth-UI/InputLabelWrapper";
+import LinkComponent from "../../components/Auth-UI/LinkComponent";
+import { InputChangeEvent } from "../../types";
+import BackgroundImage from "../../components/Auth-UI/BackgroundImage";
+import TitleComponent from "../../components/Auth-UI/TitleComponent";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { email, password } = useAppSelector((state) => state.authReducer);
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEmailChange = (e: InputChangeEvent) => {
     dispatch(setEmail(e.target.value));
   };
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePasswordChange = (e: InputChangeEvent) => {
     dispatch(setPassword(e.target.value));
   };
 
@@ -34,30 +38,35 @@ const Login = () => {
   };
 
   return (
-    <form
-      className="login-form"
-      onSubmit={handleSubmit}
-    >
-      <Typography variant="h2">Login Page</Typography>
-      <InputWrapper>
-        <LabelComponent>Email</LabelComponent>
-        <TextInput
-          handleChange={handleEmailChange}
-          type="email"
-          name="email"
-        />
-      </InputWrapper>
-      <InputWrapper>
-        <LabelComponent>Password</LabelComponent>
-        <TextInput
-          handleChange={handlePasswordChange}
-          type="password"
-          name="password"
-        />
-      </InputWrapper>
-      <AuthButton>Login</AuthButton>
-      New to the app? <a href="/register">Register</a>
-    </form>
+    <BackgroundImage>
+      <form
+        className="login-form"
+        onSubmit={handleSubmit}
+      >
+        <TitleComponent>Login</TitleComponent>
+        <InputLabelWrapper>
+          <LabelComponent>Email</LabelComponent>
+          <InputComponent
+            handleChange={handleEmailChange}
+            type="email"
+            name="email"
+          />
+        </InputLabelWrapper>
+        <InputLabelWrapper>
+          <LabelComponent>Password</LabelComponent>
+          <InputComponent
+            handleChange={handlePasswordChange}
+            type="password"
+            name="password"
+          />
+        </InputLabelWrapper>
+        <AuthButton>Login</AuthButton>
+        <Typography>
+          New to the app?{" "}
+          <LinkComponent href="/register">Register</LinkComponent>
+        </Typography>
+      </form>
+    </BackgroundImage>
   );
 };
 

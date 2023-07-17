@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { getRoomsThunk } from "../../redux/actions/Room/rooms-actions";
-import { reset } from "../../redux/slices/Auth/auth-slice";
 import CreateRoomModal from "../../components/Home-UI/Modal/CreateRoomModal/CreateRoomModal";
 import Buttons from "../../components/Home-UI/Buttons/Buttons";
 import { Box, Typography } from "@mui/material";
 import Loader from "../../components/Loader/Loader";
 import JoinRoomModal from "../../components/Home-UI/Modal/JoinRoomModal/JoinRoomModal";
-
+import LinkComponent from "../../components/Auth-UI/LinkComponent";
+import { socket } from "../../socket";
+import { initializeSocketEvents } from "../../utils/initializeSocketEvents";
 const Home = () => {
   const dispatch = useAppDispatch();
   const { loading } = useAppSelector((state) => state.authReducer);
@@ -18,15 +18,19 @@ const Home = () => {
 
   useEffect(() => {
     const getRooms = async () => {
-      const response = await dispatch(getRoomsThunk());
-      console.log(response);
-      if (response.error) {
-        alert(response.payload);
-        dispatch(reset());
-        navigate("/");
-      }
+      socket.emit("rooms:read");
     };
+    initializeSocketEvents(socket, navigate, dispatch);
+    socket.on("connect_error", (err) => {
+      console.log(err.message);
+    });
+    socket.connect();
+
     getRooms();
+
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   if (loading) {
@@ -44,6 +48,7 @@ const Home = () => {
       })}
       <Buttons />
       {status === "create" ? <CreateRoomModal /> : <JoinRoomModal />}
+      <LinkComponent href="/">Sign Out</LinkComponent>
     </Box>
   );
 };

@@ -1,18 +1,20 @@
 import express from "express";
 import cors from "cors";
 import { configDotenv } from "dotenv";
-import { verifyToken } from "./middlewares/verifyToken";
 import authRouter from "./routes/authRoutes";
-import roomsRouter from "./routes/roomsRoute";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
-import { errorHandler } from "./middlewares/error-handler";
+import { errorHandler } from "./middlewares/errorHandler";
+import { connectSocketServer } from "./socket";
+
 configDotenv();
 
 const app = express();
 
+connectSocketServer(app);
+
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: ["http://192.168.1.84:5173", "http://localhost:5173"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 };
@@ -29,7 +31,6 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use("/api/v1/user", authRouter);
-app.use("/api/v1/data", verifyToken as any, roomsRouter);
 
 app.use(errorHandler);
 

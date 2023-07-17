@@ -9,11 +9,15 @@ import {
 } from "../../redux/slices/Auth/auth-slice";
 import { useNavigate } from "react-router-dom";
 import "./Register.scss";
-import InputWrapper from "../../components/Auth-UI/InputWrapper";
 import AuthButton from "../../components/Auth-UI/AuthButton";
 import LabelComponent from "../../components/Auth-UI/LabelComponent";
-import TextInput from "../../components/Auth-UI/TextInput";
-import { ChangeEvent } from "../../types";
+import { InputChangeEvent } from "../../types";
+import InputLabelWrapper from "../../components/Auth-UI/InputLabelWrapper";
+import InputComponent from "../../components/Auth-UI/InputComponent";
+import { Typography } from "@mui/material";
+import LinkComponent from "../../components/Auth-UI/LinkComponent";
+import BackgroundImage from "../../components/Auth-UI/BackgroundImage";
+import TitleComponent from "../../components/Auth-UI/TitleComponent";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -22,18 +26,18 @@ const Register = () => {
     (state) => state.authReducer
   );
 
-  const handleUsernameChange = (e: ChangeEvent) => {
+  const handleUsernameChange = (e: InputChangeEvent) => {
     dispatch(setUsername(e.target.value));
   };
-  const handleEmailChange = (e: ChangeEvent) => {
+  const handleEmailChange = (e: InputChangeEvent) => {
     dispatch(setEmail(e.target.value));
   };
 
-  const handlePasswordChange = (e: ChangeEvent) => {
+  const handlePasswordChange = (e: InputChangeEvent) => {
     dispatch(setPassword(e.target.value));
   };
 
-  const handleConfirmPasswordChange = (e: ChangeEvent) => {
+  const handleConfirmPasswordChange = (e: InputChangeEvent) => {
     dispatch(setConfirmPassword(e.target.value));
   };
 
@@ -51,53 +55,58 @@ const Register = () => {
   };
 
   return (
-    <form
-      className="registerForm"
-      onSubmit={handleSubmit}
-    >
-      <InputWrapper>
-        <LabelComponent>Username</LabelComponent>
-        <TextInput
-          handleChange={handleUsernameChange}
-          name="name"
-          type="text"
-        />
-      </InputWrapper>
+    <BackgroundImage>
+      <form
+        className="register-form"
+        onSubmit={handleSubmit}
+      >
+        <TitleComponent>Sign Up</TitleComponent>
 
-      <InputWrapper>
-        <LabelComponent>Email</LabelComponent>
+        <InputLabelWrapper>
+          <LabelComponent>Username</LabelComponent>
+          <InputComponent
+            handleChange={handleUsernameChange}
+            name="name"
+            type="text"
+          />
+        </InputLabelWrapper>
 
-        <TextInput
-          handleChange={handleEmailChange}
-          name="email"
-          type="email"
-        />
-      </InputWrapper>
+        <InputLabelWrapper>
+          <LabelComponent>Email</LabelComponent>
 
-      <InputWrapper>
-        <LabelComponent>Password</LabelComponent>
-        <TextInput
-          handleChange={handlePasswordChange}
-          type="password"
-          name="password"
-        />
-      </InputWrapper>
+          <InputComponent
+            handleChange={handleEmailChange}
+            name="email"
+            type="email"
+          />
+        </InputLabelWrapper>
 
-      <InputWrapper>
-        <LabelComponent>Confirm Password</LabelComponent>
+        <InputLabelWrapper>
+          <LabelComponent>Password</LabelComponent>
+          <InputComponent
+            handleChange={handlePasswordChange}
+            type="password"
+            name="password"
+          />
+        </InputLabelWrapper>
 
-        <TextInput
-          handleChange={handleConfirmPasswordChange}
-          type="password"
-          name="confirmPassword"
-        />
-      </InputWrapper>
+        <InputLabelWrapper>
+          <LabelComponent>Confirm Password</LabelComponent>
 
-      <AuthButton>Register</AuthButton>
-      <p>
-        Already have an account? <a href="/">Log in</a>
-      </p>
-    </form>
+          <InputComponent
+            handleChange={handleConfirmPasswordChange}
+            type="password"
+            name="confirmPassword"
+          />
+        </InputLabelWrapper>
+
+        <AuthButton>Sign Up</AuthButton>
+        <Typography>
+          Already have an account?{" "}
+          <LinkComponent href="/">Log In</LinkComponent>
+        </Typography>
+      </form>
+    </BackgroundImage>
   );
 };
 

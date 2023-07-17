@@ -7,18 +7,16 @@ export const verifyToken = (
   res: Response,
   next: NextFunction
 ) => {
+  const { cookie } = req.headers;
+  const token = cookie?.split("=")[1];
   try {
-    console.log(req.baseUrl);
-    const { cookie } = req.headers;
-    if (cookie) {
-      const token = cookie.split("=")[1];
-      const userInfo = jwt.verify(token, process.env.SECRET_KEY as string);
-      req.user = userInfo;
-      next();
-    } else {
-      res.status(401).json({ error: "Unauthorized!" });
-    }
+    const userInfo = jwt.verify(
+      token as string,
+      process.env.SECRET_KEY as string
+    );
+    req.user = userInfo;
+    next();
   } catch (error) {
-    res.status(401).json({ error: "Unauthorized!" });
+    next({ error: "Unauthorized!" });
   }
 };

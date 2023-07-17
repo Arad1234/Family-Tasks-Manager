@@ -23,12 +23,14 @@ const Buttons = () => {
       }}
     >
       <Button
+        sx={{ width: "140px" }}
         variant="contained"
         onClick={handleCreateRoom}
       >
         Create Room
       </Button>
       <Button
+        sx={{ width: "140px" }}
         variant="contained"
         onClick={handleJoinRoom}
       >

@@ -5,8 +5,8 @@ interface Props {
 }
 
 const LabelComponent = ({ children }: Props) => (
-  <Box sx={{ display: "flex", justifyContent: "left", width: "17rem" }}>
-    <Typography sx={{ fontWeight: "bold", fontSize: "20px" }}>
+  <Box sx={{ display: "flex", justifyContent: "left", width: "14.9rem" }}>
+    <Typography sx={{ fontWeight: "500", fontSize: "15px" }}>
       {children}
     </Typography>
   </Box>

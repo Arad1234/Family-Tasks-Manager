@@ -1,11 +1,7 @@
 import { Box } from "@mui/material";
-import React from "react";
+import { ChildrenProps } from "../../types";
 
-interface Props {
-  children: React.ReactNode;
-}
-
-const InputWrapper = ({ children }: Props) => {
+const InputLabelWrapper = ({ children }: ChildrenProps) => {
   return (
     <Box
       sx={{
@@ -20,4 +16,4 @@ const InputWrapper = ({ children }: Props) => {
   );
 };
 
-export default InputWrapper;
+export default InputLabelWrapper;
