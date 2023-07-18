@@ -12,5 +12,6 @@ export interface RoomData {
   roomName: string;
   maxMembers: number;
   username: string;
+  roomPassword: string;
   userId: ObjectId;
 }

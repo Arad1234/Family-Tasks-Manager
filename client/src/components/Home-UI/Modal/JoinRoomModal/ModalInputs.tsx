@@ -1,24 +1,15 @@
-import { Box, TextField, Typography } from "@mui/material";
-import { useAppDispatch } from "../../../../redux/hooks";
-import { InputChangeEvent } from "../../../../types";
+import { Box } from "@mui/material";
 import { setRoomPassword } from "../../../../redux/slices/Room/join-room";
+import ModalInput from "../common/ModalInput";
 
 const ModalInputs = () => {
-  const dispatch = useAppDispatch();
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-      <Box>
-        <Typography sx={{ fontSize: "20px" }}>Room Password</Typography>
-        <TextField
-          onChange={(e: InputChangeEvent) => {
-            dispatch(setRoomPassword(e.target.value));
-          }}
-          sx={{ width: "100%" }}
-          required
-          label="Required"
-          type="text"
-        />
-      </Box>
+      <ModalInput
+        type="text"
+        setChange={setRoomPassword}
+        label="Room Password"
+      />
     </Box>
   );
 };

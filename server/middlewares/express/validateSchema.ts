@@ -3,7 +3,7 @@ import { BAD_REQUEST } from "../../utils/constants";
 import { ZodSchema } from "zod";
 
 // This function validates the zod schema whenever the user want to access/change/add a resource.
-const validateResource =
+const validateSchema =
   (schema: ZodSchema) => (req: Request, res: Response, next: NextFunction) => {
     try {
       console.log(req.body);
@@ -14,4 +14,4 @@ const validateResource =
     }
   };
 
-export default validateResource;
+export default validateSchema;

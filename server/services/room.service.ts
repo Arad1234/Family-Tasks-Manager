@@ -11,13 +11,14 @@ export const getFamilyRooms = async () => {
 };
 
 export const createFamilyRoom = async (roomData: RoomData) => {
-  const { username, maxMembers, roomName, userId } = roomData;
+  const { username, maxMembers, roomName, roomPassword, userId } = roomData;
   try {
     const newRoom = await Room.create({
       roomName: roomName,
       maxMembers: maxMembers,
       creator: username,
       familyMembers: [username],
+      roomPassword: roomPassword,
       userId: userId,
     });
 

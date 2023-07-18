@@ -3,7 +3,7 @@ import {
   loginUserHandler,
   createUserHandler,
 } from "../controllers/auth.controllers";
-import validateResource from "../middlewares/express/validateSchema";
+import validateSchema from "../middlewares/express/validateSchema";
 import { userValidationSchema } from "../schema/user.schema";
 
 const router = express.Router();
@@ -11,7 +11,7 @@ const router = express.Router();
 router.post("/login", loginUserHandler);
 router.post(
   "/register",
-  validateResource(userValidationSchema),
+  validateSchema(userValidationSchema),
   createUserHandler
 );
 

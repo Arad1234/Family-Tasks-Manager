@@ -18,6 +18,18 @@ export const initializeSocketEvents = (
 
   socket.on("error", (err) => {
     console.log(err);
-    // navigate("/");
+    const { issues } = err;
+    if (issues) {
+      const [firstIssue] = issues;
+      alert(firstIssue.message);
+    } else {
+      alert(err.message);
+    }
+  });
+
+  socket.on("connect_error", (err) => {
+    if (err.message.includes("jwt")) {
+      navigate("/");
+    }
   });
 };

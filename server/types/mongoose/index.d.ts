@@ -11,6 +11,7 @@ export interface IRoom extends Document {
   creator: string;
   familyMembers: string[];
   maxMembers: number;
+  roomPassword: string;
   userId: Types.ObjectId;
 }
 

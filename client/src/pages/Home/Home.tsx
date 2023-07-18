@@ -9,22 +9,19 @@ import LinkComponent from "../../components/Auth-UI/LinkComponent";
 import { socket } from "../../socket";
 import { initializeSocketEvents } from "../../utils/initializeSocketEvents";
 import CreateButton from "../../components/Home-UI/Buttons/CreateButton";
-import JoinButton from "../../components/Home-UI/Buttons/JoinButton";
 import Room from "../../components/Home-UI/Room/Room";
+import { removeSocketEvents } from "../../utils/removeSocketEvents";
+import SearchInput from "../../components/Home-UI/SearchInput/SearchInput";
 
 const Home = () => {
   const dispatch = useAppDispatch();
   const { loading } = useAppSelector((state) => state.authReducer);
-  const { rooms } = useAppSelector((state) => state.roomsReducer);
+  const { filteredRooms } = useAppSelector((state) => state.roomsReducer);
   const { status } = useAppSelector((state) => state.modalReducer);
   const navigate = useNavigate();
 
   useEffect(() => {
     initializeSocketEvents(socket, navigate, dispatch);
-
-    socket.on("connect_error", (err) => {
-      console.log(err.message);
-    });
 
     socket.connect();
 
@@ -32,6 +29,7 @@ const Home = () => {
 
     return () => {
       socket.disconnect();
+      removeSocketEvents(socket);
     };
   }, []);
 
@@ -41,18 +39,34 @@ const Home = () => {
 
   return (
     <Box>
-      <CreateButton />
-      {rooms.map((room) => {
-        return (
-          <Room
-            key={room._id}
-            room={room}
-          />
-        );
-      })}
+      <Box
+        sx={{
+          padding: "10px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <CreateButton />
+        <LinkComponent href="/">Sign Out</LinkComponent>
+      </Box>
+
+      <SearchInput />
+
+      {filteredRooms.length > 0 ? (
+        filteredRooms.map((room) => {
+          return (
+            <Room
+              key={room._id}
+              room={room}
+            />
+          );
+        })
+      ) : (
+        <Typography sx={{ fontSize: "30px" }}>No Rooms Found</Typography>
+      )}
 
       {status === "create" ? <CreateRoomModal /> : <JoinRoomModal />}
-      <LinkComponent href="/">Sign Out</LinkComponent>
     </Box>
   );
 };

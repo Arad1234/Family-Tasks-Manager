@@ -11,11 +11,11 @@ const JoinButton = () => {
   return (
     <Box sx={{}}>
       <Button
-        sx={{ width: "120px", fontSize: "13px" }}
+        sx={{ width: "60px", fontSize: "13px" }}
         variant="contained"
         onClick={handleJoinRoom}
       >
-        Join Room
+        Join
       </Button>
     </Box>
   );

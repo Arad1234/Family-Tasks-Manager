@@ -1,11 +1,17 @@
 import { Box, Typography } from "@mui/material";
 import JoinButton from "../Buttons/JoinButton";
+import { IRoom } from "../../../types/index";
 
-const Room = ({ room }) => {
+interface Props {
+  room: IRoom;
+}
+const Room = ({ room }: Props) => {
   return (
-    <Box key={room._id}>
-      <Typography variant="h2">{room.roomName}</Typography>
-      <Typography>{room.maxMembers}</Typography>
+    <Box sx={{ border: "1px solid gray", padding: "10px" }}>
+      <Typography variant="h4">{room.roomName}</Typography>
+      <Typography sx={{ fontSize: "20px" }}>
+        Members: {room.familyMembers.length}/{room.maxMembers}
+      </Typography>
       <JoinButton />
     </Box>
   );

@@ -10,6 +10,7 @@ const LinkComponent = ({
       sx={{}}
       href={href}
       underline="none"
+      variant="h6"
     >
       {children}
     </Link>

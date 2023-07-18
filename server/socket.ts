@@ -19,6 +19,4 @@ export const connectSocketServer = (app: Application) => {
     console.log("user connected!");
     roomHandler(io, socket);
   }
-
-  return io;
 };
