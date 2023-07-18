@@ -1,6 +1,6 @@
 # Family Tasks Manager App
 
-A real-time family tasks manager app built using React.js, Redux, TypeScript, Node.js, Express.js, MongoDB, Socket.IO, JWT, Zod, and MUI.
+A real-time family tasks manager app built using React.js, Redux, TypeScript (Front & Back), Node.js, Express.js, MongoDB, Socket.IO, JWT, Zod, and MUI.
 
 ## Overview
 
@@ -24,14 +24,15 @@ The app is built using the following technologies and libraries:
   - Redux: A predictable state management library for managing application state.
   - TypeScript: A typed superset of JavaScript that provides static typing.
   - MUI (Material-UI): A UI component library that follows Material Design principles.
-  - Socket.IO: A library for real-time, bidirectional communication between clients and servers.
 
 - **Back-end:**
   - Node.js: A JavaScript runtime environment for server-side development.
   - Express.js: A minimal and flexible web application framework for Node.js.
   - MongoDB: A NoSQL database for storing data.
+  - Socket.IO: A library for real-time, bidirectional communication between clients and servers.
   - JWT (JSON Web Tokens): A standard for secure authentication between client and server.
   - Zod: A TypeScript-first schema validation library for data validation.
+
 
 
 ## Setup and Installation
