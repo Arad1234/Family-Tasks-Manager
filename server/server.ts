@@ -1,10 +1,10 @@
 import express from "express";
 import cors from "cors";
 import { configDotenv } from "dotenv";
-import authRouter from "./routes/authRoutes";
+import authRouter from "./src/routes/authRoutes";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
-import { errorHandler } from "./middlewares/express/errorHandler";
+import { errorHandler } from "./src/middlewares/express/errorHandler";
 import { connectSocketServer } from "./socket";
 
 configDotenv();
@@ -24,9 +24,7 @@ app.use(express.json());
 app.use(cors(corsOptions));
 
 mongoose
-  .connect(
-    `mongodb+srv://aradgoller:${process.env.DB_PASSWORD}@e-commerce-cluster.ifzjq4d.mongodb.net/`
-  )
+  .connect(`${process.env.MONGODB_URI}`)
   .then(() => console.log("Connected to DB"))
   .catch((err) => console.log(err));
 
