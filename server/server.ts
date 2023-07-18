@@ -4,7 +4,7 @@ import { configDotenv } from "dotenv";
 import authRouter from "./routes/authRoutes";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
-import { errorHandler } from "./middlewares/errorHandler";
+import { errorHandler } from "./middlewares/express/errorHandler";
 import { connectSocketServer } from "./socket";
 
 configDotenv();
@@ -35,6 +35,7 @@ app.use("/api/v1/user", authRouter);
 app.use(errorHandler);
 
 const port = process.env.PORT || 3000;
+
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });

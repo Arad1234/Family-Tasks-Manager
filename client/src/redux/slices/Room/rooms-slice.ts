@@ -5,6 +5,7 @@ interface Room {
   creator: string;
   familyMembers: string[];
   maxMembers: number;
+  userId: string;
   _id: string;
 }
 

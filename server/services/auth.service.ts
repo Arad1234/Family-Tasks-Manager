@@ -2,9 +2,9 @@ import User from "../models/user.model";
 import { UserLoginDetails, UserRegitrationDetails } from "../types/common";
 import bcrypt from "bcrypt";
 import { generateToken } from "../utils/generateToken";
+
 export const createUser = async (userData: UserRegitrationDetails) => {
   const { username, email, password } = userData;
-
   try {
     await User.create({
       username,
@@ -23,7 +23,7 @@ export const loginUser = async (userInfo: UserLoginDetails) => {
   if (user) {
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (isPasswordValid) {
-      const token = generateToken(user._id, user.email);
+      const token = generateToken(user._id, user.username);
       return { user, token };
     } else {
       throw new Error("Wrong email or password");

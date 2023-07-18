@@ -17,7 +17,7 @@ export const initializeSocketEvents = (
   });
 
   socket.on("error", (err) => {
-    alert(err.message);
+    console.log(err);
     // navigate("/");
   });
 };

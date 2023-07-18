@@ -1,12 +1,15 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import { UserDocument } from "../types/mongoose";
+import { IUser } from "../types/mongoose";
 
-const userSchema = new mongoose.Schema<UserDocument>({
-  username: String,
-  email: { type: String, unique: true },
-  password: String,
-});
+const userSchema = new mongoose.Schema<IUser>(
+  {
+    username: String,
+    email: { type: String, unique: true },
+    password: String,
+  },
+  { versionKey: false }
+);
 
 userSchema.pre("save", async function (next) {
   try {

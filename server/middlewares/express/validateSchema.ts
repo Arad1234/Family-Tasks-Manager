@@ -1,8 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { StatusCodes } from "http-status-codes";
+import { BAD_REQUEST } from "../../utils/constants";
 import { ZodSchema } from "zod";
-
-const { BAD_REQUEST } = StatusCodes;
 
 // This function validates the zod schema whenever the user want to access/change/add a resource.
 const validateResource =

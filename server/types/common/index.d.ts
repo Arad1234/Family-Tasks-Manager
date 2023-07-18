@@ -11,5 +11,6 @@ export type UserLoginDetails = Omit<UserRegitrationDetails, "username">;
 export interface RoomData {
   roomName: string;
   maxMembers: number;
+  username: string;
   userId: ObjectId;
 }

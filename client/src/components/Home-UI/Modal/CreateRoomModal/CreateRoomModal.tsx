@@ -5,6 +5,7 @@ import ModalInputs from "./ModalInputs";
 import ModalTitle from "../common/ModalTitle";
 import ModalComponent from "../common/ModalComponent";
 import { socket } from "../../../../socket";
+import { setIsOpen } from "../../../../redux/slices/Modal/modal-slice";
 const CreateRoomModal = () => {
   const { maxMembers, roomName } = useAppSelector(
     (state) => state.createRoomReducer
@@ -14,6 +15,7 @@ const CreateRoomModal = () => {
   const handleCreateRoom = async () => {
     socket.emit("rooms:create", { roomName, maxMembers });
     dispatch(resetRoom());
+    dispatch(setIsOpen({ isOpen: false, status: "" }));
   };
 
   return (

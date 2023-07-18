@@ -3,7 +3,7 @@ import {
   loginUserHandler,
   createUserHandler,
 } from "../controllers/auth.controllers";
-import validateResource from "../middlewares/validateSchema";
+import validateResource from "../middlewares/express/validateSchema";
 import { userValidationSchema } from "../schema/user.schema";
 
 const router = express.Router();

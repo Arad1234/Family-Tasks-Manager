@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { loginThunk, registerThunk } from "../../actions/Auth/auth-actions";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
+
 interface InitialState {
   username: string;
   email: string;

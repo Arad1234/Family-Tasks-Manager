@@ -1,16 +1,20 @@
-import mongoose from "mongoose";
-import { RoomDocument } from "../types/mongoose";
-import { createRoomSchema } from "../schema/room.schema";
+import mongoose, { Model } from "mongoose";
+import { IRoom } from "../types/mongoose";
 
-const roomSchema = new mongoose.Schema<RoomDocument>({
-  roomName: { type: String },
-  creator: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "users",
+interface IRoomMethods {}
+
+type RoomModel = Model<IRoom, {}, IRoomMethods>;
+
+const roomSchema = new mongoose.Schema<IRoom, RoomModel, IRoomMethods>(
+  {
+    roomName: { type: String },
+    creator: { type: String },
+    familyMembers: [{ type: String }],
+    maxMembers: { type: Number, default: 10 },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
   },
-  familyMembers: [{ type: mongoose.Schema.Types.ObjectId, ref: "users" }],
-  maxMembers: { type: Number, default: 10 },
-});
+  { versionKey: false }
+);
 
 roomSchema.pre("save", function (next) {
   try {
@@ -20,6 +24,6 @@ roomSchema.pre("save", function (next) {
   }
 });
 
-const Room = mongoose.model("Room", roomSchema);
+const Room = mongoose.model<IRoom, RoomModel>("Room", roomSchema);
 
 export default Room;
