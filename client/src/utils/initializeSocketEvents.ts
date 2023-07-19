@@ -16,6 +16,10 @@ export const initializeSocketEvents = (
     dispatch(setCreateRoom(data));
   });
 
+  socket.on("joinedRoom", (data) => {
+    console.log(data);
+  });
+
   socket.on("error", (err) => {
     console.log(err);
     const { issues } = err;

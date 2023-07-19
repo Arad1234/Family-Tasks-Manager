@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { CreateUserInput } from "../schema/user.schema";
+import { CreateUserInput } from "../schema/user/user.schema";
 import { createUser, loginUser } from "../services/auth.service";
 import { CREATED, OK } from "../utils/constants";
 

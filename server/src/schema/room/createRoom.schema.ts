@@ -15,4 +15,4 @@ export const createRoomSchema = object({
   ),
 });
 
-export type CreateRoomType = TypeOf<typeof createRoomSchema>;
+export type CreateRoomSchemaType = TypeOf<typeof createRoomSchema>;

@@ -1,6 +1,11 @@
 import { validateMiddleware } from "../middlewares/socket/validationMiddleware";
-import { createFamilyRoom, getFamilyRooms } from "../services/room.service";
+import {
+  createFamilyRoom,
+  getFamilyRooms,
+  joinFamilyRoom,
+} from "../services/room.service";
 import { Socket, Server } from "socket.io";
+import { CreateRoomPayload, JoinRoomPayload } from "../types/socket";
 
 export const roomHandler = (io: Server, socket: Socket) => {
   const getFamilyRoomsHandler = async function () {
@@ -13,11 +18,7 @@ export const roomHandler = (io: Server, socket: Socket) => {
     }
   };
 
-  const createRoomHandler = async function (payload: {
-    roomName: string;
-    maxMembers: number;
-    roomPassword: string;
-  }) {
+  const createRoomHandler = async function (payload: CreateRoomPayload) {
     const { username, userId } = (socket as any).user;
     const { roomName, maxMembers, roomPassword } = payload;
     try {
@@ -35,9 +36,20 @@ export const roomHandler = (io: Server, socket: Socket) => {
       socket.emit("error", error.message);
     }
   };
+
+  const joinRoomHandler = async (payload: JoinRoomPayload) => {
+    try {
+      const room = await joinFamilyRoom(payload);
+      socket.emit("joinedRoom", room);
+    } catch (error: any) {
+      socket.emit("error", error.message);
+    }
+  };
   // The "validateMiddleware" middleware is used to validate the data sent from the client, the validation is handled by zod schema.
   socket.use(validateMiddleware);
+
   socket.on("rooms:create", createRoomHandler);
+  socket.on("rooms:join", joinRoomHandler);
   socket.on("rooms:read", getFamilyRoomsHandler);
 
   // If the middleware call "next(error)" it will automatically be handled by this event listener.

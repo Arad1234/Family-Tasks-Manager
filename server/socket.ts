@@ -1,7 +1,7 @@
 import { Server, Socket } from "socket.io";
 import http from "http";
 import { Application } from "express";
-import { roomHandler } from "./src/controllers/rooms.controller";
+import { roomHandler } from "./src/controllers/room.controller";
 import { verifyToken } from "./src/middlewares/socket/verifyToken";
 
 export const connectSocketServer = (app: Application) => {

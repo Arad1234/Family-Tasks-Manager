@@ -9,7 +9,7 @@ import AuthButton from "../../components/Auth-UI/AuthButton";
 import LabelComponent from "../../components/Auth-UI/LabelComponent";
 import InputComponent from "../../components/Auth-UI/InputComponent";
 import InputLabelWrapper from "../../components/Auth-UI/InputLabelWrapper";
-import LinkComponent from "../../components/Auth-UI/LinkComponent";
+import LinkComponent from "../../components/Link/LinkComponent";
 import { InputChangeEvent } from "../../types";
 import BackgroundImage from "../../components/Auth-UI/BackgroundImage";
 import TitleComponent from "../../components/Auth-UI/TitleComponent";
