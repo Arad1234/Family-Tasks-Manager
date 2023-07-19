@@ -15,7 +15,7 @@ import { InputChangeEvent } from "../../types";
 import InputLabelWrapper from "../../components/Auth-UI/InputLabelWrapper";
 import InputComponent from "../../components/Auth-UI/InputComponent";
 import { Typography } from "@mui/material";
-import LinkComponent from "../../components/Auth-UI/LinkComponent";
+import LinkComponent from "../../components/Link/LinkComponent";
 import BackgroundImage from "../../components/Auth-UI/BackgroundImage";
 import TitleComponent from "../../components/Auth-UI/TitleComponent";
 

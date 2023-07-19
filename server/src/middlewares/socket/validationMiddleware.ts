@@ -1,4 +1,5 @@
-import { createRoomSchema } from "../../schema/room.schema";
+import { createRoomSchema } from "../../schema/room/createRoom.schema";
+import { joinRoomSchema } from "../../schema/room/joinRoom.schema";
 import validateSchema from "../../utils/validateSchema";
 
 type Event = string;
@@ -14,6 +15,8 @@ export const validateMiddleware = (
     case "rooms:create":
       validateSchema(createRoomSchema, data, next);
       break;
+    case "rooms:join":
+      validateSchema(joinRoomSchema, data, next);
     default:
       next();
   }

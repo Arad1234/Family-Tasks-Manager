@@ -4,7 +4,7 @@ import {
   createUserHandler,
 } from "../controllers/auth.controllers";
 import validateSchema from "../middlewares/express/validateSchema";
-import { userValidationSchema } from "../schema/user.schema";
+import { userValidationSchema } from "../schema/user/user.schema";
 
 const router = express.Router();
 

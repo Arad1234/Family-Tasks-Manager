@@ -27,7 +27,7 @@ const ModalComponent = ({ children }: ChildrenProps) => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          width: "60vw",
+          width: "65vw",
           bgcolor: "background.paper",
           border: "1px solid #000",
           borderRadius: "20px",

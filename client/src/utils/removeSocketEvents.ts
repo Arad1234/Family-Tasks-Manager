@@ -8,4 +8,6 @@ export const removeSocketEvents = (socket: Socket) => {
   socket.off("error");
 
   socket.off("connect_error");
+
+  socket.off("joinedRoom");
 };

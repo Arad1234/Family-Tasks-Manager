@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import JoinButton from "../Buttons/JoinButton";
+import JoinButton from "./JoinButton";
 import { IRoom } from "../../../types/index";
 
 interface Props {
@@ -12,7 +12,7 @@ const Room = ({ room }: Props) => {
       <Typography sx={{ fontSize: "20px" }}>
         Members: {room.familyMembers.length}/{room.maxMembers}
       </Typography>
-      <JoinButton />
+      <JoinButton roomId={room._id} />
     </Box>
   );
 };

@@ -1,19 +1,28 @@
 import { Box, Button } from "@mui/material";
 import { useAppDispatch } from "../../../redux/hooks";
 import { setIsOpen } from "../../../redux/slices/Modal/modal-slice";
+import { setRoomId } from "../../../redux/slices/Room/join-room";
 
-const JoinButton = () => {
+interface Props {
+  roomId: string;
+}
+
+const JoinButton = ({ roomId }: Props) => {
   const dispatch = useAppDispatch();
 
-  const handleJoinRoom = () => {
+  const handleOpenJoinModal = () => {
     dispatch(setIsOpen({ isOpen: true, status: "join" }));
+
+    // When the "Join" button is clicked I set the roomId to the redux store.
+    dispatch(setRoomId(roomId));
   };
+
   return (
     <Box sx={{}}>
       <Button
         sx={{ width: "60px", fontSize: "13px" }}
         variant="contained"
-        onClick={handleJoinRoom}
+        onClick={handleOpenJoinModal}
       >
         Join
       </Button>
