@@ -11,29 +11,52 @@ interface Room {
 
 interface InitialState {
   rooms: Room[];
+  roomId: string;
 }
 
 const initialState: InitialState = {
   rooms: [],
+  roomId: "",
 };
 
 const roomSlice = createSlice({
   name: "room",
   initialState,
   reducers: {
-    setRooms(state, { payload }) {
-      state.rooms = payload;
+    setRooms(state, { payload: allRooms }) {
+      state.rooms = allRooms;
     },
-    setCreateRoom(state, { payload }) {
-      console.log(payload);
-      state.rooms.push(payload);
+    setCreateRoom(state, { payload: newRoom }) {
+      console.log(newRoom);
+      state.rooms.push(newRoom);
+    },
+    setDeleteRoom(state, { payload: roomId }) {
+      console.log(roomId);
+      state.rooms = state.rooms.filter((room) => {
+        return room._id !== roomId;
+      });
     },
     setJoinRoom(state, { payload }) {
-      console.log(payload);
+      const { roomId, userName } = payload;
+      state.rooms = state.rooms.map((room) => {
+        if (room._id === roomId) {
+          room.familyMembers.push(userName);
+        }
+        return room;
+      });
+    },
+    setRoomId(state, { payload }) {
+      state.roomId = payload;
     },
   },
 });
 
-export const { setRooms, setCreateRoom } = roomSlice.actions;
+export const {
+  setRooms,
+  setCreateRoom,
+  setDeleteRoom,
+  setJoinRoom,
+  setRoomId,
+} = roomSlice.actions;
 
 export default roomSlice.reducer;

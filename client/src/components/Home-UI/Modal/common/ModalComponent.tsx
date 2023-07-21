@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { setIsOpen } from "../../../../redux/slices/Modal/modal-slice";
+import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
 import { Box, Modal } from "@mui/material";
 import { ChildrenProps } from "../../../../types";
 import { resetRoomDetails } from "../../../../redux/slices/Room/create-room";
@@ -9,7 +9,7 @@ const ModalComponent = ({ children }: ChildrenProps) => {
   const dispatch = useAppDispatch();
 
   const handleOnClose = () => {
-    dispatch(setIsOpen({ isOpen: false, status: "" }));
+    dispatch(setShowModal({ isOpen: false, status: "" }));
     dispatch(resetRoomDetails());
   };
   return (

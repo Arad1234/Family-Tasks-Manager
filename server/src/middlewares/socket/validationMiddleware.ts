@@ -1,4 +1,5 @@
 import { createRoomSchema } from "../../schema/room/createRoom.schema";
+import { deleteRoomSchema } from "../../schema/room/deleteRoomSchema";
 import { joinRoomSchema } from "../../schema/room/joinRoom.schema";
 import validateSchema from "../../utils/validateSchema";
 
@@ -15,8 +16,12 @@ export const validateMiddleware = (
     case "rooms:create":
       validateSchema(createRoomSchema, data, next);
       break;
+    case "rooms:delete":
+      validateSchema(deleteRoomSchema, data, next);
+      break;
     case "rooms:join":
       validateSchema(joinRoomSchema, data, next);
+      break;
     default:
       next();
   }
