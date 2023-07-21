@@ -1,11 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-interface InitialState {
-  roomName: string;
-  roomPassword: string;
-  maxMembers: number | null;
-}
+import { RoomDataCreation } from "../../../types";
 
-const initialState: InitialState = {
+const initialState: RoomDataCreation = {
   roomName: "",
   roomPassword: "",
   maxMembers: null,

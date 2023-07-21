@@ -34,20 +34,28 @@ export const createFamilyRoom = async (roomData: RoomData) => {
   }
 };
 
+export const deleteFamilyRoom = async (roomId: string) => {
+  try {
+    const room = await Room.findOne({ _id: roomId });
+    await room?.deleteOne();
+    return room?._id;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
 export const joinFamilyRoom = async (joinRoomData: JoinRoomPayload) => {
   const { roomId, userId, roomPassword } = joinRoomData;
   try {
     const room = await Room.findOne({ _id: roomId });
     const isPasswordValid = await room?.validatePassword(roomPassword);
-    console.log(isPasswordValid);
     if (isPasswordValid) {
       const user = await User.findOne({ _id: userId });
 
       room?.familyMembers.push(user?.username as string);
+      await room?.save();
 
-      const data = await room?.save();
-      console.log(data);
-      return room;
+      return { roomId: room?._id, userName: user?.username };
     } else {
       throw new Error("Room password is not correct!");
     }

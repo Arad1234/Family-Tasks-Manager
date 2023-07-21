@@ -1,11 +1,15 @@
 import { validateMiddleware } from "../middlewares/socket/validationMiddleware";
 import {
   createFamilyRoom,
+  deleteFamilyRoom,
   getFamilyRooms,
   joinFamilyRoom,
 } from "../services/room.service";
 import { Socket, Server } from "socket.io";
-import { CreateRoomPayload, JoinRoomPayload } from "../types/socket";
+import { JoinRoomSchemaType } from "../schema/room/joinRoom.schema";
+import { CreateRoomSchemaType } from "../schema/room/createRoom.schema";
+import { socketErrorHandler } from "../middlewares/socket/errorHandler";
+import { DeleteRoomSchemaType } from "../schema/room/deleteRoomSchema";
 
 export const roomHandler = (io: Server, socket: Socket) => {
   const getFamilyRoomsHandler = async function () {
@@ -18,7 +22,7 @@ export const roomHandler = (io: Server, socket: Socket) => {
     }
   };
 
-  const createRoomHandler = async function (payload: CreateRoomPayload) {
+  const createRoomHandler = async function (payload: CreateRoomSchemaType) {
     const { username, userId } = (socket as any).user;
     const { roomName, maxMembers, roomPassword } = payload;
     try {
@@ -37,10 +41,21 @@ export const roomHandler = (io: Server, socket: Socket) => {
     }
   };
 
-  const joinRoomHandler = async (payload: JoinRoomPayload) => {
+  const deleteRoomHandler = async (payload: DeleteRoomSchemaType) => {
     try {
-      const room = await joinFamilyRoom(payload);
-      socket.emit("joinedRoom", room);
+      const { roomId } = payload;
+      const deletedRoomId = await deleteFamilyRoom(roomId);
+      // Emitting the event to all connected users.
+      io.emit("deletedRoom", deletedRoomId);
+    } catch (error: any) {
+      socket.emit("error", error.message);
+    }
+  };
+
+  const joinRoomHandler = async (payload: JoinRoomSchemaType) => {
+    try {
+      const { roomId, userName } = await joinFamilyRoom(payload);
+      socket.emit("joinedRoom", { roomId, userName });
     } catch (error: any) {
       socket.emit("error", error.message);
     }
@@ -49,13 +64,9 @@ export const roomHandler = (io: Server, socket: Socket) => {
   socket.use(validateMiddleware);
 
   socket.on("rooms:create", createRoomHandler);
+  socket.on("rooms:delete", deleteRoomHandler);
   socket.on("rooms:join", joinRoomHandler);
   socket.on("rooms:read", getFamilyRoomsHandler);
 
-  // If the middleware call "next(error)" it will automatically be handled by this event listener.
-  socket.on("error", (err) => {
-    console.log(err);
-    // I have "error" event listener in the client.
-    socket.emit("error", err);
-  });
+  socketErrorHandler(socket);
 };

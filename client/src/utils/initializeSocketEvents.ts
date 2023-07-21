@@ -1,25 +1,13 @@
 import { Socket } from "socket.io-client";
-import { AppDispatch } from "../redux/store";
 import { NavigateFunction } from "react-router-dom";
-import { setCreateRoom, setRooms } from "../redux/slices/Room/rooms-slice";
+import { AppDispatch } from "../redux/store";
+import { setLoading } from "../redux/slices/Auth/auth-slice";
 
-export const initializeSocketEvents = (
+export const initializeErrorSocket = (
   socket: Socket,
   navigate: NavigateFunction,
   dispatch: AppDispatch
 ) => {
-  socket.on("recievedRooms", (data) => {
-    dispatch(setRooms(data));
-  });
-
-  socket.on("createdRoom", (data) => {
-    dispatch(setCreateRoom(data));
-  });
-
-  socket.on("joinedRoom", (data) => {
-    console.log(data);
-  });
-
   socket.on("error", (err) => {
     console.log(err);
     const { issues } = err;
@@ -27,13 +15,16 @@ export const initializeSocketEvents = (
       const [firstIssue] = issues;
       alert(firstIssue.message);
     } else {
-      alert(err.message);
+      alert(err);
     }
+    dispatch(setLoading(false));
   });
 
   socket.on("connect_error", (err) => {
     if (err.message.includes("jwt")) {
       navigate("/");
     }
+    console.log(err);
+    dispatch(setLoading(false));
   });
 };

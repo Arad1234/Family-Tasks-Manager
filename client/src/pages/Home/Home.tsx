@@ -6,19 +6,21 @@ import { Box, Typography } from "@mui/material";
 import Loader from "../../components/Loader/Loader";
 import JoinRoomModal from "../../components/Home-UI/Modal/JoinRoomModal/JoinRoomModal";
 import LinkComponent from "../../components/Link/LinkComponent";
-import { socket } from "../../socket";
-import { initializeSocketEvents } from "../../utils/initializeSocketEvents";
+import { socket } from "../../socket/socket";
+import { initializeErrorSocket } from "../../utils/initializeSocketEvents";
 import CreateButton from "../../components/Home-UI/Buttons/CreateRoomButton";
 import Room from "../../components/Home-UI/Room/Room";
-import { removeSocketEvents } from "../../utils/removeSocketEvents";
+import { removeErrorSocket } from "../../utils/removeSocketEvents";
 import SearchInput from "../../components/Home-UI/SearchInput/SearchInput";
+import DeleteRoomModal from "../../components/Home-UI/Modal/DeleteRoomModal/DeleteRoomModal";
+import { getRoomsSocket } from "../../socket/socketEvents";
 
 const Home = () => {
   const dispatch = useAppDispatch();
   const [searchQuery, setSearchQuery] = useState<string>("");
   const { loading } = useAppSelector((state) => state.authReducer);
   const { rooms } = useAppSelector((state) => state.roomsReducer);
-  const { status } = useAppSelector((state) => state.modalReducer);
+  const { modalStatus } = useAppSelector((state) => state.modalReducer);
   const navigate = useNavigate();
 
   const filteredRooms = rooms.filter((room) =>
@@ -26,20 +28,21 @@ const Home = () => {
   );
 
   useEffect(() => {
-    initializeSocketEvents(socket, navigate, dispatch);
+    initializeErrorSocket(socket, navigate, dispatch);
 
     socket.connect();
 
-    socket.emit("rooms:read");
-
+    getRoomsSocket(dispatch);
     return () => {
+      removeErrorSocket(socket);
       socket.disconnect();
-      removeSocketEvents(socket);
     };
   }, []);
+
   if (loading) {
     return <Loader />;
   }
+
   return (
     <Box>
       <Box
@@ -57,7 +60,14 @@ const Home = () => {
       <SearchInput setSearchQuery={setSearchQuery} />
 
       {filteredRooms.length > 0 ? (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+            margin: "10px",
+          }}
+        >
           {filteredRooms.map((room) => {
             return (
               <Room
@@ -71,7 +81,9 @@ const Home = () => {
         <Typography sx={{ fontSize: "30px" }}>No Rooms Found</Typography>
       )}
 
-      {status === "create" ? <CreateRoomModal /> : <JoinRoomModal />}
+      {modalStatus === "create" && <CreateRoomModal />}
+      {modalStatus === "join" && <JoinRoomModal />}
+      {modalStatus === "delete" && <DeleteRoomModal />}
     </Box>
   );
 };

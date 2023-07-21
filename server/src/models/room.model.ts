@@ -22,19 +22,23 @@ const roomSchema = new mongoose.Schema<IRoom, RoomModel, IRoomMethods>(
 );
 
 roomSchema.pre("save", async function (next) {
-  console.log(this.roomPassword);
-  try {
-    const hashedPassword = await bcrypt.hash(this.roomPassword, 10);
-    this.roomPassword = hashedPassword;
+  const room = this;
+
+  if (room.isModified("roomPassword")) {
+    try {
+      const hashedPassword = await bcrypt.hash(room.roomPassword, 10);
+      this.roomPassword = hashedPassword;
+      next();
+    } catch (error: any) {
+      next(error);
+    }
+  } else {
     next();
-  } catch (error: any) {
-    next(error);
   }
 });
 
 roomSchema.methods.validatePassword = async function (roomPasword: string) {
   const isPasswordValid = await bcrypt.compare(roomPasword, this.roomPassword);
-  console.log(roomPasword, this.roomPassword);
   return isPasswordValid;
 };
 
