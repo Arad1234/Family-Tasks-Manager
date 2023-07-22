@@ -4,7 +4,7 @@ import { setShowModal } from "../../../redux/slices/Modal/modal-slice";
 
 const CreateButton = () => {
   const dispatch = useAppDispatch();
-  const handleCreateRoom = () => {
+  const handleOpenCreateModal = () => {
     dispatch(setShowModal({ isOpen: true, modalStatus: "create" }));
   };
 
@@ -12,7 +12,7 @@ const CreateButton = () => {
     <Button
       sx={{ width: "140px" }}
       variant="contained"
-      onClick={handleCreateRoom}
+      onClick={handleOpenCreateModal}
     >
       Create Room
     </Button>

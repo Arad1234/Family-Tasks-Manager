@@ -1,5 +1,5 @@
 import { createRoomSchema } from "../../schema/room/createRoom.schema";
-import { deleteRoomSchema } from "../../schema/room/deleteRoomSchema";
+import { deleteRoomSchema } from "../../schema/room/deleteRoom.schema";
 import { joinRoomSchema } from "../../schema/room/joinRoom.schema";
 import validateSchema from "../../utils/validateSchema";
 

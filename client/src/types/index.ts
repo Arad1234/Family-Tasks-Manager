@@ -10,7 +10,7 @@ export interface IRoom {
   roomName: string;
   maxMembers: number | null;
   creator: string;
-  familyMembers: string[];
+  familyMembers: { username: string; userId: string }[];
   userId: string;
   _id: string;
 }
