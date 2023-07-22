@@ -23,7 +23,7 @@ export const createFamilyRoom = async (roomData: RoomData) => {
       roomName: roomName,
       maxMembers: maxMembers,
       creator: username,
-      familyMembers: [username],
+      familyMembers: [{ username, userId }],
       roomPassword: roomPassword,
       userId: userId,
     });
@@ -38,7 +38,7 @@ export const deleteFamilyRoom = async (roomId: string) => {
   try {
     const room = await Room.findOne({ _id: roomId });
     await room?.deleteOne();
-    return room?._id;
+    return room;
   } catch (error: any) {
     throw new Error(error);
   }
@@ -46,16 +46,21 @@ export const deleteFamilyRoom = async (roomId: string) => {
 
 export const joinFamilyRoom = async (joinRoomData: JoinRoomPayload) => {
   const { roomId, userId, roomPassword } = joinRoomData;
+
   try {
     const room = await Room.findOne({ _id: roomId });
     const isPasswordValid = await room?.validatePassword(roomPassword);
+
     if (isPasswordValid) {
       const user = await User.findOne({ _id: userId });
 
-      room?.familyMembers.push(user?.username as string);
+      room?.familyMembers.push({
+        username: user?.username as string,
+        userId: user?._id,
+      });
       await room?.save();
 
-      return { roomId: room?._id, userName: user?.username };
+      return { room: room, userName: user?.username, userId: user?._id };
     } else {
       throw new Error("Room password is not correct!");
     }

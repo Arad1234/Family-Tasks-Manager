@@ -13,7 +13,13 @@ const roomSchema = new mongoose.Schema<IRoom, RoomModel, IRoomMethods>(
   {
     roomName: { type: String },
     creator: { type: String },
-    familyMembers: [{ type: String }],
+    familyMembers: [
+      {
+        _id: false,
+        username: String,
+        userId: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
+      },
+    ],
     maxMembers: { type: Number, default: 10 },
     roomPassword: { type: String },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "users" },

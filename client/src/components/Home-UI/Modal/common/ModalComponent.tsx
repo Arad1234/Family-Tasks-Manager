@@ -3,14 +3,19 @@ import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
 import { Box, Modal } from "@mui/material";
 import { ChildrenProps } from "../../../../types";
 import { resetRoomDetails } from "../../../../redux/slices/Room/create-room";
+import { resetRoomPassword } from "../../../../redux/slices/Room/join-room";
 
 const ModalComponent = ({ children }: ChildrenProps) => {
-  const { isOpen } = useAppSelector((state) => state.modalReducer);
+  const { isOpen, modalStatus } = useAppSelector((state) => state.modalReducer);
   const dispatch = useAppDispatch();
 
   const handleOnClose = () => {
     dispatch(setShowModal({ isOpen: false, status: "" }));
-    dispatch(resetRoomDetails());
+    if (modalStatus === "create") {
+      dispatch(resetRoomDetails());
+    } else if (modalStatus === "join") {
+      dispatch(resetRoomPassword());
+    }
   };
   return (
     <Modal

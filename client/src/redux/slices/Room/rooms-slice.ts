@@ -3,20 +3,27 @@ import { createSlice } from "@reduxjs/toolkit";
 interface Room {
   roomName: string;
   creator: string;
-  familyMembers: string[];
-  maxMembers: number;
+  familyMembers: { username: string; userId: string }[];
+  maxMembers: number | null;
   userId: string;
   _id: string;
 }
 
 interface InitialState {
   rooms: Room[];
-  roomId: string;
+  room: Room;
 }
 
 const initialState: InitialState = {
   rooms: [],
-  roomId: "",
+  room: {
+    roomName: "",
+    creator: "",
+    familyMembers: [],
+    maxMembers: null,
+    userId: "",
+    _id: "",
+  },
 };
 
 const roomSlice = createSlice({
@@ -30,23 +37,23 @@ const roomSlice = createSlice({
       console.log(newRoom);
       state.rooms.push(newRoom);
     },
-    setDeleteRoom(state, { payload: roomId }) {
-      console.log(roomId);
+    setDeleteRoom(state, { payload: deletedRoom }) {
+      console.log(deletedRoom);
       state.rooms = state.rooms.filter((room) => {
-        return room._id !== roomId;
+        return room._id !== deletedRoom._id;
       });
     },
     setJoinRoom(state, { payload }) {
-      const { roomId, userName } = payload;
+      const { room: joinedRoom, username, userId } = payload;
       state.rooms = state.rooms.map((room) => {
-        if (room._id === roomId) {
-          room.familyMembers.push(userName);
+        if (room._id === joinedRoom._id) {
+          room.familyMembers.push({ username, userId });
         }
         return room;
       });
     },
-    setRoomId(state, { payload }) {
-      state.roomId = payload;
+    setCurrentRoom(state, { payload }) {
+      state.room = payload;
     },
   },
 });
@@ -56,7 +63,7 @@ export const {
   setCreateRoom,
   setDeleteRoom,
   setJoinRoom,
-  setRoomId,
+  setCurrentRoom,
 } = roomSlice.actions;
 
 export default roomSlice.reducer;

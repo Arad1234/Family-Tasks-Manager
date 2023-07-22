@@ -15,9 +15,12 @@ const joinRoomSlice = createSlice({
     setRoomPassword(state, { payload }) {
       state.roomPassword = payload;
     },
+    resetRoomPassword(state) {
+      state.roomPassword = "";
+    },
   },
 });
 
-export const { setRoomPassword } = joinRoomSlice.actions;
+export const { setRoomPassword, resetRoomPassword } = joinRoomSlice.actions;
 
 export default joinRoomSlice.reducer;

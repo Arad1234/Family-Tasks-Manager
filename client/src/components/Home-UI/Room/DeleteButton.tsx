@@ -1,27 +1,28 @@
-import { Button } from "@mui/material";
 import { useAppDispatch } from "../../../redux/hooks";
-import { setRoomId } from "../../../redux/slices/Room/rooms-slice";
+import { setCurrentRoom } from "../../../redux/slices/Room/rooms-slice";
 import { setShowModal } from "../../../redux/slices/Modal/modal-slice";
+import RoomButton from "./common/RoomButton";
+import { IRoom } from "../../../types";
 
 interface Props {
-  roomId: string;
+  room: IRoom;
 }
 
-const DeleteButton = ({ roomId }: Props) => {
+const DeleteButton = ({ room }: Props) => {
   const dispatch = useAppDispatch();
 
-  const handleDeleteRoom = () => {
+  const handleOpenDeleteModal = () => {
     dispatch(setShowModal({ isOpen: true, modalStatus: "delete" }));
-    dispatch(setRoomId(roomId));
+    dispatch(setCurrentRoom(room));
   };
+
   return (
-    <Button
-      sx={{ width: "60px", fontSize: "13px" }}
-      variant="contained"
-      onClick={handleDeleteRoom}
+    <RoomButton
+      handleClick={handleOpenDeleteModal}
+      buttonWidth="67px"
     >
       Delete
-    </Button>
+    </RoomButton>
   );
 };
 

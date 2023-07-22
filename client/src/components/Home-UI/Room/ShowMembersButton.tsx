@@ -8,23 +8,20 @@ interface Props {
   room: IRoom;
 }
 
-const JoinButton = ({ room }: Props) => {
+const ShowMembersButton = ({ room }: Props) => {
   const dispatch = useAppDispatch();
-  const handleOpenJoinModal = () => {
-    dispatch(setShowModal({ isOpen: true, modalStatus: "join" }));
-
-    // When the "Join" button is clicked I set the roomId to the redux store.
+  const handleShowMembers = () => {
     dispatch(setCurrentRoom(room));
+    dispatch(setShowModal({ isOpen: true, modalStatus: "members" }));
   };
-
   return (
     <RoomButton
-      handleClick={handleOpenJoinModal}
-      buttonWidth="60px"
+      handleClick={handleShowMembers}
+      buttonWidth="147px"
     >
-      Join
+      Show Members
     </RoomButton>
   );
 };
 
-export default JoinButton;
+export default ShowMembersButton;

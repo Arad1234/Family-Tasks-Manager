@@ -9,7 +9,7 @@ import { Socket, Server } from "socket.io";
 import { JoinRoomSchemaType } from "../schema/room/joinRoom.schema";
 import { CreateRoomSchemaType } from "../schema/room/createRoom.schema";
 import { socketErrorHandler } from "../middlewares/socket/errorHandler";
-import { DeleteRoomSchemaType } from "../schema/room/deleteRoomSchema";
+import { DeleteRoomSchemaType } from "../schema/room/deleteRoom.schema";
 
 export const roomHandler = (io: Server, socket: Socket) => {
   const getFamilyRoomsHandler = async function () {
@@ -44,9 +44,9 @@ export const roomHandler = (io: Server, socket: Socket) => {
   const deleteRoomHandler = async (payload: DeleteRoomSchemaType) => {
     try {
       const { roomId } = payload;
-      const deletedRoomId = await deleteFamilyRoom(roomId);
+      const deletedRoom = await deleteFamilyRoom(roomId);
       // Emitting the event to all connected users.
-      io.emit("deletedRoom", deletedRoomId);
+      io.emit("deletedRoom", deletedRoom);
     } catch (error: any) {
       socket.emit("error", error.message);
     }
@@ -54,8 +54,8 @@ export const roomHandler = (io: Server, socket: Socket) => {
 
   const joinRoomHandler = async (payload: JoinRoomSchemaType) => {
     try {
-      const { roomId, userName } = await joinFamilyRoom(payload);
-      socket.emit("joinedRoom", { roomId, userName });
+      const { room, userName, userId } = await joinFamilyRoom(payload);
+      io.emit("joinedRoom", { room, userName, userId });
     } catch (error: any) {
       socket.emit("error", error.message);
     }

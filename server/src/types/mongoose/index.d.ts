@@ -9,7 +9,7 @@ export interface IUser extends Document {
 export interface IRoom extends Document {
   roomName: string;
   creator: string;
-  familyMembers: string[];
+  familyMembers: { username: string; userId: string }[];
   maxMembers: number;
   roomPassword: string;
   userId: Types.ObjectId;
