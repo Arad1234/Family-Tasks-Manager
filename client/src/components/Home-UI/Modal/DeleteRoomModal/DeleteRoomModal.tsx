@@ -7,9 +7,9 @@ import { deleteRoomSocket } from "../../../../socket/socketEventEmitters";
 
 const DeleteRoomModal = () => {
   const dispatch = useAppDispatch();
-  const { room } = useAppSelector((state) => state.roomsReducer);
+  const { currentRoom } = useAppSelector((state) => state.roomsReducer);
   const handleDeleteRoom = () => {
-    deleteRoomSocket(dispatch, room._id);
+    deleteRoomSocket(dispatch, currentRoom._id);
   };
 
   const handleCancel = () => {

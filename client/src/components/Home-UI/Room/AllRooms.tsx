@@ -32,7 +32,16 @@ const AllRooms = ({ searchQuery }: Props) => {
       })}
     </Box>
   ) : (
-    <Typography sx={{ fontSize: "30px" }}>No Rooms Found</Typography>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "70vh",
+      }}
+    >
+      <Typography variant="h4">No Rooms Found</Typography>
+    </Box>
   );
 };
 

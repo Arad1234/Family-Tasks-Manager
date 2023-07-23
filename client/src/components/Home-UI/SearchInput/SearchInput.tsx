@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import { InputChangeEvent } from "../../../types";
 
 interface Props {
@@ -10,10 +10,15 @@ const SearchInput = ({ setSearchQuery }: Props) => {
     setSearchQuery(e.target.value);
   };
   return (
-    <TextField
-      onChange={handleSearchInputChange}
-      placeholder="Search room..."
-    />
+    <Box sx={{ padding: "10px" }}>
+      <TextField
+        onChange={handleSearchInputChange}
+        placeholder="Search room..."
+        inputProps={{
+          style: { fontSize: "20px", padding: "12px" },
+        }}
+      />
+    </Box>
   );
 };
 

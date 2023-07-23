@@ -60,7 +60,7 @@ export const joinFamilyRoom = async (joinRoomData: JoinRoomPayload) => {
       });
       await room?.save();
 
-      return { room: room, userName: user?.username, userId: user?._id };
+      return { room: room, username: user?.username, userId: user?._id };
     } else {
       throw new Error("Room password is not correct!");
     }

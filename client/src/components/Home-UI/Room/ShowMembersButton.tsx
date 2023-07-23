@@ -1,8 +1,8 @@
+import { Button } from "@mui/material";
 import { useAppDispatch } from "../../../redux/hooks";
 import { setShowModal } from "../../../redux/slices/Modal/modal-slice";
 import { setCurrentRoom } from "../../../redux/slices/Room/rooms-slice";
 import { IRoom } from "../../../types";
-import RoomButton from "./common/RoomButton";
 
 interface Props {
   room: IRoom;
@@ -15,12 +15,18 @@ const ShowMembersButton = ({ room }: Props) => {
     dispatch(setShowModal({ isOpen: true, modalStatus: "members" }));
   };
   return (
-    <RoomButton
-      handleClick={handleShowMembers}
-      buttonWidth="147px"
+    <Button
+      sx={{
+        background: "rgba(50, 40, 300, 0.6)",
+        height: "30px",
+        borderRadius: "25px",
+        color: "whitesmoke",
+        ":hover": { backgroundColor: "rgba(50, 40, 300, 0.5)" },
+      }}
+      onClick={handleShowMembers}
     >
-      Show Members
-    </RoomButton>
+      Show
+    </Button>
   );
 };
 

@@ -5,13 +5,14 @@ interface Props {
   children: React.ReactNode;
   handleClick: () => void;
   buttonWidth: string;
+  variant: "contained" | "outlined" | "text";
 }
 
-const RoomButton = ({ children, handleClick, buttonWidth }: Props) => {
+const RoomButton = ({ children, handleClick, buttonWidth, variant }: Props) => {
   return (
     <Button
       sx={{ width: buttonWidth, fontSize: "13px" }}
-      variant="contained"
+      variant={variant}
       onClick={handleClick}
     >
       {children}

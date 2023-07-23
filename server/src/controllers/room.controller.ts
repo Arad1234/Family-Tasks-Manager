@@ -54,8 +54,8 @@ export const roomHandler = (io: Server, socket: Socket) => {
 
   const joinRoomHandler = async (payload: JoinRoomSchemaType) => {
     try {
-      const { room, userName, userId } = await joinFamilyRoom(payload);
-      io.emit("joinedRoom", { room, userName, userId });
+      const { room, username, userId } = await joinFamilyRoom(payload);
+      io.emit("joinedRoom", { room, username, userId });
     } catch (error: any) {
       socket.emit("error", error.message);
     }
