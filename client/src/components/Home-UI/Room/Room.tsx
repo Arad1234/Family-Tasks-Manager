@@ -1,18 +1,21 @@
 import { Box, Typography } from "@mui/material";
 import JoinButton from "./JoinButton";
-import DeleteButton from "./DeleteButton";
+import DeleteButton from "./DeleteButton/DeleteButton";
 import { IRoom } from "../../../types/index";
-import { extractUserIdLocalStorage } from "../../../utils/extractLocalStorageData";
-import ViewTasksButton from "./ViewTasksButton";
+import { extractUserLocalStorage } from "../../../utils/extractLocalStorageData";
+import EnterRoomButton from "./EnterRoomButton";
 import ShowMembersButton from "./ShowMembersButton";
+import RoomName from "./RoomName";
 
 interface Props {
   room: IRoom;
 }
+
 const Room = ({ room }: Props) => {
-  const userId = extractUserIdLocalStorage();
+  const { parsedUserId: userId } = extractUserLocalStorage();
+
   const { userId: roomCreatorId, familyMembers, maxMembers } = room;
-  console.log(room.creator);
+
   const isMember = familyMembers.some((member) => member.userId === userId);
 
   const isRoomFull = familyMembers.length === maxMembers;
@@ -28,16 +31,26 @@ const Room = ({ room }: Props) => {
         gap: "10px",
       }}
     >
-      <Typography variant="h4">{room.roomName}</Typography>
-      <Typography sx={{ fontSize: "20px" }}>
-        Members: {familyMembers.length}/{maxMembers}
-      </Typography>
-      <Box sx={{ display: "flex", gap: "10px" }}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <RoomName roomName={room.roomName} />
+
+        <Box sx={{ display: "flex", gap: "10px" }}>
+          <Typography sx={{ fontSize: "20px" }}>
+            Members: {familyMembers.length}/{maxMembers}
+          </Typography>
+          {isMember && <ShowMembersButton room={room} />}
+        </Box>
+      </Box>
+
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         {isMember ? (
-          <>
-            <ViewTasksButton />
-            <ShowMembersButton room={room} />
-          </>
+          <EnterRoomButton room={room} />
         ) : isRoomFull ? (
           <Typography sx={{ fontWeight: "600", color: "rgb(200, 100, 0)" }}>
             Room Is Full

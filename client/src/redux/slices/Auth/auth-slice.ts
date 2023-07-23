@@ -54,6 +54,7 @@ const authSlice = createSlice({
     }),
       builder.addCase(loginThunk.fulfilled, (state, { payload }) => {
         state.userId = payload.userId;
+        state.username = payload.username;
         state.loading = false;
         state.success = "Success!";
       }),
@@ -77,7 +78,7 @@ const authSlice = createSlice({
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["userId"],
+  whitelist: ["userId", "username"],
 };
 const persistedAuthReducer = persistReducer(persistConfig, authSlice.reducer);
 

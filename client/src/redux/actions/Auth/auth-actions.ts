@@ -14,7 +14,7 @@ interface RegisterPayload {
 }
 
 export const loginThunk = createAsyncThunk<
-  { status: string; userId: string }, // The type the function returns
+  { userId: string; username: string }, // The type the function returns
   LoginPayload // the arguments the function get.
 >("/auth/login", async ({ email, password }, thunkAPI) => {
   try {
@@ -23,7 +23,8 @@ export const loginThunk = createAsyncThunk<
       password,
     });
     const { data } = response;
-    return data;
+    const { userId, username } = data;
+    return { userId, username };
   } catch (error: any) {
     const { response } = error;
     console.log(error);

@@ -10,11 +10,16 @@ const CreateButton = () => {
 
   return (
     <Button
-      sx={{ width: "140px" }}
+      sx={{
+        width: "120px",
+        borderRadius: "25px",
+        backgroundColor: "rgb(50, 200, 100)",
+        ":hover": { backgroundColor: "rgba(50, 200, 100, 0.8)" },
+      }}
       variant="contained"
       onClick={handleOpenCreateModal}
     >
-      Create Room
+      New Room
     </Button>
   );
 };

@@ -4,9 +4,10 @@ import ModalComponent from "../common/ModalComponent";
 import ModalTitle from "../common/ModalTitle";
 
 const ShowMembersModal = () => {
-  const { room } = useAppSelector((state) => state.roomsReducer);
-  const { familyMembers } = room;
-  console.log(room);
+  const { currentRoom } = useAppSelector((state) => state.roomsReducer);
+  const { familyMembers } = currentRoom;
+  console.log(familyMembers);
+  console.log(currentRoom);
   return (
     <ModalComponent>
       <ModalTitle>Members</ModalTitle>

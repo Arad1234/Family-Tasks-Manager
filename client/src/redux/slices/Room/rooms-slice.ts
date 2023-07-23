@@ -11,12 +11,12 @@ interface Room {
 
 interface InitialState {
   rooms: Room[];
-  room: Room;
+  currentRoom: Room;
 }
 
 const initialState: InitialState = {
   rooms: [],
-  room: {
+  currentRoom: {
     roomName: "",
     creator: "",
     familyMembers: [],
@@ -53,7 +53,7 @@ const roomSlice = createSlice({
       });
     },
     setCurrentRoom(state, { payload }) {
-      state.room = payload;
+      state.currentRoom = payload;
     },
   },
 });
