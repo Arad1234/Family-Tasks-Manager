@@ -1,17 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-interface Room {
-  roomName: string;
-  creator: string;
-  familyMembers: { username: string; userId: string }[];
-  maxMembers: number | null;
-  userId: string;
-  _id: string;
-}
+import { IRoom } from "../../../types";
 
 interface InitialState {
-  rooms: Room[];
-  currentRoom: Room;
+  rooms: IRoom[];
+  currentRoom: IRoom;
 }
 
 const initialState: InitialState = {
@@ -47,7 +39,7 @@ const roomSlice = createSlice({
       const { room: joinedRoom, username, userId } = payload;
       state.rooms = state.rooms.map((room) => {
         if (room._id === joinedRoom._id) {
-          room.familyMembers.push({ username, userId });
+          room.familyMembers.push({ username, userId, tasks: [] });
         }
         return room;
       });

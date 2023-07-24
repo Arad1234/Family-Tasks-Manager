@@ -6,6 +6,7 @@ import { socket } from "./socket";
 
 export const getRoomsSocket = (dispatch: AppDispatch) => {
   dispatch(setLoading(true));
+
   socket.emit("rooms:read");
 };
 
@@ -14,14 +15,21 @@ export const createRoomSocket = (
   createRoomData: RoomDataCreation
 ) => {
   const { maxMembers, roomName, roomPassword } = createRoomData;
+
   dispatch(setLoading(true));
-  socket.emit("rooms:create", { roomName, maxMembers, roomPassword });
+
+  socket.emit("rooms:create", {
+    roomName,
+    maxMembers,
+    roomPassword,
+  });
 };
 
 export const deleteRoomSocket = (dispatch: AppDispatch, roomId: string) => {
   dispatch(setLoading(true));
 
   socket.emit("rooms:delete", { roomId });
+
   dispatch(setShowModal({ isOpen: false, status: "" }));
 };
 
@@ -29,10 +37,11 @@ export const joinRoomSocket = (
   dispatch: AppDispatch,
   joinRoomData: RoomDataJoin
 ) => {
-  const { roomId, roomPassword, userId } = joinRoomData;
+  const { roomId, roomPassword } = joinRoomData;
 
   dispatch(setLoading(true));
 
-  socket.emit("rooms:join", { roomId, userId, roomPassword });
+  socket.emit("rooms:join", { roomId, roomPassword });
+
   dispatch(setShowModal({ isOpen: false, status: "" }));
 };

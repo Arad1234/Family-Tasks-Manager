@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { IRoom } from "../../../types";
+import { useAppSelector } from "../../../redux/hooks";
 
 interface Props {
   room: IRoom;
@@ -8,7 +9,8 @@ interface Props {
 
 const EnterRoomButton = ({ room }: Props) => {
   const navigate = useNavigate();
-
+  const { rooms } = useAppSelector((state) => state.roomsReducer);
+  console.log(rooms);
   const handleEnterRoom = () => {
     navigate(`/home/${room._id}`, { state: { currentRoom: room } });
   };

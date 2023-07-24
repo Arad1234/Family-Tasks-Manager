@@ -29,6 +29,7 @@ const Home = () => {
     socket.connect();
 
     getRoomsSocket(dispatch);
+
     return () => {
       removeSocketListeners(socket);
       socket.disconnect();

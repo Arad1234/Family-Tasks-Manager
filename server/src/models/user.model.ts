@@ -12,12 +12,18 @@ const userSchema = new mongoose.Schema<IUser>(
 );
 
 userSchema.pre("save", async function (next) {
-  try {
-    const hashedPassword = await bcrypt.hash(this.password, 10);
-    this.password = hashedPassword;
+  const user = this;
+
+  if (user.isModified("password")) {
+    try {
+      const hashedPassword = await bcrypt.hash(this.password, 10);
+      this.password = hashedPassword;
+      next();
+    } catch (error: any) {
+      next(error);
+    }
+  } else {
     next();
-  } catch (error: any) {
-    next(error);
   }
 });
 

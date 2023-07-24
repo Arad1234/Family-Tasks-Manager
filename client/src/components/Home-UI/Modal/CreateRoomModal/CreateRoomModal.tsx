@@ -12,7 +12,11 @@ const CreateRoomModal = () => {
   const dispatch = useAppDispatch();
 
   const handleCreateRoom = async () => {
-    createRoomSocket(dispatch, { maxMembers, roomName, roomPassword });
+    createRoomSocket(dispatch, {
+      maxMembers,
+      roomName,
+      roomPassword,
+    });
   };
 
   return (

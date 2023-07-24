@@ -9,8 +9,8 @@ export interface ChildrenProps {
 export interface IRoom {
   roomName: string;
   maxMembers: number | null;
-  creator: string;
-  familyMembers: { username: string; userId: string }[];
+  creator: { userId: string; username: string };
+  familyMembers: { username: string; userId: string; tasks: [] }[];
   userId: string;
   _id: string;
 }
@@ -23,6 +23,5 @@ export interface RoomDataCreation {
 
 export interface RoomDataJoin {
   roomId: string;
-  userId: string;
   roomPassword: string;
 }
