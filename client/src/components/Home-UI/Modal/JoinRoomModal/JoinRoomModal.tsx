@@ -1,6 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { joinRoomSocket } from "../../../../socket/socketEventEmitters";
-import { extractUserLocalStorage } from "../../../../utils/extractLocalStorageData";
 import ModalButton from "../common/ModalButton";
 import ModalComponent from "../common/ModalComponent";
 import ModalTitle from "../common/ModalTitle";
@@ -10,10 +9,9 @@ const JoinRoomModal = () => {
   const dispatch = useAppDispatch();
   const { roomPassword } = useAppSelector((state) => state.joinRoomReducer);
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);
-  const { parsedUserId: userId } = extractUserLocalStorage();
 
   const handleJoinRoom = () => {
-    joinRoomSocket(dispatch, { roomId: currentRoom._id, userId, roomPassword });
+    joinRoomSocket(dispatch, { roomId: currentRoom._id, roomPassword });
   };
 
   return (

@@ -19,7 +19,7 @@ export const createUser = async (userData: UserRegitrationDetails) => {
 export const loginUser = async (userInfo: UserLoginDetails) => {
   const { email, password } = userInfo;
 
-  const user = await User.findOne({ email: email });
+  const user = await User.findOne({ email });
   if (user) {
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (isPasswordValid) {

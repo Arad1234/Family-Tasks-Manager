@@ -1,6 +1,7 @@
-import mongoose, { Model } from "mongoose";
+import { Model, Schema, Types, model } from "mongoose";
 import { IRoom } from "../types/mongoose";
 import bcrypt from "bcrypt";
+import { taskSchema } from "./task.model";
 
 interface IRoomMethods {
   removePasswordProp: () => Omit<IRoom, "roomPassword">;
@@ -9,20 +10,21 @@ interface IRoomMethods {
 
 type RoomModel = Model<IRoom, {}, IRoomMethods>;
 
-const roomSchema = new mongoose.Schema<IRoom, RoomModel, IRoomMethods>(
+// Single room schema
+const roomSchema = new Schema<IRoom, RoomModel, IRoomMethods>(
   {
-    roomName: { type: String },
-    creator: { type: String },
+    roomName: String,
+    creator: { userId: Types.ObjectId, username: String },
     familyMembers: [
       {
         _id: false,
+        userId: { type: Types.ObjectId, ref: "users" },
         username: String,
-        userId: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
+        tasks: [taskSchema],
       },
     ],
-    maxMembers: { type: Number, default: 10 },
-    roomPassword: { type: String },
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
+    maxMembers: Number,
+    roomPassword: String,
   },
   { versionKey: false }
 );
@@ -54,6 +56,6 @@ roomSchema.methods.removePasswordProp = function () {
   return doc;
 };
 
-const Room = mongoose.model<IRoom, RoomModel>("Room", roomSchema);
+const Room = model<IRoom, RoomModel>("Room", roomSchema);
 
 export default Room;

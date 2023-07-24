@@ -6,17 +6,22 @@ export interface IUser extends Document {
   password: string;
 }
 
-export interface IRoom extends Document {
-  roomName: string;
-  creator: string;
-  familyMembers: { username: string; userId: string }[];
-  maxMembers: number;
-  roomPassword: string;
-  userId: Types.ObjectId;
-}
-
-export interface IMission extends Document {
+interface simpleTask {
   name: string;
   description: string;
-  userId: Types.ObjectId;
+  timeToDo?: Date | null;
+}
+
+export interface IRoom extends Document {
+  roomName: string;
+  creator: { userId: Types.ObjectId; username: string };
+  familyMembers: [
+    {
+      userId: string;
+      username: string;
+      tasks: simpleTask[];
+    }
+  ];
+  maxMembers: number;
+  roomPassword: string;
 }

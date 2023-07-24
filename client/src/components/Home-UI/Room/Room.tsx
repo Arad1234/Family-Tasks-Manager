@@ -14,7 +14,7 @@ interface Props {
 const Room = ({ room }: Props) => {
   const { parsedUserId: userId } = extractUserLocalStorage();
 
-  const { userId: roomCreatorId, familyMembers, maxMembers } = room;
+  const { familyMembers, maxMembers, creator } = room;
 
   const isMember = familyMembers.some((member) => member.userId === userId);
 
@@ -28,7 +28,7 @@ const Room = ({ room }: Props) => {
         padding: "10px",
         display: "flex",
         flexDirection: "column",
-        gap: "10px",
+        gap: "20px",
       }}
     >
       <Box
@@ -58,7 +58,7 @@ const Room = ({ room }: Props) => {
         ) : (
           <JoinButton room={room} />
         )}
-        {userId === roomCreatorId && <DeleteButton room={room} />}
+        {userId === creator.userId && <DeleteButton room={room} />}
       </Box>
     </Box>
   );

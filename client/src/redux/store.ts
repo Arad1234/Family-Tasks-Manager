@@ -5,7 +5,7 @@ import persistedAuthReducer from "./slices/Auth/auth-slice";
 import modalSliceReducer from "./slices/Modal/modal-slice";
 import createRoomSliceReducer from "./slices/Room/create-room";
 import joinRoomSliceReducer from "./slices/Room/join-room";
-
+import roomOptionsSliceReducer from "./slices/RoomOptions/roomOptions-slice";
 export const store = configureStore({
   reducer: {
     authReducer: persistedAuthReducer,
@@ -13,6 +13,7 @@ export const store = configureStore({
     modalReducer: modalSliceReducer,
     createRoomReducer: createRoomSliceReducer,
     joinRoomReducer: joinRoomSliceReducer,
+    roomOptionsReducer: roomOptionsSliceReducer,
   },
   devTools: true,
   middleware: (getDefaultMiddleware) =>
