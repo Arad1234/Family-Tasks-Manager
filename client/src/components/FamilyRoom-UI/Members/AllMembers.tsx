@@ -1,12 +1,11 @@
 import { useAppSelector } from "../../../redux/hooks";
 import { Box } from "@mui/material";
-import Member from "./Member";
+import Member from "./Member/Member";
 
 const AllMembers = () => {
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);
-
   return (
-    <Box>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
       {currentRoom.familyMembers.map((member) => {
         return (
           <Member

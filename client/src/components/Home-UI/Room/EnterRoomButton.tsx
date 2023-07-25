@@ -10,10 +10,11 @@ interface Props {
 const EnterRoomButton = ({ room }: Props) => {
   const navigate = useNavigate();
   const { rooms } = useAppSelector((state) => state.roomsReducer);
-  console.log(rooms);
+
   const handleEnterRoom = () => {
-    navigate(`/home/${room._id}`, { state: { currentRoom: room } });
+    navigate(`/home/${room._id}`, { state: { rooms, currentRoom: room } });
   };
+
   return (
     <Button
       sx={{ width: "137px", borderRadius: "25px", color: "whitesmoke" }}
