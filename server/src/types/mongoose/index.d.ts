@@ -6,22 +6,22 @@ export interface IUser extends Document {
   password: string;
 }
 
-interface simpleTask {
+interface ITask extends Document {
   name: string;
-  description: string;
+  description: string | undefined;
   timeToDo?: Date | null;
+}
+
+interface simpleMember {
+  userId: string;
+  username: string;
+  tasks: ITask[];
 }
 
 export interface IRoom extends Document {
   roomName: string;
   creator: { userId: Types.ObjectId; username: string };
-  familyMembers: [
-    {
-      userId: string;
-      username: string;
-      tasks: simpleTask[];
-    }
-  ];
+  familyMembers: simpleMember[];
   maxMembers: number;
   roomPassword: string;
 }

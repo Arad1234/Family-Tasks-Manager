@@ -44,9 +44,9 @@ export const roomHandler = (io: Server, socket: Socket) => {
   const deleteRoomHandler = async (payload: DeleteRoomSchemaType) => {
     try {
       const { roomId } = payload;
-      const deletedRoom = await deleteFamilyRoom(roomId);
+      const deletedRoomId = await deleteFamilyRoom(roomId);
       // Emitting the event to all connected users.
-      io.emit("deletedRoom", deletedRoom);
+      io.emit("deletedRoom", deletedRoomId);
     } catch (error: any) {
       socket.emit("error", error.message);
     }
@@ -67,8 +67,6 @@ export const roomHandler = (io: Server, socket: Socket) => {
       socket.emit("error", error.message);
     }
   };
-  // The "validateMiddleware" middleware is used to validate the data sent from the client, the validation is handled by zod schema.
-  socket.use(validateMiddleware);
 
   socket.on("rooms:create", createRoomHandler);
   socket.on("rooms:delete", deleteRoomHandler);

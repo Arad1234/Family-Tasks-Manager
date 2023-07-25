@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { useAppDispatch } from "../../../redux/hooks";
-import { setOption } from "../../../redux/slices/RoomOptions/roomOptions-slice";
+import { setOption } from "../../../redux/slices/FamilyRoom/roomOptions-slice";
 import ButtonOption from "./ButtonOption";
 
 const RoomOptions = () => {

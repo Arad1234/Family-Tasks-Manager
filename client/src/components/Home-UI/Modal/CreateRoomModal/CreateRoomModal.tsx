@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import ModalButton from "../common/ModalButton";
+import ModalButton from "../../../Modal-Common/ModalButton";
 import ModalInputs from "./ModalInputs";
-import ModalTitle from "../common/ModalTitle";
-import ModalComponent from "../common/ModalComponent";
+import ModalTitle from "../../../Modal-Common/ModalTitle";
+import ModalComponent from "../../../Modal-Common/ModalComponent";
 import { createRoomSocket } from "../../../../socket/socketEventEmitters";
 
 const CreateRoomModal = () => {

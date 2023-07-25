@@ -8,7 +8,6 @@ interface InitialState {
   email: string;
   password: string;
   confirmPassword: string;
-
   loading: boolean;
   success: string | null;
   userId: string | null;
@@ -76,7 +75,7 @@ const authSlice = createSlice({
 });
 
 const persistConfig = {
-  key: "root",
+  key: "userData",
   storage,
   whitelist: ["userId", "username"],
 };

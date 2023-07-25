@@ -1,6 +1,6 @@
 import { Box, TextField, Typography } from "@mui/material";
-import { InputChangeEvent } from "../../../../types";
-import { useAppDispatch } from "../../../../redux/hooks";
+import { InputChangeEvent } from "../../types";
+import { useAppDispatch } from "../../redux/hooks";
 
 interface Props {
   type: string;
@@ -9,9 +9,10 @@ interface Props {
     payload: string | number;
   };
   label: string;
+  isRequired: boolean;
 }
 
-const ModalInput = ({ type, setChange, label }: Props) => {
+const ModalInput = ({ type, setChange, label, isRequired }: Props) => {
   const dispatch = useAppDispatch();
 
   const handleInputChange = (e: InputChangeEvent) => {
@@ -26,8 +27,8 @@ const ModalInput = ({ type, setChange, label }: Props) => {
       <TextField
         onChange={handleInputChange}
         sx={{ width: "100%" }}
-        required
-        label="Required"
+        required={isRequired}
+        label={isRequired ? "Required" : ""}
         type={type}
       />
     </Box>

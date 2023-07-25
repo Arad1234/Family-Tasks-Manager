@@ -1,4 +1,4 @@
-import ModalComponent from "../common/ModalComponent";
+import ModalComponent from "../../../Modal-Common/ModalComponent";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
 import { Typography } from "@mui/material";

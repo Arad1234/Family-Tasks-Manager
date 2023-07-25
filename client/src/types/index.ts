@@ -6,22 +6,45 @@ export interface ChildrenProps {
   children: React.ReactNode;
 }
 
+export interface ITask {
+  name: string;
+  description: string;
+  timeToDo: Date | null;
+  _id: string;
+}
+
+export interface IMember {
+  userId: string;
+  username: string;
+  tasks: ITask[];
+}
+
+export type FamilyMembers = IMember[];
+
 export interface IRoom {
   roomName: string;
   maxMembers: number | null;
   creator: { userId: string; username: string };
-  familyMembers: { username: string; userId: string; tasks: [] }[];
+  familyMembers: FamilyMembers;
   userId: string;
   _id: string;
 }
 
-export interface RoomDataCreation {
+export interface RoomCreationData {
   roomName: string;
   maxMembers: number | null;
   roomPassword: string;
 }
 
-export interface RoomDataJoin {
+export interface JoinRoomData {
   roomId: string;
   roomPassword: string;
+}
+
+export interface AddTaskData {
+  memberId: string;
+  roomId: string;
+  name: string;
+  description: string;
+  timeToDo: Date | null;
 }

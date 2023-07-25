@@ -7,14 +7,15 @@ import Loader from "../../components/Loader/Loader";
 import JoinRoomModal from "../../components/Home-UI/Modal/JoinRoomModal/JoinRoomModal";
 import LinkComponent from "../../components/Link/LinkComponent";
 import { socket } from "../../socket/socket";
-import { initializeSocketListeners } from "../../socket/initializeSocketListeners";
 import CreateButton from "../../components/Home-UI/Buttons/CreateRoomButton";
-import { removeSocketListeners } from "../../socket/removeSocketListeners";
+import { removeRoomsListeners } from "../../socket/Rooms/removeRoomsListeners";
 import SearchInput from "../../components/Home-UI/SearchInput/SearchInput";
 import DeleteRoomModal from "../../components/Home-UI/Modal/DeleteRoomModal/DeleteRoomModal";
 import { getRoomsSocket } from "../../socket/socketEventEmitters";
 import AllRooms from "../../components/Home-UI/Room/AllRooms";
 import ShowMembersModal from "../../components/Home-UI/Modal/ShowMembersModal/ShowMembersModal";
+import { roomsListeners } from "../../socket/Rooms/roomsListeners";
+import { errorListeners } from "../../socket/Errors/errorListeners";
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -24,14 +25,15 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    initializeSocketListeners(socket, navigate, dispatch);
+    roomsListeners(socket, dispatch);
+    errorListeners(socket, navigate, dispatch);
 
     socket.connect();
 
     getRoomsSocket(dispatch);
 
     return () => {
-      removeSocketListeners(socket);
+      removeRoomsListeners(socket);
       socket.disconnect();
     };
   }, []);

@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import JoinButton from "./JoinButton";
 import DeleteButton from "./DeleteButton/DeleteButton";
 import { IRoom } from "../../../types/index";
-import { extractUserLocalStorage } from "../../../utils/extractLocalStorageData";
+import { extractUserFromLocalStorage } from "../../../utils/LocalStorage/extractUser";
 import EnterRoomButton from "./EnterRoomButton";
 import ShowMembersButton from "./ShowMembersButton";
 import RoomName from "./RoomName";
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const Room = ({ room }: Props) => {
-  const { parsedUserId: userId } = extractUserLocalStorage();
+  const { parsedUserId: userId } = extractUserFromLocalStorage();
 
   const { familyMembers, maxMembers, creator } = room;
 

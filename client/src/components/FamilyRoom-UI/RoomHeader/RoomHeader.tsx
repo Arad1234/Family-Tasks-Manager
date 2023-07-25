@@ -1,6 +1,7 @@
 import { AiOutlineCaretDown } from "react-icons/ai";
 import { Box, Typography } from "@mui/material";
 import React from "react";
+import ExitIcon from "./ExitIcon";
 
 interface Props {
   children: React.ReactNode;
@@ -14,24 +15,31 @@ const RoomHeader = ({ children, setAnchorEl }: Props) => {
 
   return (
     <Box
-      onClick={handleOpenMenu}
       sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "10px",
-        gap: "13px",
         backgroundColor: "rgba(50, 250, 100, 0.2)",
         boxShadow: "3",
       }}
     >
-      <Typography
-        variant="h3"
-        sx={{ fontWeight: 700 }}
+      <ExitIcon />
+
+      <Box
+        onClick={handleOpenMenu}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "10px",
+          gap: "13px",
+        }}
       >
-        {children}
-      </Typography>
-      <AiOutlineCaretDown size={25} />
+        <Typography
+          variant="h3"
+          sx={{ fontWeight: 700 }}
+        >
+          {children}
+        </Typography>
+        <AiOutlineCaretDown size={25} />
+      </Box>
     </Box>
   );
 };

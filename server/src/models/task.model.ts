@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import { createTaskSchemaType } from "../schema/task/createTaskSchema";
+import { ITask } from "../types/mongoose";
 
-export const taskSchema = new mongoose.Schema<createTaskSchemaType>(
+export const taskSchema = new mongoose.Schema<ITask>(
   {
     name: String,
     description: String,

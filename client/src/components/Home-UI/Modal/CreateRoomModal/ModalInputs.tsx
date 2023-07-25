@@ -3,8 +3,8 @@ import {
   setMaxMembers,
   setPassword,
   setRoomName,
-} from "../../../../redux/slices/Room/create-room";
-import ModalInput from "../common/ModalInput";
+} from "../../../../redux/slices/Rooms/create-room";
+import ModalInput from "../../../Modal-Common/ModalInput";
 
 const ModalInputs = () => {
   return (
@@ -13,16 +13,19 @@ const ModalInputs = () => {
         type="text"
         setChange={setRoomName}
         label="Room name"
+        isRequired={true}
       />
       <ModalInput
         type="number"
         setChange={setMaxMembers}
         label="Maximum members"
+        isRequired={true}
       />
       <ModalInput
         type="password"
         setChange={setPassword}
         label="Room Password"
+        isRequired={true}
       />
     </Box>
   );
