@@ -1,14 +1,16 @@
 import { AiOutlineCaretDown } from "react-icons/ai";
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import ExitIcon from "./ExitIcon";
+import MenuModal from "./MenuModal";
 
 interface Props {
   children: React.ReactNode;
-  setAnchorEl: React.Dispatch<React.SetStateAction<null | HTMLElement>>;
 }
 
-const RoomHeader = ({ children, setAnchorEl }: Props) => {
+const RoomHeader = ({ children }: Props) => {
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
   const handleOpenMenu = (e: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(e.currentTarget);
   };
@@ -40,6 +42,11 @@ const RoomHeader = ({ children, setAnchorEl }: Props) => {
         </Typography>
         <AiOutlineCaretDown size={25} />
       </Box>
+
+      <MenuModal
+        anchorEl={anchorEl}
+        setAnchorEl={setAnchorEl}
+      />
     </Box>
   );
 };

@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IRoom } from "../../../types";
-import { persistReducer } from "redux-persist";
-import storage from "redux-persist/es/storage";
 
 interface InitialState {
   rooms: IRoom[];
@@ -53,6 +51,7 @@ const roomsSlice = createSlice({
         room.familyMembers.map((member) => {
           if (member.userId === memberId) {
             member.tasks.push(newTask);
+            state.currentRoom = room; // Updating the current room with the new updated state, to reflect changes in the "Tasks" component UI.
           }
           return member;
         });
@@ -65,14 +64,6 @@ const roomsSlice = createSlice({
   },
 });
 
-const persistConfig = {
-  key: "rooms",
-  storage,
-  whitelist: ["rooms"],
-};
-
-const persistedRoomsReducer = persistReducer(persistConfig, roomsSlice.reducer);
-
 export const {
   setRooms,
   setCreateRoom,
@@ -82,4 +73,4 @@ export const {
   setAddTask,
 } = roomsSlice.actions;
 
-export default persistedRoomsReducer;
+export default roomsSlice.reducer;

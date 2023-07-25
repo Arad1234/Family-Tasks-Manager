@@ -6,32 +6,28 @@ import RoomOptions from "../../components/FamilyRoom-UI/RoomOptions/RoomOptions"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import Tasks from "../../components/FamilyRoom-UI/Tasks/Tasks";
 import Calender from "../../components/FamilyRoom-UI/Calender/Calender";
-import MenuModal from "../../components/FamilyRoom-UI/MenuModal/MenuModal";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { setCurrentRoom, setRooms } from "../../redux/slices/Rooms/rooms-slice";
 import AllMembers from "../../components/FamilyRoom-UI/Members/AllMembers";
 import { familyRoomListeners } from "../../socket/FamilyRoom/familyRoomListeners";
 import { socket } from "../../socket/socket";
 import { removeFamilyRoomListeners } from "../../socket/FamilyRoom/removeFamilyRoomListeners";
-import { extractRoomsFromLocalStorage } from "../../utils/LocalStorage/extractRooms";
+import Loader from "../../components/Loader/Loader";
 
 const FamilyRoom = () => {
-  const { state } = useLocation();
+  const { state: roomsState } = useLocation();
   const dispatch = useAppDispatch();
 
+  const { loading } = useAppSelector((state) => state.authReducer);
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);
   const { option } = useAppSelector((state) => state.roomOptionsReducer);
-
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
     familyRoomListeners(socket, dispatch);
 
-    const rooms = extractRoomsFromLocalStorage();
-
     // Setting the rooms when the page refresh.
-    dispatch(setRooms(rooms));
-    dispatch(setCurrentRoom(state.currentRoom));
+    dispatch(setRooms(roomsState.rooms));
+    dispatch(setCurrentRoom(roomsState.currentRoom));
 
     socket.connect();
 
@@ -43,22 +39,21 @@ const FamilyRoom = () => {
 
   return (
     <Box>
-      <RoomHeader setAnchorEl={setAnchorEl}>{currentRoom.roomName}</RoomHeader>
-
-      <MenuModal
-        anchorEl={anchorEl}
-        setAnchorEl={setAnchorEl}
-      />
+      <RoomHeader>{currentRoom?.roomName}</RoomHeader>
 
       <WelcomeTitle />
 
       <RoomOptions />
 
-      <Box sx={{ padding: "10px" }}>
-        {option === "tasks" && <Tasks />}
-        {option === "calender" && <Calender />}
-        {option === "members" && <AllMembers />}
-      </Box>
+      {loading ? (
+        <Loader />
+      ) : (
+        <Box sx={{ padding: "10px" }}>
+          {option === "tasks" && <Tasks />}
+          {option === "calender" && <Calender />}
+          {option === "members" && <AllMembers />}
+        </Box>
+      )}
     </Box>
   );
 };
