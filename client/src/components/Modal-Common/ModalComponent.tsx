@@ -1,9 +1,9 @@
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { setShowModal } from "../../redux/slices/Modal/modal-slice";
 import { Box, Modal } from "@mui/material";
-import { ChildrenProps } from "../../../../types";
-import { resetRoomDetails } from "../../../../redux/slices/Room/create-room";
-import { resetRoomPassword } from "../../../../redux/slices/Room/join-room";
+import { ChildrenProps } from "../../types";
+import { resetRoomDetails } from "../../redux/slices/Rooms/create-room";
+import { resetRoomPassword } from "../../redux/slices/Rooms/join-room";
 
 const ModalComponent = ({ children }: ChildrenProps) => {
   const { isOpen, modalStatus } = useAppSelector((state) => state.modalReducer);

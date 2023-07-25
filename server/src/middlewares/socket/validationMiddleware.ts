@@ -1,6 +1,7 @@
 import { createRoomSchema } from "../../schema/room/createRoom.schema";
 import { deleteRoomSchema } from "../../schema/room/deleteRoom.schema";
 import { joinRoomSchema } from "../../schema/room/joinRoom.schema";
+import { createTaskSchema } from "../../schema/task/createTaskSchema";
 import validateSchema from "../../utils/validateSchema";
 
 type Event = string;
@@ -12,6 +13,7 @@ export const validateMiddleware = (
 ) => {
   const [event, ...args] = packet;
   const [data] = args;
+
   switch (event) {
     case "rooms:create":
       validateSchema(createRoomSchema, data, next);
@@ -21,6 +23,9 @@ export const validateMiddleware = (
       break;
     case "rooms:join":
       validateSchema(joinRoomSchema, data, next);
+      break;
+    case "tasks:create":
+      validateSchema(createTaskSchema, data, next);
       break;
     default:
       next();

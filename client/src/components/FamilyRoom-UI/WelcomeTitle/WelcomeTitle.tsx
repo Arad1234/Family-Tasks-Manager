@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material";
-import { extractUserLocalStorage } from "../../../utils/extractLocalStorageData";
+import { extractUserFromLocalStorage } from "../../../utils/LocalStorage/extractUser";
 
 const WelcomeTitle = () => {
-  const { parsedUsername: currentUsername } = extractUserLocalStorage();
+  const { parsedUsername: currentUsername } = extractUserFromLocalStorage();
   return (
     <Box sx={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
       <Typography sx={{ fontSize: "30px", fontWeight: "500" }}>

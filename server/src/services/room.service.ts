@@ -42,7 +42,7 @@ export const deleteFamilyRoom = async (roomId: string) => {
   try {
     const room = await Room.findOne({ _id: roomId });
     await room?.deleteOne();
-    return room;
+    return room?._id;
   } catch (error: any) {
     throw new Error(error);
   }

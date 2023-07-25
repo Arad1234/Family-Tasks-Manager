@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { useAppSelector } from "../../../../redux/hooks";
-import ModalComponent from "../common/ModalComponent";
-import ModalTitle from "../common/ModalTitle";
+import ModalComponent from "../../../Modal-Common/ModalComponent";
+import ModalTitle from "../../../Modal-Common/ModalTitle";
 
 const ShowMembersModal = () => {
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);

@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import { setRoomPassword } from "../../../../redux/slices/Room/join-room";
-import ModalInput from "../common/ModalInput";
+import { setRoomPassword } from "../../../../redux/slices/Rooms/join-room";
+import ModalInput from "../../../Modal-Common/ModalInput";
 
 const ModalInputs = () => {
   return (
@@ -9,6 +9,7 @@ const ModalInputs = () => {
         type="text"
         setChange={setRoomPassword}
         label="Room Password"
+        isRequired={true}
       />
     </Box>
   );

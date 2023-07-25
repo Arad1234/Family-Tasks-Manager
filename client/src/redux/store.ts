@@ -1,19 +1,22 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistStore } from "redux-persist";
-import roomsSliceReducer from "./slices/Room/rooms-slice";
+import persistRoomsReducer from "./slices/Rooms/rooms-slice";
 import persistedAuthReducer from "./slices/Auth/auth-slice";
 import modalSliceReducer from "./slices/Modal/modal-slice";
-import createRoomSliceReducer from "./slices/Room/create-room";
-import joinRoomSliceReducer from "./slices/Room/join-room";
-import roomOptionsSliceReducer from "./slices/RoomOptions/roomOptions-slice";
+import createRoomSliceReducer from "./slices/Rooms/create-room";
+import joinRoomSliceReducer from "./slices/Rooms/join-room";
+import roomOptionsSliceReducer from "./slices/FamilyRoom/roomOptions-slice";
+import createTaskSliceReducer from "./slices/FamilyRoom/createTask-slice";
+
 export const store = configureStore({
   reducer: {
     authReducer: persistedAuthReducer,
-    roomsReducer: roomsSliceReducer,
+    roomsReducer: persistRoomsReducer,
     modalReducer: modalSliceReducer,
     createRoomReducer: createRoomSliceReducer,
     joinRoomReducer: joinRoomSliceReducer,
     roomOptionsReducer: roomOptionsSliceReducer,
+    createTaskReducer: createTaskSliceReducer,
   },
   devTools: true,
   middleware: (getDefaultMiddleware) =>
