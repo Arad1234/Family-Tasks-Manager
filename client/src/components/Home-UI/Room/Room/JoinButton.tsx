@@ -1,8 +1,8 @@
 import { Button } from "@mui/material";
-import { useAppDispatch } from "../../../redux/hooks";
-import { setShowModal } from "../../../redux/slices/Modal/modal-slice";
-import { setCurrentRoom } from "../../../redux/slices/Rooms/rooms-slice";
-import { IRoom } from "../../../types";
+import { useAppDispatch } from "../../../../redux/hooks";
+import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
+import { setCurrentRoom } from "../../../../redux/slices/Rooms/rooms-slice";
+import { IRoom } from "../../../../types";
 
 interface Props {
   room: IRoom;

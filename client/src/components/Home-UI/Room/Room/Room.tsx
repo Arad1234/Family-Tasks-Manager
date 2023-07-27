@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import JoinButton from "./JoinButton";
-import DeleteButton from "./DeleteButton/DeleteButton";
-import { IRoom } from "../../../types/index";
-import { extractUserFromLocalStorage } from "../../../utils/LocalStorage/extractUser";
+import DeleteButton from "../DeleteButton/DeleteButton";
+import { IRoom } from "../../../../types/index";
+import { extractUserFromLocalStorage } from "../../../../utils/LocalStorage/extractUser";
 import EnterRoomButton from "./EnterRoomButton";
 import ShowMembersButton from "./ShowMembersButton";
 import RoomName from "./RoomName";

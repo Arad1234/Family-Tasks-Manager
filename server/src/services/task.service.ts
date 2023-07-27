@@ -4,6 +4,7 @@ import { createTaskSchemaType } from "../schema/task/createTaskSchema";
 
 export const createTask = async (taskData: createTaskSchemaType) => {
   const { name, description, timeToDo, memberId, roomId } = taskData;
+
   try {
     // Task instance
     const newTask = new Task({ name, description, timeToDo });
@@ -11,7 +12,9 @@ export const createTask = async (taskData: createTaskSchemaType) => {
 
     if (room) {
       room.familyMembers = room.familyMembers.map((member) => {
-        if (member.userId == memberId) {
+        console.log(member.userId.toString());
+        console.log(memberId);
+        if (member.userId.toString() == memberId) {
           member.tasks.push(newTask);
         }
         return member;
@@ -22,6 +25,6 @@ export const createTask = async (taskData: createTaskSchemaType) => {
 
     return newTask;
   } catch (error: any) {
-    throw new Error(error)
+    throw new Error(error);
   }
 };

@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { IRoom } from "../../../types";
-import { useAppSelector } from "../../../redux/hooks";
+import { IRoom } from "../../../../types";
+import { useAppSelector } from "../../../../redux/hooks";
 
 interface Props {
   room: IRoom;

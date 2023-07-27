@@ -5,7 +5,6 @@ import { socketErrorHandler } from "../middlewares/socket/errorHandler";
 
 export const taskHandler = (io: Server, socket: Socket) => {
   const createTaskHandler = async (payload: createTaskSchemaType) => {
-    console.log("Arad");
     try {
       const newTask = await createTask(payload);
       io.emit("taskCreated", { newTask, memberId: payload.memberId });

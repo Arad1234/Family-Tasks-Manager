@@ -16,6 +16,7 @@ import AllRooms from "../../components/Home-UI/Room/AllRooms";
 import ShowMembersModal from "../../components/Home-UI/Modal/ShowMembersModal/ShowMembersModal";
 import { roomsListeners } from "../../socket/Rooms/roomsListeners";
 import { errorListeners } from "../../socket/Errors/errorListeners";
+import { removeErrorListeners } from "../../socket/Errors/removeErrorListeners";
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -34,6 +35,7 @@ const Home = () => {
 
     return () => {
       removeRoomsListeners(socket);
+      removeErrorListeners(socket);
       socket.disconnect();
     };
   }, []);

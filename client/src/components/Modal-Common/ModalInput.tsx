@@ -4,7 +4,7 @@ import { useAppDispatch } from "../../redux/hooks";
 
 interface Props {
   type: string;
-  setChange: (payload: string | number) => {
+  setChange: (payload: string | number | Date | null) => {
     type: string;
     payload: string | number;
   };
@@ -16,8 +16,17 @@ const ModalInput = ({ type, setChange, label, isRequired }: Props) => {
   const dispatch = useAppDispatch();
 
   const handleInputChange = (e: InputChangeEvent) => {
-    const { value, valueAsNumber } = e.target;
-    const inputValue = type === "number" ? valueAsNumber : value;
+    const { value, valueAsNumber, valueAsDate } = e.target;
+    let inputValue = null;
+    if (type === "number") {
+      inputValue = valueAsNumber;
+    } else if (type === "date") {
+      console.log("ARADARAD");
+      inputValue = valueAsDate;
+    } else {
+      inputValue = value;
+    }
+
     dispatch(setChange(inputValue));
   };
 

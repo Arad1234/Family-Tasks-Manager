@@ -22,7 +22,7 @@ const ModalInputs = () => {
         isRequired={false}
       />
       <ModalInput
-        type="date"
+        type="datetime-local"
         setChange={setTaskTime}
         label="Time to do"
         isRequired={false}

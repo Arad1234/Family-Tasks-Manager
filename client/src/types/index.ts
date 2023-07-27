@@ -13,6 +13,8 @@ export interface ITask {
   _id: string;
 }
 
+export type TaskCreation = Omit<ITask, "_id">;
+
 export interface IMember {
   userId: string;
   username: string;
