@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ITask } from "../../../types";
+import { TaskCreation } from "../../../types";
 
-const initialState: ITask = {
+const initialState: TaskCreation = {
   name: "",
   description: "",
   timeToDo: null,
@@ -15,15 +15,24 @@ const createTaskSlice = createSlice({
       state.name = payload;
     },
     setTaskDescription(state, { payload }) {
-      state.name = payload;
+      state.description = payload;
     },
     setTaskTime(state, { payload }) {
-      state.name = payload;
+      state.timeToDo = payload;
+    },
+    resetTaskDetails(state) {
+      state.name = "";
+      state.description = "";
+      state.timeToDo = null;
     },
   },
 });
 
-export const { setTaskDescription, setTaskName, setTaskTime } =
-  createTaskSlice.actions;
+export const {
+  setTaskDescription,
+  setTaskName,
+  setTaskTime,
+  resetTaskDetails,
+} = createTaskSlice.actions;
 
 export default createTaskSlice.reducer;

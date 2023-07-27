@@ -14,7 +14,6 @@ const Member = ({ member }: Props) => {
   const [clickedUserId, setClickedUserId] = useState<string>("");
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);
   const { modalStatus } = useAppSelector((state) => state.modalReducer);
-
   const { parsedUserId: currentUserId } = extractUserFromLocalStorage();
   const isRoomCreator = currentRoom.creator.userId === currentUserId;
 
@@ -44,7 +43,7 @@ const Member = ({ member }: Props) => {
         )}
       </Box>
 
-      {modalStatus === "assignTask" && (
+      {modalStatus === "assignTask" && clickedUserId && (
         <AssignTaskModal clickedUserId={clickedUserId} />
       )}
     </Box>

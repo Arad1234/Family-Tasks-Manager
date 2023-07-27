@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { setRoomPassword } from "../../../../redux/slices/Rooms/join-room";
+import { setRoomPassword } from "../../../../redux/slices/Rooms/joinRoom-slice";
 import ModalInput from "../../../Modal-Common/ModalInput";
 
 const ModalInputs = () => {

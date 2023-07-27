@@ -34,10 +34,7 @@ const RoomHeader = ({ children }: Props) => {
           gap: "13px",
         }}
       >
-        <Typography
-          variant="h3"
-          sx={{ fontWeight: 700 }}
-        >
+        <Typography sx={{ fontWeight: 700, fontSize: "40px" }}>
           {children}
         </Typography>
         <AiOutlineCaretDown size={25} />

@@ -9,8 +9,8 @@ import {
   setRooms,
 } from "../../redux/slices/Rooms/rooms-slice";
 import { setShowModal } from "../../redux/slices/Modal/modal-slice";
-import { resetRoomDetails } from "../../redux/slices/Rooms/create-room";
-import { resetRoomPassword } from "../../redux/slices/Rooms/join-room";
+import { resetRoomDetails } from "../../redux/slices/Rooms/createRoom-slice";
+import { resetRoomPassword } from "../../redux/slices/Rooms/joinRoom-slice";
 
 export const roomsListeners = (socket: Socket, dispatch: AppDispatch) => {
   socket.on("recievedRooms", (data) => {

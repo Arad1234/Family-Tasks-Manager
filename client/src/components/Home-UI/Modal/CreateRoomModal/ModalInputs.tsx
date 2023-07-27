@@ -3,7 +3,7 @@ import {
   setMaxMembers,
   setPassword,
   setRoomName,
-} from "../../../../redux/slices/Rooms/create-room";
+} from "../../../../redux/slices/Rooms/createRoom-slice";
 import ModalInput from "../../../Modal-Common/ModalInput";
 
 const ModalInputs = () => {

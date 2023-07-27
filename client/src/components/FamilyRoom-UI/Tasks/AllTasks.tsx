@@ -1,8 +1,9 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useAppSelector } from "../../../redux/hooks";
 import { extractUserFromLocalStorage } from "../../../utils/LocalStorage/extractUser";
+import Task from "./Task/Task";
 
-const Tasks = () => {
+const AllTasks = () => {
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);
   const { familyMembers } = currentRoom;
 
@@ -11,13 +12,19 @@ const Tasks = () => {
   const currentMember = familyMembers.find((member) => {
     return member.userId === currentUserId;
   });
+
   return (
-    <Box>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
       {currentMember?.tasks.map((task) => {
-        return <Box key={task._id}>{task.name}</Box>;
+        return (
+          <Task
+            key={task._id}
+            task={task}
+          />
+        );
       })}
     </Box>
   );
 };
 
-export default Tasks;
+export default AllTasks;

@@ -12,8 +12,8 @@ interface ITask extends Document {
   timeToDo?: Date | null;
 }
 
-interface simpleMember {
-  userId: string;
+interface IMember extends Document {
+  userId: Types.ObjectId;
   username: string;
   tasks: ITask[];
 }
@@ -21,7 +21,7 @@ interface simpleMember {
 export interface IRoom extends Document {
   roomName: string;
   creator: { userId: Types.ObjectId; username: string };
-  familyMembers: simpleMember[];
+  familyMembers: IMember[];
   maxMembers: number;
   roomPassword: string;
 }

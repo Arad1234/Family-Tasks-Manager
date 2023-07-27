@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import Room from "./Room";
+import Room from "./Room/Room";
 import { useAppSelector } from "../../../redux/hooks";
 
 interface Props {

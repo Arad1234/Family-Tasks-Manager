@@ -3,8 +3,8 @@ import { persistStore } from "redux-persist";
 import roomsSliceReducer from "./slices/Rooms/rooms-slice";
 import persistedAuthReducer from "./slices/Auth/auth-slice";
 import modalSliceReducer from "./slices/Modal/modal-slice";
-import createRoomSliceReducer from "./slices/Rooms/create-room";
-import joinRoomSliceReducer from "./slices/Rooms/join-room";
+import createRoomSliceReducer from "./slices/Rooms/createRoom-slice";
+import joinRoomSliceReducer from "./slices/Rooms/joinRoom-slice";
 import roomOptionsSliceReducer from "./slices/FamilyRoom/roomOptions-slice";
 import createTaskSliceReducer from "./slices/FamilyRoom/createTask-slice";
 

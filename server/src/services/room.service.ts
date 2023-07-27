@@ -1,3 +1,4 @@
+import Member from "../models/member.model";
 import Room from "../models/room.model";
 import { RoomData } from "../types/common";
 import { JoinRoomPayload } from "../types/socket";
@@ -22,10 +23,12 @@ export const createFamilyRoom = async (roomData: RoomData) => {
   const { username, maxMembers, roomName, roomPassword, userId } = roomData;
 
   try {
+    const member = new Member({ userId, username, tasks: [] });
+
     const newRoom = await Room.create({
       roomName,
       maxMembers,
-      familyMembers: [{ userId: userId, username: username, tasks: [] }],
+      familyMembers: [member],
       creator: { userId, username },
       roomPassword,
     });
@@ -56,11 +59,10 @@ export const joinFamilyRoom = async (joinRoomData: JoinRoomPayload) => {
     const isPasswordValid = await room?.validatePassword(roomPassword);
 
     if (isPasswordValid) {
-      room?.familyMembers.push({
-        userId,
-        username,
-        tasks: [],
-      });
+      // Member instance according to type configuration.
+      const member = new Member({ userId, username, tasks: [] });
+
+      room?.familyMembers.push(member);
 
       await room?.save();
 

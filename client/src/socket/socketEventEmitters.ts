@@ -1,4 +1,5 @@
 import { setLoading } from "../redux/slices/Auth/auth-slice";
+import { resetTaskDetails } from "../redux/slices/FamilyRoom/createTask-slice";
 import { setShowModal } from "../redux/slices/Modal/modal-slice";
 import { AppDispatch } from "../redux/store";
 import { AddTaskData, RoomCreationData, JoinRoomData } from "../types";
@@ -52,7 +53,6 @@ export const addTaskSocket = (
 ) => {
   const { description, memberId, name, roomId, timeToDo } = addTaskData;
   dispatch(setLoading(true));
-
   socket.emit("tasks:create", {
     memberId,
     roomId,
@@ -62,6 +62,7 @@ export const addTaskSocket = (
   });
 
   hideModal(dispatch);
+  dispatch(resetTaskDetails());
 };
 
 const hideModal = (dispatch: AppDispatch) => {
