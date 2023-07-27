@@ -3,7 +3,7 @@ import ModalButton from "../../../Modal-Common/ModalButton";
 import ModalInputs from "./ModalInputs";
 import ModalTitle from "../../../Modal-Common/ModalTitle";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
-import { createRoomSocket } from "../../../../socket/socketEventEmitters";
+import { createRoomSocket } from "../../../../socket/Rooms/EventEmitters";
 
 const CreateRoomModal = () => {
   const { maxMembers, roomName, roomPassword } = useAppSelector(

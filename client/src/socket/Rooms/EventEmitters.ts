@@ -1,9 +1,8 @@
-import { setLoading } from "../redux/slices/Auth/auth-slice";
-import { resetTaskDetails } from "../redux/slices/FamilyRoom/createTask-slice";
-import { setShowModal } from "../redux/slices/Modal/modal-slice";
-import { AppDispatch } from "../redux/store";
-import { AddTaskData, RoomCreationData, JoinRoomData } from "../types";
-import { socket } from "./socket";
+import { setLoading } from "../../redux/slices/Auth/auth-slice";
+import { AppDispatch } from "../../redux/store";
+import { RoomCreationData, JoinRoomData } from "../../types";
+import { hideModal } from "../../utils/helpers/hideModal";
+import { socket } from "../socket";
 
 export const getRoomsSocket = (dispatch: AppDispatch) => {
   dispatch(setLoading(true));
@@ -45,26 +44,4 @@ export const joinRoomSocket = (
   socket.emit("rooms:join", { roomId, roomPassword });
 
   hideModal(dispatch);
-};
-
-export const addTaskSocket = (
-  dispatch: AppDispatch,
-  addTaskData: AddTaskData
-) => {
-  const { description, memberId, name, roomId, timeToDo } = addTaskData;
-  dispatch(setLoading(true));
-  socket.emit("tasks:create", {
-    memberId,
-    roomId,
-    name,
-    description,
-    timeToDo,
-  });
-
-  hideModal(dispatch);
-  dispatch(resetTaskDetails());
-};
-
-const hideModal = (dispatch: AppDispatch) => {
-  dispatch(setShowModal({ isOpen: false, status: "" }));
 };

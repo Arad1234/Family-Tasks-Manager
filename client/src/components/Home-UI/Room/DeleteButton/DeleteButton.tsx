@@ -14,7 +14,7 @@ const DeleteButton = ({ room }: Props) => {
 
   const handleOpenDeleteModal = () => {
     dispatch(setShowModal({ isOpen: true, modalStatus: "delete" }));
-    dispatch(setCurrentRoom(room));
+    dispatch(setCurrentRoom(room._id));
   };
 
   return (

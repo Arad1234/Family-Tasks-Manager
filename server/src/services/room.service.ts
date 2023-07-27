@@ -5,8 +5,9 @@ import { JoinRoomPayload } from "../types/socket";
 
 export const getFamilyRooms = async () => {
   try {
-    const rooms = await Room.find();
-
+    // Getting the rooms with the tasks for each family member already populated.
+    // Note the the DB does not populate with the tasks in the "rooms" collection.
+    const rooms = await Room.find().populate("familyMembers.tasks");
     const newRooms = [];
 
     for (const room of rooms) {

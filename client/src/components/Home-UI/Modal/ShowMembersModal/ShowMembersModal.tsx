@@ -6,8 +6,7 @@ import ModalTitle from "../../../Modal-Common/ModalTitle";
 const ShowMembersModal = () => {
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);
   const { familyMembers } = currentRoom;
-  console.log(familyMembers);
-  console.log(currentRoom);
+  
   return (
     <ModalComponent>
       <ModalTitle>Members</ModalTitle>

@@ -29,6 +29,7 @@ const Room = ({ room }: Props) => {
         display: "flex",
         flexDirection: "column",
         gap: "20px",
+        height: "107px",
       }}
     >
       <Box

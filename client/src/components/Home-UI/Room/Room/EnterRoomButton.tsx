@@ -17,7 +17,12 @@ const EnterRoomButton = ({ room }: Props) => {
 
   return (
     <Button
-      sx={{ width: "137px", borderRadius: "25px", color: "whitesmoke" }}
+      sx={{
+        width: "137px",
+        borderRadius: "25px",
+        color: "whitesmoke",
+        height: "40px",
+      }}
       onClick={handleEnterRoom}
       variant="contained"
     >

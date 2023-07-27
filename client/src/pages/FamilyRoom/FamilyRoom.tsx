@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import WelcomeTitle from "../../components/FamilyRoom-UI/WelcomeTitle/WelcomeTitle";
 import RoomHeader from "../../components/FamilyRoom-UI/RoomHeader/RoomHeader";
 import RoomOptions from "../../components/FamilyRoom-UI/RoomOptions/RoomOptions";
@@ -7,17 +7,17 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import AllTasks from "../../components/FamilyRoom-UI/Tasks/AllTasks";
 import Calender from "../../components/FamilyRoom-UI/Calender/Calender";
 import { useEffect } from "react";
-import { setCurrentRoom, setRooms } from "../../redux/slices/Rooms/rooms-slice";
+import { setCurrentRoom } from "../../redux/slices/Rooms/rooms-slice";
 import AllMembers from "../../components/FamilyRoom-UI/Members/AllMembers";
-import { familyRoomListeners } from "../../socket/FamilyRoom/familyRoomListeners";
+import { familyRoomListeners } from "../../socket/FamilyRoom/Listeners";
 import { socket } from "../../socket/socket";
-import { removeFamilyRoomListeners } from "../../socket/FamilyRoom/removeFamilyRoomListeners";
+import { removeFamilyRoomListeners } from "../../socket/FamilyRoom/RemoveListeners";
 import Loader from "../../components/Loader/Loader";
-import { removeErrorListeners } from "../../socket/Errors/removeErrorListeners";
-import { errorListeners } from "../../socket/Errors/errorListeners";
+import { removeErrorListeners } from "../../socket/Errors/RemoveListeners";
+import { errorListeners } from "../../socket/Errors/Listeners";
 
 const FamilyRoom = () => {
-  const { state: roomsState } = useLocation();
+  const { roomId } = useParams();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -29,9 +29,8 @@ const FamilyRoom = () => {
     familyRoomListeners(socket, dispatch);
     errorListeners(socket, navigate, dispatch);
 
-    // Setting the rooms when the page refresh.
-    dispatch(setRooms(roomsState.rooms));
-    dispatch(setCurrentRoom(roomsState.currentRoom));
+    // Setting the current room when the page refresh.
+    dispatch(setCurrentRoom(roomId));
 
     socket.connect();
 

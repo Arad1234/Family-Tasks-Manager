@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { useAppSelector } from "../../../redux/hooks";
 import { extractUserFromLocalStorage } from "../../../utils/LocalStorage/extractUser";
 import Task from "./Task/Task";

@@ -42,7 +42,6 @@ export const roomsListeners = (socket: Socket, dispatch: AppDispatch) => {
 
   socket.on("taskCreated", (data) => {
     const { newTask, memberId } = data;
-    console.log(newTask, memberId);
     dispatch(setAddTask({ newTask, memberId }));
     dispatch(setLoading(false));
   });

@@ -10,6 +10,8 @@ export interface ITask {
   name: string;
   description: string;
   timeToDo: Date | null;
+  createdAt: Date;
+  updatedAt: Date;
   _id: string;
 }
 

@@ -11,7 +11,7 @@ interface Props {
 const ShowMembersButton = ({ room }: Props) => {
   const dispatch = useAppDispatch();
   const handleShowMembers = () => {
-    dispatch(setCurrentRoom(room));
+    dispatch(setCurrentRoom(room._id));
     dispatch(setShowModal({ isOpen: true, modalStatus: "members" }));
   };
   return (
