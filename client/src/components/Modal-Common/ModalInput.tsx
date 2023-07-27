@@ -21,7 +21,6 @@ const ModalInput = ({ type, setChange, label, isRequired }: Props) => {
     if (type === "number") {
       inputValue = valueAsNumber;
     } else if (type === "date") {
-      console.log("ARADARAD");
       inputValue = valueAsDate;
     } else {
       inputValue = value;

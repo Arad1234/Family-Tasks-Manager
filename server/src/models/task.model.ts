@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
 import { ITask } from "../types/mongoose";
 
-export const taskSchema = new mongoose.Schema<ITask>(
+export const taskSchema = new Schema<ITask>(
   {
     name: String,
     description: String,
@@ -10,6 +10,6 @@ export const taskSchema = new mongoose.Schema<ITask>(
   { versionKey: false, timestamps: true }
 );
 
-const Task = mongoose.model("Task", taskSchema);
+const Task = model("Task", taskSchema);
 
 export default Task;

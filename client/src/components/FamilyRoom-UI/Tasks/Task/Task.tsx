@@ -1,5 +1,9 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { ITask } from "../../../../types";
+import TaskName from "./TaskName";
+import TaskDescription from "./TaskDescription";
+import TaskCreatedAt from "./TaskCreatedAt";
+import TaskTimeToDo from "./TaskTimeToDo";
 
 interface Props {
   task: ITask;
@@ -17,19 +21,12 @@ const Task = ({ task }: Props) => {
       }}
     >
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Typography
-          sx={{
-            fontSize: "18px",
-            fontWeight: "600",
-          }}
-        >
-          {task.name}
-        </Typography>
-        <Typography>{task.timeToDo?.toString()}</Typography>
+        <TaskName taskName={task.name} />
+        <TaskCreatedAt taskCreatedAt={task.createdAt} />
       </Box>
-      <Typography sx={{ wordWrap: "break-word" }}>
-        {task.description}
-      </Typography>
+
+      <TaskDescription TaskDescription={task.description} />
+      {task.timeToDo && <TaskTimeToDo TaskTimeToDo={task.timeToDo} />}
     </Box>
   );
 };

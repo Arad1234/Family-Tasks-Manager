@@ -1,7 +1,7 @@
 import { Model, Schema, Types, model } from "mongoose";
 import { IRoom } from "../types/mongoose";
 import bcrypt from "bcrypt";
-import { taskSchema } from "./task.model";
+import { memberSchema } from "./member.model";
 
 interface IRoomMethods {
   removePasswordProp: () => Omit<IRoom, "roomPassword">;
@@ -14,21 +14,15 @@ type RoomModel = Model<IRoom, {}, IRoomMethods>;
 const roomSchema = new Schema<IRoom, RoomModel, IRoomMethods>(
   {
     roomName: String,
-    creator: { userId: Types.ObjectId, username: String },
-    familyMembers: [
-      {
-        _id: false,
-        userId: { type: Types.ObjectId, ref: "users" },
-        username: String,
-        tasks: [taskSchema],
-      },
-    ],
+    creator: { userId: Schema.Types.ObjectId, username: String },
+    familyMembers: [memberSchema],
     maxMembers: Number,
     roomPassword: String,
   },
   { versionKey: false }
 );
 
+// Middlewares
 roomSchema.pre("save", async function (next) {
   const room = this;
 
@@ -45,6 +39,7 @@ roomSchema.pre("save", async function (next) {
   }
 });
 
+// Methods
 roomSchema.methods.validatePassword = async function (roomPasword: string) {
   const isPasswordValid = await bcrypt.compare(roomPasword, this.roomPassword);
   return isPasswordValid;

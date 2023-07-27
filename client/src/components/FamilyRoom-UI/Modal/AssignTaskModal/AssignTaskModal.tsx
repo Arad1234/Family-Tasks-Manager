@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { addTaskSocket } from "../../../../socket/socketEventEmitters";
+import { addTaskSocket } from "../../../../socket/FamilyRoom/EventEmitters";
 import ModalButton from "../../../Modal-Common/ModalButton";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
 import ModalTitle from "../../../Modal-Common/ModalTitle";

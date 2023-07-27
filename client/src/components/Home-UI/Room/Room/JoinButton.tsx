@@ -15,7 +15,7 @@ const JoinButton = ({ room }: Props) => {
     dispatch(setShowModal({ isOpen: true, modalStatus: "join" }));
 
     // When the "Join" button is clicked I set the roomId to the redux store.
-    dispatch(setCurrentRoom(room));
+    dispatch(setCurrentRoom(room._id));
   };
 
   return (
