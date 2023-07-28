@@ -19,7 +19,7 @@ export const createTask = async (taskData: createTaskSchemaType) => {
     }
 
     await room?.save();
-    return newTask;
+    return { newTask, roomId: room?._id };
   } catch (error: any) {
     throw new Error(error);
   }

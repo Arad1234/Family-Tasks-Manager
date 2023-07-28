@@ -1,10 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import JoinButton from "./JoinButton";
-import DeleteButton from "../DeleteButton/DeleteButton";
+import DeleteButton from "./DeleteButton/DeleteButton";
 import { IRoom } from "../../../../types/index";
-import { extractUserFromLocalStorage } from "../../../../utils/LocalStorage/extractUser";
+import { extractUserFromLocalStorage } from "../../../../utils/helpers/LocalStorage/extractUser";
 import EnterRoomButton from "./EnterRoomButton";
-import ShowMembersButton from "./ShowMembersButton";
 import RoomName from "./RoomName";
 
 interface Props {
@@ -45,7 +44,6 @@ const Room = ({ room }: Props) => {
           <Typography sx={{ fontSize: "20px" }}>
             Members: {familyMembers.length}/{maxMembers}
           </Typography>
-          {isMember && <ShowMembersButton room={room} />}
         </Box>
       </Box>
 

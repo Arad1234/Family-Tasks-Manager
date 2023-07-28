@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { IMember } from "../../../../types";
-import { extractUserFromLocalStorage } from "../../../../utils/LocalStorage/extractUser";
+import { extractUserFromLocalStorage } from "../../../../utils/helpers/LocalStorage/extractUser";
 import { useAppSelector } from "../../../../redux/hooks";
 import AssignTaskModal from "../../Modal/AssignTaskModal/AssignTaskModal";
 import { useState } from "react";

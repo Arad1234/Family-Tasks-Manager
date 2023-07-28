@@ -5,7 +5,6 @@ import RoomHeader from "../../components/FamilyRoom-UI/RoomHeader/RoomHeader";
 import RoomOptions from "../../components/FamilyRoom-UI/RoomOptions/RoomOptions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import AllTasks from "../../components/FamilyRoom-UI/Tasks/AllTasks";
-import Calender from "../../components/FamilyRoom-UI/Calender/Calender";
 import { useEffect } from "react";
 import { setCurrentRoom } from "../../redux/slices/Rooms/rooms-slice";
 import AllMembers from "../../components/FamilyRoom-UI/Members/AllMembers";
@@ -21,16 +20,14 @@ const FamilyRoom = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const { loading } = useAppSelector((state) => state.authReducer);
-  const { currentRoom } = useAppSelector((state) => state.roomsReducer);
+  const { currentRoom, rooms } = useAppSelector((state) => state.roomsReducer);
   const { option } = useAppSelector((state) => state.roomOptionsReducer);
 
   useEffect(() => {
     familyRoomListeners(socket, dispatch);
     errorListeners(socket, navigate, dispatch);
-
-    // Setting the current room when the page refresh.
-    dispatch(setCurrentRoom(roomId));
 
     socket.connect();
 
@@ -42,10 +39,14 @@ const FamilyRoom = () => {
     };
   }, []);
 
+  useEffect(() => {
+    // Setting the current room when the page refresh or navigates to a different family room.
+    dispatch(setCurrentRoom(roomId));
+  }, [roomId, rooms]); // When the user add task, "rooms" state is changing, therefore I need to dispatch again the current room to reflect the changes.
+
   return (
     <Box>
       <RoomHeader>{currentRoom?.roomName}</RoomHeader>
-
       <WelcomeTitle />
 
       <RoomOptions />
@@ -55,7 +56,6 @@ const FamilyRoom = () => {
       ) : (
         <Box sx={{ padding: "10px" }}>
           {option === "tasks" && <AllTasks />}
-          {option === "calender" && <Calender />}
           {option === "members" && <AllMembers />}
         </Box>
       )}

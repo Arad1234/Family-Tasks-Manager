@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { loginThunk } from "../../redux/actions/Auth/auth-actions";
 import { setEmail, setPassword } from "../../redux/slices/Auth/auth-slice";
@@ -13,11 +13,16 @@ import LinkComponent from "../../components/Link/LinkComponent";
 import { InputChangeEvent } from "../../types";
 import BackgroundImage from "../../components/Auth-UI/BackgroundImage";
 import TitleComponent from "../../components/Auth-UI/TitleComponent";
+import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { VITE_SCOPES } from "../../utils/constants";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { email, password } = useAppSelector((state) => state.authReducer);
+  const supabase = useSupabaseClient();
+  const session = useSession();
+
   const handleEmailChange = (e: InputChangeEvent) => {
     dispatch(setEmail(e.target.value));
   };
@@ -30,12 +35,31 @@ const Login = () => {
     e.preventDefault();
     const response = await dispatch(loginThunk({ email, password }));
     console.log(response);
+
     if (response.error) {
       alert(response.payload);
-    } else {
-      navigate("/home");
+      return;
+    }
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        scopes: VITE_SCOPES,
+      },
+    });
+
+    if (error) {
+      alert("Error logging in to Google provider with Supabase");
+      console.log(error);
+      return;
     }
   };
+
+  useEffect(() => {
+    console.log(session?.provider_token);
+    if (session?.provider_token) {
+      navigate("/home");
+    }
+  }, [session?.provider_token]);
 
   return (
     <BackgroundImage>

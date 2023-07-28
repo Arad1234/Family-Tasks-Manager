@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { useAppSelector } from "../../../redux/hooks";
-import { extractUserFromLocalStorage } from "../../../utils/LocalStorage/extractUser";
+import { extractUserFromLocalStorage } from "../../../utils/helpers/LocalStorage/extractUser";
 import Task from "./Task/Task";
 
 const AllTasks = () => {

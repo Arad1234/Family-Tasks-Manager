@@ -5,18 +5,18 @@ import CreateRoomModal from "../../components/Home-UI/Modal/CreateRoomModal/Crea
 import { Box } from "@mui/material";
 import Loader from "../../components/Loader/Loader";
 import JoinRoomModal from "../../components/Home-UI/Modal/JoinRoomModal/JoinRoomModal";
-import LinkComponent from "../../components/Link/LinkComponent";
 import { socket } from "../../socket/socket";
-import CreateButton from "../../components/Home-UI/Buttons/CreateRoomButton";
 import { removeRoomsListeners } from "../../socket/Rooms/RemoveListeners";
 import SearchInput from "../../components/Home-UI/SearchInput/SearchInput";
 import DeleteRoomModal from "../../components/Home-UI/Modal/DeleteRoomModal/DeleteRoomModal";
 import { getRoomsSocket } from "../../socket/Rooms/EventEmitters";
 import AllRooms from "../../components/Home-UI/Room/AllRooms";
-import ShowMembersModal from "../../components/Home-UI/Modal/ShowMembersModal/ShowMembersModal";
 import { roomsListeners } from "../../socket/Rooms/Listeners";
 import { errorListeners } from "../../socket/Errors/Listeners";
 import { removeErrorListeners } from "../../socket/Errors/RemoveListeners";
+import NewRoomButton from "../../components/Home-UI/Buttons/NewRoomButton";
+import SignOut from "../../components/Home-UI/Buttons/SignOut";
+import { useSession } from "@supabase/auth-helpers-react";
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -24,8 +24,12 @@ const Home = () => {
   const { loading } = useAppSelector((state) => state.authReducer);
   const { modalStatus } = useAppSelector((state) => state.modalReducer);
   const navigate = useNavigate();
+  const session = useSession();
 
   useEffect(() => {
+    if (!session?.provider_token) {
+      navigate("/");
+    }
     roomsListeners(socket, dispatch);
     errorListeners(socket, navigate, dispatch);
 
@@ -38,7 +42,7 @@ const Home = () => {
       removeErrorListeners(socket);
       socket.disconnect();
     };
-  }, []);
+  }, [session?.provider_token]);
 
   if (loading) {
     return <Loader />;
@@ -54,8 +58,8 @@ const Home = () => {
           alignItems: "center",
         }}
       >
-        <CreateButton />
-        <LinkComponent href="/">Sign Out</LinkComponent>
+        <NewRoomButton />
+        <SignOut />
       </Box>
 
       <SearchInput setSearchQuery={setSearchQuery} />
@@ -65,7 +69,6 @@ const Home = () => {
       {modalStatus === "create" && <CreateRoomModal />}
       {modalStatus === "join" && <JoinRoomModal />}
       {modalStatus === "delete" && <DeleteRoomModal />}
-      {modalStatus === "members" && <ShowMembersModal />}
     </Box>
   );
 };

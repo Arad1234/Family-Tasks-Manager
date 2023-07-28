@@ -6,8 +6,8 @@ import { socketErrorHandler } from "../middlewares/socket/errorHandler";
 export const taskHandler = (io: Server, socket: Socket) => {
   const createTaskHandler = async (payload: createTaskSchemaType) => {
     try {
-      const newTask = await createTask(payload);
-      io.emit("taskCreated", { newTask, memberId: payload.memberId });
+      const { newTask, roomId } = await createTask(payload);
+      io.emit("taskCreated", { newTask, memberId: payload.memberId, roomId });
     } catch (error: any) {
       console.log(error);
       socket.emit("error", error.message);

@@ -1,7 +1,7 @@
-import { useAppDispatch } from "../../../../redux/hooks";
-import { setCurrentRoom } from "../../../../redux/slices/Rooms/rooms-slice";
-import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
-import { IRoom } from "../../../../types";
+import { useAppDispatch } from "../../../../../redux/hooks";
+import { setCurrentRoom } from "../../../../../redux/slices/Rooms/rooms-slice";
+import { setShowModal } from "../../../../../redux/slices/Modal/modal-slice";
+import { IRoom } from "../../../../../types";
 import "./DeleteButton.scss";
 import { MdDelete } from "react-icons/md";
 

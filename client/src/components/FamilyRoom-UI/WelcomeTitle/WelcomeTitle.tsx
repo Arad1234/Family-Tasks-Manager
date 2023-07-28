@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { extractUserFromLocalStorage } from "../../../utils/LocalStorage/extractUser";
+import { extractUserFromLocalStorage } from "../../../utils/helpers/LocalStorage/extractUser";
 
 const WelcomeTitle = () => {
   const { parsedUsername: currentUsername } = extractUserFromLocalStorage();
