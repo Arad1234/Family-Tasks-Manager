@@ -24,12 +24,10 @@ const Home = () => {
   const { loading } = useAppSelector((state) => state.authReducer);
   const { modalStatus } = useAppSelector((state) => state.modalReducer);
   const navigate = useNavigate();
+
   const session = useSession();
 
   useEffect(() => {
-    if (!session?.provider_token) {
-      navigate("/");
-    }
     roomsListeners(socket, dispatch);
     errorListeners(socket, navigate, dispatch);
 
@@ -42,6 +40,12 @@ const Home = () => {
       removeErrorListeners(socket);
       socket.disconnect();
     };
+  }, []);
+
+  useEffect(() => {
+    if (!session?.provider_token) {
+      navigate("/");
+    }
   }, [session?.provider_token]);
 
   if (loading) {

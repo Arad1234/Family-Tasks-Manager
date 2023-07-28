@@ -14,7 +14,7 @@ import { InputChangeEvent } from "../../types";
 import BackgroundImage from "../../components/Auth-UI/BackgroundImage";
 import TitleComponent from "../../components/Auth-UI/TitleComponent";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
-import { VITE_SCOPES } from "../../utils/constants";
+import { SignInWithOAuth } from "../../Supabase/Supabase-auth";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -40,12 +40,9 @@ const Login = () => {
       alert(response.payload);
       return;
     }
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        scopes: VITE_SCOPES,
-      },
-    });
+
+    // This will create a session with "provider_token" so the useEffect will navigate to the "/home" url.
+    const { error } = await SignInWithOAuth(supabase);
 
     if (error) {
       alert("Error logging in to Google provider with Supabase");

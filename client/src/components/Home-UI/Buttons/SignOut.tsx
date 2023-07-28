@@ -1,14 +1,12 @@
 import { Button } from "@mui/material";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { useNavigate } from "react-router-dom";
 
 const SignOut = () => {
-  const navigate = useNavigate();
   const supabase = useSupabaseClient();
 
   const handleSignOut = () => {
+    // This will delete the "provider_token" and the session object, therefore the useEffect in the "Home" component will navigate to "/" route.
     supabase.auth.signOut();
-    navigate("/");
   };
 
   return (
