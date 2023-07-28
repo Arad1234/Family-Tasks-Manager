@@ -9,7 +9,7 @@ const ExitIcon = () => {
     <Box
       onClick={() => navigate("/home")}
       sx={{
-        position: "fixed",
+        position: "absolute",
         left: "7px",
         top: "7px",
         width: "50px",
