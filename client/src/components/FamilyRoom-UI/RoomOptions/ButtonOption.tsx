@@ -17,8 +17,8 @@ const ButtonOption = ({ handleClick, optionValue, children }: Props) => {
       variant="outlined"
       sx={{
         borderRadius: "20px",
-        width: "7rem",
-        height: "3.5rem",
+        width: "8rem",
+        height: "3rem",
         backgroundColor: option === optionValue ? "#ffffcc" : "",
         ":hover": {
           backgroundColor: "#ffffcc",

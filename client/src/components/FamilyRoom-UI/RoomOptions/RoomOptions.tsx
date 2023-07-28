@@ -9,9 +9,6 @@ const RoomOptions = () => {
   const handleTaskOption = () => {
     dispatch(setOption("tasks"));
   };
-  const handleCalenderOption = () => {
-    dispatch(setOption("calender"));
-  };
   const handleMembersOption = () => {
     dispatch(setOption("members"));
   };
@@ -20,7 +17,8 @@ const RoomOptions = () => {
     <Box
       sx={{
         display: "flex",
-        justifyContent: "space-around",
+        justifyContent: "center",
+        gap: "30px",
         padding: "15px 0px 15px 0px",
       }}
     >
@@ -29,12 +27,6 @@ const RoomOptions = () => {
         optionValue="tasks"
       >
         Your Tasks
-      </ButtonOption>
-      <ButtonOption
-        handleClick={handleCalenderOption}
-        optionValue="calender"
-      >
-        Calender
       </ButtonOption>
       <ButtonOption
         handleClick={handleMembersOption}

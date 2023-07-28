@@ -5,8 +5,8 @@ import { setAddTask } from "../../redux/slices/Rooms/rooms-slice";
 
 export const familyRoomListeners = (socket: Socket, dispatch: AppDispatch) => {
   socket.on("taskCreated", (data) => {
-    const { newTask, memberId } = data;
-    dispatch(setAddTask({ newTask, memberId }));
+    const { newTask, memberId, roomId } = data;
+    dispatch(setAddTask({ newTask, memberId, roomId }));
     dispatch(setLoading(false));
   });
 };

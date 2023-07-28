@@ -46,15 +46,15 @@ const roomsSlice = createSlice({
     },
 
     setAddTask(state, { payload }) {
-      const { newTask, memberId } = payload;
+      const { newTask, memberId, roomId } = payload;
       state.rooms = state.rooms.map((room) => {
-        room.familyMembers.map((member) => {
-          if (member.userId === memberId) {
-            member.tasks.push(newTask);
-            state.currentRoom = room; // Updating the current room with the new updated state, to reflect changes in the "Tasks" component UI.
-          }
-          return member;
-        });
+        if (room._id === roomId) {
+          room.familyMembers.map((member) => {
+            if (member.userId === memberId) {
+              member.tasks.push(newTask);
+            }
+          });
+        }
         return room;
       });
     },

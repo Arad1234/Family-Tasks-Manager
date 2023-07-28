@@ -1,11 +1,11 @@
 import { Typography } from "@mui/material";
 
 interface Props {
-  TaskTimeToDo: Date;
+  taskTimeToDo: Date;
 }
 
-const TaskTimeToDo = ({ TaskTimeToDo }: Props) => {
-  const formattedTimeToDo = new Date(TaskTimeToDo).toLocaleString("he-IL");
+const TaskTimeToDo = ({ taskTimeToDo }: Props) => {
+  const formattedTimeToDo = new Date(taskTimeToDo).toLocaleString("he-IL");
 
   return <Typography>Time To Do: {formattedTimeToDo}</Typography>;
 };

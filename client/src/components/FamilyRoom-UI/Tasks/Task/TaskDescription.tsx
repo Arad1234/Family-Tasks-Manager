@@ -1,12 +1,12 @@
 import { Typography } from "@mui/material";
 
 interface Props {
-  TaskDescription: string;
+  taskDescription: string;
 }
 
-const TaskDescription = ({ TaskDescription }: Props) => {
+const TaskDescription = ({ taskDescription }: Props) => {
   return (
-    <Typography sx={{ wordWrap: "break-word" }}>{TaskDescription}</Typography>
+    <Typography sx={{ wordWrap: "break-word" }}>{taskDescription}</Typography>
   );
 };
 

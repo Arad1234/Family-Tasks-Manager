@@ -4,6 +4,7 @@ import TaskName from "./TaskName";
 import TaskDescription from "./TaskDescription";
 import TaskCreatedAt from "./TaskCreatedAt";
 import TaskTimeToDo from "./TaskTimeToDo";
+import AddToCalendarButton from "./AddToCalendarButton";
 
 interface Props {
   task: ITask;
@@ -25,8 +26,9 @@ const Task = ({ task }: Props) => {
         <TaskCreatedAt taskCreatedAt={task.createdAt} />
       </Box>
 
-      <TaskDescription TaskDescription={task.description} />
-      {task.timeToDo && <TaskTimeToDo TaskTimeToDo={task.timeToDo} />}
+      <TaskDescription taskDescription={task.description} />
+      {task.timeToDo && <TaskTimeToDo taskTimeToDo={task.timeToDo} />}
+      <AddToCalendarButton task={task} />
     </Box>
   );
 };

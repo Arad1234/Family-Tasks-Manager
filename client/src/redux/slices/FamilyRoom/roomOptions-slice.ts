@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface InitialState {
-  option: "tasks" | "calender" | "members";
+  option: "tasks" | "members";
 }
 
 const initialState: InitialState = {
