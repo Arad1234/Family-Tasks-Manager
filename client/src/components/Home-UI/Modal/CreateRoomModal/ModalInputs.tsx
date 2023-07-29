@@ -14,18 +14,24 @@ const ModalInputs = () => {
         setChange={setRoomName}
         label="Room name"
         isRequired={true}
+        disabled={false}
+
       />
       <ModalInput
         type="number"
         setChange={setMaxMembers}
         label="Maximum members"
         isRequired={true}
+        disabled={false}
+
       />
       <ModalInput
         type="password"
         setChange={setPassword}
         label="Room Password"
         isRequired={true}
+        disabled={false}
+
       />
     </Box>
   );

@@ -9,7 +9,8 @@ export interface IUser extends Document {
 interface ITask extends Document {
   name: string;
   description: string | undefined;
-  timeToDo?: Date | null;
+  startTime: Date | null;
+  endTime: Date | null;
 }
 
 interface IMember extends Document {

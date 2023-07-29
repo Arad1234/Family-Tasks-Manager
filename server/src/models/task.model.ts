@@ -5,7 +5,8 @@ export const taskSchema = new Schema<ITask>(
   {
     name: String,
     description: String,
-    timeToDo: Date,
+    startTime: Date,
+    endTime: Date,
   },
   { versionKey: false, timestamps: true }
 );

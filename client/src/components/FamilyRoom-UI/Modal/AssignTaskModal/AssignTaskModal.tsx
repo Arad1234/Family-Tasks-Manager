@@ -11,7 +11,7 @@ interface Props {
 
 const AssignTaskModal = ({ clickedUserId }: Props) => {
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);
-  const { name, description, timeToDo } = useAppSelector(
+  const { name, description, startTime, endTime } = useAppSelector(
     (state) => state.createTaskReducer
   );
 
@@ -23,7 +23,8 @@ const AssignTaskModal = ({ clickedUserId }: Props) => {
       roomId: currentRoom._id,
       name,
       description,
-      timeToDo,
+      startTime,
+      endTime,
     });
   };
 

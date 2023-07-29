@@ -14,13 +14,19 @@ import { removeFamilyRoomListeners } from "../../socket/FamilyRoom/RemoveListene
 import Loader from "../../components/Loader/Loader";
 import { removeErrorListeners } from "../../socket/Errors/RemoveListeners";
 import { errorListeners } from "../../socket/Errors/Listeners";
+import { useSession } from "@supabase/auth-helpers-react";
+import { fetchGoogleCalendarEvents } from "../../Supabase/Api";
 
 const FamilyRoom = () => {
   const { roomId } = useParams();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
+  const session = useSession(); // Supabase session.
+  const { eventsIdList } = useAppSelector(
+    (state) => state.calendarEventsReducer
+  );
+  console.log(eventsIdList);
   const { loading } = useAppSelector((state) => state.authReducer);
   const { currentRoom, rooms } = useAppSelector((state) => state.roomsReducer);
   const { option } = useAppSelector((state) => state.roomOptionsReducer);
@@ -40,18 +46,25 @@ const FamilyRoom = () => {
   }, []);
 
   useEffect(() => {
+    if (session?.provider_token) {
+      fetchGoogleCalendarEvents(session, dispatch);
+    }
+  }, [session?.provider_token]);
+
+  useEffect(() => {
     // Setting the current room when the page refresh or navigates to a different family room.
     dispatch(setCurrentRoom(roomId));
   }, [roomId, rooms]); // When the user add task, "rooms" state is changing, therefore I need to dispatch again the current room to reflect the changes.
 
   return (
-    <Box>
+    <>
       <RoomHeader>{currentRoom?.roomName}</RoomHeader>
+
       <WelcomeTitle />
 
       <RoomOptions />
 
-      {loading ? (
+      {loading || !session ? (
         <Loader />
       ) : (
         <Box sx={{ padding: "10px" }}>
@@ -59,7 +72,7 @@ const FamilyRoom = () => {
           {option === "members" && <AllMembers />}
         </Box>
       )}
-    </Box>
+    </>
   );
 };
 

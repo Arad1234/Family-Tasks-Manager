@@ -14,7 +14,7 @@ import { InputChangeEvent } from "../../types";
 import BackgroundImage from "../../components/Auth-UI/BackgroundImage";
 import TitleComponent from "../../components/Auth-UI/TitleComponent";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
-import { SignInWithOAuth } from "../../Supabase/Supabase-auth";
+import { SignInWithOAuth } from "../../Supabase/OAuth";
 
 const Login = () => {
   const navigate = useNavigate();

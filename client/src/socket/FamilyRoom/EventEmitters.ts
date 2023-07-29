@@ -9,14 +9,16 @@ export const addTaskSocket = (
   dispatch: AppDispatch,
   addTaskData: AddTaskData
 ) => {
-  const { description, memberId, name, roomId, timeToDo } = addTaskData;
+  const { description, memberId, name, roomId, startTime, endTime } =
+    addTaskData;
   dispatch(setLoading(true));
   socket.emit("tasks:create", {
     memberId,
     roomId,
     name,
     description,
-    timeToDo,
+    startTime,
+    endTime,
   });
 
   hideModal(dispatch);
