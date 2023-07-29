@@ -1,13 +1,26 @@
 import { Typography } from "@mui/material";
+import { ITask } from "../../../../types";
 
 interface Props {
-  taskTimeToDo: Date;
+  task: ITask;
 }
 
-const TaskTimeToDo = ({ taskTimeToDo }: Props) => {
-  const formattedTimeToDo = new Date(taskTimeToDo).toLocaleString("he-IL");
+const TaskTimeToDo = ({ task }: Props) => {
+  const formattedStartTime = new Date(task.startTime as Date).toLocaleString(
+    "he-IL",
+    { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }
+  );
+  const formattedEndTime = new Date(task.endTime as Date).toLocaleString(
+    "he-IL",
+    { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }
+  );
 
-  return <Typography>Time To Do: {formattedTimeToDo}</Typography>;
+  return (
+    <>
+      <Typography>Start Time: {formattedStartTime}</Typography>
+      <Typography>End Time: {formattedEndTime}</Typography>
+    </>
+  );
 };
 
 export default TaskTimeToDo;

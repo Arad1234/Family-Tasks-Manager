@@ -3,10 +3,15 @@ import Task from "../models/task.model";
 import { createTaskSchemaType } from "../schema/task/createTaskSchema";
 
 export const createTask = async (taskData: createTaskSchemaType) => {
-  const { name, description, timeToDo, memberId, roomId } = taskData;
+  const { name, description, startTime, endTime, memberId, roomId } = taskData;
 
   try {
-    const newTask = await Task.create({ name, description, timeToDo });
+    const newTask = await Task.create({
+      name,
+      description,
+      startTime,
+      endTime,
+    });
     const room = await Room.findOne({ _id: roomId });
 
     if (room) {

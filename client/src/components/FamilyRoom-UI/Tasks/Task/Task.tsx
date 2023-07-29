@@ -27,7 +27,7 @@ const Task = ({ task }: Props) => {
       </Box>
 
       <TaskDescription taskDescription={task.description} />
-      {task.timeToDo && <TaskTimeToDo taskTimeToDo={task.timeToDo} />}
+      {task.startTime && <TaskTimeToDo task={task} />}
       <AddToCalendarButton task={task} />
     </Box>
   );

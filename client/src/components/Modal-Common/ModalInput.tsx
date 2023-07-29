@@ -10,9 +10,16 @@ interface Props {
   };
   label: string;
   isRequired: boolean;
+  disabled: boolean;
 }
 
-const ModalInput = ({ type, setChange, label, isRequired }: Props) => {
+const ModalInput = ({
+  type,
+  setChange,
+  label,
+  isRequired,
+  disabled,
+}: Props) => {
   const dispatch = useAppDispatch();
 
   const handleInputChange = (e: InputChangeEvent) => {
@@ -38,6 +45,7 @@ const ModalInput = ({ type, setChange, label, isRequired }: Props) => {
         required={isRequired}
         label={isRequired ? "Required" : ""}
         type={type}
+        disabled={disabled}
       />
     </Box>
   );

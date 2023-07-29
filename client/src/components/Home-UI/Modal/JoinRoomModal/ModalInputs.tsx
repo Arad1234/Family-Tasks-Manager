@@ -10,6 +10,7 @@ const ModalInputs = () => {
         setChange={setRoomPassword}
         label="Room Password"
         isRequired={true}
+        disabled={false}
       />
     </Box>
   );

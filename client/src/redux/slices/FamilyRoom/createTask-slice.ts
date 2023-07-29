@@ -4,7 +4,8 @@ import { TaskCreation } from "../../../types";
 const initialState: TaskCreation = {
   name: "",
   description: "",
-  timeToDo: null,
+  startTime: null,
+  endTime: null,
 };
 
 const createTaskSlice = createSlice({
@@ -17,13 +18,17 @@ const createTaskSlice = createSlice({
     setTaskDescription(state, { payload }) {
       state.description = payload;
     },
-    setTaskTime(state, { payload }) {
-      state.timeToDo = payload;
+    setTaskStartTime(state, { payload }) {
+      state.startTime = payload === "" ? null : payload;
+    },
+    setTaskEndTime(state, { payload }) {
+      state.endTime = payload === "" ? null : payload;
     },
     resetTaskDetails(state) {
       state.name = "";
       state.description = "";
-      state.timeToDo = null;
+      state.startTime = null;
+      state.endTime = null;
     },
   },
 });
@@ -31,7 +36,8 @@ const createTaskSlice = createSlice({
 export const {
   setTaskDescription,
   setTaskName,
-  setTaskTime,
+  setTaskStartTime,
+  setTaskEndTime,
   resetTaskDetails,
 } = createTaskSlice.actions;
 
