@@ -27,8 +27,12 @@ const Task = ({ task }: Props) => {
       </Box>
 
       <TaskDescription taskDescription={task.description} />
-      {task.startTime && <TaskTimeToDo task={task} />}
-      <AddToCalendarButton task={task} />
+      {task.startTime && (
+        <>
+          <TaskTimeToDo task={task} />
+          <AddToCalendarButton task={task} />
+        </>
+      )}
     </Box>
   );
 };

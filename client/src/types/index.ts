@@ -11,8 +11,8 @@ export interface ITask {
   description: string;
   startTime: Date | null;
   endTime: Date | null;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   _id: string;
 }
 
@@ -56,6 +56,7 @@ export interface AddTaskData {
 }
 
 export interface GoogleCalendarEventCreation {
+  location: string;
   summary: string;
   description: string;
   start: {
@@ -64,4 +65,9 @@ export interface GoogleCalendarEventCreation {
   end: {
     dateTime: string;
   };
+}
+
+export interface EventIdAndLocation {
+  id: string;
+  location: string;
 }

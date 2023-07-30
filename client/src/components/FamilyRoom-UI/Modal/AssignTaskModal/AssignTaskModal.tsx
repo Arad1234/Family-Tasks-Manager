@@ -18,14 +18,18 @@ const AssignTaskModal = ({ clickedUserId }: Props) => {
   const dispatch = useAppDispatch();
 
   const handleAddTask = () => {
-    addTaskSocket(dispatch, {
-      memberId: clickedUserId,
-      roomId: currentRoom._id,
-      name,
-      description,
-      startTime,
-      endTime,
-    });
+    if ((startTime && endTime) || (!startTime && !endTime)) {
+      addTaskSocket(dispatch, {
+        memberId: clickedUserId,
+        roomId: currentRoom._id,
+        name,
+        description,
+        startTime,
+        endTime,
+      });
+    } else if (startTime) {
+      alert("End time must be provided!");
+    }
   };
 
   return (

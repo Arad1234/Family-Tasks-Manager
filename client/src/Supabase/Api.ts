@@ -5,8 +5,9 @@ import { AppDispatch } from "../redux/store";
 import {
   setAddGoogleEvent,
   setDeleteGoogleEvent,
-  setEventsId,
+  setEventsIdAndLocation,
 } from "../redux/slices/CalendarEvents/CalendarEvents";
+import { setShowModal } from "../redux/slices/Modal/modal-slice";
 
 export const fetchGoogleCalendarEvents = async (
   session: Session,
@@ -19,12 +20,13 @@ export const fetchGoogleCalendarEvents = async (
       },
     });
     const data = await response.json();
-    console.log(data);
-    dispatch(setEventsId(data.items));
-  } catch (error: any) {
+    console.log(data.items);
+    dispatch(setEventsIdAndLocation(data.items));
+  } catch (error) {
     console.log(error);
   }
 };
+
 export const createGoogleCalendarEvent = async (
   event: GoogleCalendarEventCreation,
   session: Session,
@@ -42,30 +44,29 @@ export const createGoogleCalendarEvent = async (
     if (data.error) {
       console.log(data.error);
     } else {
-      dispatch(setAddGoogleEvent(data.id));
+      console.log(data);
+      dispatch(setAddGoogleEvent({ location: data.location, id: data.id }));
+      alert("Created Event!");
     }
-  } catch (error: any) {
+  } catch (error) {
     console.log(error);
   }
 };
 
 export const deleteGoogleCalendarEvent = async (
-  taskId: string,
+  eventToDeleteId: string,
   session: Session,
   dispatch: AppDispatch
 ) => {
   try {
-    const response = await fetch(
-      `${googleCalendarBaseURL}/primary/events/${taskId}`,
-      {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${session?.provider_token}` },
-      }
-    );
+    await fetch(`${googleCalendarBaseURL}/primary/events/${eventToDeleteId}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${session?.provider_token}` },
+    });
 
-    const data = await response.json();
-
-    dispatch(setDeleteGoogleEvent(data.id));
+    dispatch(setDeleteGoogleEvent(eventToDeleteId));
+    dispatch(setShowModal({ isOpen: false, modalStatus: "" }));
+    alert("Deleted Event!");
   } catch (error) {
     console.log(error);
   }
