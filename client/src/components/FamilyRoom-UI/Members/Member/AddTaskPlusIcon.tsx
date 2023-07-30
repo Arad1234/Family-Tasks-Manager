@@ -1,19 +1,13 @@
 import { Box } from "@mui/material";
 import { AiOutlinePlus } from "react-icons/ai";
 import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
-import React from "react";
 import { useAppDispatch } from "../../../../redux/hooks";
 
-interface Props {
-  setClickedUserId: React.Dispatch<React.SetStateAction<string>>;
-  memberId: string;
-}
-const AddTaskPlusIcon = ({ setClickedUserId, memberId }: Props) => {
+const AddTaskPlusIcon = () => {
   const disptach = useAppDispatch();
 
   const handleOpenModal = () => {
     disptach(setShowModal({ isOpen: true, modalStatus: "assignTask" }));
-    setClickedUserId(memberId);
   };
 
   return (

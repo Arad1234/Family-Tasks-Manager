@@ -5,8 +5,12 @@ import {
   setRoomName,
 } from "../../../../redux/slices/Rooms/createRoom-slice";
 import ModalInput from "../../../Modal-Common/ModalInput";
+import { useAppSelector } from "../../../../redux/hooks";
 
 const ModalInputs = () => {
+  const { maxMembers, roomName, roomPassword } = useAppSelector(
+    (state) => state.createRoomReducer
+  );
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
       <ModalInput
@@ -15,7 +19,7 @@ const ModalInputs = () => {
         label="Room name"
         isRequired={true}
         disabled={false}
-
+        value={roomName}
       />
       <ModalInput
         type="number"
@@ -23,7 +27,7 @@ const ModalInputs = () => {
         label="Maximum members"
         isRequired={true}
         disabled={false}
-
+        value={maxMembers}
       />
       <ModalInput
         type="password"
@@ -31,7 +35,7 @@ const ModalInputs = () => {
         label="Room Password"
         isRequired={true}
         disabled={false}
-
+        value={roomPassword}
       />
     </Box>
   );

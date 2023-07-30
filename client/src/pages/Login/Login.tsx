@@ -47,12 +47,10 @@ const Login = () => {
     if (error) {
       alert("Error logging in to Google provider with Supabase");
       console.log(error);
-      return;
     }
   };
 
   useEffect(() => {
-    console.log(session?.provider_token);
     if (session?.provider_token) {
       navigate("/home");
     }

@@ -1,15 +1,16 @@
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { addTaskSocket } from "../../../../socket/FamilyRoom/EventEmitters";
+import { IMember } from "../../../../types";
 import ModalButton from "../../../Modal-Common/ModalButton";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
 import ModalTitle from "../../../Modal-Common/ModalTitle";
 import ModalInputs from "./ModalInputs";
 
 interface Props {
-  clickedUserId: string;
+  member: IMember;
 }
 
-const AssignTaskModal = ({ clickedUserId }: Props) => {
+const AssignTaskModal = ({ member }: Props) => {
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);
   const { name, description, startTime, endTime } = useAppSelector(
     (state) => state.createTaskReducer
@@ -20,7 +21,7 @@ const AssignTaskModal = ({ clickedUserId }: Props) => {
   const handleAddTask = () => {
     if ((startTime && endTime) || (!startTime && !endTime)) {
       addTaskSocket(dispatch, {
-        memberId: clickedUserId,
+        memberId: member.userId,
         roomId: currentRoom._id,
         name,
         description,
@@ -34,7 +35,7 @@ const AssignTaskModal = ({ clickedUserId }: Props) => {
 
   return (
     <ModalComponent>
-      <ModalTitle>Assign Task</ModalTitle>
+      <ModalTitle>Assign Task to {member.username}</ModalTitle>
       <ModalInputs />
       <ModalButton handleClick={handleAddTask}>Add Task</ModalButton>
     </ModalComponent>

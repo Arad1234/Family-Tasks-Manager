@@ -9,7 +9,9 @@ import {
 import { useAppSelector } from "../../../../redux/hooks";
 
 const ModalInputs = () => {
-  const { startTime } = useAppSelector((state) => state.createTaskReducer);
+  const { startTime, endTime, name, description } = useAppSelector(
+    (state) => state.createTaskReducer
+  );
 
   const isStartTime = Boolean(startTime);
 
@@ -21,6 +23,7 @@ const ModalInputs = () => {
         label="Task name"
         isRequired={true}
         disabled={false}
+        value={name}
       />
       <ModalInput
         type="text"
@@ -28,6 +31,7 @@ const ModalInputs = () => {
         label="Description"
         isRequired={false}
         disabled={false}
+        value={description}
       />
       <ModalInput
         type="datetime-local"
@@ -35,6 +39,7 @@ const ModalInputs = () => {
         label="Start Time"
         isRequired={false}
         disabled={false}
+        value={startTime}
       />
       <ModalInput
         type="datetime-local"
@@ -42,6 +47,7 @@ const ModalInputs = () => {
         label="End Time"
         isRequired={false}
         disabled={!isStartTime}
+        value={endTime}
       />
     </Box>
   );

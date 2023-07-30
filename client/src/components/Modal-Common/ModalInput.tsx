@@ -11,6 +11,7 @@ interface Props {
   label: string;
   isRequired: boolean;
   disabled: boolean;
+  value: string | Date | number | null;
 }
 
 const ModalInput = ({
@@ -19,6 +20,7 @@ const ModalInput = ({
   label,
   isRequired,
   disabled,
+  value,
 }: Props) => {
   const dispatch = useAppDispatch();
 
@@ -43,9 +45,10 @@ const ModalInput = ({
         onChange={handleInputChange}
         sx={{ width: "100%" }}
         required={isRequired}
-        label={isRequired ? "Required" : ""}
+        placeholder={isRequired ? "Required" : ""}
         type={type}
         disabled={disabled}
+        value={value ? value : ""}
       />
     </Box>
   );
