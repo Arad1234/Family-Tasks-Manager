@@ -16,6 +16,7 @@ import { removeErrorListeners } from "../../socket/Errors/RemoveListeners";
 import { errorListeners } from "../../socket/Errors/Listeners";
 import { useSession } from "@supabase/auth-helpers-react";
 import { fetchGoogleCalendarEvents } from "../../Supabase/Api";
+import DeleteEventModal from "../../components/FamilyRoom-UI/Modal/DeleteEventModal/DeleteEventModal";
 
 const FamilyRoom = () => {
   const { roomId } = useParams();
@@ -23,13 +24,11 @@ const FamilyRoom = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const session = useSession(); // Supabase session.
-  const { eventsIdList } = useAppSelector(
-    (state) => state.calendarEventsReducer
-  );
-  console.log(eventsIdList);
+
   const { loading } = useAppSelector((state) => state.authReducer);
   const { currentRoom, rooms } = useAppSelector((state) => state.roomsReducer);
   const { option } = useAppSelector((state) => state.roomOptionsReducer);
+  const { modalStatus } = useAppSelector((state) => state.modalReducer);
 
   useEffect(() => {
     familyRoomListeners(socket, dispatch);
@@ -63,6 +62,8 @@ const FamilyRoom = () => {
       <WelcomeTitle />
 
       <RoomOptions />
+
+      {modalStatus === "deleteCalendarEvent" && <DeleteEventModal />}
 
       {loading || !session ? (
         <Loader />

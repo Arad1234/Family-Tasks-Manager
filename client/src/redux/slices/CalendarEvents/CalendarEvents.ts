@@ -1,32 +1,50 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { EventIdAndLocation } from "../../../types";
 
 interface InitialState {
-  eventsIdList: string[];
+  eventsIdAndLocationsList: EventIdAndLocation[];
+  eventToDelete: EventIdAndLocation;
 }
 
 const initialState: InitialState = {
-  eventsIdList: [],
+  eventsIdAndLocationsList: [],
+  eventToDelete: { id: "", location: "" },
 };
+
 const calendarEventsSlice = createSlice({
   name: "calendarEvents",
   initialState,
   reducers: {
-    setEventsId(state, { payload: eventsList }) {
-      const idList = eventsList.map((event: any) => event.id);
-      state.eventsIdList = idList;
+    setEventsIdAndLocation(state, { payload: eventsList }) {
+      const idAndLocationsList = eventsList.map((event: any) => {
+        return { location: event.location, id: event.id };
+      });
+      state.eventsIdAndLocationsList = idAndLocationsList;
     },
-    setAddGoogleEvent(state, { payload: eventId }) {
-      state.eventsIdList.push(eventId);
+    setAddGoogleEvent(state, { payload: eventLocation }) {
+      state.eventsIdAndLocationsList.push(eventLocation);
     },
     setDeleteGoogleEvent(state, { payload: deletedEventId }) {
-      state.eventsIdList = state.eventsIdList.filter(
-        (eventId) => eventId !== deletedEventId
+      state.eventsIdAndLocationsList = state.eventsIdAndLocationsList.filter(
+        (eventIdAndLocation) => eventIdAndLocation.id !== deletedEventId
       );
+    },
+    setEventToDelete(state, { payload: eventLocation }) {
+      const eventToDelete = state.eventsIdAndLocationsList.find(
+        (eventIdAndLocation) => eventIdAndLocation.location === eventLocation
+      );
+      if (eventToDelete) {
+        state.eventToDelete = eventToDelete;
+      }
     },
   },
 });
 
-export const { setEventsId, setAddGoogleEvent, setDeleteGoogleEvent } =
-  calendarEventsSlice.actions;
+export const {
+  setEventsIdAndLocation,
+  setAddGoogleEvent,
+  setDeleteGoogleEvent,
+  setEventToDelete,
+} = calendarEventsSlice.actions;
 
 export default calendarEventsSlice.reducer;

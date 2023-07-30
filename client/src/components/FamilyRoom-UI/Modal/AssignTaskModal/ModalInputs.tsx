@@ -10,6 +10,9 @@ import { useAppSelector } from "../../../../redux/hooks";
 
 const ModalInputs = () => {
   const { startTime } = useAppSelector((state) => state.createTaskReducer);
+
+  const isStartTime = Boolean(startTime);
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
       <ModalInput
@@ -38,7 +41,7 @@ const ModalInputs = () => {
         setChange={setTaskEndTime}
         label="End Time"
         isRequired={false}
-        disabled={!Boolean(startTime)}
+        disabled={!isStartTime}
       />
     </Box>
   );

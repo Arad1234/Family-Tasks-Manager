@@ -1,19 +1,19 @@
 import { Box, Button } from "@mui/material";
 
 interface Props {
-  handleDeleteRoom: () => void;
+  handleDelete: () => void;
   handleCancel: () => void;
 }
 
-const ModalButtons = ({ handleDeleteRoom, handleCancel }: Props) => {
+const DeleteModalButtons = ({ handleDelete, handleCancel }: Props) => {
   return (
     <Box sx={{ display: "flex", justifyContent: "space-around" }}>
       <Button
         sx={{ width: "40%" }}
         variant="contained"
-        onClick={handleDeleteRoom}
+        onClick={handleDelete}
       >
-        Yes
+        Delete
       </Button>
       <Button
         sx={{ width: "40%" }}
@@ -26,4 +26,4 @@ const ModalButtons = ({ handleDeleteRoom, handleCancel }: Props) => {
   );
 };
 
-export default ModalButtons;
+export default DeleteModalButtons;

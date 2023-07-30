@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 
 interface Props {
-  taskCreatedAt: Date;
+  taskCreatedAt: string;
 }
 
 const TaskCreatedAt = ({ taskCreatedAt }: Props) => {
