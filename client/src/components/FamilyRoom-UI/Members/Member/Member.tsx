@@ -3,8 +3,7 @@ import { IMember } from "../../../../types";
 import { extractUserFromLocalStorage } from "../../../../utils/helpers/LocalStorage/extractUser";
 import { useAppSelector } from "../../../../redux/hooks";
 import AssignTaskModal from "../../Modal/AssignTaskModal/AssignTaskModal";
-import { useState } from "react";
-import AddTaskPlusIcon from "./AddTaskIcon";
+import AddTaskPlusIcon from "./AddTaskPlusIcon";
 import TasksButton from "./TasksButton";
 import MemberName from "./MemberName";
 
@@ -13,7 +12,6 @@ interface Props {
 }
 
 const Member = ({ member }: Props) => {
-  const [clickedUserId, setClickedUserId] = useState<string>("");
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);
   const { modalStatus } = useAppSelector((state) => state.modalReducer);
 
@@ -37,16 +35,11 @@ const Member = ({ member }: Props) => {
 
       {isRoomCreator && (
         <Box sx={{ position: "absolute", left: "20rem" }}>
-          <AddTaskPlusIcon
-            memberId={member.userId}
-            setClickedUserId={setClickedUserId}
-          />
+          <AddTaskPlusIcon />
         </Box>
       )}
 
-      {modalStatus === "assignTask" && clickedUserId && (
-        <AssignTaskModal clickedUserId={clickedUserId} />
-      )}
+      {modalStatus === "assignTask" && <AssignTaskModal member={member} />}
     </Box>
   );
 };

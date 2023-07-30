@@ -6,7 +6,7 @@ import Task from "./Task/Task";
 const AllTasks = () => {
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);
   const { familyMembers } = currentRoom;
-
+  console.log(currentRoom)
   const { parsedUserId: currentUserId } = extractUserFromLocalStorage();
 
   const currentMember = familyMembers.find((member) => {

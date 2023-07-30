@@ -2,15 +2,14 @@ import { Socket } from "socket.io-client";
 import { AppDispatch } from "../../redux/store";
 import { setLoading } from "../../redux/slices/Auth/auth-slice";
 import {
-  setAddTask,
   setCreateRoom,
   setDeleteRoom,
   setJoinRoom,
   setRooms,
 } from "../../redux/slices/Rooms/rooms-slice";
-import { setShowModal } from "../../redux/slices/Modal/modal-slice";
 import { resetRoomDetails } from "../../redux/slices/Rooms/createRoom-slice";
 import { resetRoomPassword } from "../../redux/slices/Rooms/joinRoom-slice";
+import { hideModal } from "../../utils/helpers/hideModal";
 
 export const roomsListeners = (socket: Socket, dispatch: AppDispatch) => {
   socket.on("recievedRooms", (data) => {
@@ -22,7 +21,7 @@ export const roomsListeners = (socket: Socket, dispatch: AppDispatch) => {
   socket.on("createdRoom", (data) => {
     const newRoom = data;
     dispatch(setCreateRoom(newRoom));
-    dispatch(setShowModal({ isOpen: false, status: "" }));
+    hideModal(dispatch);
     dispatch(resetRoomDetails());
     dispatch(setLoading(false));
   });
@@ -37,12 +36,7 @@ export const roomsListeners = (socket: Socket, dispatch: AppDispatch) => {
     const { room, username, userId } = data;
     dispatch(setJoinRoom({ room, username, userId }));
     dispatch(resetRoomPassword());
-    dispatch(setLoading(false));
-  });
-
-  socket.on("taskCreated", (data) => {
-    const { newTask, memberId } = data;
-    dispatch(setAddTask({ newTask, memberId }));
+    hideModal(dispatch);
     dispatch(setLoading(false));
   });
 };

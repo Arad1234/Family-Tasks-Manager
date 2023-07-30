@@ -53,7 +53,7 @@ const Home = () => {
   }
 
   return (
-    <Box>
+    <>
       <Box
         sx={{
           padding: "10px",
@@ -73,7 +73,7 @@ const Home = () => {
       {modalStatus === "create" && <CreateRoomModal />}
       {modalStatus === "join" && <JoinRoomModal />}
       {modalStatus === "delete" && <DeleteRoomModal />}
-    </Box>
+    </>
   );
 };
 
