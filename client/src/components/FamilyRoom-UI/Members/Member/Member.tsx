@@ -16,33 +16,30 @@ const Member = ({ member }: Props) => {
   const { modalStatus } = useAppSelector((state) => state.modalReducer);
 
   const { parsedUserId: currentUserId } = extractUserFromLocalStorage();
-  const isRoomCreator = currentRoom.creator.userId === currentUserId;
+  const isRoomCreator = currentRoom?.creator.userId === currentUserId;
 
   return (
     <Box
       sx={{
         display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        gap: "15px",
         alignItems: "center",
-        gap: "20px",
+        boxShadow: "2px 3px 3px gray",
         border: "1px solid gray",
-        borderRadius: "20px",
-        padding: "15px",
+        borderRadius: "5px",
+        padding: "13px",
       }}
     >
       <MemberName memberName={member.username} />
 
-      <TasksButton
-        member={member}
-        isRoomCreator={isRoomCreator}
-      />
+      <Box sx={{ display: "flex", gap: "40px" }}>
+        <TasksButton member={member} />
+        {isRoomCreator && <AddTaskPlusIcon member={member} />}
+      </Box>
 
-      {isRoomCreator && (
-        <Box sx={{ position: "absolute", left: "20rem" }}>
-          <AddTaskPlusIcon />
-        </Box>
-      )}
-
-      {modalStatus === "assignTask" && <AssignTaskModal member={member} />}
+      {modalStatus === "assignTask" && <AssignTaskModal />}
     </Box>
   );
 };

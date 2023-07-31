@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { useAppDispatch } from "../../../redux/hooks";
-import { setOption } from "../../../redux/slices/FamilyRoom/roomOptions-slice";
+import { setRoomOption } from "../../../redux/slices/FamilyRoom/roomOptions-slice";
 import ButtonOption from "./ButtonOption";
 import { setSelectedMember } from "../../../redux/slices/FamilyRoom/members-slice";
 
@@ -8,11 +8,11 @@ const RoomOptions = () => {
   const dispatch = useAppDispatch();
 
   const handleTaskOption = () => {
-    dispatch(setOption("tasks"));
+    dispatch(setRoomOption("tasks"));
     dispatch(setSelectedMember(null)); // Setting selectedMember to null to show all members.
   };
   const handleMembersOption = () => {
-    dispatch(setOption("members"));
+    dispatch(setRoomOption("members"));
   };
 
   return (
@@ -20,7 +20,7 @@ const RoomOptions = () => {
       sx={{
         display: "flex",
         justifyContent: "center",
-        gap: "30px",
+        gap: "55px",
         padding: "15px 0px 15px 0px",
       }}
     >

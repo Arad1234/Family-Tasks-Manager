@@ -49,7 +49,7 @@ const Home = () => {
   }, [session?.provider_token]);
 
   if (loading) {
-    return <Loader />;
+    return <Loader height="100vh" />;
   }
 
   return (

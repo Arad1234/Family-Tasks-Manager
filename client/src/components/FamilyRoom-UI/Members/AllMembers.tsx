@@ -1,12 +1,24 @@
 import { useAppSelector } from "../../../redux/hooks";
 import { Box } from "@mui/material";
 import Member from "./Member/Member";
+import { IRoom } from "../../../types";
 
 const AllMembers = () => {
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);
+  const { familyMembers } = currentRoom as IRoom;
+  const isOnlyOneMember = familyMembers.length === 1;
+
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-      {currentRoom.familyMembers.map((member) => {
+    <Box
+      sx={{
+        display: "grid",
+        justifyContent: "center",
+        gridTemplateColumns: isOnlyOneMember ? "250px" : "repeat(2, 1fr)",
+        gridAutoRows: "100px",
+        gridGap: "16px",
+      }}
+    >
+      {familyMembers.map((member) => {
         return (
           <Member
             key={member.userId}

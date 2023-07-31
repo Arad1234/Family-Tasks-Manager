@@ -16,12 +16,15 @@ const ButtonOption = ({ handleClick, optionValue, children }: Props) => {
       onClick={handleClick}
       variant="outlined"
       sx={{
-        borderRadius: "20px",
+        border: "1px solid gray",
+        color: option === optionValue ? "white" : "black",
         width: "8rem",
         height: "3rem",
-        backgroundColor: option === optionValue ? "#ffffcc" : "",
+        fontSize: "16px",
+        textTransform: "none",
+        backgroundColor: option === optionValue ? "rgba(20, 60, 150, 0.3)" : "",
         ":hover": {
-          backgroundColor: "#ffffcc",
+          backgroundColor: "rgba(20, 60, 150, 0.3)",
         },
         fontWeight: "700",
       }}
