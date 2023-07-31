@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { ITask } from "../../../../types";
+import { ITask } from "../../../types";
 
 interface Props {
   task: ITask;

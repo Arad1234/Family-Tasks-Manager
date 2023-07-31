@@ -52,7 +52,7 @@ export const registerThunk = createAsyncThunk<
       if (data.error.code === 11000) {
         return thunkAPI.rejectWithValue("Email already exists");
       } else {
-        // Getting issues from "zod" validation on the server.
+        // Getting issues from "zod" validation from the server.
         const { issues } = data.error;
         return thunkAPI.rejectWithValue(issues[0].message);
       }

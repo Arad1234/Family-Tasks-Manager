@@ -5,19 +5,12 @@ import storage from "redux-persist/es/storage";
 
 interface InitialState {
   rooms: IRoom[];
-  currentRoom: IRoom;
+  currentRoom: IRoom | null;
 }
 
 const initialState: InitialState = {
   rooms: [],
-  currentRoom: {
-    roomName: "",
-    creator: { userId: "", username: "" },
-    familyMembers: [],
-    maxMembers: null,
-    userId: "",
-    _id: "",
-  },
+  currentRoom: null,
 };
 
 const roomsSlice = createSlice({

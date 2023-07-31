@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import { Session, useSession } from "@supabase/auth-helpers-react";
 import { ITask } from "../../../../types";
 import { formatDate } from "../../../../utils/helpers/formatDate";
@@ -6,12 +5,13 @@ import { createGoogleCalendarEvent } from "../../../../Supabase/Api";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { setEventToDelete } from "../../../../redux/slices/CalendarEvents/CalendarEvents";
 import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
+import GoogleCalendarButton from "./Button";
 
 interface Props {
   task: ITask;
 }
 
-const AddToCalendarButton = ({ task }: Props) => {
+const GoogleCalendarManipulation = ({ task }: Props) => {
   const session = useSession(); // tokens, when session exists we have a user.
 
   const dispatch = useAppDispatch();
@@ -51,16 +51,21 @@ const AddToCalendarButton = ({ task }: Props) => {
 
   return session ? (
     isInCalendar ? (
-      <Button onClick={showDeleteEventModal}>Delete from calendar</Button>
+      <GoogleCalendarButton
+        background="150, 20, 60"
+        handleClick={showDeleteEventModal}
+      >
+        Delete From Calendar
+      </GoogleCalendarButton>
     ) : (
-      <Button
-        variant="outlined"
-        onClick={createCalenderEvent}
+      <GoogleCalendarButton
+        background="20, 60, 150"
+        handleClick={createCalenderEvent}
       >
         Add To Google Calender
-      </Button>
+      </GoogleCalendarButton>
     )
   ) : null;
 };
 
-export default AddToCalendarButton;
+export default GoogleCalendarManipulation;

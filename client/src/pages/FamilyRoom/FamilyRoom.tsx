@@ -17,6 +17,7 @@ import { errorListeners } from "../../socket/Errors/Listeners";
 import { useSession } from "@supabase/auth-helpers-react";
 import { fetchGoogleCalendarEvents } from "../../Supabase/Api";
 import DeleteEventModal from "../../components/FamilyRoom-UI/Modal/DeleteEventModal/DeleteEventModal";
+import MemberTasks from "../../components/FamilyRoom-UI/Members/MemberTasks/MemberTasks";
 
 const FamilyRoom = () => {
   const { roomId } = useParams();
@@ -25,6 +26,7 @@ const FamilyRoom = () => {
   const navigate = useNavigate();
   const session = useSession(); // Supabase session.
 
+  const { selectedMember } = useAppSelector((state) => state.membersReducer);
   const { loading } = useAppSelector((state) => state.authReducer);
   const { currentRoom, rooms } = useAppSelector((state) => state.roomsReducer);
   const { option } = useAppSelector((state) => state.roomOptionsReducer);
@@ -70,7 +72,8 @@ const FamilyRoom = () => {
       ) : (
         <Box sx={{ padding: "10px" }}>
           {option === "tasks" && <AllTasks />}
-          {option === "members" && <AllMembers />}
+          {option === "members" &&
+            (selectedMember ? <MemberTasks /> : <AllMembers />)}
         </Box>
       )}
     </>
