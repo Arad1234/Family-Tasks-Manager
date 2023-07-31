@@ -1,14 +1,17 @@
 import { Box } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
-const Loader = () => {
+interface Props {
+  height: string;
+}
+const Loader = ({ height }: Props) => {
   return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "90vh",
+        height: height,
       }}
     >
       <CircularProgress size={70} />

@@ -29,6 +29,7 @@ export const roomsListeners = (socket: Socket, dispatch: AppDispatch) => {
   socket.on("deletedRoom", (data) => {
     const deletedRoomId = data;
     dispatch(setDeleteRoom(deletedRoomId));
+    hideModal(dispatch);
     dispatch(setLoading(false));
   });
 

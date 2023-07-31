@@ -11,12 +11,12 @@ const roomOptionsSlice = createSlice({
   name: "roomOptions",
   initialState,
   reducers: {
-    setOption(state, { payload }) {
+    setRoomOption(state, { payload }) {
       state.option = payload;
     },
   },
 });
 
-export const { setOption } = roomOptionsSlice.actions;
+export const { setRoomOption } = roomOptionsSlice.actions;
 
 export default roomOptionsSlice.reducer;

@@ -3,6 +3,7 @@ import { ImExit } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../redux/hooks";
 import { setSelectedMember } from "../../../redux/slices/FamilyRoom/members-slice";
+import { setRoomOption } from "../../../redux/slices/FamilyRoom/roomOptions-slice";
 
 const ExitIcon = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const ExitIcon = () => {
 
   const handleExitRoom = () => {
     navigate("/home");
+    dispatch(setRoomOption("tasks"));
     dispatch(setSelectedMember(null));
   };
 

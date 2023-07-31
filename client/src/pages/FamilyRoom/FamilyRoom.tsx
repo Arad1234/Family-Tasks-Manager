@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Divider } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import WelcomeTitle from "../../components/FamilyRoom-UI/WelcomeTitle/WelcomeTitle";
 import RoomHeader from "../../components/FamilyRoom-UI/RoomHeader/RoomHeader";
@@ -65,10 +65,12 @@ const FamilyRoom = () => {
 
       <RoomOptions />
 
+      <Divider sx={{ margin: "10px 0" }} />
+
       {modalStatus === "deleteCalendarEvent" && <DeleteEventModal />}
 
       {loading || !session ? (
-        <Loader />
+        <Loader height="65vh" />
       ) : (
         <Box sx={{ padding: "10px" }}>
           {option === "tasks" && <AllTasks />}

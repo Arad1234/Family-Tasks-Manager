@@ -14,9 +14,9 @@ const GoogleCalendarButton = ({ handleClick, background, children }: Props) => {
         sx={{
           textTransform: "none",
           fontSize: "16px",
-          background: `rgba(${background}, 0.5)`,
+          backgroundColor: `rgba(${background}, 0.5)`,
           color: "white",
-          ":hover": { background: `rgba(${background}, 0.3)` },
+          ":hover": { backgroundColor: `rgba(${background}, 0.3)` },
         }}
         variant="outlined"
         onClick={handleClick}

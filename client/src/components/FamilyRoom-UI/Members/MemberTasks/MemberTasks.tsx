@@ -10,7 +10,11 @@ const MemberTasks = () => {
     <Box>
       <Header />
       {selectedMember?.tasks.length === 0 ? (
-        <Typography variant="h4">No tasks (yet...)</Typography>
+        <Box
+          sx={{ display: "flex", justifyContent: "center", margin: "30px " }}
+        >
+          <Typography variant="h4">No tasks (yet...)</Typography>
+        </Box>
       ) : (
         <Box sx={{ display: "flex", flexDirection: "column", gap: "15px" }}>
           {selectedMember?.tasks.map((task) => {
