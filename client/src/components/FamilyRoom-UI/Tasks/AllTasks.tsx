@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { useAppSelector } from "../../../redux/hooks";
 import { extractUserFromLocalStorage } from "../../../utils/helpers/LocalStorage/extractUser";
-import Task from "./Task/Task";
+import Task from "../Task-common/Task";
 
 const AllTasks = () => {
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);

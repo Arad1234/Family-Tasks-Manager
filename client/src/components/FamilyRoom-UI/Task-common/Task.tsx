@@ -1,22 +1,26 @@
 import { Box } from "@mui/material";
-import { ITask } from "../../../../types";
-import TaskName from "./TaskName";
-import TaskDescription from "./TaskDescription";
+import { ITask } from "../../../types";
 import TaskCreatedAt from "./TaskCreatedAt";
 import TaskTimeToDo from "./TaskTimeToDo";
-import AddToCalendarButton from "./AddToCalendarButton";
+import GoogleCalendarManipulation from "./GoogleCalendar/GoogleCalendarManipulation";
+import TaskName from "./TaskName";
+import TaskDescription from "./TaskDescription";
+import { useAppSelector } from "../../../redux/hooks";
 
 interface Props {
   task: ITask;
 }
 
 const Task = ({ task }: Props) => {
+  const { selectedMember } = useAppSelector((state) => state.membersReducer);
+
   return (
     <Box
       sx={{
         display: "flex",
         flexDirection: "column",
-        border: "1px dashed gray",
+        boxShadow: "1px 4px 8px 0 rgba(0, 0, 0, 0.3)",
+        borderRadius: "10px",
         padding: "10px",
         gap: "10px",
       }}
@@ -30,7 +34,8 @@ const Task = ({ task }: Props) => {
       {task.startTime && (
         <>
           <TaskTimeToDo task={task} />
-          <AddToCalendarButton task={task} />
+          {/* Mount the "AddToCalendarButton" if the user did not clicked to show any other member tasks. */}
+          {!selectedMember && <GoogleCalendarManipulation task={task} />}
         </>
       )}
     </Box>

@@ -1,6 +1,8 @@
 import { Divider, MenuItem } from "@mui/material";
 import { IRoom } from "../../../types";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../../redux/hooks";
+import { setSelectedMember } from "../../../redux/slices/FamilyRoom/members-slice";
 
 interface Props {
   room: IRoom;
@@ -9,10 +11,12 @@ interface Props {
 
 const MenuItemComponent = ({ room, setAnchorEl }: Props) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleClickRoom = () => {
     navigate(`/home/${room._id}`);
     setAnchorEl(null);
+    dispatch(setSelectedMember(null));
   };
 
   return (

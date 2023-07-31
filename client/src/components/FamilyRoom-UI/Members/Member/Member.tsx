@@ -31,7 +31,10 @@ const Member = ({ member }: Props) => {
     >
       <MemberName memberName={member.username} />
 
-      <TasksButton isRoomCreator={isRoomCreator} />
+      <TasksButton
+        member={member}
+        isRoomCreator={isRoomCreator}
+      />
 
       {isRoomCreator && (
         <Box sx={{ position: "absolute", left: "20rem" }}>

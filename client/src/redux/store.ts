@@ -8,6 +8,7 @@ import joinRoomSliceReducer from "./slices/Rooms/joinRoom-slice";
 import roomOptionsSliceReducer from "./slices/FamilyRoom/roomOptions-slice";
 import createTaskSliceReducer from "./slices/FamilyRoom/createTask-slice";
 import calendarEventsSliceReducer from "./slices/CalendarEvents/CalendarEvents";
+import membersSliceReducer from "./slices/FamilyRoom/members-slice";
 
 export const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
     roomOptionsReducer: roomOptionsSliceReducer,
     createTaskReducer: createTaskSliceReducer,
     calendarEventsReducer: calendarEventsSliceReducer,
+    membersReducer: membersSliceReducer,
   },
   devTools: true,
   middleware: (getDefaultMiddleware) =>
