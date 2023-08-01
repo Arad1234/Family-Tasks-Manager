@@ -22,10 +22,9 @@ import DeleteMemberModal from "../../components/FamilyRoom-UI/Modal/DeleteMember
 
 const FamilyRoom = () => {
   const { roomId } = useParams();
-  console.log(roomId);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const session = useSession(); // Supabase session.
+  const session = useSession();
 
   const { memberForTasks } = useAppSelector((state) => state.membersReducer);
   const { loading } = useAppSelector((state) => state.authReducer);

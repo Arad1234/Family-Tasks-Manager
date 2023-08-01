@@ -16,7 +16,7 @@ import { errorListeners } from "../../socket/Errors/Listeners";
 import { removeErrorListeners } from "../../socket/Errors/RemoveListeners";
 import NewRoomButton from "../../components/Home-UI/Buttons/NewRoomButton";
 import SignOut from "../../components/Home-UI/Buttons/SignOut";
-import { useSession } from "@supabase/auth-helpers-react";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -24,8 +24,7 @@ const Home = () => {
   const { loading } = useAppSelector((state) => state.authReducer);
   const { modalStatus } = useAppSelector((state) => state.modalReducer);
   const navigate = useNavigate();
-
-  const session = useSession();
+  const supabase = useSupabaseClient();
 
   useEffect(() => {
     roomsListeners(socket, dispatch);
@@ -43,10 +42,12 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    if (!session?.provider_token) {
-      navigate("/");
-    }
-  }, [session?.provider_token]);
+    supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_OUT") {
+        navigate("/");
+      }
+    });
+  }, []);
 
   if (loading) {
     return <Loader height="100vh" />;

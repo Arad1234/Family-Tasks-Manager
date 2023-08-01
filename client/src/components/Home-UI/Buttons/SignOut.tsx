@@ -5,7 +5,7 @@ const SignOut = () => {
   const supabase = useSupabaseClient();
 
   const handleSignOut = () => {
-    // This will delete the "provider_token" and the session object, therefore the useEffect in the "Home" component will navigate to "/" route.
+    // This will trigger the auth event "SIGNED_OUT".
     supabase.auth.signOut();
   };
 

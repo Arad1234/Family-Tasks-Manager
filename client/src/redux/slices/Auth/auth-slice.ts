@@ -54,8 +54,6 @@ const authSlice = createSlice({
       builder.addCase(loginThunk.fulfilled, (state, { payload }) => {
         state.userId = payload.userId;
         state.username = payload.username;
-        console.log(payload);
-        state.loading = false;
         state.success = "Success!";
       }),
       builder.addCase(loginThunk.rejected, (state) => {
