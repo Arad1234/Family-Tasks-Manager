@@ -3,6 +3,15 @@ import { AddTaskData } from "../../types";
 import { setLoading } from "../../redux/slices/Auth/auth-slice";
 import { socket } from "../socket";
 
+export const deleteMemberSocket = (
+  dispatch: AppDispatch,
+  memberId: string,
+  roomId: string
+) => {
+  dispatch(setLoading(true));
+  socket.emit("members:delete", { memberId, roomId });
+};
+
 export const addTaskSocket = (
   dispatch: AppDispatch,
   addTaskData: AddTaskData
@@ -18,6 +27,4 @@ export const addTaskSocket = (
     startTime,
     endTime,
   });
-
-
 };

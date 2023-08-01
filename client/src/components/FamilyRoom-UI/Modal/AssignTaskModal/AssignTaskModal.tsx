@@ -7,7 +7,7 @@ import ModalComponent from "../../../Modal-Common/ModalComponent";
 import ModalInputs from "./ModalInputs";
 
 const AssignTaskModal = () => {
-  const { memberToAssignTask } = useAppSelector(
+  const { memberForAssignTask } = useAppSelector(
     (state) => state.membersReducer
   );
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);
@@ -20,7 +20,7 @@ const AssignTaskModal = () => {
   const handleAddTask = () => {
     if ((startTime && endTime) || (!startTime && !endTime)) {
       addTaskSocket(dispatch, {
-        memberId: (memberToAssignTask as IMember).userId,
+        memberId: (memberForAssignTask as IMember).userId,
         roomId: (currentRoom as IRoom)._id,
         name,
         description,
@@ -35,12 +35,12 @@ const AssignTaskModal = () => {
   return (
     <ModalComponent>
       <Typography sx={{ fontSize: "18px", fontWeight: "400" }}>
-        Assign Task to{" "}
+        Assign Task for{" "}
         <Typography
           component={"span"}
           sx={{ display: "block", fontSize: "20px", fontWeight: "600" }}
         >
-          {memberToAssignTask?.username}
+          {memberForAssignTask?.username}
         </Typography>
       </Typography>
       <ModalInputs />

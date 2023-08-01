@@ -6,8 +6,9 @@ import { IRoom } from "../../../types";
 
 const AllTasks = () => {
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);
-  const { familyMembers } = currentRoom as IRoom;
+  console.log(currentRoom);
 
+  const { familyMembers } = currentRoom as IRoom;
   const { parsedUserId: currentUserId } = extractUserFromLocalStorage();
 
   const currentMember = familyMembers?.find((member) => {

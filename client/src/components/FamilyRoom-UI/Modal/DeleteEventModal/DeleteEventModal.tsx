@@ -3,8 +3,8 @@ import ModalComponent from "../../../Modal-Common/ModalComponent";
 import { deleteGoogleCalendarEvent } from "../../../../Supabase/Api";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { Session, useSession } from "@supabase/auth-helpers-react";
-import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
 import DeleteModalButtons from "../../../Modal-Common/DeleteModalButtons";
+import { hideModal } from "../../../../utils/helpers/hideModal";
 
 const DeleteEventModal = () => {
   const { eventToDelete } = useAppSelector(
@@ -17,7 +17,7 @@ const DeleteEventModal = () => {
     deleteGoogleCalendarEvent(eventToDelete.id, session as Session, dispatch);
   };
   const handleCancel = () => {
-    dispatch(setShowModal({ isOpen: false, modalStatus: "" }));
+    hideModal(dispatch);
   };
   return (
     <ModalComponent>

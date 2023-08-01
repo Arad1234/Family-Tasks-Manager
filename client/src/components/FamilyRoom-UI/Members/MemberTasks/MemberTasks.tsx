@@ -4,12 +4,12 @@ import Task from "../../Task-common/Task";
 import Header from "./Header";
 
 const MemberTasks = () => {
-  const { selectedMember } = useAppSelector((state) => state.membersReducer);
+  const { memberForTasks } = useAppSelector((state) => state.membersReducer);
 
   return (
     <Box>
       <Header />
-      {selectedMember?.tasks.length === 0 ? (
+      {memberForTasks?.tasks.length === 0 ? (
         <Box
           sx={{ display: "flex", justifyContent: "center", margin: "30px " }}
         >
@@ -17,7 +17,7 @@ const MemberTasks = () => {
         </Box>
       ) : (
         <Box sx={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-          {selectedMember?.tasks.map((task) => {
+          {memberForTasks?.tasks.map((task) => {
             return (
               <Task
                 key={task._id}

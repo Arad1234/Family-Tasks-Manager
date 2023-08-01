@@ -2,14 +2,14 @@ import { Box } from "@mui/material";
 import { useAppDispatch } from "../../../redux/hooks";
 import { setRoomOption } from "../../../redux/slices/FamilyRoom/roomOptions-slice";
 import ButtonOption from "./ButtonOption";
-import { setSelectedMember } from "../../../redux/slices/FamilyRoom/members-slice";
+import { setMemberForTasks } from "../../../redux/slices/FamilyRoom/members-slice";
 
 const RoomOptions = () => {
   const dispatch = useAppDispatch();
 
   const handleTaskOption = () => {
     dispatch(setRoomOption("tasks"));
-    dispatch(setSelectedMember(null)); // Setting selectedMember to null to show all members.
+    dispatch(setMemberForTasks(null)); // Setting selectedMember to null to show all members.
   };
   const handleMembersOption = () => {
     dispatch(setRoomOption("members"));

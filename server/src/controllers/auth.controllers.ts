@@ -11,7 +11,6 @@ export const loginUserHandler = async (
   const { email, password } = req.body;
   try {
     const { user, token } = await loginUser({ email, password });
-    console.log(user);
     res.cookie("token", token, { httpOnly: true, maxAge: 900000000 });
     res
       .status(OK)

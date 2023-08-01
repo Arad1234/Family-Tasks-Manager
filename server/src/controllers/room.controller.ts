@@ -1,4 +1,3 @@
-import { validateMiddleware } from "../middlewares/socket/validationMiddleware";
 import {
   createFamilyRoom,
   deleteFamilyRoom,
@@ -56,13 +55,13 @@ export const roomHandler = (io: Server, socket: Socket) => {
     try {
       const { roomId, roomPassword } = payload;
       const { username, userId } = (socket as any).user;
-      const { room } = await joinFamilyRoom({
+      await joinFamilyRoom({
         username,
         userId,
         roomId,
         roomPassword,
       });
-      io.emit("joinedRoom", { room, username, userId });
+      io.emit("joinedRoom", { roomId, username, userId });
     } catch (error: any) {
       socket.emit("error", error.message);
     }

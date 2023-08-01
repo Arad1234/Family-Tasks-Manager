@@ -6,6 +6,7 @@ import AssignTaskModal from "../../Modal/AssignTaskModal/AssignTaskModal";
 import AddTaskPlusIcon from "./AddTaskPlusIcon";
 import TasksButton from "./TasksButton";
 import MemberName from "./MemberName";
+import DeleteMemberIcon from "./DeleteMemberIcon";
 
 interface Props {
   member: IMember;
@@ -16,7 +17,10 @@ const Member = ({ member }: Props) => {
   const { modalStatus } = useAppSelector((state) => state.modalReducer);
 
   const { parsedUserId: currentUserId } = extractUserFromLocalStorage();
+
   const isRoomCreator = currentRoom?.creator.userId === currentUserId;
+
+  const canDeleteMember = isRoomCreator && member.userId !== currentUserId;
 
   return (
     <Box
@@ -24,15 +28,26 @@ const Member = ({ member }: Props) => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        gap: "15px",
+        gap: "25px",
         alignItems: "center",
         boxShadow: "2px 3px 3px gray",
         border: "1px solid gray",
         borderRadius: "5px",
-        padding: "13px",
+        width: "41vw",
+        padding: "3.5rem 10px",
       }}
     >
-      <MemberName memberName={member.username} />
+      <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          justifyContent: canDeleteMember ? "space-between" : "center",
+          alignItems: "center",
+        }}
+      >
+        <MemberName memberName={member.username} />
+        {canDeleteMember && <DeleteMemberIcon member={member} />}
+      </Box>
 
       <Box sx={{ display: "flex", gap: "40px" }}>
         <TasksButton member={member} />
