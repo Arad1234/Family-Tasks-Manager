@@ -21,6 +21,7 @@ export const fetchGoogleCalendarEvents = async (
     });
     const data = await response.json();
     console.log(data.items);
+    console.log(data);
     dispatch(setEventsIdAndLocation(data.items));
   } catch (error) {
     console.log(error);
