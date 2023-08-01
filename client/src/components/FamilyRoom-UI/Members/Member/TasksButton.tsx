@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { useAppDispatch } from "../../../../redux/hooks";
 import { IMember } from "../../../../types";
-import { setSelectedMember } from "../../../../redux/slices/FamilyRoom/members-slice";
+import { setMemberForTasks } from "../../../../redux/slices/FamilyRoom/members-slice";
 
 interface Props {
   member: IMember;
@@ -9,8 +9,9 @@ interface Props {
 
 const TasksButton = ({ member }: Props) => {
   const dispatch = useAppDispatch();
+
   const handleShowMemberTasks = () => {
-    dispatch(setSelectedMember(member));
+    dispatch(setMemberForTasks(member));
   };
 
   return (

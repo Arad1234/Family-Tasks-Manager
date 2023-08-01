@@ -1,13 +1,13 @@
 import { Typography, Box, Button } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { setSelectedMember } from "../../../../redux/slices/FamilyRoom/members-slice";
+import { setMemberForTasks } from "../../../../redux/slices/FamilyRoom/members-slice";
 
 const Header = () => {
   const dispatch = useAppDispatch();
-  const { selectedMember } = useAppSelector((state) => state.membersReducer);
+  const { memberForTasks } = useAppSelector((state) => state.membersReducer);
 
   const handleGoBack = () => {
-    dispatch(setSelectedMember(null));
+    dispatch(setMemberForTasks(null));
   };
   return (
     <Box
@@ -18,7 +18,7 @@ const Header = () => {
       }}
     >
       <Typography sx={{ fontSize: "25px" }}>
-        {selectedMember?.username} tasks
+        {memberForTasks?.username} tasks
       </Typography>
       <Button
         variant="outlined"

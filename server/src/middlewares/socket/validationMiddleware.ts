@@ -1,3 +1,4 @@
+import { deleteMemberSchema } from "../../schema/member/deleteMember.schema";
 import { createRoomSchema } from "../../schema/room/createRoom.schema";
 import { deleteRoomSchema } from "../../schema/room/deleteRoom.schema";
 import { joinRoomSchema } from "../../schema/room/joinRoom.schema";
@@ -26,6 +27,9 @@ export const validateMiddleware = (
       break;
     case "tasks:create":
       validateSchema(createTaskSchema, data, next);
+      break;
+    case "members:delete":
+      validateSchema(deleteMemberSchema, data, next);
       break;
     default:
       next();

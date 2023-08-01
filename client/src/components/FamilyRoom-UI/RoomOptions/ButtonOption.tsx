@@ -22,9 +22,9 @@ const ButtonOption = ({ handleClick, optionValue, children }: Props) => {
         height: "3rem",
         fontSize: "16px",
         textTransform: "none",
-        backgroundColor: option === optionValue ? "rgba(20, 60, 150, 0.3)" : "",
+        backgroundColor: option === optionValue ? "rgba(20, 60, 150, 0.5)" : "",
         ":hover": {
-          backgroundColor: "rgba(20, 60, 150, 0.3)",
+          backgroundColor: "rgba(20, 60, 150, 0.5)",
         },
         fontWeight: "700",
       }}

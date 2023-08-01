@@ -18,15 +18,16 @@ import { useSession } from "@supabase/auth-helpers-react";
 import { fetchGoogleCalendarEvents } from "../../Supabase/Api";
 import DeleteEventModal from "../../components/FamilyRoom-UI/Modal/DeleteEventModal/DeleteEventModal";
 import MemberTasks from "../../components/FamilyRoom-UI/Members/MemberTasks/MemberTasks";
+import DeleteMemberModal from "../../components/FamilyRoom-UI/Modal/DeleteMemberModal/DeleteMemberModal";
 
 const FamilyRoom = () => {
   const { roomId } = useParams();
-
+  console.log(roomId);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const session = useSession(); // Supabase session.
 
-  const { selectedMember } = useAppSelector((state) => state.membersReducer);
+  const { memberForTasks } = useAppSelector((state) => state.membersReducer);
   const { loading } = useAppSelector((state) => state.authReducer);
   const { currentRoom, rooms } = useAppSelector((state) => state.roomsReducer);
   const { option } = useAppSelector((state) => state.roomOptionsReducer);
@@ -68,14 +69,15 @@ const FamilyRoom = () => {
       <Divider sx={{ margin: "10px 0" }} />
 
       {modalStatus === "deleteCalendarEvent" && <DeleteEventModal />}
+      {modalStatus === "deleteMember" && <DeleteMemberModal />}
 
       {loading || !session ? (
         <Loader height="65vh" />
       ) : (
         <Box sx={{ padding: "10px" }}>
-          {option === "tasks" && <AllTasks />}
+          {option === "tasks" && currentRoom && <AllTasks />}
           {option === "members" &&
-            (selectedMember ? <MemberTasks /> : <AllMembers />)}
+            (memberForTasks ? <MemberTasks /> : <AllMembers />)}
         </Box>
       )}
     </>

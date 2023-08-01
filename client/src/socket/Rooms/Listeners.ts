@@ -34,8 +34,8 @@ export const roomsListeners = (socket: Socket, dispatch: AppDispatch) => {
   });
 
   socket.on("joinedRoom", (data) => {
-    const { room, username, userId } = data;
-    dispatch(setJoinRoom({ room, username, userId }));
+    const { roomId, username, userId } = data;
+    dispatch(setJoinRoom({ roomId, username, userId }));
     dispatch(resetRoomPassword());
     hideModal(dispatch);
     dispatch(setLoading(false));

@@ -13,7 +13,7 @@ const AllMembers = () => {
       sx={{
         display: "grid",
         justifyContent: "center",
-        gridTemplateColumns: isOnlyOneMember ? "250px" : "repeat(2, 1fr)",
+        gridTemplateColumns: isOnlyOneMember ? null : "repeat(2, 1fr)",
         gridAutoRows: "100px",
         gridGap: "16px",
       }}

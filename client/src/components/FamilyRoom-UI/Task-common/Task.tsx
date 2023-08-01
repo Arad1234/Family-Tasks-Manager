@@ -12,7 +12,7 @@ interface Props {
 }
 
 const Task = ({ task }: Props) => {
-  const { selectedMember } = useAppSelector((state) => state.membersReducer);
+  const { memberForTasks } = useAppSelector((state) => state.membersReducer);
 
   return (
     <Box
@@ -35,7 +35,7 @@ const Task = ({ task }: Props) => {
         <>
           <TaskTimeToDo task={task} />
           {/* Mount the "AddToCalendarButton" if the user did not clicked to show any other member tasks. */}
-          {!selectedMember && <GoogleCalendarManipulation task={task} />}
+          {!memberForTasks && <GoogleCalendarManipulation task={task} />}
         </>
       )}
     </Box>

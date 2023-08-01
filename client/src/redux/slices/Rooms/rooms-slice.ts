@@ -29,10 +29,22 @@ const roomsSlice = createSlice({
       });
     },
     setJoinRoom(state, { payload }) {
-      const { room: joinedRoom, username, userId } = payload;
+      const { roomId: joinedRoomId, username, userId } = payload;
       state.rooms = state.rooms.map((room) => {
-        if (room._id === joinedRoom._id) {
+        if (room._id === joinedRoomId) {
           room.familyMembers.push({ username, userId, tasks: [] });
+        }
+        return room;
+      });
+    },
+
+    setDeleteMember(state, { payload }) {
+      const { roomId, memberId } = payload;
+      state.rooms = state.rooms.map((room) => {
+        if (room._id === roomId) {
+          room.familyMembers = room.familyMembers.filter((member) => {
+            return member.userId !== memberId;
+          });
         }
         return room;
       });
@@ -76,6 +88,7 @@ export const {
   setJoinRoom,
   setCurrentRoom,
   setAddTask,
+  setDeleteMember,
 } = roomsSlice.actions;
 
 export default persistedRoomsReducer;

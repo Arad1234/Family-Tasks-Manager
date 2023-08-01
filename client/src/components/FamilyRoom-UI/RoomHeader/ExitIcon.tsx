@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { ImExit } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../redux/hooks";
-import { setSelectedMember } from "../../../redux/slices/FamilyRoom/members-slice";
+import { setMemberForTasks } from "../../../redux/slices/FamilyRoom/members-slice";
 import { setRoomOption } from "../../../redux/slices/FamilyRoom/roomOptions-slice";
 
 const ExitIcon = () => {
@@ -12,7 +12,7 @@ const ExitIcon = () => {
   const handleExitRoom = () => {
     navigate("/home");
     dispatch(setRoomOption("tasks"));
-    dispatch(setSelectedMember(null));
+    dispatch(setMemberForTasks(null));
   };
 
   return (

@@ -5,6 +5,7 @@ import { roomHandler } from "./src/controllers/room.controller";
 import { verifyToken } from "./src/middlewares/socket/verifyToken";
 import { taskHandler } from "./src/controllers/task.controller";
 import { validateMiddleware } from "./src/middlewares/socket/validationMiddleware";
+import { memberHandler } from "./src/controllers/member.controller";
 
 export const connectSocketServer = (app: Application) => {
   const server = http.createServer(app);
@@ -24,6 +25,7 @@ export const connectSocketServer = (app: Application) => {
     socket.use(validateMiddleware);
 
     roomHandler(io, socket);
+    memberHandler(io, socket);
     taskHandler(io, socket);
   }
 };
