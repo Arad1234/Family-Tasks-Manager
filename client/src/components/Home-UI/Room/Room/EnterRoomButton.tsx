@@ -1,30 +1,33 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { IRoom } from "../../../../types";
 
 interface Props {
-  room: IRoom;
+  roomId: string;
 }
 
-const EnterRoomButton = ({ room }: Props) => {
+const EnterRoomButton = ({ roomId }: Props) => {
   const navigate = useNavigate();
 
   const handleEnterRoom = () => {
-    navigate(`/home/${room._id}`);
+    navigate(`/home/${roomId}`);
   };
 
   return (
     <Button
       sx={{
-        width: "137px",
-        borderRadius: "25px",
+        width: "130px",
+        borderRadius: "6px",
+        background: "rgba(50, 200, 50, 0.7)",
         color: "whitesmoke",
         height: "40px",
+        textTransform: "none",
+        fontSize: "16px",
+        ":hover": { background: "rgba(50, 200, 50, 0.5)" },
       }}
       onClick={handleEnterRoom}
       variant="contained"
     >
-      Enter Room
+      Enter Room!
     </Button>
   );
 };

@@ -1,4 +1,4 @@
-import { Session, useSession } from "@supabase/auth-helpers-react";
+import { useSession } from "@supabase/auth-helpers-react";
 import { ITask } from "../../../../types";
 import { formatDate } from "../../../../utils/helpers/formatDate";
 import { createGoogleCalendarEvent } from "../../../../Supabase/Api";
@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { setEventToDelete } from "../../../../redux/slices/CalendarEvents/CalendarEvents";
 import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
 import GoogleCalendarButton from "./Button";
+import { useMemo } from "react";
 
 interface Props {
   task: ITask;
@@ -19,9 +20,11 @@ const GoogleCalendarManipulation = ({ task }: Props) => {
     (state) => state.calendarEventsReducer
   );
 
-  const isInCalendar = eventsIdAndLocationsList.find(
-    (eventIdAndLocation) => eventIdAndLocation.location === task.createdAt
-  );
+  const isInCalendar = useMemo(() => {
+    return eventsIdAndLocationsList.find(
+      (eventIdAndLocation) => eventIdAndLocation.location === task.createdAt
+    );
+  }, [eventsIdAndLocationsList]);
 
   const createCalenderEvent = () => {
     const { reformattedStartTime, reformattedEndTime } = formatDate(task);
@@ -38,8 +41,9 @@ const GoogleCalendarManipulation = ({ task }: Props) => {
         dateTime: reformattedEndTime,
       },
     };
-
-    createGoogleCalendarEvent(event, session as Session, dispatch);
+    if (session) {
+      createGoogleCalendarEvent(event, session, dispatch);
+    }
   };
 
   const showDeleteEventModal = () => {

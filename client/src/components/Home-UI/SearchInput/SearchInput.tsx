@@ -9,6 +9,7 @@ const SearchInput = ({ setSearchQuery }: Props) => {
   const handleSearchInputChange = (e: InputChangeEvent) => {
     setSearchQuery(e.target.value);
   };
+
   return (
     <Box sx={{ padding: "10px" }}>
       <TextField

@@ -17,6 +17,9 @@ import { removeErrorListeners } from "../../socket/Errors/RemoveListeners";
 import NewRoomButton from "../../components/Home-UI/Buttons/NewRoomButton";
 import SignOut from "../../components/Home-UI/Buttons/SignOut";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import LeaveRoomModal from "../../components/Home-UI/Modal/LeaveRoomModal/LeaveRoomModal";
+import { commonListeners } from "../../socket/Common/Listeners";
+import { removeCommonListeners } from "../../socket/Common/RemoveListeners";
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -28,6 +31,7 @@ const Home = () => {
 
   useEffect(() => {
     roomsListeners(socket, dispatch);
+    commonListeners(socket, dispatch);
     errorListeners(socket, navigate, dispatch);
 
     socket.connect();
@@ -37,6 +41,8 @@ const Home = () => {
     return () => {
       removeRoomsListeners(socket);
       removeErrorListeners(socket);
+      removeCommonListeners(socket);
+
       socket.disconnect();
     };
   }, []);
@@ -74,6 +80,7 @@ const Home = () => {
       {modalStatus === "create" && <CreateRoomModal />}
       {modalStatus === "join" && <JoinRoomModal />}
       {modalStatus === "delete" && <DeleteRoomModal />}
+      {modalStatus === "leaveRoom" && <LeaveRoomModal />}
     </>
   );
 };

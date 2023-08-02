@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import { IMember } from "../../../../types";
 import { extractUserFromLocalStorage } from "../../../../utils/helpers/LocalStorage/extractUser";
 import { useAppSelector } from "../../../../redux/hooks";
-import AssignTaskModal from "../../Modal/AssignTaskModal/AssignTaskModal";
 import AddTaskPlusIcon from "./AddTaskPlusIcon";
 import TasksButton from "./TasksButton";
 import MemberName from "./MemberName";
@@ -14,7 +13,6 @@ interface Props {
 
 const Member = ({ member }: Props) => {
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);
-  const { modalStatus } = useAppSelector((state) => state.modalReducer);
 
   const { parsedUserId: currentUserId } = extractUserFromLocalStorage();
 
@@ -53,8 +51,6 @@ const Member = ({ member }: Props) => {
         <TasksButton member={member} />
         {isRoomCreator && <AddTaskPlusIcon member={member} />}
       </Box>
-
-      {modalStatus === "assignTask" && <AssignTaskModal />}
     </Box>
   );
 };

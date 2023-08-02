@@ -1,31 +1,43 @@
 import { useAppSelector } from "../../../redux/hooks";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Member from "./Member/Member";
 import { IRoom } from "../../../types";
+import { extractUserFromLocalStorage } from "../../../utils/helpers/LocalStorage/extractUser";
 
 const AllMembers = () => {
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);
   const { familyMembers } = currentRoom as IRoom;
-  const isOnlyOneMember = familyMembers.length === 1;
+
+  
+
+  const { parsedUserId: currentUserId } = extractUserFromLocalStorage();
 
   return (
     <Box
       sx={{
         display: "grid",
         justifyContent: "center",
-        gridTemplateColumns: isOnlyOneMember ? null : "repeat(2, 1fr)",
+        gridTemplateColumns:
+          familyMembers.length <= 2 ? null : "repeat(2, 1fr)",
         gridAutoRows: "100px",
-        gridGap: "16px",
+        gridRowGap: "28px",
+        gridColumnGap: "15px",
       }}
     >
-      {familyMembers.map((member) => {
-        return (
-          <Member
-            key={member.userId}
-            member={member}
-          />
-        );
-      })}
+      {familyMembers.length === 1 ? (
+        <Typography variant="h5">No Additional Members</Typography>
+      ) : (
+        familyMembers.map((member) => {
+          return (
+            member.userId !== currentUserId && (
+              <Member
+                key={member.userId}
+                member={member}
+              />
+            )
+          );
+        })
+      )}
     </Box>
   );
 };
