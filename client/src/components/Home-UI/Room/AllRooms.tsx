@@ -12,7 +12,7 @@ const AllRooms = ({ searchQuery }: Props) => {
 
   const filteredRooms = useMemo(() => {
     return rooms.filter((room) => room.roomName.includes(searchQuery));
-  }, [searchQuery]);
+  }, [rooms, searchQuery]);
 
   return filteredRooms.length > 0 ? (
     <Box

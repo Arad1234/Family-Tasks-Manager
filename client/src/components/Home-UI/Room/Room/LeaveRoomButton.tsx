@@ -1,9 +1,9 @@
-import { Button } from "@mui/material";
 import { IMember } from "../../../../types";
 import { useAppDispatch } from "../../../../redux/hooks";
 import { setMemberForDelete } from "../../../../redux/slices/FamilyRoom/members-slice";
 import { setCurrentRoom } from "../../../../redux/slices/Rooms/rooms-slice";
 import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
+import RoomButton from "./Common/RoomButton";
 
 interface Props {
   roomId: string;
@@ -20,22 +20,12 @@ const LeaveRoomButton = ({ roomId, member }: Props) => {
   };
 
   return (
-    <Button
-      sx={{
-        width: "130px",
-        borderRadius: "6px",
-        background: "rgba(200, 50, 50, 0.7)",
-        color: "whitesmoke",
-        height: "40px",
-        textTransform: "none",
-        fontSize: "16px",
-        ":hover": { background: "rgba(200, 50, 50, 0.5)" },
-      }}
-      onClick={handleShowLeaveRoomModal}
-      variant="contained"
+    <RoomButton
+      backgroundColor="200, 50, 50"
+      handleClick={handleShowLeaveRoomModal}
     >
       Leave
-    </Button>
+    </RoomButton>
   );
 };
 

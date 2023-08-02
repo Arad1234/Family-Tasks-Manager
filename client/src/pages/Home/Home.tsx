@@ -41,8 +41,8 @@ const Home = () => {
 
     return () => {
       removeRoomsListeners(socket);
-      removeErrorListeners(socket);
       removeCommonListeners(socket);
+      removeErrorListeners(socket);
 
       socket.disconnect();
     };
@@ -74,7 +74,10 @@ const Home = () => {
         <SignOut />
       </Box>
 
-      <SearchInput setSearchQuery={setSearchQuery} />
+      <SearchInput
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
 
       <AllRooms searchQuery={searchQuery} />
 

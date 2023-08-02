@@ -1,37 +1,49 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { EventIdAndLocation } from "../../../types";
+import { EventIdAndCreatedAt } from "../../../types";
 
 interface InitialState {
-  eventsIdAndLocationsList: EventIdAndLocation[];
-  eventToDelete: EventIdAndLocation;
+  eventsIdAndCreatedAtList: EventIdAndCreatedAt[];
+  eventToDelete: EventIdAndCreatedAt | null;
 }
 
 const initialState: InitialState = {
-  eventsIdAndLocationsList: [],
-  eventToDelete: { id: "", location: "" },
+  eventsIdAndCreatedAtList: [],
+  eventToDelete: null,
 };
 
 const calendarEventsSlice = createSlice({
   name: "calendarEvents",
   initialState,
   reducers: {
-    setEventsIdAndLocation(state, { payload: eventsList }) {
-      const idAndLocationsList = eventsList.map((event: any) => {
-        return { location: event.location, id: event.id };
+    setEventsIdAndCreatedAt(state, { payload: eventsList }) {
+      const idAndCreatedAtList = eventsList.map((event: any) => {
+        const { extendedProperties } = event;
+
+        if (extendedProperties && extendedProperties.private) {
+          return {
+            taskCreatedAt: extendedProperties.private.taskCreatedAt,
+            id: event.id,
+          };
+        } else {
+          return { id: event.id };
+        }
       });
-      state.eventsIdAndLocationsList = idAndLocationsList;
+
+      state.eventsIdAndCreatedAtList = idAndCreatedAtList;
     },
-    setAddGoogleEvent(state, { payload: eventLocation }) {
-      state.eventsIdAndLocationsList.push(eventLocation);
+    setAddGoogleEvent(state, { payload: newEvent }) {
+      const { taskCreatedAt, id } = newEvent;
+      state.eventsIdAndCreatedAtList.push({ taskCreatedAt, id });
     },
     setDeleteGoogleEvent(state, { payload: deletedEventId }) {
-      state.eventsIdAndLocationsList = state.eventsIdAndLocationsList.filter(
-        (eventIdAndLocation) => eventIdAndLocation.id !== deletedEventId
+      state.eventsIdAndCreatedAtList = state.eventsIdAndCreatedAtList.filter(
+        (eventIdAndCreatedAt) => eventIdAndCreatedAt.id !== deletedEventId
       );
     },
-    setEventToDelete(state, { payload: eventLocation }) {
-      const eventToDelete = state.eventsIdAndLocationsList.find(
-        (eventIdAndLocation) => eventIdAndLocation.location === eventLocation
+    setEventToDelete(state, { payload: eventCreatedAt }) {
+      const eventToDelete = state.eventsIdAndCreatedAtList.find(
+        (eventIdAndCreatedAt) =>
+          eventIdAndCreatedAt.taskCreatedAt === eventCreatedAt
       );
       if (eventToDelete) {
         state.eventToDelete = eventToDelete;
@@ -41,7 +53,7 @@ const calendarEventsSlice = createSlice({
 });
 
 export const {
-  setEventsIdAndLocation,
+  setEventsIdAndCreatedAt,
   setAddGoogleEvent,
   setDeleteGoogleEvent,
   setEventToDelete,

@@ -4,5 +4,4 @@ export const removeRoomsListeners = (socket: Socket) => {
   socket.off("createdRoom");
   socket.off("recievedRooms");
   socket.off("deletedRoom");
-  socket.off("joinedRoom");
 };

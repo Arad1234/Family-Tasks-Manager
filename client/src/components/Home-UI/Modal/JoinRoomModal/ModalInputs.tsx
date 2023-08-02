@@ -5,10 +5,11 @@ import { useAppSelector } from "../../../../redux/hooks";
 
 const ModalInputs = () => {
   const { roomPassword } = useAppSelector((state) => state.joinRoomReducer);
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
       <ModalInput
-        type="text"
+        type="password"
         setChange={setRoomPassword}
         label="Room Password"
         isRequired={true}
