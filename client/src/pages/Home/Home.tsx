@@ -24,6 +24,7 @@ import { removeCommonListeners } from "../../socket/Common/RemoveListeners";
 const Home = () => {
   const dispatch = useAppDispatch();
   const [searchQuery, setSearchQuery] = useState<string>("");
+
   const { loading } = useAppSelector((state) => state.authReducer);
   const { modalStatus } = useAppSelector((state) => state.modalReducer);
   const navigate = useNavigate();
