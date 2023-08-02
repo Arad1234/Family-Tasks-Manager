@@ -5,9 +5,9 @@ import { AppDispatch } from "../redux/store";
 import {
   setAddGoogleEvent,
   setDeleteGoogleEvent,
-  setEventsIdAndLocation,
+  setEventsIdAndCreatedAt,
 } from "../redux/slices/CalendarEvents/CalendarEvents";
-import { setShowModal } from "../redux/slices/Modal/modal-slice";
+import { hideModal } from "../utils/helpers/hideModal";
 
 export const fetchGoogleCalendarEvents = async (
   session: Session,
@@ -22,7 +22,7 @@ export const fetchGoogleCalendarEvents = async (
     const data = await response.json();
     console.log(data.items);
     console.log(data);
-    dispatch(setEventsIdAndLocation(data.items));
+    dispatch(setEventsIdAndCreatedAt(data.items));
   } catch (error) {
     console.log(error);
   }
@@ -45,9 +45,17 @@ export const createGoogleCalendarEvent = async (
     if (data.error) {
       console.log(data.error);
     } else {
-      console.log(data);
-      dispatch(setAddGoogleEvent({ location: data.location, id: data.id }));
-      alert("Created Event!");
+      const newEvent = data;
+
+      const { extendedProperties } = newEvent;
+
+      dispatch(
+        setAddGoogleEvent({
+          taskCreatedAt: extendedProperties.private.taskCreatedAt,
+          id: newEvent.id,
+        })
+      );
+      alert("Event Created!");
     }
   } catch (error) {
     console.log(error);
@@ -66,8 +74,8 @@ export const deleteGoogleCalendarEvent = async (
     });
 
     dispatch(setDeleteGoogleEvent(eventToDeleteId));
-    dispatch(setShowModal({ isOpen: false, modalStatus: "" }));
-    alert("Deleted Event!");
+    hideModal(dispatch);
+    alert("Event Deleted!");
   } catch (error) {
     console.log(error);
   }

@@ -37,8 +37,8 @@ export interface IRoom {
 
 export interface RoomCreationData {
   roomName: string;
-  maxMembers: number | null;
   roomPassword: string;
+  maxMembers: number | null;
 }
 
 export interface JoinRoomData {
@@ -55,8 +55,10 @@ export interface AddTaskData {
   endTime: Date | null;
 }
 
+type ExtendedProperties = { private: { taskCreatedAt: string } };
+
 export interface GoogleCalendarEventCreation {
-  location: string;
+  extendedProperties: ExtendedProperties;
   summary: string;
   description: string;
   start: {
@@ -67,7 +69,7 @@ export interface GoogleCalendarEventCreation {
   };
 }
 
-export interface EventIdAndLocation {
+export interface EventIdAndCreatedAt {
   id: string;
-  location: string;
+  taskCreatedAt: string;
 }

@@ -7,6 +7,7 @@ import { setEventToDelete } from "../../../../redux/slices/CalendarEvents/Calend
 import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
 import GoogleCalendarButton from "./Button";
 import { useMemo } from "react";
+import { Typography } from "@mui/material";
 
 interface Props {
   task: ITask;
@@ -16,22 +17,23 @@ const GoogleCalendarManipulation = ({ task }: Props) => {
   const session = useSession(); // tokens, when session exists we have a user.
 
   const dispatch = useAppDispatch();
-  const { eventsIdAndLocationsList } = useAppSelector(
+  const { eventsIdAndCreatedAtList } = useAppSelector(
     (state) => state.calendarEventsReducer
   );
 
   const isInCalendar = useMemo(() => {
-    return eventsIdAndLocationsList.find(
-      (eventIdAndLocation) => eventIdAndLocation.location === task.createdAt
+    return eventsIdAndCreatedAtList.some(
+      (eventIdAndCreatedAt) =>
+        eventIdAndCreatedAt.taskCreatedAt === task.createdAt
     );
-  }, [eventsIdAndLocationsList]);
+  }, [eventsIdAndCreatedAtList]);
 
   const createCalenderEvent = () => {
     const { reformattedStartTime, reformattedEndTime } = formatDate(task);
 
     const event = {
-      // I'm setting the location of the event as the "createdAt" property of the task to identify the task later when want to delete her from the calendar.
-      location: task.createdAt,
+      // I'm setting the extendedProperties of the event as the "taskCreatedAt" property of the task to identify the task later when want to delete her from the calendar and update the redux state accordingly.
+      extendedProperties: { private: { taskCreatedAt: task.createdAt } },
       summary: task.name,
       description: task.description,
       start: {
@@ -41,6 +43,7 @@ const GoogleCalendarManipulation = ({ task }: Props) => {
         dateTime: reformattedEndTime,
       },
     };
+
     if (session) {
       createGoogleCalendarEvent(event, session, dispatch);
     }
@@ -53,23 +56,25 @@ const GoogleCalendarManipulation = ({ task }: Props) => {
     );
   };
 
-  return session ? (
+  return session?.provider_token ? (
     isInCalendar ? (
       <GoogleCalendarButton
-        background="150, 20, 60"
+        backgroundColor="150, 20, 60"
         handleClick={showDeleteEventModal}
       >
         Delete From Calendar
       </GoogleCalendarButton>
     ) : (
       <GoogleCalendarButton
-        background="20, 60, 150"
+        backgroundColor="20, 60, 150"
         handleClick={createCalenderEvent}
       >
         Add To Google Calender
       </GoogleCalendarButton>
     )
-  ) : null;
+  ) : (
+    <Typography>Google Authentication Expires, Please Log In again</Typography>
+  );
 };
 
 export default GoogleCalendarManipulation;

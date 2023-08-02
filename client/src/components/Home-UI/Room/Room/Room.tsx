@@ -23,7 +23,7 @@ const Room = ({ room }: Props) => {
 
   const member = useMemo(() => {
     return familyMembers.find((member) => member.userId === userId);
-  }, [familyMembers]);
+  }, [userId, familyMembers]);
 
   return (
     <Box

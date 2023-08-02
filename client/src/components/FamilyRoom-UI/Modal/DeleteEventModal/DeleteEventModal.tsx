@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
 import { deleteGoogleCalendarEvent } from "../../../../Supabase/Api";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { Session, useSession } from "@supabase/auth-helpers-react";
+import { useSession } from "@supabase/auth-helpers-react";
 import DeleteModalButtons from "../../../Modal-Common/DeleteModalButtons";
 import { hideModal } from "../../../../utils/helpers/hideModal";
 
@@ -14,7 +14,9 @@ const DeleteEventModal = () => {
   const session = useSession();
 
   const handleDeleteEventFromCalendar = () => {
-    deleteGoogleCalendarEvent(eventToDelete.id, session as Session, dispatch);
+    if (eventToDelete && session) {
+      deleteGoogleCalendarEvent(eventToDelete.id, session, dispatch);
+    }
   };
   const handleCancel = () => {
     hideModal(dispatch);
@@ -27,6 +29,7 @@ const DeleteEventModal = () => {
       <DeleteModalButtons
         handleDelete={handleDeleteEventFromCalendar}
         handleCancel={handleCancel}
+        buttonOption="Delete"
       />
     </ModalComponent>
   );

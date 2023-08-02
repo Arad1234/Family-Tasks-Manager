@@ -8,8 +8,6 @@ const AllMembers = () => {
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);
   const { familyMembers } = currentRoom as IRoom;
 
-  
-
   const { parsedUserId: currentUserId } = extractUserFromLocalStorage();
 
   return (
@@ -17,8 +15,7 @@ const AllMembers = () => {
       sx={{
         display: "grid",
         justifyContent: "center",
-        gridTemplateColumns:
-          familyMembers.length <= 2 ? null : "repeat(2, 1fr)",
+        gridTemplateColumns: familyMembers.length > 2 ? "repeat(2, 1fr)" : null,
         gridAutoRows: "100px",
         gridRowGap: "28px",
         gridColumnGap: "15px",

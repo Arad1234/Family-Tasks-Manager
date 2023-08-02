@@ -11,7 +11,9 @@ const JoinRoomModal = () => {
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);
 
   const handleJoinRoom = () => {
-    joinRoomSocket(dispatch, { roomId: currentRoom._id, roomPassword });
+    if (currentRoom) {
+      joinRoomSocket(dispatch, { roomId: currentRoom._id, roomPassword });
+    }
   };
 
   return (
