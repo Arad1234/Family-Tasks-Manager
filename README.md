@@ -1,6 +1,6 @@
 # Family Tasks Manager App
 
-A real-time family tasks manager app built using React.js, Redux, TypeScript (Front & Back), Node.js, Express.js, MongoDB, Socket.IO, JWT, Zod, MUI, and Supabase.
+A real-time family tasks manager app built using React.js, Redux, TypeScript (Front & Back), Node.js, Express.js, MongoDB, Socket.IO, JWT, Zod, MUI, and Supabase Auth.
 
 ## Overview
 
@@ -11,7 +11,7 @@ The app includes the following key features:
 - User authentication using JWT (JSON Web Tokens)
 - Create, update, and delete family rooms
 - Add, update, and delete tasks within a family room
-- Utilize Supabase to synchronize the tasks with their Google Calendar.
+- Utilize Supabase Auth to synchronize the tasks with their Google Calendar.
 - Real-time updates using Socket.IO
 - Task assignment to family members
 - Responsive user interface built with MUI (Material-UI)
