@@ -3,6 +3,7 @@ import { extractUserFromLocalStorage } from "../../../utils/helpers/LocalStorage
 
 const WelcomeTitle = () => {
   const { parsedUsername: currentUsername } = extractUserFromLocalStorage();
+
   return (
     <Box sx={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
       <Typography sx={{ fontSize: "30px", fontWeight: "500" }}>

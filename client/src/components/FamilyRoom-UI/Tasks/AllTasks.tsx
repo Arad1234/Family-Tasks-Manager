@@ -1,30 +1,40 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useAppSelector } from "../../../redux/hooks";
 import { extractUserFromLocalStorage } from "../../../utils/helpers/LocalStorage/extractUser";
 import Task from "../Task-common/Task";
-import { IRoom } from "../../../types";
+import { IMember, IRoom } from "../../../types";
+import AddTaskButton from "./AddTaskButton";
+import { useMemo } from "react";
 
 const AllTasks = () => {
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);
-  console.log(currentRoom);
 
   const { familyMembers } = currentRoom as IRoom;
   const { parsedUserId: currentUserId } = extractUserFromLocalStorage();
 
-  const currentMember = familyMembers?.find((member) => {
-    return member.userId === currentUserId;
-  });
+  const currentMember = useMemo(() => {
+    return familyMembers?.find((member) => {
+      return member.userId === currentUserId;
+    });
+  }, [familyMembers]); // When familyMembers changed it means that a task is added to one of the familyMembers or something happen with the members (deleted/added), so I need to reflect the changes.
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-      {currentMember?.tasks.map((task) => {
-        return (
-          <Task
-            key={task._id}
-            task={task}
-          />
-        );
-      })}
+      <AddTaskButton currentMember={currentMember as IMember} />
+      {currentMember?.tasks.length === 0 ? (
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Typography variant="h5">Add Your First Task!</Typography>
+        </Box>
+      ) : (
+        currentMember?.tasks.map((task) => {
+          return (
+            <Task
+              key={task._id}
+              task={task}
+            />
+          );
+        })
+      )}
     </Box>
   );
 };

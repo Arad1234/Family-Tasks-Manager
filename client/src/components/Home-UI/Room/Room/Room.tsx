@@ -5,6 +5,8 @@ import { IRoom } from "../../../../types/index";
 import { extractUserFromLocalStorage } from "../../../../utils/helpers/LocalStorage/extractUser";
 import EnterRoomButton from "./EnterRoomButton";
 import RoomName from "./RoomName";
+import LeaveRoomButton from "./LeaveRoomButton";
+import { useMemo } from "react";
 
 interface Props {
   room: IRoom;
@@ -15,20 +17,24 @@ const Room = ({ room }: Props) => {
 
   const { familyMembers, maxMembers, creator } = room;
 
-  const isMember = familyMembers.some((member) => member.userId === userId);
+  const isRoomCreator = creator.userId === userId;
 
   const isRoomFull = familyMembers.length === maxMembers;
+
+  const member = useMemo(() => {
+    return familyMembers.find((member) => member.userId === userId);
+  }, [familyMembers]);
 
   return (
     <Box
       sx={{
-        border: "1px solid gray",
         borderRadius: "10px",
         padding: "10px",
         display: "flex",
         flexDirection: "column",
         gap: "20px",
         height: "107px",
+        boxShadow: "3px 2px 6px 1px gray",
       }}
     >
       <Box
@@ -48,8 +54,16 @@ const Room = ({ room }: Props) => {
       </Box>
 
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-        {isMember ? (
-          <EnterRoomButton room={room} />
+        {member ? (
+          <>
+            <EnterRoomButton roomId={room._id} />
+            {!isRoomCreator && (
+              <LeaveRoomButton
+                roomId={room._id}
+                member={member}
+              />
+            )}
+          </>
         ) : isRoomFull ? (
           <Typography sx={{ fontWeight: "600", color: "rgb(200, 100, 0)" }}>
             Room Is Full
@@ -57,7 +71,7 @@ const Room = ({ room }: Props) => {
         ) : (
           <JoinButton room={room} />
         )}
-        {userId === creator.userId && <DeleteButton room={room} />}
+        {isRoomCreator && <DeleteButton room={room} />}
       </Box>
     </Box>
   );

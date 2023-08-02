@@ -19,6 +19,9 @@ import { fetchGoogleCalendarEvents } from "../../Supabase/Api";
 import DeleteEventModal from "../../components/FamilyRoom-UI/Modal/DeleteEventModal/DeleteEventModal";
 import MemberTasks from "../../components/FamilyRoom-UI/Members/MemberTasks/MemberTasks";
 import DeleteMemberModal from "../../components/FamilyRoom-UI/Modal/DeleteMemberModal/DeleteMemberModal";
+import AssignTaskModal from "../../components/FamilyRoom-UI/Modal/AssignTaskModal/AssignTaskModal";
+import { commonListeners } from "../../socket/Common/Listeners";
+import { removeCommonListeners } from "../../socket/Common/RemoveListeners";
 
 const FamilyRoom = () => {
   const { roomId } = useParams();
@@ -34,6 +37,7 @@ const FamilyRoom = () => {
 
   useEffect(() => {
     familyRoomListeners(socket, dispatch);
+    commonListeners(socket, dispatch);
     errorListeners(socket, navigate, dispatch);
 
     socket.connect();
@@ -41,6 +45,7 @@ const FamilyRoom = () => {
     return () => {
       removeFamilyRoomListeners(socket);
       removeErrorListeners(socket);
+      removeCommonListeners(socket);
 
       socket.disconnect();
     };
@@ -69,6 +74,7 @@ const FamilyRoom = () => {
 
       {modalStatus === "deleteCalendarEvent" && <DeleteEventModal />}
       {modalStatus === "deleteMember" && <DeleteMemberModal />}
+      {modalStatus === "assignTask" && <AssignTaskModal />}
 
       {loading || !session ? (
         <Loader height="65vh" />

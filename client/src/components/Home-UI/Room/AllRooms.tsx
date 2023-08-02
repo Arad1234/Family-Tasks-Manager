@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import Room from "./Room/Room";
 import { useAppSelector } from "../../../redux/hooks";
+import { useMemo } from "react";
 
 interface Props {
   searchQuery: string;
@@ -9,16 +10,16 @@ interface Props {
 const AllRooms = ({ searchQuery }: Props) => {
   const { rooms } = useAppSelector((state) => state.roomsReducer);
 
-  const filteredRooms = rooms.filter((room) =>
-    room.roomName.includes(searchQuery)
-  );
+  const filteredRooms = useMemo(() => {
+    return rooms.filter((room) => room.roomName.includes(searchQuery));
+  }, [searchQuery]);
 
   return filteredRooms.length > 0 ? (
     <Box
       sx={{
         display: "flex",
         flexDirection: "column",
-        gap: "10px",
+        gap: "20px",
         margin: "10px",
       }}
     >
