@@ -8,6 +8,7 @@ import {
 } from "../../redux/slices/Rooms/rooms-slice";
 import { resetRoomDetails } from "../../redux/slices/Rooms/createRoom-slice";
 import { hideModal } from "../../utils/helpers/hideModal";
+import { toast } from "react-toastify";
 
 export const roomsListeners = (socket: Socket, dispatch: AppDispatch) => {
   socket.on("recievedRooms", (data) => {
@@ -22,6 +23,7 @@ export const roomsListeners = (socket: Socket, dispatch: AppDispatch) => {
     hideModal(dispatch);
     dispatch(resetRoomDetails());
     dispatch(setLoading(false));
+    toast.success("Room Created Successfully!");
   });
 
   socket.on("deletedRoom", (data) => {
@@ -29,5 +31,6 @@ export const roomsListeners = (socket: Socket, dispatch: AppDispatch) => {
     dispatch(setDeleteRoom(deletedRoomId));
     hideModal(dispatch);
     dispatch(setLoading(false));
+    toast.success("Room Deleted Successfully!");
   });
 };

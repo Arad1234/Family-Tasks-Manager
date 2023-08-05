@@ -1,8 +1,8 @@
-import { Button } from "@mui/material";
 import { useAppDispatch } from "../../../../redux/hooks";
 import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
 import { setCurrentRoom } from "../../../../redux/slices/Rooms/rooms-slice";
 import { IRoom } from "../../../../types";
+import RoomButton from "./Common/RoomButton";
 
 interface Props {
   room: IRoom;
@@ -19,18 +19,13 @@ const JoinButton = ({ room }: Props) => {
   };
 
   return (
-    <Button
-      sx={{
-        width: "60px",
-        borderRadius: "25px",
-        backgroundColor: "rgb(100, 230, 189)",
-        ":hover": { backgroundColor: "rgba(100, 230, 189, 0.8)" },
-      }}
-      onClick={handleOpenJoinModal}
-      variant="contained"
+    <RoomButton
+      backgroundColor="80, 210, 189"
+      handleClick={handleOpenJoinModal}
+      width="70px"
     >
       Join
-    </Button>
+    </RoomButton>
   );
 };
 

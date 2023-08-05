@@ -39,6 +39,12 @@ const Home = () => {
 
     getRoomsSocket(dispatch);
 
+    supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_OUT") {
+        navigate("/");
+      }
+    });
+
     return () => {
       removeRoomsListeners(socket);
       removeCommonListeners(socket);
@@ -48,19 +54,9 @@ const Home = () => {
     };
   }, []);
 
-  useEffect(() => {
-    supabase.auth.onAuthStateChange((event) => {
-      if (event === "SIGNED_OUT") {
-        navigate("/");
-      }
-    });
-  }, []);
-
-  if (loading) {
-    return <Loader height="100vh" />;
-  }
-
-  return (
+  return loading ? (
+    <Loader height="100vh" />
+  ) : (
     <>
       <Box
         sx={{

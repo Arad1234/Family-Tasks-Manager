@@ -18,6 +18,7 @@ const Member = ({ member }: Props) => {
 
   const isRoomCreator = currentRoom?.creator.userId === currentUserId;
 
+  // If the user is the room creator AND it is not himself (cannot delete himself).
   const canDeleteMember = isRoomCreator && member.userId !== currentUserId;
 
   return (

@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 import Member from "./Member/Member";
 import { IRoom } from "../../../types";
 import { extractUserFromLocalStorage } from "../../../utils/helpers/LocalStorage/extractUser";
+import InviteMembersButton from "./InviteMembersButton";
 
 const AllMembers = () => {
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);
@@ -22,7 +23,17 @@ const AllMembers = () => {
       }}
     >
       {familyMembers.length === 1 ? (
-        <Typography variant="h5">No Additional Members</Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "20px",
+          }}
+        >
+          <Typography variant="h5">No Additional Members</Typography>
+          {/* <InviteMembersButton /> */}
+        </Box>
       ) : (
         familyMembers.map((member) => {
           return (

@@ -23,6 +23,7 @@ const LeaveRoomButton = ({ roomId, member }: Props) => {
     <RoomButton
       backgroundColor="200, 50, 50"
       handleClick={handleShowLeaveRoomModal}
+      width="70px"
     >
       Leave
     </RoomButton>

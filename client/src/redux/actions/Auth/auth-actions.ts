@@ -49,12 +49,12 @@ export const registerThunk = createAsyncThunk<
       return data;
     } catch (error: any) {
       const { data } = error.response;
-      if (data.error.code === 11000) {
-        return thunkAPI.rejectWithValue("Email already exists");
-      } else {
+      const { issues } = data.error;
+      if (issues) {
         // Getting issues from "zod" validation from the server.
-        const { issues } = data.error;
         return thunkAPI.rejectWithValue(issues[0].message);
+      } else {
+        return thunkAPI.rejectWithValue(data.error);
       }
     }
   }
