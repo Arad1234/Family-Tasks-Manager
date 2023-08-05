@@ -7,6 +7,7 @@ import {
 import { hideModal } from "../../utils/helpers/hideModal";
 import { setLoading } from "../../redux/slices/Auth/auth-slice";
 import { resetRoomPassword } from "../../redux/slices/Rooms/joinRoom-slice";
+import { toast } from "react-toastify";
 
 export const commonListeners = (socket: Socket, dispatch: AppDispatch) => {
   socket.on("joinedRoom", (data) => {
@@ -15,6 +16,7 @@ export const commonListeners = (socket: Socket, dispatch: AppDispatch) => {
     dispatch(resetRoomPassword());
     hideModal(dispatch);
     dispatch(setLoading(false));
+    toast.success("Joined Room!");
   });
 
   socket.on("memberDeleted", (data) => {
@@ -23,5 +25,6 @@ export const commonListeners = (socket: Socket, dispatch: AppDispatch) => {
     dispatch(setDeleteMember({ memberId, roomId }));
     hideModal(dispatch);
     dispatch(setLoading(false));
+    toast.success("Member Deleted Successfully!");
   });
 };

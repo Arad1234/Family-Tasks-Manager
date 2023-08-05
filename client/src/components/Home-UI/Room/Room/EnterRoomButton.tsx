@@ -16,6 +16,7 @@ const EnterRoomButton = ({ roomId }: Props) => {
     <RoomButton
       backgroundColor="50, 200, 50"
       handleClick={handleEnterRoom}
+      width="135px"
     >
       Enter Room!
     </RoomButton>

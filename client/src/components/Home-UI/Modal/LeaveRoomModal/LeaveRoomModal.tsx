@@ -23,7 +23,7 @@ const LeaveRoomModal = () => {
   return (
     <ModalComponent>
       <Typography>
-        Are you sure you want to leave {currentRoom?.roomName}
+        Are you sure you want to leave "{currentRoom?.roomName}" room?
       </Typography>
       <DeleteModalButtons
         handleDelete={handleLeaveRoom}

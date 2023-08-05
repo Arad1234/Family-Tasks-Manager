@@ -15,6 +15,7 @@ import TitleComponent from "../../components/Auth-UI/TitleComponent";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { SignInWithOAuth } from "../../Supabase/OAuth";
 import Loader from "../../components/Loader/Loader";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -34,10 +35,9 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const response = await dispatch(loginThunk({ email, password }));
-    console.log(response);
 
     if (response.error) {
-      alert(response.payload);
+      toast.error(response.payload as string);
       return;
     }
 

@@ -10,12 +10,12 @@ const ModalComponent = ({ children }: ChildrenProps) => {
   const dispatch = useAppDispatch();
 
   const handleOnClose = () => {
-    dispatch(setShowModal({ isOpen: false, status: "" }));
     if (modalStatus === "create") {
       dispatch(resetRoomDetails());
     } else if (modalStatus === "join") {
       dispatch(resetRoomPassword());
     }
+    dispatch(setShowModal({ isOpen: false, modalStatus: "" }));
   };
   return (
     <Modal

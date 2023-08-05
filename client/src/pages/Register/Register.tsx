@@ -18,6 +18,7 @@ import { Typography } from "@mui/material";
 import LinkComponent from "../../components/Link/LinkComponent";
 import BackgroundImage from "../../components/Auth-UI/BackgroundImage";
 import TitleComponent from "../../components/Auth-UI/TitleComponent";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -47,9 +48,9 @@ const Register = () => {
       registerThunk({ username, email, password, confirmPassword })
     );
     if (response.error) {
-      console.log(response);
-      alert(response.payload);
+      toast.error(response.payload as string);
     } else {
+      toast.success("Created User Successfully!");
       navigate("/");
     }
   };

@@ -4,6 +4,7 @@ import { setLoading } from "../../redux/slices/Auth/auth-slice";
 import { setAddTask } from "../../redux/slices/Rooms/rooms-slice";
 import { resetTaskDetails } from "../../redux/slices/FamilyRoom/createTask-slice";
 import { hideModal } from "../../utils/helpers/hideModal";
+import { toast } from "react-toastify";
 
 export const familyRoomListeners = (socket: Socket, dispatch: AppDispatch) => {
   socket.on("taskCreated", (data) => {
@@ -13,5 +14,6 @@ export const familyRoomListeners = (socket: Socket, dispatch: AppDispatch) => {
     hideModal(dispatch);
     dispatch(resetTaskDetails());
     dispatch(setLoading(false));
+    toast.success("Task Created Successfully!");
   });
 };

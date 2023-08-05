@@ -21,7 +21,7 @@ const DeleteRoomModal = () => {
   return (
     <ModalComponent>
       <Typography variant="h6">
-        Are you sure you want to delete {currentRoom?.roomName} room?
+        Are you sure you want to delete "{currentRoom?.roomName}" room?
       </Typography>
       <DeleteModalButtons
         handleDelete={handleDeleteRoom}

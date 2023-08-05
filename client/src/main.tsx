@@ -9,6 +9,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import { createClient } from "@supabase/supabase-js";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import { VITE_API_KEY, VITE_SUPABASE_PROJECT_URL } from "./utils/constants";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const supabase = createClient(VITE_SUPABASE_PROJECT_URL, VITE_API_KEY);
 
@@ -20,6 +22,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           loading={null}
           persistor={persistor}
         >
+          <ToastContainer autoClose={2000} />
           <RouterProvider router={router} />
         </PersistGate>
       </Provider>

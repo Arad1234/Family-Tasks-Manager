@@ -2,6 +2,7 @@ import { Socket } from "socket.io-client";
 import { NavigateFunction } from "react-router-dom";
 import { AppDispatch } from "../../redux/store";
 import { setLoading } from "../../redux/slices/Auth/auth-slice";
+import { toast } from "react-toastify";
 
 export const errorListeners = (
   socket: Socket,
@@ -13,9 +14,9 @@ export const errorListeners = (
     const { issues } = err;
     if (issues) {
       const [firstIssue] = issues;
-      alert(firstIssue.message);
+      toast.error(firstIssue.message);
     } else {
-      alert(err);
+      toast.error(err.message);
     }
     dispatch(setLoading(false));
   });
@@ -24,7 +25,7 @@ export const errorListeners = (
     if (err.message.includes("jwt")) {
       navigate("/");
     }
-    console.log(err);
+    toast.error(err.message);
     dispatch(setLoading(false));
   });
 };

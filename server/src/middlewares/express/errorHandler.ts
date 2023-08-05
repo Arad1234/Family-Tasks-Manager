@@ -7,6 +7,11 @@ export const errorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(error.message);
-  res.status(INTERNAL_SERVER_ERROR).json({ error: error.message });
+  let errorMessage;
+  if (error.message.includes("11000")) {
+    errorMessage = "Email already exists!";
+  } else {
+    errorMessage = error.message;
+  }
+  res.status(INTERNAL_SERVER_ERROR).json({ error: errorMessage });
 };
