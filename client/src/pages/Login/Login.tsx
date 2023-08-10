@@ -10,12 +10,13 @@ import InputComponent from "../../components/Auth-UI/InputComponent";
 import InputLabelWrapper from "../../components/Auth-UI/InputLabelWrapper";
 import LinkComponent from "../../components/Link/LinkComponent";
 import { InputChangeEvent } from "../../types";
-import BackgroundImage from "../../components/Auth-UI/BackgroundImage";
 import TitleComponent from "../../components/Auth-UI/TitleComponent";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { SignInWithOAuth } from "../../Supabase/OAuth";
 import Loader from "../../components/Loader/Loader";
 import { toast } from "react-toastify";
+import BackgroundColor from "../../components/Auth-UI/BackgroundColor";
+import LoginTitle from "../../components/Auth-UI/Login/Title";
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -55,7 +56,8 @@ const Login = () => {
   }
 
   return (
-    <BackgroundImage>
+    <BackgroundColor>
+      <LoginTitle />
       <form
         className="login-form"
         onSubmit={handleSubmit}
@@ -83,7 +85,7 @@ const Login = () => {
           <LinkComponent href="/register">Register</LinkComponent>
         </Typography>
       </form>
-    </BackgroundImage>
+    </BackgroundColor>
   );
 };
 

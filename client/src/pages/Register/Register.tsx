@@ -16,9 +16,11 @@ import InputLabelWrapper from "../../components/Auth-UI/InputLabelWrapper";
 import InputComponent from "../../components/Auth-UI/InputComponent";
 import { Typography } from "@mui/material";
 import LinkComponent from "../../components/Link/LinkComponent";
-import BackgroundImage from "../../components/Auth-UI/BackgroundImage";
+import BackgroundImage from "../../components/Auth-UI/BackgroundColor";
 import TitleComponent from "../../components/Auth-UI/TitleComponent";
 import { toast } from "react-toastify";
+import BackgroundColor from "../../components/Auth-UI/BackgroundColor";
+import RegisterTitle from "../../components/Auth-UI/Register/Title";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -56,7 +58,9 @@ const Register = () => {
   };
 
   return (
-    <BackgroundImage>
+    <BackgroundColor>
+      <RegisterTitle />
+
       <form
         className="register-form"
         onSubmit={handleSubmit}
@@ -107,7 +111,7 @@ const Register = () => {
           <LinkComponent href="/">Log In</LinkComponent>
         </Typography>
       </form>
-    </BackgroundImage>
+    </BackgroundColor>
   );
 };
 

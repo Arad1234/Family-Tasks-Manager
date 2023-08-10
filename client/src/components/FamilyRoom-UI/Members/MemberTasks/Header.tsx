@@ -9,20 +9,34 @@ const Header = () => {
   const handleGoBack = () => {
     dispatch(setMemberForTasks(null));
   };
+
   return (
     <Box
       sx={{
         display: "flex",
-        marginBottom: "10px",
-        justifyContent: "space-around",
+        marginBottom: "1rem",
+        justifyContent: "center",
+        position: "relative",
       }}
     >
-      <Typography sx={{ fontSize: "25px" }}>
-        {memberForTasks?.username} tasks
+      <Typography
+        sx={{
+          paddingTop: "20px",
+          fontSize: "22px",
+          fontWeight: "600",
+          textDecoration: "underline",
+        }}
+      >
+        {memberForTasks?.username}
       </Typography>
+
       <Button
         variant="outlined"
         sx={{
+          position: "absolute",
+          left: "-8px",
+          top: "-17px",
+          height: "2.5em",
           textTransform: "none",
           fontSize: "16px",
           background: "rgba(100, 150, 70, 0.8)",
@@ -32,7 +46,7 @@ const Header = () => {
         }}
         onClick={handleGoBack}
       >
-        Members
+        Go Back
       </Button>
     </Box>
   );
