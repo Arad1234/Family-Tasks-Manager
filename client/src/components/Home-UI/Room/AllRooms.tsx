@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import Room from "./Room/Room";
 import { useAppSelector } from "../../../redux/hooks";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 
 interface Props {
   searchQuery: string;
@@ -46,4 +46,5 @@ const AllRooms = ({ searchQuery }: Props) => {
   );
 };
 
-export default AllRooms;
+// Using "memo" to render the AllRooms component only when "searchQuery" props changes.
+export default memo(AllRooms);

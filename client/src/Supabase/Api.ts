@@ -8,6 +8,7 @@ import {
   setEventsIdAndCreatedAt,
 } from "../redux/slices/CalendarEvents/CalendarEvents";
 import { hideModal } from "../utils/helpers/hideModal";
+import { toast } from "react-toastify";
 
 export const fetchGoogleCalendarEvents = async (
   session: Session,
@@ -55,7 +56,7 @@ export const createGoogleCalendarEvent = async (
           id: newEvent.id,
         })
       );
-      alert("Event Created!");
+      toast.success("Google Event Created!");
     }
   } catch (error) {
     console.log(error);
@@ -75,7 +76,7 @@ export const deleteGoogleCalendarEvent = async (
 
     dispatch(setDeleteGoogleEvent(eventToDeleteId));
     hideModal(dispatch);
-    alert("Event Deleted!");
+    toast.success("Event Deleted!");
   } catch (error) {
     console.log(error);
   }

@@ -35,10 +35,10 @@ const AssignTaskModal = () => {
   return (
     <ModalComponent>
       <Typography sx={{ fontSize: "18px", fontWeight: "400" }}>
-        Assign Task for{" "}
+        Task for{" "}
         <Typography
           component={"span"}
-          sx={{ display: "block", fontSize: "20px", fontWeight: "600" }}
+          sx={{ fontSize: "20px", fontWeight: "600" }}
         >
           {memberForAssignTask?.username}
         </Typography>
