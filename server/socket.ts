@@ -14,7 +14,7 @@ export const connectSocketServer = (app: Application) => {
     cors: { origin: "http://localhost:5173", credentials: true },
   });
 
-  io.listen(4000);
+  io.listen(4000)
 
   io.use(verifyToken).on("connection", onConnection);
 
