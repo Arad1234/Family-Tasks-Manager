@@ -13,6 +13,8 @@ import { toast } from "react-toastify";
 export const roomsListeners = (socket: Socket, dispatch: AppDispatch) => {
   socket.on("recievedRooms", (data) => {
     const rooms = data;
+    console.log("ARADARAD2");
+
     dispatch(setRooms(rooms));
     dispatch(setLoading(false));
   });

@@ -5,7 +5,7 @@ import { socket } from "../socket";
 
 export const getRoomsSocket = (dispatch: AppDispatch) => {
   dispatch(setLoading(true));
-
+  console.log("ARADARAD")
   socket.emit("rooms:read");
 };
 

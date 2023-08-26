@@ -35,7 +35,7 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await dispatch(loginThunk({ email, password }));
+    const response: any = await dispatch(loginThunk({ email, password }));
 
     if (response.error) {
       toast.error(response.payload as string);

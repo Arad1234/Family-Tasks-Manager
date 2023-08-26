@@ -5,15 +5,12 @@ import { generateToken } from "../utils/generateToken";
 
 export const createUser = async (userData: UserRegitrationDetails) => {
   const { username, email, password } = userData;
-  try {
-    await User.create({
-      username,
-      email,
-      password,
-    });
-  } catch (error: any) {
-    throw new Error(error);
-  }
+
+  await User.create({
+    username,
+    email,
+    password,
+  });
 };
 
 export const loginUser = async (userInfo: UserLoginDetails) => {

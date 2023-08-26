@@ -11,7 +11,7 @@ export const connectSocketServer = (app: Application) => {
   const server = http.createServer(app);
 
   const io = new Server(server, {
-    cors: { origin: "http://localhost:5173", credentials: true },
+    cors: { origin: "http://localhost:4173", credentials: true },
   });
 
   io.listen(4000)
@@ -20,10 +20,9 @@ export const connectSocketServer = (app: Application) => {
 
   function onConnection(socket: Socket) {
     console.log("user connected!");
-
     // The "validateMiddleware" middleware is used to validate the data sent from the client, the validation is handled by zod schema.
     socket.use(validateMiddleware);
-
+    
     roomHandler(io, socket);
     memberHandler(io, socket);
     taskHandler(io, socket);

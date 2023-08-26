@@ -1,11 +1,15 @@
 FROM node:latest
 
-WORKDIR /server
+ARG NODE_ENV=production
 
-COPY package*.json ./
+ENV NODE_ENV $NODE_ENV
 
-RUN npm install
+COPY ./build /build
 
-COPY ./ ./
+COPY ./package.json ./package.json
+
+COPY ./package-lock.json ./package-lock.json
+
+RUN NODE_ENV=$NODE_ENV npm install
 
 EXPOSE 3000

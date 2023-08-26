@@ -16,7 +16,6 @@ import InputLabelWrapper from "../../components/Auth-UI/InputLabelWrapper";
 import InputComponent from "../../components/Auth-UI/InputComponent";
 import { Typography } from "@mui/material";
 import LinkComponent from "../../components/Link/LinkComponent";
-import BackgroundImage from "../../components/Auth-UI/BackgroundColor";
 import TitleComponent from "../../components/Auth-UI/TitleComponent";
 import { toast } from "react-toastify";
 import BackgroundColor from "../../components/Auth-UI/BackgroundColor";
@@ -46,7 +45,7 @@ const Register = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await dispatch(
+    const response: any = await dispatch(
       registerThunk({ username, email, password, confirmPassword })
     );
     if (response.error) {
