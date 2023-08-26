@@ -3,9 +3,9 @@ import { INTERNAL_SERVER_ERROR } from "../../utils/constants";
 
 export const errorHandler = (
   error: Error,
-  req: Request,
+  _req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ) => {
   let errorMessage;
   if (error.message.includes("11000")) {

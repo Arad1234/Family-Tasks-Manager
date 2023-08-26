@@ -16,21 +16,27 @@ interface RegisterPayload {
 export const loginThunk = createAsyncThunk<
   { userId: string; username: string }, // The type the function returns
   LoginPayload // the arguments the function get.
->("/auth/login", async ({ email, password }, thunkAPI) => {
-  try {
-    const response = await axiosClient.post("/user/login", {
-      email,
-      password,
-    });
-    const { data } = response;
-    const { userId, username } = data;
-    return { userId, username };
-  } catch (error: any) {
-    const { response } = error;
-    console.log(error);
-    return thunkAPI.rejectWithValue(response.data.error);
+>(
+  "/auth/login",
+  async (
+    { email, password },
+    { rejectWithValue }: { rejectWithValue: any }
+  ) => {
+    try {
+      const response = await axiosClient.post("/user/login", {
+        email,
+        password,
+      });
+      const { data } = response;
+      const { userId, username } = data;
+      return { userId, username };
+    } catch (error: any) {
+      const { response } = error;
+      console.log(error);
+      return rejectWithValue(response.data.error);
+    }
   }
-});
+);
 
 export const registerThunk = createAsyncThunk<
   string, // The type the function returns

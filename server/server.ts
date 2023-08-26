@@ -14,7 +14,7 @@ const app = express();
 connectSocketServer(app);
 
 const corsOptions = {
-  origin: ["http://192.168.1.84:5173", "http://localhost:5173"],
+  origin: ["http://localhost:4173"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 };

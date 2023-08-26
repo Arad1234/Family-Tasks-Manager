@@ -34,7 +34,7 @@ const Home = () => {
     roomsListeners(socket, dispatch);
     commonListeners(socket, dispatch);
     errorListeners(socket, navigate, dispatch);
-
+    
     socket.connect();
 
     getRoomsSocket(dispatch);

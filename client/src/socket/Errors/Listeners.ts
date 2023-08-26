@@ -16,7 +16,7 @@ export const errorListeners = (
       const [firstIssue] = issues;
       toast.error(firstIssue.message);
     } else {
-      toast.error(err.message);
+      toast.error(err);
     }
     dispatch(setLoading(false));
   });

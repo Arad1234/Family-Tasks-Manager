@@ -14,7 +14,6 @@ export const validateMiddleware = (
 ) => {
   const [event, ...args] = packet;
   const [data] = args;
-
   switch (event) {
     case "rooms:create":
       validateSchema(createRoomSchema, data, next);
