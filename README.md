@@ -1,6 +1,6 @@
 # Family Tasks Manager App
 
-A real-time family tasks manager app built using React.js, Redux, TypeScript (Front & Back), Node.js, Express.js, MongoDB, Socket.IO, JWT, Zod, MUI, and Supabase Auth.
+A real-time family tasks manager app built using React.js, Redux, TypeScript (Front & Back), Node.js, Express.js, MongoDB, Socket.IO, JWT, Zod, MUI, Supabase Auth, and Docker.
 
 ## Overview
 
