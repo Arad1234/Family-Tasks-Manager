@@ -13,6 +13,7 @@ import { catchAsyncSocket } from "../utils/socket/catchAsyncSocket";
 
 export const roomHandler = (io: Server, socket: Socket) => {
   const getFamilyRoomsHandler = catchAsyncSocket(async function () {
+    console.log("getting rooms!");
     const rooms = await getFamilyRooms();
     socket.emit("recievedRooms", rooms);
   }, socket);

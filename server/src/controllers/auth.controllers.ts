@@ -9,7 +9,7 @@ export const loginUserHandler = catchAsync(
     const { email, password } = req.body;
 
     const { user, token } = await loginUser({ email, password });
-    
+
     res.cookie("token", token, { httpOnly: true, maxAge: 900000000 });
     res
       .status(OK)
@@ -29,5 +29,12 @@ export const createUserHandler = catchAsync(
     const user = await createUser({ username, email, password });
 
     res.status(CREATED).json({ status: "ok", newUser: user });
+  }
+);
+
+export const logoutUserHandler = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    res.clearCookie("token");
+    res.status(OK).json("Logged out!")
   }
 );
