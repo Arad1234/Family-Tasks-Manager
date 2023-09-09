@@ -17,7 +17,7 @@ export const connectSocketServer = (app: Application) => {
   io.listen(4000);
 
   io.use(verifyToken).on("connection", onConnection);
-
+  
   function onConnection(socket: Socket) {
     console.log("user connected!");
     

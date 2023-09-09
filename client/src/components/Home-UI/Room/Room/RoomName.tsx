@@ -7,7 +7,11 @@ interface Props {
 const RoomName = ({ roomName }: Props) => {
   return (
     <Typography
-      sx={{ fontSize: "30px", fontWeight: 600, color: "rgb(50, 50, 50)" }}
+      sx={{
+        fontSize: "30px",
+        fontWeight: 600,
+        color: "white",
+      }}
     >
       {roomName}
     </Typography>

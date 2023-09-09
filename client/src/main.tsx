@@ -15,7 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 const supabase = createClient(VITE_SUPABASE_PROJECT_URL, VITE_API_KEY);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  //<React.StrictMode>
+  <React.StrictMode>
     <SessionContextProvider supabaseClient={supabase}>
       <Provider store={store}>
         <PersistGate
@@ -30,5 +30,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         </PersistGate>
       </Provider>
     </SessionContextProvider>
-  //</React.StrictMode>
+  </React.StrictMode>
 );
