@@ -18,16 +18,11 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const generateToken_1 = require("../utils/generateToken");
 const createUser = (userData) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, email, password } = userData;
-    try {
-        yield user_model_1.default.create({
-            username,
-            email,
-            password,
-        });
-    }
-    catch (error) {
-        throw new Error(error);
-    }
+    yield user_model_1.default.create({
+        username,
+        email,
+        password,
+    });
 });
 exports.createUser = createUser;
 const loginUser = (userInfo) => __awaiter(void 0, void 0, void 0, function* () {

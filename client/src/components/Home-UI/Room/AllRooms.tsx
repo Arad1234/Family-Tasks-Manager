@@ -46,5 +46,5 @@ const AllRooms = ({ searchQuery }: Props) => {
   );
 };
 
-// Using "memo" to render the AllRooms component only when "searchQuery" props changes.
+// Using "memo" to render the "AllRooms" component only when "searchQuery" props changes.
 export default memo(AllRooms);

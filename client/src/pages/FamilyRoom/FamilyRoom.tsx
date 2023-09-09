@@ -40,14 +40,10 @@ const FamilyRoom = () => {
     commonListeners(socket, dispatch);
     errorListeners(socket, navigate, dispatch);
 
-    socket.connect();
-
     return () => {
       removeFamilyRoomListeners(socket);
       removeErrorListeners(socket);
       removeCommonListeners(socket);
-
-      socket.disconnect();
     };
   }, []);
 
