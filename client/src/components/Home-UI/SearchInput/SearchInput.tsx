@@ -12,14 +12,19 @@ const SearchInput = ({ setSearchQuery, searchQuery }: Props) => {
   };
 
   return (
-    <Box sx={{ padding: "10px" }}>
+    <Box sx={{ padding: "15px", display: "flex", justifyContent: "center" }}>
       <TextField
         onChange={handleSearchInputChange}
         placeholder="Search room..."
         value={searchQuery}
         type="text"
-        inputProps={{
-          style: { fontSize: "20px", padding: "12px" },
+        variant="standard"
+        color="info"
+        InputProps={{
+          sx: {
+            width: "80vw",
+            fontSize: "20px",
+          },
         }}
       />
     </Box>
