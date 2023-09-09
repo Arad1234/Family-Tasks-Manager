@@ -28,4 +28,8 @@ export const errorListeners = (
     toast.error(err.message);
     dispatch(setLoading(false));
   });
+
+  socket.on("connect_timeout", (timeout) => {
+    console.log("Connection timeout:", timeout);
+  });
 };

@@ -11,6 +11,7 @@ const ModalInputs = () => {
   const { maxMembers, roomName, roomPassword } = useAppSelector(
     (state) => state.createRoomReducer
   );
+  
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
       <ModalInput

@@ -12,17 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.taskHandler = void 0;
 const task_service_1 = require("../services/task.service");
 const errorHandler_1 = require("../middlewares/socket/errorHandler");
+const catchAsyncSocket_1 = require("../utils/socket/catchAsyncSocket");
 const taskHandler = (io, socket) => {
-    const createTaskHandler = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-        try {
+    const createTaskHandler = (0, catchAsyncSocket_1.catchAsyncSocket)(function (payload) {
+        return __awaiter(this, void 0, void 0, function* () {
             const { newTask, roomId } = yield (0, task_service_1.createTask)(payload);
             io.emit("taskCreated", { newTask, memberId: payload.memberId, roomId });
-        }
-        catch (error) {
-            console.log(error);
-            socket.emit("error", error.message);
-        }
-    });
+        });
+    }, socket);
     socket.on("tasks:create", createTaskHandler);
     (0, errorHandler_1.socketErrorHandler)(socket);
 };
