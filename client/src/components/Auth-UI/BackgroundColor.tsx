@@ -5,7 +5,7 @@ const BackgroundColor = ({ children }: ChildrenProps) => {
   return (
     <Box
       sx={{
-        backgroundImage: "linear-gradient(to bottom right, #FDABDD, #374A5A)",
+        background: "linear-gradient(to bottom right, #FDABDD, #374A5A)",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",

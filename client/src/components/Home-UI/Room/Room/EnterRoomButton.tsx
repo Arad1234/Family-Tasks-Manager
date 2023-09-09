@@ -14,11 +14,11 @@ const EnterRoomButton = ({ roomId }: Props) => {
 
   return (
     <RoomButton
-      backgroundColor="50, 200, 50"
+      backgroundColor="20, 150, 150"
       handleClick={handleEnterRoom}
-      width="135px"
+      width="90px"
     >
-      Enter Room!
+      Explore
     </RoomButton>
   );
 };

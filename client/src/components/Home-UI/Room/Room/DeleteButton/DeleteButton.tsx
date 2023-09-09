@@ -20,7 +20,6 @@ const DeleteButton = ({ room }: Props) => {
   return (
     <MdDelete
       color="red"
-      className="delete-button"
       size={30}
       onClick={handleOpenDeleteModal}
     />

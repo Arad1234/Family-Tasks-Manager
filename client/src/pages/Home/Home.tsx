@@ -60,8 +60,9 @@ const Home = () => {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
-
-      <AllRooms searchQuery={searchQuery} />
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <AllRooms searchQuery={searchQuery} />
+      </Box>
 
       {modalStatus === "create" && <CreateRoomModal />}
       {modalStatus === "join" && <JoinRoomModal />}

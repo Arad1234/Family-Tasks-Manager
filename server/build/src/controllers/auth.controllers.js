@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createUserHandler = exports.loginUserHandler = void 0;
+exports.logoutUserHandler = exports.createUserHandler = exports.loginUserHandler = void 0;
 const auth_service_1 = require("../services/auth.service");
 const constants_1 = require("../utils/constants");
 const catchAsync_1 = require("../utils/express/catchAsync");
@@ -27,4 +27,8 @@ req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, email, password } = req.body;
     const user = yield (0, auth_service_1.createUser)({ username, email, password });
     res.status(constants_1.CREATED).json({ status: "ok", newUser: user });
+}));
+exports.logoutUserHandler = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    res.clearCookie("token");
+    res.status(constants_1.OK).json("Logged out!");
 }));

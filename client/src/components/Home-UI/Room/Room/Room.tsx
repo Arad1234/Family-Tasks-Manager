@@ -31,29 +31,36 @@ const Room = ({ room }: Props) => {
         borderRadius: "10px",
         padding: "10px",
         display: "flex",
+        background: "linear-gradient(to bottom right, #38A2D7, #561139)",
         flexDirection: "column",
-        gap: "20px",
-        height: "107px",
+        gap: "10px",
+        height: "125px",
         boxShadow: "3px 2px 6px 1px gray",
       }}
     >
       <Box
         sx={{
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
-          justifyContent: "space-between",
         }}
       >
         <RoomName roomName={room.roomName} />
 
-        <Box sx={{ display: "flex", gap: "10px" }}>
-          <Typography sx={{ fontSize: "20px" }}>
+        <Box sx={{ display: "flex" }}>
+          <Typography sx={{ fontSize: "20px", color: "white" }}>
             Members: {familyMembers.length}/{maxMembers}
           </Typography>
         </Box>
       </Box>
 
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         {member ? (
           <>
             <EnterRoomButton roomId={room._id} />

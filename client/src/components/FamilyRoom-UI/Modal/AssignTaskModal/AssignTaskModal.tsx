@@ -5,7 +5,6 @@ import { IMember, IRoom } from "../../../../types";
 import ModalButton from "../../../Modal-Common/ModalButton";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
 import ModalInputs from "./ModalInputs";
-import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
 
 const AssignTaskModal = () => {
   const { memberForAssignTask } = useAppSelector(
