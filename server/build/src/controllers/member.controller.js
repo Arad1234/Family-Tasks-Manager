@@ -12,18 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.memberHandler = void 0;
 const member_service_1 = require("../services/member.service");
 const errorHandler_1 = require("../middlewares/socket/errorHandler");
+const catchAsyncSocket_1 = require("../utils/socket/catchAsyncSocket");
 const memberHandler = (io, socket) => {
-    const deleteMemberHandler = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-        const { memberId, roomId } = payload;
-        try {
+    const deleteMemberHandler = (0, catchAsyncSocket_1.catchAsyncSocket)(function (payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { memberId, roomId } = payload;
             yield (0, member_service_1.deleteMember)(payload);
             io.emit("memberDeleted", { memberId, roomId });
-        }
-        catch (error) {
-            console.log(error);
-            socket.emit("error", error.message);
-        }
-    });
+        });
+    }, socket);
     socket.on("members:delete", deleteMemberHandler);
     (0, errorHandler_1.socketErrorHandler)(socket);
 };

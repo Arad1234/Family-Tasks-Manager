@@ -16,7 +16,6 @@ import { errorListeners } from "../../socket/Errors/Listeners";
 import { removeErrorListeners } from "../../socket/Errors/RemoveListeners";
 import NewRoomButton from "../../components/Home-UI/Buttons/NewRoomButton";
 import SignOut from "../../components/Home-UI/Buttons/SignOut";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import LeaveRoomModal from "../../components/Home-UI/Modal/LeaveRoomModal/LeaveRoomModal";
 import { commonListeners } from "../../socket/Common/Listeners";
 import { removeCommonListeners } from "../../socket/Common/RemoveListeners";
@@ -24,37 +23,24 @@ import { removeCommonListeners } from "../../socket/Common/RemoveListeners";
 const Home = () => {
   const dispatch = useAppDispatch();
   const [searchQuery, setSearchQuery] = useState<string>("");
-
   const { loading } = useAppSelector((state) => state.authReducer);
   const { modalStatus } = useAppSelector((state) => state.modalReducer);
   const navigate = useNavigate();
-  const supabase = useSupabaseClient();
 
   useEffect(() => {
     roomsListeners(socket, dispatch);
     commonListeners(socket, dispatch);
     errorListeners(socket, navigate, dispatch);
-    
-    socket.connect();
-
     getRoomsSocket(dispatch);
-
-    supabase.auth.onAuthStateChange((event) => {
-      if (event === "SIGNED_OUT") {
-        navigate("/");
-      }
-    });
 
     return () => {
       removeRoomsListeners(socket);
       removeCommonListeners(socket);
       removeErrorListeners(socket);
-
-      socket.disconnect();
     };
   }, []);
 
-  return loading ? (
+  return loading || !socket.connected ? (
     <Loader height="100vh" />
   ) : (
     <>

@@ -17,26 +17,21 @@ const room_model_1 = __importDefault(require("../models/room.model"));
 const task_model_1 = __importDefault(require("../models/task.model"));
 const deleteMember = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const { memberId, roomId } = payload;
-    try {
-        const room = yield room_model_1.default.findOne({ _id: roomId });
-        const memberToDelete = room === null || room === void 0 ? void 0 : room.familyMembers.find((member) => member.userId.toString() === memberId);
-        // Delete all the tasks of the member
-        if (memberToDelete && memberToDelete.tasks.length > 0) {
-            memberToDelete.tasks.map((taskId) => __awaiter(void 0, void 0, void 0, function* () {
-                const taskToDelete = yield task_model_1.default.findOne({ _id: taskId });
-                yield (taskToDelete === null || taskToDelete === void 0 ? void 0 : taskToDelete.deleteOne());
-            }));
-        }
-        // Delete the member from the room's family members.
-        if (room) {
-            room.familyMembers = room.familyMembers.filter((member) => {
-                return member.userId.toString() !== memberId;
-            });
-        }
-        yield (room === null || room === void 0 ? void 0 : room.save());
+    const room = yield room_model_1.default.findOne({ _id: roomId });
+    const memberToDelete = room === null || room === void 0 ? void 0 : room.familyMembers.find((member) => member.userId.toString() === memberId);
+    // Delete all the tasks of the member
+    if (memberToDelete && memberToDelete.tasks.length > 0) {
+        memberToDelete.tasks.map((taskId) => __awaiter(void 0, void 0, void 0, function* () {
+            const taskToDelete = yield task_model_1.default.findOne({ _id: taskId });
+            yield (taskToDelete === null || taskToDelete === void 0 ? void 0 : taskToDelete.deleteOne());
+        }));
     }
-    catch (error) {
-        throw new Error(error);
+    // Delete the member from the room's family members.
+    if (room) {
+        room.familyMembers = room.familyMembers.filter((member) => {
+            return member.userId.toString() !== memberId;
+        });
     }
+    yield (room === null || room === void 0 ? void 0 : room.save());
 });
 exports.deleteMember = deleteMember;

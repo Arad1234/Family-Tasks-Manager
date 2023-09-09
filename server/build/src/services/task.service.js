@@ -17,27 +17,22 @@ const room_model_1 = __importDefault(require("../models/room.model"));
 const task_model_1 = __importDefault(require("../models/task.model"));
 const createTask = (taskData) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, description, startTime, endTime, memberId, roomId } = taskData;
-    try {
-        const newTask = yield task_model_1.default.create({
-            name,
-            description,
-            startTime,
-            endTime,
+    const newTask = yield task_model_1.default.create({
+        name,
+        description,
+        startTime,
+        endTime,
+    });
+    const room = yield room_model_1.default.findOne({ _id: roomId });
+    if (room) {
+        room.familyMembers = room.familyMembers.map((member) => {
+            if (member.userId.toString() == memberId) {
+                member.tasks.push(newTask._id);
+            }
+            return member;
         });
-        const room = yield room_model_1.default.findOne({ _id: roomId });
-        if (room) {
-            room.familyMembers = room.familyMembers.map((member) => {
-                if (member.userId.toString() == memberId) {
-                    member.tasks.push(newTask._id);
-                }
-                return member;
-            });
-        }
-        yield (room === null || room === void 0 ? void 0 : room.save());
-        return { newTask, roomId: room === null || room === void 0 ? void 0 : room._id };
     }
-    catch (error) {
-        throw new Error(error);
-    }
+    yield (room === null || room === void 0 ? void 0 : room.save());
+    return { newTask, roomId: room === null || room === void 0 ? void 0 : room._id };
 });
 exports.createTask = createTask;

@@ -13,8 +13,6 @@ const validateSchema_1 = __importDefault(require("../../utils/validateSchema"));
 const validateMiddleware = (packet, next) => {
     const [event, ...args] = packet;
     const [data] = args;
-    console.log(event);
-    console.log(data);
     switch (event) {
         case "rooms:create":
             (0, validateSchema_1.default)(createRoom_schema_1.createRoomSchema, data, next);

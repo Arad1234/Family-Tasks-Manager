@@ -17,6 +17,7 @@ const ModalComponent = ({ children }: ChildrenProps) => {
     }
     dispatch(setShowModal({ isOpen: false, modalStatus: "" }));
   };
+  
   return (
     <Modal
       open={isOpen}

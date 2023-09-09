@@ -12,53 +12,39 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.roomHandler = void 0;
 const room_service_1 = require("../services/room.service");
 const errorHandler_1 = require("../middlewares/socket/errorHandler");
+const catchAsyncSocket_1 = require("../utils/socket/catchAsyncSocket");
 const roomHandler = (io, socket) => {
-    const getFamilyRoomsHandler = function () {
+    const getFamilyRoomsHandler = (0, catchAsyncSocket_1.catchAsyncSocket)(function () {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const rooms = yield (0, room_service_1.getFamilyRooms)();
-                socket.emit("recievedRooms", rooms);
-            }
-            catch (error) {
-                console.log(error);
-                socket.emit("error", error.message);
-            }
+            const rooms = yield (0, room_service_1.getFamilyRooms)();
+            socket.emit("recievedRooms", rooms);
         });
-    };
-    const createRoomHandler = function (payload) {
+    }, socket);
+    const createRoomHandler = (0, catchAsyncSocket_1.catchAsyncSocket)(function (payload) {
         return __awaiter(this, void 0, void 0, function* () {
             const { username, userId } = socket.user;
             const { roomName, maxMembers, roomPassword } = payload;
-            try {
-                const newRoom = yield (0, room_service_1.createFamilyRoom)({
-                    username,
-                    roomName,
-                    maxMembers,
-                    roomPassword,
-                    userId,
-                });
-                // Emitting the event to all connected users.
-                io.emit("createdRoom", newRoom);
-            }
-            catch (error) {
-                console.log(error);
-                socket.emit("error", error.message);
-            }
+            const newRoom = yield (0, room_service_1.createFamilyRoom)({
+                username,
+                roomName,
+                maxMembers,
+                roomPassword,
+                userId,
+            });
+            // Emitting the event to all connected users.
+            io.emit("createdRoom", newRoom);
         });
-    };
-    const deleteRoomHandler = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-        try {
+    }, socket);
+    const deleteRoomHandler = (0, catchAsyncSocket_1.catchAsyncSocket)(function (payload) {
+        return __awaiter(this, void 0, void 0, function* () {
             const { roomId } = payload;
             const deletedRoomId = yield (0, room_service_1.deleteFamilyRoom)(roomId);
             // Emitting the event to all connected users.
             io.emit("deletedRoom", deletedRoomId);
-        }
-        catch (error) {
-            socket.emit("error", error.message);
-        }
-    });
-    const joinRoomHandler = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-        try {
+        });
+    }, socket);
+    const joinRoomHandler = (0, catchAsyncSocket_1.catchAsyncSocket)(function (payload) {
+        return __awaiter(this, void 0, void 0, function* () {
             const { roomId, roomPassword } = payload;
             const { username, userId } = socket.user;
             yield (0, room_service_1.joinFamilyRoom)({
@@ -68,11 +54,8 @@ const roomHandler = (io, socket) => {
                 roomPassword,
             });
             io.emit("joinedRoom", { roomId, username, userId });
-        }
-        catch (error) {
-            socket.emit("error", error.message);
-        }
-    });
+        });
+    }, socket);
     socket.on("rooms:create", createRoomHandler);
     socket.on("rooms:delete", deleteRoomHandler);
     socket.on("rooms:join", joinRoomHandler);
