@@ -12,8 +12,14 @@ const InputComponent = ({ handleChange, type, name }: Props) => {
       onChange={handleChange}
       type={type}
       name={name}
+      variant="standard"
       inputProps={{
-        style: { fontSize: "18px", padding: "10px", width: "14rem" },
+        style: {
+          fontSize: "18px",
+          width: "15rem",
+          borderBottom: "1px solid white",
+          color: "white"
+        },
       }}
     />
   );

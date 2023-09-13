@@ -3,20 +3,18 @@ import "./Login.scss";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { loginThunk } from "../../redux/actions/Auth/auth-actions";
 import { setEmail, setPassword } from "../../redux/slices/Auth/auth-slice";
-import { Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import AuthButton from "../../components/Auth-UI/AuthButton";
 import LabelComponent from "../../components/Auth-UI/LabelComponent";
 import InputComponent from "../../components/Auth-UI/InputComponent";
 import InputLabelWrapper from "../../components/Auth-UI/InputLabelWrapper";
-import LinkComponent from "../../components/Link/LinkComponent";
 import { InputChangeEvent } from "../../types";
 import TitleComponent from "../../components/Auth-UI/TitleComponent";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { SignInWithOAuth } from "../../Supabase/OAuth";
 import Loader from "../../components/Loader/Loader";
 import { toast } from "react-toastify";
-import BackgroundColor from "../../components/Auth-UI/BackgroundColor";
-import LoginTitle from "../../components/Auth-UI/Login/Title";
+import SecondaryAuthButton from "../../components/Auth-UI/Login/SecondaryAuthButton";
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -56,8 +54,16 @@ const Login = () => {
   }
 
   return (
-    <BackgroundColor>
-      <LoginTitle />
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        gap: "20px",
+      }}
+    >
       <form
         className="login-form"
         onSubmit={handleSubmit}
@@ -79,13 +85,20 @@ const Login = () => {
             name="password"
           />
         </InputLabelWrapper>
-        <AuthButton>Login</AuthButton>
-        <Typography>
-          New to the app?{" "}
-          <LinkComponent href="/register">Register</LinkComponent>
-        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+            alignItems: "center",
+          }}
+        >
+          <AuthButton>Login</AuthButton>
+          <p className="hr-lines">or</p>
+          <SecondaryAuthButton />
+        </Box>
       </form>
-    </BackgroundColor>
+    </Box>
   );
 };
 

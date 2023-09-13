@@ -9,6 +9,7 @@ const InputLabelWrapper = ({ children }: ChildrenProps) => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        
       }}
     >
       {children}

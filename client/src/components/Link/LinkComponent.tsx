@@ -1,5 +1,6 @@
 import { Link } from "@mui/material";
 import { ChildrenProps } from "../../types";
+import variables from "../../sass/variables.module.scss";
 
 const LinkComponent = ({
   children,
@@ -7,7 +8,7 @@ const LinkComponent = ({
 }: ChildrenProps & { href: string }) => {
   return (
     <Link
-      sx={{}}
+      color={variables.actionColor}
       href={href}
       underline="none"
       variant="h6"

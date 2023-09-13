@@ -7,6 +7,7 @@ import EnterRoomButton from "./EnterRoomButton";
 import RoomName from "./RoomName";
 import LeaveRoomButton from "./LeaveRoomButton";
 import { useMemo } from "react";
+import variables from '../../../../sass/variables.module.scss'
 
 interface Props {
   room: IRoom;
@@ -31,7 +32,7 @@ const Room = ({ room }: Props) => {
         borderRadius: "10px",
         padding: "10px",
         display: "flex",
-        background: "linear-gradient(to bottom right, #38A2D7, #561139)",
+        background: variables.secondaryColor,
         flexDirection: "column",
         gap: "10px",
         height: "125px",

@@ -14,11 +14,10 @@ import LabelComponent from "../../components/Auth-UI/LabelComponent";
 import { InputChangeEvent } from "../../types";
 import InputLabelWrapper from "../../components/Auth-UI/InputLabelWrapper";
 import InputComponent from "../../components/Auth-UI/InputComponent";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import LinkComponent from "../../components/Link/LinkComponent";
 import TitleComponent from "../../components/Auth-UI/TitleComponent";
 import { toast } from "react-toastify";
-import BackgroundColor from "../../components/Auth-UI/BackgroundColor";
 import RegisterTitle from "../../components/Auth-UI/Register/Title";
 
 const Register = () => {
@@ -57,7 +56,16 @@ const Register = () => {
   };
 
   return (
-    <BackgroundColor>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "90vh",
+        gap: "20px",
+      }}
+    >
       <RegisterTitle />
 
       <form
@@ -105,12 +113,12 @@ const Register = () => {
         </InputLabelWrapper>
 
         <AuthButton>Sign Up</AuthButton>
-        <Typography>
+        <Typography sx={{ color: "white" }}>
           Already have an account?{" "}
           <LinkComponent href="/">Log In</LinkComponent>
         </Typography>
       </form>
-    </BackgroundColor>
+    </Box>
   );
 };
 
