@@ -1,3 +1,4 @@
+import { FormikProps } from "formik";
 import React from "react";
 
 export type InputChangeEvent = React.ChangeEvent<HTMLInputElement>;
@@ -73,3 +74,13 @@ export interface EventIdAndCreatedAt {
   id: string;
   taskCreatedAt: string;
 }
+
+export type formikPropsType = FormikProps<
+  | {
+      name: string;
+      email: string;
+      password: string;
+      confirmPassword: string;
+    }
+  | { email: string; password: string }
+>;

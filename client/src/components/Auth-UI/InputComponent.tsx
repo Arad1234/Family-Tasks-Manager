@@ -1,24 +1,29 @@
 import { TextField } from "@mui/material";
-import { InputChangeEvent } from "../../types";
+import { formikPropsType } from "../../types";
 
 interface Props {
   type: string;
   name: string;
-  handleChange: (e: InputChangeEvent) => void;
+  formik: formikPropsType;
+  value: string;
 }
-const InputComponent = ({ handleChange, type, name }: Props) => {
+const InputComponent = ({ type, name, formik, value }: Props) => {
+  const { handleChange, handleBlur } = formik;
+
   return (
     <TextField
       onChange={handleChange}
       type={type}
       name={name}
+      value={value}
+      onBlur={handleBlur}
       variant="standard"
       inputProps={{
         style: {
           fontSize: "18px",
           width: "15rem",
           borderBottom: "1px solid white",
-          color: "white"
+          color: "white",
         },
       }}
     />

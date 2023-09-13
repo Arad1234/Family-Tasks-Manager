@@ -1,53 +1,50 @@
-import React from "react";
 import "./Login.scss";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { loginThunk } from "../../redux/actions/Auth/auth-actions";
-import { setEmail, setPassword } from "../../redux/slices/Auth/auth-slice";
 import { Box } from "@mui/material";
 import AuthButton from "../../components/Auth-UI/AuthButton";
 import LabelComponent from "../../components/Auth-UI/LabelComponent";
 import InputComponent from "../../components/Auth-UI/InputComponent";
 import InputLabelWrapper from "../../components/Auth-UI/InputLabelWrapper";
-import { InputChangeEvent } from "../../types";
 import TitleComponent from "../../components/Auth-UI/TitleComponent";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { SignInWithOAuth } from "../../Supabase/OAuth";
 import Loader from "../../components/Loader/Loader";
 import { toast } from "react-toastify";
 import SecondaryAuthButton from "../../components/Auth-UI/Login/SecondaryAuthButton";
+import { useFormik } from "formik";
+import { object, string } from "yup";
+import InputErrorMessage from "../../components/Auth-UI/InputErrorMessage";
 
 const Login = () => {
   const dispatch = useAppDispatch();
-  const { email, password, loading } = useAppSelector(
-    (state) => state.authReducer
-  );
+
+  const { loading } = useAppSelector((state) => state.authReducer);
   const supabase = useSupabaseClient();
+  const formik = useFormik({
+    initialValues: { email: "", password: "" },
+    validationSchema: object({
+      email: string().email().required("Required Field").trim(),
+      password: string().required("Required Field"),
+    }),
+    async onSubmit({ email, password }) {
+      const response: any = await dispatch(loginThunk({ email, password }));
 
-  const handleEmailChange = (e: InputChangeEvent) => {
-    dispatch(setEmail(e.target.value));
-  };
+      if (response.error) {
+        toast.error(response.payload as string);
+        return;
+      }
 
-  const handlePasswordChange = (e: InputChangeEvent) => {
-    dispatch(setPassword(e.target.value));
-  };
+      // This will create a trigger an auth event SIGNED_IN.
+      const { error } = await SignInWithOAuth(supabase);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const response: any = await dispatch(loginThunk({ email, password }));
-
-    if (response.error) {
-      toast.error(response.payload as string);
-      return;
-    }
-
-    // This will create a trigger an auth event SIGNED_IN.
-    const { error } = await SignInWithOAuth(supabase);
-
-    if (error) {
-      alert("Error logging in to Google provider with Supabase");
-      console.log(error);
-    }
-  };
+      if (error) {
+        alert("Error logging in to Google provider with Supabase");
+        console.log(error);
+      }
+    },
+  });
+  const { handleSubmit, values, errors, touched } = formik;
 
   if (loading) {
     return <Loader height="100vh" />;
@@ -61,7 +58,7 @@ const Login = () => {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
-        gap: "20px",
+        width: "100vw",
       }}
     >
       <form
@@ -72,18 +69,26 @@ const Login = () => {
         <InputLabelWrapper>
           <LabelComponent>Email</LabelComponent>
           <InputComponent
-            handleChange={handleEmailChange}
+            value={values.email}
+            formik={formik}
             type="email"
             name="email"
           />
+          {errors.email && touched.email && (
+            <InputErrorMessage>{errors.email}</InputErrorMessage>
+          )}
         </InputLabelWrapper>
         <InputLabelWrapper>
           <LabelComponent>Password</LabelComponent>
           <InputComponent
-            handleChange={handlePasswordChange}
+            formik={formik}
+            value={values.password}
             type="password"
             name="password"
           />
+          {errors.password && touched.password && (
+            <InputErrorMessage>{errors.password}</InputErrorMessage>
+          )}
         </InputLabelWrapper>
         <Box
           sx={{

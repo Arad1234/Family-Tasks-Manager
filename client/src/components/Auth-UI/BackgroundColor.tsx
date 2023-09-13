@@ -8,9 +8,6 @@ const BackgroundColor = ({ children }: ChildrenProps) => {
         background: "#E5E4E2",
         display: "flex",
         flexDirection: "column",
-        // justifyContent: "center",
-        // alignItems: "center",
-        // gap: "40px",
         height: "100vh",
         width: "100vw",
       }}

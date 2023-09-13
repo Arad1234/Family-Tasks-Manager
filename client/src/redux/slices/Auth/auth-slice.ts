@@ -27,18 +27,6 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setUsername(state, { payload }) {
-      state.username = payload;
-    },
-    setEmail(state, { payload }) {
-      state.email = payload;
-    },
-    setPassword(state, { payload }) {
-      state.password = payload;
-    },
-    setConfirmPassword(state, { payload }) {
-      state.confirmPassword = payload;
-    },
     setLoading(state, { payload }) {
       state.loading = payload;
     },
@@ -80,13 +68,6 @@ const persistConfig = {
 };
 const persistedAuthReducer = persistReducer(persistConfig, authSlice.reducer);
 
-export const {
-  setUsername,
-  setEmail,
-  setPassword,
-  setConfirmPassword,
-  setLoading,
-  reset,
-} = authSlice.actions;
+export const { setLoading, reset } = authSlice.actions;
 
 export default persistedAuthReducer;

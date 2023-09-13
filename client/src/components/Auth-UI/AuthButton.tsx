@@ -14,11 +14,12 @@ const AuthButton = ({ children }: Props) => {
         height: "50px",
         borderRadius: "5px",
         outline: "none",
+        marginTop: "10px",
         backgroundColor: variables.actionColor,
         fontWeight: "600",
         fontSize: "18px",
         width: "62vw",
-        textTransform: "none"
+        textTransform: "none",
       }}
       type="submit"
       variant="contained"
