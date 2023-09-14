@@ -1,10 +1,9 @@
-import { Model, Schema, Types, model } from "mongoose";
+import { Model, Schema, model } from "mongoose";
 import { IRoom } from "../types/mongoose";
 import bcrypt from "bcrypt";
 import { memberSchema } from "./member.model";
 
 interface IRoomMethods {
-  removePasswordProp: () => Omit<IRoom, "roomPassword">;
   validatePassword: (roomPassword: string) => Promise<boolean>;
 }
 
@@ -19,7 +18,15 @@ const roomSchema = new Schema<IRoom, RoomModel, IRoomMethods>(
     maxMembers: Number,
     roomPassword: String,
   },
-  { versionKey: false }
+  {
+    versionKey: false,
+    toJSON: {
+      transform: function (doc, ret) {
+        delete ret.roomPassword;
+        return ret;
+      },
+    },
+  }
 );
 
 // Middlewares
@@ -43,12 +50,6 @@ roomSchema.pre("save", async function (next) {
 roomSchema.methods.validatePassword = async function (roomPasword: string) {
   const isPasswordValid = await bcrypt.compare(roomPasword, this.roomPassword);
   return isPasswordValid;
-};
-
-roomSchema.methods.removePasswordProp = function () {
-  const doc = this.toObject();
-  delete doc.roomPassword;
-  return doc;
 };
 
 const Room = model<IRoom, RoomModel>("Room", roomSchema);

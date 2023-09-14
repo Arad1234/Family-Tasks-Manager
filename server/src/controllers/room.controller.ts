@@ -21,7 +21,7 @@ export const roomHandler = (io: Server, socket: Socket) => {
   const createRoomHandler = catchAsyncSocket(async function (
     payload: CreateRoomSchemaType
   ) {
-    const { username, userId } = (socket as any).user;
+    const { username, userId } = socket.data.user;
     const { roomName, maxMembers, roomPassword } = payload;
 
     const newRoom = await createFamilyRoom({
@@ -50,7 +50,7 @@ export const roomHandler = (io: Server, socket: Socket) => {
     payload: JoinRoomSchemaType
   ) {
     const { roomId, roomPassword } = payload;
-    const { username, userId } = (socket as any).user;
+    const { username, userId } = socket.data.user;
     await joinFamilyRoom({
       username,
       userId,

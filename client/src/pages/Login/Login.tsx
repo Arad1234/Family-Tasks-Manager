@@ -2,25 +2,19 @@ import "./Login.scss";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { loginThunk } from "../../redux/actions/Auth/auth-actions";
 import { Box } from "@mui/material";
-import AuthButton from "../../components/Auth-UI/AuthButton";
-import LabelComponent from "../../components/Auth-UI/LabelComponent";
-import InputComponent from "../../components/Auth-UI/InputComponent";
-import InputLabelWrapper from "../../components/Auth-UI/InputLabelWrapper";
-import TitleComponent from "../../components/Auth-UI/TitleComponent";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { SignInWithOAuth } from "../../Supabase/OAuth";
 import Loader from "../../components/Loader/Loader";
 import { toast } from "react-toastify";
-import SecondaryAuthButton from "../../components/Auth-UI/Login/SecondaryAuthButton";
 import { useFormik } from "formik";
 import { object, string } from "yup";
-import InputErrorMessage from "../../components/Auth-UI/InputErrorMessage";
+import LoginFormComponent from "../../components/Auth-UI/Login/LoginFormComponent";
 
 const Login = () => {
   const dispatch = useAppDispatch();
-
   const { loading } = useAppSelector((state) => state.authReducer);
   const supabase = useSupabaseClient();
+
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: object({
@@ -44,13 +38,10 @@ const Login = () => {
       }
     },
   });
-  const { handleSubmit, values, errors, touched } = formik;
 
-  if (loading) {
-    return <Loader height="100vh" />;
-  }
-
-  return (
+  return loading ? (
+    <Loader height="100vh" />
+  ) : (
     <Box
       sx={{
         display: "flex",
@@ -61,48 +52,7 @@ const Login = () => {
         width: "100vw",
       }}
     >
-      <form
-        className="login-form"
-        onSubmit={handleSubmit}
-      >
-        <TitleComponent>Login</TitleComponent>
-        <InputLabelWrapper>
-          <LabelComponent>Email</LabelComponent>
-          <InputComponent
-            value={values.email}
-            formik={formik}
-            type="email"
-            name="email"
-          />
-          {errors.email && touched.email && (
-            <InputErrorMessage>{errors.email}</InputErrorMessage>
-          )}
-        </InputLabelWrapper>
-        <InputLabelWrapper>
-          <LabelComponent>Password</LabelComponent>
-          <InputComponent
-            formik={formik}
-            value={values.password}
-            type="password"
-            name="password"
-          />
-          {errors.password && touched.password && (
-            <InputErrorMessage>{errors.password}</InputErrorMessage>
-          )}
-        </InputLabelWrapper>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "10px",
-            alignItems: "center",
-          }}
-        >
-          <AuthButton>Login</AuthButton>
-          <p className="hr-lines">or</p>
-          <SecondaryAuthButton />
-        </Box>
-      </form>
+      <LoginFormComponent formik={formik} />
     </Box>
   );
 };

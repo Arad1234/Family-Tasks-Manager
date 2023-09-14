@@ -7,14 +7,11 @@ import { JoinRoomPayload } from "../types/socket";
 export const getFamilyRooms = async () => {
   // Getting the rooms with the tasks for each family member already populated.
   // Note the the DB does not populate with the tasks in the "rooms" collection.
-  const rooms = await Room.find().populate("familyMembers.tasks");
-  const newRooms = [];
+  const rooms = await Room.find()
+    .select("-roomPassword")
+    .populate("familyMembers.tasks");
 
-  for (const room of rooms) {
-    newRooms.push(room.removePasswordProp());
-  }
-
-  return newRooms;
+  return rooms;
 };
 
 export const createFamilyRoom = async (roomData: RoomData) => {
@@ -30,8 +27,8 @@ export const createFamilyRoom = async (roomData: RoomData) => {
     roomPassword,
   });
 
-  const updatedNewRoom = newRoom.removePasswordProp();
-
+  const updatedNewRoom = newRoom.toJSON();
+  console.log(updatedNewRoom);
   return updatedNewRoom;
 };
 

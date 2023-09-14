@@ -75,12 +75,17 @@ export interface EventIdAndCreatedAt {
   taskCreatedAt: string;
 }
 
-export type formikPropsType = FormikProps<
-  | {
-      name: string;
-      email: string;
-      password: string;
-      confirmPassword: string;
-    }
-  | { email: string; password: string }
->;
+// Formik Types
+
+type RegisterFormikType = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
+
+type LoginFormikType = Omit<RegisterFormikType, "name" | "confirmPassword">;
+
+export type formikPropsType =
+  | FormikProps<RegisterFormikType>
+  | FormikProps<LoginFormikType>;
