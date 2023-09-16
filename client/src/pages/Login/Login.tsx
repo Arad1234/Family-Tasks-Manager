@@ -29,7 +29,7 @@ const Login = () => {
         return;
       }
 
-      // This will create a trigger an auth event SIGNED_IN.
+      // This will trigger an auth event SIGNED_IN.
       const { error } = await SignInWithOAuth(supabase);
 
       if (error) {

@@ -51,7 +51,7 @@ app.use(mongoSanitize());
 
 // For preventing parameter pollution (same query key name).
 app.use(hpp());
-
+ 
 mongoose
   .connect(`${config.mongo.url}`)
   .then(() => console.log("Connected to DB"))

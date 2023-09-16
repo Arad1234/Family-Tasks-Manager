@@ -10,7 +10,7 @@ export const sanitizeData = (packet: [Event, ...Args], next: Function) => {
     // Remove all "$" and "." from the sent data.
     const sanitizedData = validator.blacklist(JSON.stringify(data), "$.");
 
-    // Replacing the "...args" with "JSON.parse(sanitizedData)"".
+    // Replacing the "...args" with "JSON.parse(sanitizedData)".
     packet.splice(1, 1, JSON.parse(sanitizedData));
   }
   next();

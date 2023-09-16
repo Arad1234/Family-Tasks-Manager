@@ -7,23 +7,19 @@ import {
 import { Socket, Server } from "socket.io";
 import { JoinRoomSchemaType } from "../schema/room/joinRoom.schema";
 import { CreateRoomSchemaType } from "../schema/room/createRoom.schema";
-import { socketErrorHandler } from "../middlewares/socket/errorHandler";
 import { DeleteRoomSchemaType } from "../schema/room/deleteRoom.schema";
 import { catchAsyncSocket } from "../utils/socket/catchAsyncSocket";
-import { sanitizeData } from "../middlewares/socket/sanitizeData";
 
 export const roomHandler = (io: Server, socket: Socket) => {
   const getFamilyRoomsHandler = catchAsyncSocket(async function () {
-    console.log("getting rooms!");
     const rooms = await getFamilyRooms();
+
     socket.emit("recievedRooms", rooms);
   }, socket);
 
   const createRoomHandler = catchAsyncSocket(async function (
     payload: CreateRoomSchemaType
   ) {
-    // const sanitizedPayload = sanitizeData(payload);
-    console.log("payload", payload);
     const { username, userId } = socket.data.user;
     const { roomName, maxMembers, roomPassword } = payload;
 
@@ -42,8 +38,6 @@ export const roomHandler = (io: Server, socket: Socket) => {
   const deleteRoomHandler = catchAsyncSocket(async function (
     payload: DeleteRoomSchemaType
   ) {
-    // const sanitizedPayload = sanitizeData(payload);
-
     const { roomId } = payload;
     const deletedRoomId = await deleteFamilyRoom(roomId);
     // Emitting the event to all connected users.
@@ -54,8 +48,6 @@ export const roomHandler = (io: Server, socket: Socket) => {
   const joinRoomHandler = catchAsyncSocket(async function (
     payload: JoinRoomSchemaType
   ) {
-    // const sanitizedPayload = sanitizeData(payload);
-
     const { roomId, roomPassword } = payload;
     const { username, userId } = socket.data.user;
     await joinFamilyRoom({
@@ -72,6 +64,4 @@ export const roomHandler = (io: Server, socket: Socket) => {
   socket.on("rooms:delete", deleteRoomHandler);
   socket.on("rooms:join", joinRoomHandler);
   socket.on("rooms:read", getFamilyRoomsHandler);
-
-  socketErrorHandler(socket);
 };

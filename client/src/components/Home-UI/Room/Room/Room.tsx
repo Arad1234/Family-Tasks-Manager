@@ -7,7 +7,7 @@ import EnterRoomButton from "./EnterRoomButton";
 import RoomName from "./RoomName";
 import LeaveRoomButton from "./LeaveRoomButton";
 import { useMemo } from "react";
-import variables from '../../../../sass/variables.module.scss'
+import variables from "../../../../sass/variables.module.scss";
 
 interface Props {
   room: IRoom;
@@ -77,7 +77,11 @@ const Room = ({ room }: Props) => {
             Room Is Full
           </Typography>
         ) : (
-          <JoinButton room={room} />
+          <Box
+            sx={{ display: "flex", justifyContent: "center", width: "100%" }}
+          >
+            <JoinButton room={room} />
+          </Box>
         )}
         {isRoomCreator && <DeleteButton room={room} />}
       </Box>

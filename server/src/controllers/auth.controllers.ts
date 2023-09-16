@@ -22,7 +22,7 @@ export const createUserHandler = catchAsync(
     // Defining the type of the request body as "CreateUserInput" type.
     req: Request<{}, {}, CreateUserInput>,
     res: Response,
-    next: NextFunction
+    _next: NextFunction
   ) => {
     const { username, email, password } = req.body;
 
@@ -33,8 +33,8 @@ export const createUserHandler = catchAsync(
 );
 
 export const logoutUserHandler = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (_req: Request, res: Response, _next: NextFunction) => {
     res.clearCookie("token");
-    res.status(OK).json("Logged out!")
+    res.status(OK).json("Logged out!");
   }
 );

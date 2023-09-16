@@ -4,9 +4,10 @@ import { Application } from "express";
 import { roomHandler } from "./src/controllers/room.controller";
 import { verifyToken } from "./src/middlewares/socket/verifyToken";
 import { taskHandler } from "./src/controllers/task.controller";
-import { validateMiddleware } from "./src/middlewares/socket/validationMiddleware";
+import { socketValidationSchema } from "./src/middlewares/socket/socketValidationSchema";
 import { memberHandler } from "./src/controllers/member.controller";
 import { sanitizeData } from "./src/middlewares/socket/sanitizeData";
+import { socketErrorHandler } from "./src/middlewares/socket/socketErrorHandler";
 
 export const connectSocketServer = (app: Application) => {
   const server = http.createServer(app);
@@ -20,15 +21,17 @@ export const connectSocketServer = (app: Application) => {
   function onConnection(socket: Socket) {
     console.log("user connected!");
 
-    // The "validateMiddleware" middleware is used to validate the data sent from the client, the validation is handled by zod schema.
-    socket.use(validateMiddleware);
-    
-    // Sanitize incoming data for every request.
+    // The "socketValidationSchema" middleware is used to validate the data sent from the client, the validation is handled by zod schema.
+    socket.use(socketValidationSchema);
+
+    // Sanitize incoming data against NoSql query injection for every request.
     socket.use(sanitizeData);
 
     roomHandler(io, socket);
     memberHandler(io, socket);
     taskHandler(io, socket);
+
+    socketErrorHandler(socket);
   }
 
   io.listen(4000);

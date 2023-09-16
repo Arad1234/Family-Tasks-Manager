@@ -11,13 +11,7 @@ export const errorListeners = (
 ) => {
   socket.on("error", (err) => {
     console.log(err);
-    const { issues } = err;
-    if (issues) {
-      const [firstIssue] = issues;
-      toast.error(firstIssue.message);
-    } else {
-      toast.error(err);
-    }
+    toast.error(err.message ? err.message : err);
     dispatch(setLoading(false));
   });
 

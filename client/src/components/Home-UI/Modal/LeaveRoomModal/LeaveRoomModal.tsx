@@ -16,10 +16,6 @@ const LeaveRoomModal = () => {
     }
   };
 
-  const handleCancel = () => {
-    hideModal(dispatch);
-  };
-
   return (
     <ModalComponent>
       <Typography>
@@ -27,7 +23,7 @@ const LeaveRoomModal = () => {
       </Typography>
       <DeleteModalButtons
         handleDelete={handleLeaveRoom}
-        handleCancel={handleCancel}
+        handleCancel={() => hideModal(dispatch)}
         buttonOption={"Leave"}
       />
     </ModalComponent>

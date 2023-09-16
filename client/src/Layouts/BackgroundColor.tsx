@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { ChildrenProps } from "../../types";
+import { ChildrenProps } from "../types";
 
 const BackgroundColor = ({ children }: ChildrenProps) => {
   return (
@@ -10,6 +10,7 @@ const BackgroundColor = ({ children }: ChildrenProps) => {
         flexDirection: "column",
         height: "100vh",
         width: "100vw",
+        overflow: "auto",
       }}
     >
       {children}

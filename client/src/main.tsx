@@ -11,7 +11,7 @@ import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import { VITE_API_KEY, VITE_SUPABASE_PROJECT_URL } from "./utils/constants";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import BackgroundColor from "./components/Auth-UI/BackgroundColor";
+import BackgroundColor from "./Layouts/BackgroundColor";
 
 const supabase = createClient(VITE_SUPABASE_PROJECT_URL, VITE_API_KEY);
 

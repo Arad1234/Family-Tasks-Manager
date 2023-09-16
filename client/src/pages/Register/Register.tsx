@@ -25,6 +25,7 @@ const Register = () => {
       const response: any = await dispatch(
         registerThunk({ username: name, email, password, confirmPassword })
       );
+      console.log(response.error);
       if (response.error) {
         toast.error(response.payload as string);
       } else {
