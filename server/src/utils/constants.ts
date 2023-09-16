@@ -1,4 +1,4 @@
 import { StatusCodes } from "http-status-codes";
 
-export const { INTERNAL_SERVER_ERROR, OK, BAD_REQUEST, UNAUTHORIZED, CREATED } =
+export const { INTERNAL_SERVER_ERROR, OK, BAD_REQUEST, UNAUTHORIZED, CREATED, NOT_FOUND } =
   StatusCodes;

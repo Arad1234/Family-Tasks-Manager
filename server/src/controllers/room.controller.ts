@@ -10,6 +10,7 @@ import { CreateRoomSchemaType } from "../schema/room/createRoom.schema";
 import { socketErrorHandler } from "../middlewares/socket/errorHandler";
 import { DeleteRoomSchemaType } from "../schema/room/deleteRoom.schema";
 import { catchAsyncSocket } from "../utils/socket/catchAsyncSocket";
+import { sanitizeData } from "../middlewares/socket/sanitizeData";
 
 export const roomHandler = (io: Server, socket: Socket) => {
   const getFamilyRoomsHandler = catchAsyncSocket(async function () {
@@ -21,6 +22,8 @@ export const roomHandler = (io: Server, socket: Socket) => {
   const createRoomHandler = catchAsyncSocket(async function (
     payload: CreateRoomSchemaType
   ) {
+    // const sanitizedPayload = sanitizeData(payload);
+    console.log("payload", payload);
     const { username, userId } = socket.data.user;
     const { roomName, maxMembers, roomPassword } = payload;
 
@@ -39,6 +42,8 @@ export const roomHandler = (io: Server, socket: Socket) => {
   const deleteRoomHandler = catchAsyncSocket(async function (
     payload: DeleteRoomSchemaType
   ) {
+    // const sanitizedPayload = sanitizeData(payload);
+
     const { roomId } = payload;
     const deletedRoomId = await deleteFamilyRoom(roomId);
     // Emitting the event to all connected users.
@@ -49,6 +54,8 @@ export const roomHandler = (io: Server, socket: Socket) => {
   const joinRoomHandler = catchAsyncSocket(async function (
     payload: JoinRoomSchemaType
   ) {
+    // const sanitizedPayload = sanitizeData(payload);
+
     const { roomId, roomPassword } = payload;
     const { username, userId } = socket.data.user;
     await joinFamilyRoom({

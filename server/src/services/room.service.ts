@@ -28,7 +28,7 @@ export const createFamilyRoom = async (roomData: RoomData) => {
   });
 
   const updatedNewRoom = newRoom.toJSON();
-  console.log(updatedNewRoom);
+  
   return updatedNewRoom;
 };
 

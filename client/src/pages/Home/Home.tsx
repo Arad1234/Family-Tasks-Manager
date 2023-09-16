@@ -28,8 +28,6 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(socket.connected);
-    console.log("effect!");
     roomsListeners(socket, dispatch);
     commonListeners(socket, dispatch);
     errorListeners(socket, navigate, dispatch);

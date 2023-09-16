@@ -6,6 +6,7 @@ import { verifyToken } from "./src/middlewares/socket/verifyToken";
 import { taskHandler } from "./src/controllers/task.controller";
 import { validateMiddleware } from "./src/middlewares/socket/validationMiddleware";
 import { memberHandler } from "./src/controllers/member.controller";
+import { sanitizeData } from "./src/middlewares/socket/sanitizeData";
 
 export const connectSocketServer = (app: Application) => {
   const server = http.createServer(app);
@@ -14,18 +15,21 @@ export const connectSocketServer = (app: Application) => {
     cors: { origin: "http://localhost:4173", credentials: true },
   });
 
-  io.listen(4000);
-
   io.use(verifyToken).on("connection", onConnection);
-  
+
   function onConnection(socket: Socket) {
     console.log("user connected!");
-    
+
     // The "validateMiddleware" middleware is used to validate the data sent from the client, the validation is handled by zod schema.
     socket.use(validateMiddleware);
+    
+    // Sanitize incoming data for every request.
+    socket.use(sanitizeData);
 
     roomHandler(io, socket);
     memberHandler(io, socket);
     taskHandler(io, socket);
   }
+
+  io.listen(4000);
 };

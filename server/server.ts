@@ -4,13 +4,16 @@ import { configDotenv } from "dotenv";
 import authRouter from "./src/routes/authRoutes";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
-import { errorHandler } from "./src/middlewares/express/errorHandler";
+import { expressErrorHandler } from "./src/middlewares/express/expressErrorHandler";
 import { connectSocketServer } from "./socket";
 import helmet from "helmet";
 import xss from "xss-clean";
 import hpp from "hpp";
 import rateLimit from "express-rate-limit";
 import mongoSanitize from "express-mongo-sanitize";
+import { NOT_FOUND } from "./src/utils/constants";
+import { config } from "./src/config/config";
+import AppError from "./src/utils/express/appErrorClass";
 
 configDotenv();
 
@@ -29,7 +32,7 @@ app.use(express.json());
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 
-// limit requests from same API
+// limit requests from same API to 500.
 const limiter = rateLimit({
   max: 500,
   windowMs: 60 * 60 * 1000,
@@ -50,15 +53,21 @@ app.use(mongoSanitize());
 app.use(hpp());
 
 mongoose
-  .connect(`${process.env.MONGODB_URI}`)
+  .connect(`${config.mongo.url}`)
   .then(() => console.log("Connected to DB"))
   .catch((err) => console.log(err));
 
 app.use("/api/v1/user", authRouter);
 
-app.use(errorHandler);
-
 connectSocketServer(app);
+
+app.all("*", (req, _res, next) => {
+  next(
+    new AppError(`Can't find ${req.originalUrl} on this server!`, NOT_FOUND)
+  );
+});
+
+app.use(expressErrorHandler);
 
 const port = process.env.PORT || 3000;
 
