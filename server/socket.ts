@@ -7,7 +7,7 @@ import { taskHandler } from "./src/controllers/task.controller";
 import { socketValidationSchema } from "./src/middlewares/socket/socketValidationSchema";
 import { memberHandler } from "./src/controllers/member.controller";
 import { sanitizeData } from "./src/middlewares/socket/sanitizeData";
-import { socketErrorHandler } from "./src/middlewares/socket/socketErrorHandler";
+import { zodErrorHandler } from "./src/utils/socket/errorHandlers/zodErrorHandler";
 
 export const connectSocketServer = (app: Application) => {
   const server = http.createServer(app);
@@ -31,7 +31,7 @@ export const connectSocketServer = (app: Application) => {
     memberHandler(io, socket);
     taskHandler(io, socket);
 
-    socketErrorHandler(socket);
+    zodErrorHandler(socket);
   }
 
   io.listen(4000);

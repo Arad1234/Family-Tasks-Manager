@@ -36,7 +36,7 @@ export const createFamilyRoom = async (roomData: RoomData) => {
 
 export const deleteFamilyRoom = async (roomId: string) => {
   const room = await Room.findById({ _id: roomId });
-  console.log(room);
+
   if (!room) {
     throw new AppError("Room not found", NOT_FOUND);
   }

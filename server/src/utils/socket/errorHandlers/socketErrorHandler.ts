@@ -1,14 +1,14 @@
-import { Request, Response, NextFunction } from "express";
-import { INTERNAL_SERVER_ERROR } from "../../utils/constants";
+import { INTERNAL_SERVER_ERROR } from "../../../utils/constants";
+import { Socket } from "socket.io";
 import {
   handleCastErrorDB,
   handleDuplicateFieldsDB,
   handleValidationErrorDB,
-} from "../../utils/errorHandlerFunctions";
+} from "../../errorHandlerFunctions";
 
 // Send error details in development or production.
-const sendErrorDev = (err: any, res: Response) => {
-  res.status(err.statusCode).json({
+const sendErrorDev = (err: any, socket: Socket) => {
+  socket.emit("error", {
     status: err.status,
     error: err,
     message: err.message,
@@ -16,10 +16,10 @@ const sendErrorDev = (err: any, res: Response) => {
   });
 };
 
-const sendErrorProd = (err: any, res: Response) => {
+const sendErrorProd = (err: any, socket: Socket) => {
   // Operational, trusted error: send message to the user.
   if (err.isOperational) {
-    res.status(err.statusCode).json({
+    socket.emit("error", {
       status: err.status,
       message: err.message,
     });
@@ -30,29 +30,31 @@ const sendErrorProd = (err: any, res: Response) => {
     console.error("ERROR 💥", err);
 
     // 2) Send generic message
-    res
-      .status(INTERNAL_SERVER_ERROR)
-      .json({ status: "error", message: "Something went very wrong!" });
+    socket.emit("error", {
+      status: "error",
+      message: "Something went very wrong!",
+    });
   }
 };
 
-// Express error middleware.
-export const expressErrorHandler = (
-  err: any,
-  _req: Request,
-  res: Response,
-  _next: NextFunction
-) => {
+// Socket error middleware.
+export const socketErrorHandler = (err: any, socket: Socket) => {
   err.statusCode = err.statusCode || INTERNAL_SERVER_ERROR;
   err.status = err.status || "error";
 
   if (process.env.NODE_ENV?.trim() === "development") {
-    sendErrorDev(err, res);
+    sendErrorDev(err, socket);
   } else if (process.env.NODE_ENV?.trim() === "production") {
-    // The "message" property of an object is by default non-enumerable so it cannot be iterable and copied, now it can be because of the defineProperty.
-    Object.defineProperty(err, "message", {
-      value: err.message,
-      enumerable: true,
+    // The "message" and "name" properties of an object is by default non-enumerable so it cannot be iterable and copied, now it can be because of the defineProperties method.
+    Object.defineProperties(err, {
+      message: {
+        value: err.message,
+        enumerable: true,
+      },
+      name: {
+        value: err.name,
+        enumerable: true,
+      },
     });
 
     let error = { ...err }; // It's a good practice to copy the original "err" object and to not change him directly.
@@ -64,6 +66,6 @@ export const expressErrorHandler = (
     if (error.name === "ValidationError")
       error = handleValidationErrorDB(error);
 
-    sendErrorProd(error, res);
+    sendErrorProd(error, socket);
   }
 };
