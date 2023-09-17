@@ -25,7 +25,7 @@ export const createUserHandler = catchAsync(
     _next: NextFunction
   ) => {
     const { username, email, password } = req.body;
-
+    
     const user = await createUser({ username, email, password });
 
     res.status(CREATED).json({ status: "ok", newUser: user });

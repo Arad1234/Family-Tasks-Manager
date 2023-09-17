@@ -4,10 +4,11 @@
   "description": "",
   "main": "server.ts",
   "scripts": {
-    "dev": "nodemon server.ts",
+    "dev": "set NODE_ENV=development && nodemon server.ts",
+    "demoProd": "set NODE_ENV=production && nodemon server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
-    "build": "node build/server.js",
+    "build": "set NODE_ENV=production && node build/server.js",
     "debug": "ndb nodemon server.ts"
   },
   "keywords": [],

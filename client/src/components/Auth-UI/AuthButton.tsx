@@ -19,6 +19,7 @@ const AuthButton = ({ children }: Props) => {
         fontWeight: "600",
         fontSize: "18px",
         width: "62vw",
+        ":hover": { backgroundColor: variables.actionColor },
         textTransform: "none",
       }}
       type="submit"

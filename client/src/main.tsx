@@ -26,7 +26,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           >
             <ToastContainer
               draggable={false}
-              autoClose={1000}
+              autoClose={2500}
             />
             <RouterProvider router={router} />
           </PersistGate>

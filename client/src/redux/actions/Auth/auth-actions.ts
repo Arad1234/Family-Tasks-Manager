@@ -53,6 +53,7 @@ export const registerThunk = createAsyncThunk<
       const { data } = response;
       return data;
     } catch (error: any) {
+      console.log(error);
       const { data } = error.response;
       return thunkAPI.rejectWithValue(data.message);
     }

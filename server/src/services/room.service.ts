@@ -4,7 +4,7 @@ import Task from "../models/task.model";
 import { RoomData } from "../types/common";
 import { JoinRoomPayload } from "../types/socket";
 import { NOT_FOUND, UNAUTHORIZED } from "../utils/constants";
-import AppError from "../utils/express/appErrorClass";
+import AppError from "../utils/appErrorClass";
 
 export const getFamilyRooms = async () => {
   // Getting the rooms with the tasks for each family member already populated.

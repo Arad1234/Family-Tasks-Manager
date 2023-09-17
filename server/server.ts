@@ -13,9 +13,16 @@ import rateLimit from "express-rate-limit";
 import mongoSanitize from "express-mongo-sanitize";
 import { NOT_FOUND } from "./src/utils/constants";
 import { config } from "./src/config/config";
-import AppError from "./src/utils/express/appErrorClass";
+import AppError from "./src/utils/appErrorClass";
 
 configDotenv();
+
+// Handling exception errors.
+process.on("uncaughtException", (err: any) => {
+  console.log(err.name, err.message);
+  console.log("UNCAUGHT EXECPTION! 💥 Shutting down...");
+  process.exit(1);
+});
 
 const app = express();
 
@@ -51,7 +58,7 @@ app.use(mongoSanitize());
 
 // For preventing parameter pollution (same query key name).
 app.use(hpp());
- 
+
 mongoose
   .connect(`${config.mongo.url}`)
   .then(() => console.log("Connected to DB"))
@@ -71,6 +78,15 @@ app.use(expressErrorHandler);
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
+});
+
+// Handling async code that don't have a "catch" block.
+process.on("unhandledRejection", (err: any) => {
+  console.log(err.name, err.message);
+  console.log("UNHANDLED REJECTION! 💥 Shutting down...");
+  server.close(() => {
+    process.exit(1);
+  });
 });

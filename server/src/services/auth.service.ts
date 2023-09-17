@@ -2,7 +2,7 @@ import User from "../models/user.model";
 import { UserLoginDetails, UserRegitrationDetails } from "../types/common";
 import bcrypt from "bcrypt";
 import { generateToken } from "../utils/generateToken";
-import AppError from "../utils/express/appErrorClass";
+import AppError from "../utils/appErrorClass";
 import { UNAUTHORIZED } from "../utils/constants";
 
 export const createUser = async (userData: UserRegitrationDetails) => {
