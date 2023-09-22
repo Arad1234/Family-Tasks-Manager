@@ -1,7 +1,6 @@
 import { useAppDispatch } from "../../redux/hooks";
 import { registerThunk } from "../../redux/actions/Auth/auth-actions";
 import { useNavigate } from "react-router-dom";
-import "./Register.scss";
 import { Box } from "@mui/material";
 import { toast } from "react-toastify";
 import RegisterTitle from "../../components/Auth-UI/Register/Title";
@@ -25,16 +24,16 @@ const Register = () => {
       const response: any = await dispatch(
         registerThunk({ username: name, email, password, confirmPassword })
       );
-      console.log(response.error);
+
       if (response.error) {
-        toast.error(response.payload as string);
-      } else {
-        toast.success("Created User Successfully!");
-        navigate("/");
+        return toast.error(response.payload);
       }
+
+      toast.success("Created User Successfully!");
+      navigate("/");
     },
   });
-  
+
   return (
     <Box
       sx={{

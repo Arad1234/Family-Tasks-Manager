@@ -3,12 +3,10 @@ import InputLabelWrapper from "../InputLabelWrapper";
 import LabelComponent from "../LabelComponent";
 import InputErrorMessage from "../InputErrorMessage";
 import InputComponent from "../InputComponent";
-import { formikPropsType } from "../../../types";
-import "../../../pages/Register/Register.scss";
+import "./Register.scss";
 import AuthButton from "../AuthButton";
-import { Typography } from "@mui/material";
-import LinkComponent from "../../Link/LinkComponent";
 import { FormikProps } from "formik";
+import FormBottomText from "../FormBottomText";
 
 interface Props {
   formik: FormikProps<{
@@ -46,7 +44,7 @@ const RegisterFormComponent = ({ formik }: Props) => {
         <LabelComponent>Email</LabelComponent>
 
         <InputComponent
-          formik={formik as formikPropsType}
+          formik={formik}
           value={values.email}
           name="email"
           type="email"
@@ -59,7 +57,7 @@ const RegisterFormComponent = ({ formik }: Props) => {
       <InputLabelWrapper>
         <LabelComponent>Password</LabelComponent>
         <InputComponent
-          formik={formik as formikPropsType}
+          formik={formik}
           value={values.password}
           name="password"
           type="password"
@@ -84,9 +82,12 @@ const RegisterFormComponent = ({ formik }: Props) => {
       </InputLabelWrapper>
 
       <AuthButton>Sign Up</AuthButton>
-      <Typography sx={{ color: "white" }}>
-        Already have an account? <LinkComponent href="/">Log In</LinkComponent>
-      </Typography>
+
+      <FormBottomText
+        actionText="Log In"
+        navigateTo="/"
+        whiteText="Already have an account?"
+      />
     </form>
   );
 };

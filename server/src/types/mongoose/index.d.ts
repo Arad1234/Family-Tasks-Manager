@@ -4,6 +4,8 @@ export interface IUser extends Document {
   username: string;
   email: string;
   password: string;
+  passwordResetToken: string | undefined;
+  passwordResetExpires: Date | undefined;
 }
 
 interface ITask extends Document {

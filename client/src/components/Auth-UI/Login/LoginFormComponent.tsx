@@ -3,11 +3,12 @@ import InputLabelWrapper from "../InputLabelWrapper";
 import LabelComponent from "../LabelComponent";
 import InputErrorMessage from "../InputErrorMessage";
 import InputComponent from "../InputComponent";
-import "../../../pages/Register/Register.scss";
+import "./Login.scss";
 import AuthButton from "../AuthButton";
 import { FormikProps } from "formik";
 import SecondaryAuthButton from "./SecondaryAuthButton";
 import { Box } from "@mui/material";
+import FormBottomText from "../FormBottomText";
 
 interface Props {
   formik: FormikProps<{ email: string; password: string }>;
@@ -55,8 +56,17 @@ const LoginFormComponent = ({ formik }: Props) => {
         }}
       >
         <AuthButton>Login</AuthButton>
+
         <p className="hr-lines">or</p>
+
         <SecondaryAuthButton />
+
+        <FormBottomText
+          marginTop="20px"
+          navigateTo="/forgotPassword"
+          actionText="Click here"
+          whiteText="Forgot your password?"
+        />
       </Box>
     </form>
   );

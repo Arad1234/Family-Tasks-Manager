@@ -1,4 +1,3 @@
-import "./Login.scss";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { loginThunk } from "../../redux/actions/Auth/auth-actions";
 import { Box } from "@mui/material";

@@ -53,7 +53,22 @@ export const registerThunk = createAsyncThunk<
       const { data } = response;
       return data;
     } catch (error: any) {
-      console.log(error);
+      const { data } = error.response;
+      return thunkAPI.rejectWithValue(data.message);
+    }
+  }
+);
+
+export const forgotPasswordThunk = createAsyncThunk<string, { email: string }>(
+  "/auth/forgotPassword",
+  async ({ email }, thunkAPI) => {
+    try {
+      const response = await axiosClient.post("/user/forgotPassword", {
+        email,
+      });
+
+      return response.data;
+    } catch (error: any) {
       const { data } = error.response;
       return thunkAPI.rejectWithValue(data.message);
     }

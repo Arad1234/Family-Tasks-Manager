@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import { configDotenv } from "dotenv";
 import authRouter from "./src/routes/authRoutes";
-import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import { expressErrorHandler } from "./src/middlewares/express/expressErrorHandler";
 import { connectSocketServer } from "./socket";
@@ -12,8 +11,8 @@ import hpp from "hpp";
 import rateLimit from "express-rate-limit";
 import mongoSanitize from "express-mongo-sanitize";
 import { NOT_FOUND } from "./src/utils/constants";
-import { config } from "./src/config/config";
 import AppError from "./src/utils/appErrorClass";
+import { connectDB } from "./db";
 
 configDotenv();
 
@@ -47,6 +46,7 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
+
 // For secure http headers
 app.use(helmet());
 
@@ -59,14 +59,11 @@ app.use(mongoSanitize());
 // For preventing parameter pollution (same query key name).
 app.use(hpp());
 
-mongoose
-  .connect(`${config.mongo.url}`)
-  .then(() => console.log("Connected to DB"))
-  .catch((err) => console.log(err));
+connectDB().then(() => {
+  connectSocketServer(app);
+});
 
 app.use("/api/v1/user", authRouter);
-
-connectSocketServer(app);
 
 app.all("*", (req, _res, next) => {
   next(

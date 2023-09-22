@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginThunk, registerThunk } from "../../actions/Auth/auth-actions";
+import {
+  forgotPasswordThunk,
+  loginThunk,
+  registerThunk,
+} from "../../actions/Auth/auth-actions";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 
@@ -58,6 +62,16 @@ const authSlice = createSlice({
       builder.addCase(registerThunk.rejected, (state) => {
         state.loading = false;
       });
+
+    builder.addCase(forgotPasswordThunk.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(forgotPasswordThunk.fulfilled, (state) => {
+      state.success = "Success!";
+    });
+    builder.addCase(forgotPasswordThunk.rejected, (state) => {
+      state.loading = false;
+    });
   },
 });
 

@@ -76,7 +76,6 @@ export interface EventIdAndCreatedAt {
 }
 
 // Formik Types
-
 type RegisterFormikType = {
   name: string;
   email: string;
@@ -86,6 +85,9 @@ type RegisterFormikType = {
 
 type LoginFormikType = Omit<RegisterFormikType, "name" | "confirmPassword">;
 
+type forgotPasswordFormikType = Omit<LoginFormikType, "password">;
+
 export type formikPropsType =
   | FormikProps<RegisterFormikType>
-  | FormikProps<LoginFormikType>;
+  | FormikProps<LoginFormikType>
+  | FormikProps<forgotPasswordFormikType>;
