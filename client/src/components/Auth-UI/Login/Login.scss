@@ -1,11 +1,11 @@
-@use "../../sass/variables.module.scss" as variables;
+@use "../../../sass/variables.module.scss" as variables;
 
 .login-form {
   display: flex;
   flex-direction: column;
   box-shadow: 5px 5px 5px 0px rgba(100, 100, 100, 0.3);
   width: 80vw;
-  height: 55vh;
+  height: 61.5vh;
   align-items: center;
   justify-content: center;
   gap: 30px;
@@ -24,7 +24,7 @@
     height: 1px;
     width: 100px;
     position: absolute;
-    bottom: 18.4rem;
+    bottom: 20.2rem;
     left: 77px;
     background: white;
   }
@@ -35,7 +35,7 @@
     height: 1px;
     width: 100px;
     position: absolute;
-    bottom: 18.4rem;
+    bottom: 20.2rem;
     left: 215px;
     background: white;
   }

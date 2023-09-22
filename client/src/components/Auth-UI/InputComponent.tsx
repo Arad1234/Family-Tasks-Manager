@@ -18,11 +18,12 @@ const InputComponent = ({ type, name, formik, value }: Props) => {
       value={value}
       onBlur={handleBlur}
       variant="standard"
+      color="info"
       inputProps={{
         style: {
           fontSize: "18px",
           width: "15rem",
-          borderBottom: "1px solid white",
+          borderBottom: "2px solid white",
           color: "white",
         },
       }}
