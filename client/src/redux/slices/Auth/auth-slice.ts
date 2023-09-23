@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginThunk, registerThunk } from "../../actions/Auth/auth-actions";
+import {
+  forgotPasswordThunk,
+  loginThunk,
+  registerThunk,
+} from "../../actions/Auth/auth-actions";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 
@@ -27,18 +31,6 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setUsername(state, { payload }) {
-      state.username = payload;
-    },
-    setEmail(state, { payload }) {
-      state.email = payload;
-    },
-    setPassword(state, { payload }) {
-      state.password = payload;
-    },
-    setConfirmPassword(state, { payload }) {
-      state.confirmPassword = payload;
-    },
     setLoading(state, { payload }) {
       state.loading = payload;
     },
@@ -70,6 +62,16 @@ const authSlice = createSlice({
       builder.addCase(registerThunk.rejected, (state) => {
         state.loading = false;
       });
+
+    builder.addCase(forgotPasswordThunk.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(forgotPasswordThunk.fulfilled, (state) => {
+      state.success = "Success!";
+    });
+    builder.addCase(forgotPasswordThunk.rejected, (state) => {
+      state.loading = false;
+    });
   },
 });
 
@@ -80,13 +82,6 @@ const persistConfig = {
 };
 const persistedAuthReducer = persistReducer(persistConfig, authSlice.reducer);
 
-export const {
-  setUsername,
-  setEmail,
-  setPassword,
-  setConfirmPassword,
-  setLoading,
-  reset,
-} = authSlice.actions;
+export const { setLoading, reset } = authSlice.actions;
 
 export default persistedAuthReducer;

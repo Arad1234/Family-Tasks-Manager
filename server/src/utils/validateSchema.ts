@@ -1,12 +1,20 @@
 import { ZodSchema } from "zod";
+import AppError from "./appErrorClass";
+import { BAD_REQUEST } from "./constants";
 
 const validateSchema = (schema: ZodSchema, data: any, next: Function) => {
-  console.log(data);
   try {
     schema.parse(data);
     next();
   } catch (error: any) {
-    next(error); // This will call the "error" event listener on the server.
+    let errorMessage = "Invalid Data";
+
+    if (error.name === "ZodError") {
+      const [firstErrorObj] = error.issues;
+      errorMessage = firstErrorObj.message;
+    }
+
+    next(new AppError(errorMessage, BAD_REQUEST));
   }
 };
 

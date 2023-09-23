@@ -13,12 +13,12 @@ export const userValidationSchema = object({
     required_error: "email is required!",
   }).email("not a valid email"),
 }).refine((data) => data.confirmPassword === data.password, {
-  message: "Passwords do not match",
+  message: "Passwords don't match",
   path: ["confirmPassword"],
 });
 
 // I dont need the "confirmPassword" field for that type.
-export type CreateUserInput = Omit<
+export type CreateUserSchemaType = Omit<
   TypeOf<typeof userValidationSchema>,
   "confirmPassword"
 >;

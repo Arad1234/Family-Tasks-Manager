@@ -1,17 +1,19 @@
 import { Box } from "@mui/material";
-import { ChildrenProps } from "../../types";
 
-const BackgroundColor = ({ children }: ChildrenProps) => {
+interface Props {
+  children: React.ReactNode;
+  height?: string;
+}
+
+const Wrapper = ({ children, height }: Props) => {
   return (
     <Box
       sx={{
-        backgroundImage: "linear-gradient(to bottom right, #FDABDD, #374A5A)",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        gap: "40px",
-        height: "100vh",
+        height: height ? height : "100vh",
         width: "100vw",
       }}
     >
@@ -20,4 +22,4 @@ const BackgroundColor = ({ children }: ChildrenProps) => {
   );
 };
 
-export default BackgroundColor;
+export default Wrapper;

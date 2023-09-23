@@ -1,9 +1,14 @@
 import User from "../models/user.model";
-import { UserLoginDetails, UserRegitrationDetails } from "../types/common";
+import { UserLoginDetails, UserRegisterDetails } from "../types/common";
 import bcrypt from "bcrypt";
 import { generateToken } from "../utils/generateToken";
+import AppError from "../utils/appErrorClass";
+import { BAD_REQUEST, NOT_FOUND, UNAUTHORIZED } from "../utils/constants";
+import { config } from "../config/config";
+import { createNewPasswordSchemaType } from "../schema/user/newPassword.schema";
+import crypto from "crypto";
 
-export const createUser = async (userData: UserRegitrationDetails) => {
+export const createUser = async (userData: UserRegisterDetails) => {
   const { username, email, password } = userData;
 
   await User.create({
@@ -17,15 +22,70 @@ export const loginUser = async (userInfo: UserLoginDetails) => {
   const { email, password } = userInfo;
 
   const user = await User.findOne({ email });
-  if (user) {
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (isPasswordValid) {
-      const token = generateToken(user._id, user.username);
-      return { user, token };
-    } else {
-      throw new Error("Wrong email or password");
-    }
-  } else {
-    throw new Error("Wrong email or password");
+
+  if (!user) {
+    throw new AppError("Wrong email or password", UNAUTHORIZED);
   }
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordValid) {
+    throw new AppError("Wrong email or password", UNAUTHORIZED);
+  }
+
+  const token = generateToken(user._id, user.username);
+
+  return { user, token };
+};
+
+export const forgotPassword = async (email: string) => {
+  // 1) Get user based posted email
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw new AppError("There is no user with email adress", NOT_FOUND);
+  }
+
+  // 2) Generate the random reset token
+  const resetToken = user.createPasswordResetToken();
+
+  await user.save();
+
+  const link = `${config.client.clientHost}/resetPassword?token=${resetToken}`;
+
+  return { user, link };
+};
+
+export const resetPassword = async (
+  newPasswordInfo: createNewPasswordSchemaType & { resetToken: string }
+) => {
+  const { newPassword, resetToken } = newPasswordInfo;
+
+  // 1) Get user based on the token
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  // 2) If token has not expired, and there is user, set the new password
+  const user = await User.findOne({
+    passwordResetToken: hashedToken,
+    passwordResetExpires: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    throw new AppError("Token is invalid or has expired!", BAD_REQUEST);
+  }
+
+  const isEqualToOldPassword = await bcrypt.compare(newPassword, user.password);
+
+  if (isEqualToOldPassword) {
+    throw new AppError("Cannot use the old password", BAD_REQUEST);
+  }
+
+  user.password = newPassword;
+
+  user.passwordResetToken = undefined;
+  user.passwordResetExpires = undefined;
+
+  await user.save();
 };

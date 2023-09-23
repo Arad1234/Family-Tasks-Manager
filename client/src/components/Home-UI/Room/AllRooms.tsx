@@ -19,6 +19,7 @@ const AllRooms = ({ searchQuery }: Props) => {
       sx={{
         display: "flex",
         flexDirection: "column",
+        width: "90vw",
         gap: "20px",
         margin: "10px",
       }}

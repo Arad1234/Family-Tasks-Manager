@@ -1,9 +1,10 @@
 import { Socket } from "socket.io";
+import { socketErrorHandler } from "./errorHandlers/socketErrorHandler";
 
 export const catchAsyncSocket = (fn: Function, socket: Socket) => {
   return (payload: any) => {
     fn(payload).catch((err: any) => {
-      socket.emit("error", err.message);
+      socketErrorHandler(err, socket);
     });
   };
 };

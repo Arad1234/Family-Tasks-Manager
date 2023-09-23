@@ -1,3 +1,6 @@
+import { JwtPayload } from "jsonwebtoken";
+import { Socket } from "socket.io";
+
 export interface CreateRoomPayload {
   roomName: string;
   maxMembers: number;

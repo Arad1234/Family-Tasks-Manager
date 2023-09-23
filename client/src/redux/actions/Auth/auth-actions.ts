@@ -13,6 +13,16 @@ interface RegisterPayload {
   confirmPassword: string;
 }
 
+interface ResetPasswordPayload {
+  newPassword: string;
+  confirmPassword: string;
+  resetToken: string;
+}
+
+interface ForgotPasswordPayload {
+  email: string;
+}
+
 export const loginThunk = createAsyncThunk<
   { userId: string; username: string }, // The type the function returns
   LoginPayload // the arguments the function get.
@@ -31,9 +41,8 @@ export const loginThunk = createAsyncThunk<
       const { userId, username } = data;
       return { userId, username };
     } catch (error: any) {
-      const { response } = error;
-      console.log(error);
-      return rejectWithValue(response.data.error);
+      const { data } = error.response;
+      return rejectWithValue(data.message);
     }
   }
 );
@@ -55,13 +64,46 @@ export const registerThunk = createAsyncThunk<
       return data;
     } catch (error: any) {
       const { data } = error.response;
-      const { issues } = data.error;
-      if (issues) {
-        // Getting issues from "zod" validation from the server.
-        return thunkAPI.rejectWithValue(issues[0].message);
-      } else {
-        return thunkAPI.rejectWithValue(data.error);
-      }
+      return thunkAPI.rejectWithValue(data.message);
+    }
+  }
+);
+
+export const forgotPasswordThunk = createAsyncThunk<
+  string,
+  ForgotPasswordPayload
+>("/auth/forgotPassword", async ({ email }, thunkAPI) => {
+  try {
+    const response = await axiosClient.post("/user/forgotPassword", {
+      email,
+    });
+
+    return response.data;
+  } catch (error: any) {
+    const { data } = error.response;
+    return thunkAPI.rejectWithValue(data.message);
+  }
+});
+
+export const resetPasswordThunk = createAsyncThunk<
+  string,
+  ResetPasswordPayload
+>(
+  "/auth/resetPassword",
+  async ({ newPassword, confirmPassword, resetToken }, thunkAPI) => {
+    try {
+      const response = await axiosClient.patch(
+        `/user/resetPassword/${resetToken}`,
+        {
+          newPassword,
+          confirmPassword,
+        }
+      );
+
+      return response.data;
+    } catch (error: any) {
+      const { data } = error.response;
+      return thunkAPI.rejectWithValue(data.message);
     }
   }
 );

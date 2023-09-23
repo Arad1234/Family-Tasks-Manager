@@ -12,9 +12,11 @@ const NewRoomButton = () => {
     <Button
       sx={{
         width: "120px",
-        borderRadius: "6px",
-        backgroundColor: "rgba(50, 50, 200, 0.8)",
-        ":hover": { backgroundColor: "rgba(50, 50, 200, 0.6)" },
+        borderRadius: "20px",
+        fontSize: "16px",
+        backgroundColor: "rgba(0, 100, 150, 0.9)",
+        textTransform: "none",
+        ":hover": { backgroundColor: "rgba(0, 100, 150, 0.7)" },
       }}
       variant="contained"
       onClick={handleOpenCreateModal}

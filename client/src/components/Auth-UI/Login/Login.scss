@@ -1,0 +1,42 @@
+@use "../../../sass/variables.module.scss" as variables;
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 5px 5px 5px 0px rgba(100, 100, 100, 0.3);
+  width: 80vw;
+  height: 61.5vh;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  background-color: variables.$secondaryColor;
+  border-radius: 20px;
+
+  .hr-lines {
+    margin: 0;
+    font-size: 20px;
+    color: white;
+    margin-bottom: 7px;
+  }
+  .hr-lines:before {
+    content: " ";
+    display: block;
+    height: 1px;
+    width: 100px;
+    position: absolute;
+    bottom: 20.2rem;
+    left: 77px;
+    background: white;
+  }
+
+  .hr-lines::after {
+    content: " ";
+    display: block;
+    height: 1px;
+    width: 100px;
+    position: absolute;
+    bottom: 20.2rem;
+    left: 215px;
+    background: white;
+  }
+}

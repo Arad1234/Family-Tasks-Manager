@@ -8,12 +8,13 @@ import validateSchema from "../../utils/validateSchema";
 type Event = string;
 type Args = any[];
 
-export const validateMiddleware = (
+export const socketValidationSchema = (
   packet: [Event, ...Args],
   next: Function
 ) => {
   const [event, ...args] = packet;
   const [data] = args;
+
   switch (event) {
     case "rooms:create":
       validateSchema(createRoomSchema, data, next);

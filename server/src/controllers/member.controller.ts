@@ -1,7 +1,6 @@
 import { Server, Socket } from "socket.io";
 import { deleteMember } from "../services/member.service";
 import { DeleteMemberSchemaType } from "../schema/member/deleteMember.schema";
-import { socketErrorHandler } from "../middlewares/socket/errorHandler";
 import { catchAsyncSocket } from "../utils/socket/catchAsyncSocket";
 
 export const memberHandler = (io: Server, socket: Socket) => {
@@ -16,6 +15,4 @@ export const memberHandler = (io: Server, socket: Socket) => {
   socket);
 
   socket.on("members:delete", deleteMemberHandler);
-
-  socketErrorHandler(socket);
 };

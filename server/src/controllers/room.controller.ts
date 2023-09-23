@@ -7,21 +7,20 @@ import {
 import { Socket, Server } from "socket.io";
 import { JoinRoomSchemaType } from "../schema/room/joinRoom.schema";
 import { CreateRoomSchemaType } from "../schema/room/createRoom.schema";
-import { socketErrorHandler } from "../middlewares/socket/errorHandler";
 import { DeleteRoomSchemaType } from "../schema/room/deleteRoom.schema";
 import { catchAsyncSocket } from "../utils/socket/catchAsyncSocket";
 
 export const roomHandler = (io: Server, socket: Socket) => {
   const getFamilyRoomsHandler = catchAsyncSocket(async function () {
-    console.log("getting rooms!");
     const rooms = await getFamilyRooms();
+
     socket.emit("recievedRooms", rooms);
   }, socket);
 
   const createRoomHandler = catchAsyncSocket(async function (
     payload: CreateRoomSchemaType
   ) {
-    const { username, userId } = (socket as any).user;
+    const { username, userId } = socket.data.user;
     const { roomName, maxMembers, roomPassword } = payload;
 
     const newRoom = await createFamilyRoom({
@@ -50,7 +49,7 @@ export const roomHandler = (io: Server, socket: Socket) => {
     payload: JoinRoomSchemaType
   ) {
     const { roomId, roomPassword } = payload;
-    const { username, userId } = (socket as any).user;
+    const { username, userId } = socket.data.user;
     await joinFamilyRoom({
       username,
       userId,
@@ -65,6 +64,4 @@ export const roomHandler = (io: Server, socket: Socket) => {
   socket.on("rooms:delete", deleteRoomHandler);
   socket.on("rooms:join", joinRoomHandler);
   socket.on("rooms:read", getFamilyRoomsHandler);
-
-  socketErrorHandler(socket);
 };

@@ -9,7 +9,7 @@ export const verifyToken = (socket: Socket, next: Function) => {
       token as string,
       process.env.SECRET_KEY as string
     );
-    (socket as any).user = userInfo;
+    socket.data.user = userInfo;
     next();
   } catch (error: any) {
     next(new Error(error));

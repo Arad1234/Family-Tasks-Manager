@@ -58,6 +58,8 @@ const FamilyRoom = () => {
     dispatch(setCurrentRoom(roomId));
   }, [roomId, rooms]); // When the user add task, "rooms" state is changing, therefore I need to dispatch again the current room to reflect the changes.
 
+  console.log(session, loading);
+
   return (
     <>
       <RoomHeader>{currentRoom?.roomName}</RoomHeader>

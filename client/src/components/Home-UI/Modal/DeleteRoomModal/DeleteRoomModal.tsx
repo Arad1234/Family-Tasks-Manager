@@ -1,10 +1,10 @@
 import ModalComponent from "../../../Modal-Common/ModalComponent";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
 import { Typography } from "@mui/material";
 import { deleteRoomSocket } from "../../../../socket/Rooms/EventEmitters";
 import DeleteModalButtons from "../../../Modal-Common/DeleteModalButtons";
 import { IRoom } from "../../../../types";
+import { hideModal } from "../../../../utils/helpers/hideModal";
 
 const DeleteRoomModal = () => {
   const dispatch = useAppDispatch();
@@ -14,10 +14,6 @@ const DeleteRoomModal = () => {
     deleteRoomSocket(dispatch, (currentRoom as IRoom)._id);
   };
 
-  const handleCancel = () => {
-    dispatch(setShowModal({ isOpen: false, status: "" }));
-  };
-
   return (
     <ModalComponent>
       <Typography variant="h6">
@@ -25,7 +21,7 @@ const DeleteRoomModal = () => {
       </Typography>
       <DeleteModalButtons
         handleDelete={handleDeleteRoom}
-        handleCancel={handleCancel}
+        handleCancel={() => hideModal(dispatch)}
         buttonOption={"Delete"}
       />
     </ModalComponent>

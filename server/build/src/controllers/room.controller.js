@@ -16,6 +16,7 @@ const catchAsyncSocket_1 = require("../utils/socket/catchAsyncSocket");
 const roomHandler = (io, socket) => {
     const getFamilyRoomsHandler = (0, catchAsyncSocket_1.catchAsyncSocket)(function () {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log("getting rooms!");
             const rooms = yield (0, room_service_1.getFamilyRooms)();
             socket.emit("recievedRooms", rooms);
         });

@@ -7,6 +7,7 @@ import EnterRoomButton from "./EnterRoomButton";
 import RoomName from "./RoomName";
 import LeaveRoomButton from "./LeaveRoomButton";
 import { useMemo } from "react";
+import variables from "../../../../sass/variables.module.scss";
 
 interface Props {
   room: IRoom;
@@ -31,29 +32,36 @@ const Room = ({ room }: Props) => {
         borderRadius: "10px",
         padding: "10px",
         display: "flex",
+        background: variables.secondaryColor,
         flexDirection: "column",
-        gap: "20px",
-        height: "107px",
+        gap: "10px",
+        height: "125px",
         boxShadow: "3px 2px 6px 1px gray",
       }}
     >
       <Box
         sx={{
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
-          justifyContent: "space-between",
         }}
       >
         <RoomName roomName={room.roomName} />
 
-        <Box sx={{ display: "flex", gap: "10px" }}>
-          <Typography sx={{ fontSize: "20px" }}>
+        <Box sx={{ display: "flex" }}>
+          <Typography sx={{ fontSize: "20px", color: "white" }}>
             Members: {familyMembers.length}/{maxMembers}
           </Typography>
         </Box>
       </Box>
 
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         {member ? (
           <>
             <EnterRoomButton roomId={room._id} />
@@ -69,7 +77,11 @@ const Room = ({ room }: Props) => {
             Room Is Full
           </Typography>
         ) : (
-          <JoinButton room={room} />
+          <Box
+            sx={{ display: "flex", justifyContent: "center", width: "100%" }}
+          >
+            <JoinButton room={room} />
+          </Box>
         )}
         {isRoomCreator && <DeleteButton room={room} />}
       </Box>

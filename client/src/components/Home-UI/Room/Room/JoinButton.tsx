@@ -22,7 +22,7 @@ const JoinButton = ({ room }: Props) => {
     <RoomButton
       backgroundColor="80, 210, 189"
       handleClick={handleOpenJoinModal}
-      width="70px"
+      width="130px"
     >
       Join
     </RoomButton>
