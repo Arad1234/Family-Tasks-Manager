@@ -1,6 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { loginThunk } from "../../redux/actions/Auth/auth-actions";
-import { Box } from "@mui/material";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { SignInWithOAuth } from "../../Supabase/OAuth";
 import Loader from "../../components/Loader/Loader";
@@ -8,6 +7,7 @@ import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { object, string } from "yup";
 import LoginFormComponent from "../../components/Auth-UI/Login/LoginFormComponent";
+import Wrapper from "../../components/Common/Wrapper";
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -41,18 +41,9 @@ const Login = () => {
   return loading ? (
     <Loader height="100vh" />
   ) : (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        width: "100vw",
-      }}
-    >
+    <Wrapper>
       <LoginFormComponent formik={formik} />
-    </Box>
+    </Wrapper>
   );
 };
 

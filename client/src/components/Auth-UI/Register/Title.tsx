@@ -5,7 +5,7 @@ const RegisterTitle = () => {
     <Typography
       sx={{
         fontSize: "25px",
-        padding: "0 30px 0 30px",
+        padding: "0 30px 30px 30px",
         textAlign: "center",
         fontWeight: "500",
       }}

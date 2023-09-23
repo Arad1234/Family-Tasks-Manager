@@ -1,4 +1,4 @@
-import TitleComponent from "../TitleComponent";
+import FormTitleComponent from "../FormTitleComponent";
 import InputLabelWrapper from "../InputLabelWrapper";
 import LabelComponent from "../LabelComponent";
 import InputErrorMessage from "../InputErrorMessage";
@@ -25,7 +25,7 @@ const RegisterFormComponent = ({ formik }: Props) => {
       className="register-form"
       onSubmit={handleSubmit}
     >
-      <TitleComponent>Sign Up</TitleComponent>
+      <FormTitleComponent>Sign Up</FormTitleComponent>
 
       <InputLabelWrapper>
         <LabelComponent>Username</LabelComponent>

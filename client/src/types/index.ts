@@ -87,7 +87,10 @@ type LoginFormikType = Omit<RegisterFormikType, "name" | "confirmPassword">;
 
 type forgotPasswordFormikType = Omit<LoginFormikType, "password">;
 
+type resetPasswordFormikType = { newPassword: string; confirmPassword: string };
+
 export type formikPropsType =
   | FormikProps<RegisterFormikType>
   | FormikProps<LoginFormikType>
-  | FormikProps<forgotPasswordFormikType>;
+  | FormikProps<forgotPasswordFormikType>
+  | FormikProps<resetPasswordFormikType>;

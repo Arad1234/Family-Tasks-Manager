@@ -1,12 +1,12 @@
 import { useAppDispatch } from "../../redux/hooks";
 import { registerThunk } from "../../redux/actions/Auth/auth-actions";
 import { useNavigate } from "react-router-dom";
-import { Box } from "@mui/material";
 import { toast } from "react-toastify";
 import RegisterTitle from "../../components/Auth-UI/Register/Title";
 import { useFormik } from "formik";
 import { object, string } from "yup";
 import RegisterFormComponent from "../../components/Auth-UI/Register/RegisterFormComponent";
+import Wrapper from "../../components/Common/Wrapper";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -35,19 +35,10 @@ const Register = () => {
   });
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "90vh",
-        gap: "20px",
-      }}
-    >
+    <Wrapper height="90vh">
       <RegisterTitle />
       <RegisterFormComponent formik={formik} />
-    </Box>
+    </Wrapper>
   );
 };
 

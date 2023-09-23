@@ -18,7 +18,7 @@ export const userValidationSchema = object({
 });
 
 // I dont need the "confirmPassword" field for that type.
-export type CreateUserInput = Omit<
+export type CreateUserSchemaType = Omit<
   TypeOf<typeof userValidationSchema>,
   "confirmPassword"
 >;
