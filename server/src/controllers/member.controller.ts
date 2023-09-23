@@ -10,6 +10,7 @@ export const memberHandler = (io: Server, socket: Socket) => {
     const { memberId, roomId } = payload;
 
     await deleteMember(payload);
+
     io.emit("memberDeleted", { memberId, roomId });
   },
   socket);

@@ -5,13 +5,13 @@ import { forgotPasswordThunk } from "../../redux/actions/Auth/auth-actions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import Loader from "../../components/Loader/Loader";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import { setLoading } from "../../redux/slices/Auth/auth-slice";
 import Wrapper from "../../components/Common/Wrapper";
+import { useState } from "react";
 
 const ForgotPassword = () => {
+  const [sentEmailMessage, setSentEmailMessage] = useState<string | null>(null);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const { loading } = useAppSelector((state) => state.authReducer);
 
   const formik = useFormik({
@@ -25,7 +25,7 @@ const ForgotPassword = () => {
         return toast.error(response.payload);
       }
       toast.success(response.payload.message);
-      navigate("/");
+      setSentEmailMessage(response.payload.message);
       dispatch(setLoading(false));
     },
   });
@@ -34,7 +34,10 @@ const ForgotPassword = () => {
     <Loader height="100vh" />
   ) : (
     <Wrapper>
-      <ForgotPasswordForm formik={formik} />
+      <ForgotPasswordForm
+        sentEmailMessage={sentEmailMessage}
+        formik={formik}
+      />
     </Wrapper>
   );
 };

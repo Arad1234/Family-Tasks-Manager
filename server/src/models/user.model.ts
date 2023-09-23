@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema<IUser, {}, IUserMethods>(
   {
     username: String,
     email: { type: String, unique: true },
-    password: String,
+    password: { type: String, select: false },
     passwordResetToken: String,
     passwordResetExpires: Date,
   },

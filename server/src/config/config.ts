@@ -12,6 +12,7 @@ const {
   REDIRECT_URI,
   FROM_EMAIL,
   CLIENT_HOST,
+  NODE_ENV,
 } = process.env;
 
 export const config = {
@@ -34,5 +35,8 @@ export const config = {
   },
   client: {
     clientHost: CLIENT_HOST,
+  },
+  environment: {
+    nodeEnv: NODE_ENV,
   },
 };

@@ -6,7 +6,12 @@ import {
   loginUser,
   resetPassword,
 } from "../services/auth.service";
-import { CREATED, INTERNAL_SERVER_ERROR, OK } from "../utils/constants";
+import {
+  CREATED,
+  INTERNAL_SERVER_ERROR,
+  OK,
+  isProduction,
+} from "../utils/constants";
 import { catchAsync } from "../utils/express/catchAsync";
 import AppError from "../utils/appErrorClass";
 import sendEmail from "../utils/sendEmail";
@@ -17,7 +22,11 @@ export const loginUserHandler = catchAsync(
 
     const { user, token } = await loginUser({ email, password });
 
-    res.cookie("token", token, { httpOnly: true, maxAge: 900000000 });
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 900000000,
+      secure: isProduction,
+    });
     res
       .status(OK)
       .json({ status: "ok", userId: user._id, username: user.username });
@@ -65,7 +74,7 @@ export const forgotPasswordHandler = catchAsync(
 
       res.status(OK).json({
         status: "success",
-        message: "A link to reset your password has been emailed to you!",
+        message: `A link to reset your password has been emailed to ${user.email}!`,
       });
     } catch (error) {
       console.log(error);

@@ -18,3 +18,4 @@ export const mailAuthConfig = {
   refreshToken: config.email.refreshToken,
 };
 
+export const isProduction = config.environment.nodeEnv === "production";
