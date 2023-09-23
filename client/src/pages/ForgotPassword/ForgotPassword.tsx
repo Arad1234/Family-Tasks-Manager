@@ -24,7 +24,7 @@ const ForgotPassword = () => {
       if (response.error) {
         return toast.error(response.payload);
       }
-      toast.success(response.payload.message);
+
       setSentEmailMessage(response.payload.message);
       dispatch(setLoading(false));
     },

@@ -7,7 +7,7 @@ import InputErrorMessage from "../InputErrorMessage";
 import FormBottomText from "../FormBottomText";
 import "./ForgotPassword.scss";
 import { FormikProps } from "formik";
-import SendEmailMessage from "./sendEmailMessage";
+import SendEmailMessage from "./SendEmailMessage";
 
 interface Props {
   formik: FormikProps<{ email: string }>;
@@ -42,7 +42,7 @@ const ForgotPasswordForm = ({ formik, sentEmailMessage }: Props) => {
           <AuthButton>Send</AuthButton>
           <FormBottomText
             navigateTo="/"
-            actionText="Go Back"
+            actionText="Go back"
           />
         </>
       )}

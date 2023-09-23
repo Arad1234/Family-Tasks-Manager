@@ -35,7 +35,10 @@ const Register = () => {
   });
 
   return (
-    <Wrapper height="90vh">
+    <Wrapper
+      height="auto"
+      gap="50px"
+    >
       <RegisterTitle />
       <RegisterFormComponent formik={formik} />
     </Wrapper>

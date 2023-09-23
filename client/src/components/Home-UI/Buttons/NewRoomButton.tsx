@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 import { useAppDispatch } from "../../../redux/hooks";
 import { setShowModal } from "../../../redux/slices/Modal/modal-slice";
+import variables from "../../../sass/variables.module.scss";
 
 const NewRoomButton = () => {
   const dispatch = useAppDispatch();
@@ -14,9 +15,9 @@ const NewRoomButton = () => {
         width: "120px",
         borderRadius: "20px",
         fontSize: "16px",
-        backgroundColor: "rgba(0, 100, 150, 0.9)",
+        backgroundColor: variables.actionColor,
         textTransform: "none",
-        ":hover": { backgroundColor: "rgba(0, 100, 150, 0.7)" },
+        ":hover": { backgroundColor: variables.actionColor },
       }}
       variant="contained"
       onClick={handleOpenCreateModal}

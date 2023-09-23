@@ -3,9 +3,10 @@ import { Box } from "@mui/material";
 interface Props {
   children: React.ReactNode;
   height?: string;
+  gap?: string;
 }
 
-const Wrapper = ({ children, height }: Props) => {
+const Wrapper = ({ children, height, gap }: Props) => {
   return (
     <Box
       sx={{
@@ -15,6 +16,7 @@ const Wrapper = ({ children, height }: Props) => {
         alignItems: "center",
         height: height ? height : "100vh",
         width: "100vw",
+        gap: gap ? gap : "auto",
       }}
     >
       {children}

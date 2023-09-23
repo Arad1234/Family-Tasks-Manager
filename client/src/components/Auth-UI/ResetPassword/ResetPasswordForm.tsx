@@ -6,6 +6,7 @@ import "./ResetPasswordForm.scss";
 import AuthButton from "../AuthButton";
 import FormTitleComponent from "../FormTitleComponent";
 import InputErrorMessage from "../InputErrorMessage";
+import FormBottomText from "../FormBottomText";
 
 interface Props {
   formik: FormikProps<{ newPassword: string; confirmPassword: string }>;
@@ -46,6 +47,10 @@ const ResetPasswordForm = ({ formik }: Props) => {
         )}
       </InputLabelWrapper>
       <AuthButton>Create New Password</AuthButton>
+      <FormBottomText
+        actionText="Go To Login Page"
+        navigateTo="/"
+      />
     </form>
   );
 };
