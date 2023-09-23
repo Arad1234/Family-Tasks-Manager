@@ -19,5 +19,6 @@ export interface RoomData {
 export interface IMailOptions {
   email: string;
   subject: string;
-  text: string;
+  payload: { name: string; link: string };
+  handlebarsPath: string;
 }

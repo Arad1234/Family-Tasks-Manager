@@ -11,6 +11,7 @@ const {
   REFRESH_TOKEN,
   REDIRECT_URI,
   FROM_EMAIL,
+  CLIENT_HOST,
 } = process.env;
 
 export const config = {
@@ -30,5 +31,8 @@ export const config = {
     clientSecret: CLIENT_SECRET,
     refreshToken: REFRESH_TOKEN,
     redirectURI: REDIRECT_URI,
+  },
+  client: {
+    clientHost: CLIENT_HOST,
   },
 };

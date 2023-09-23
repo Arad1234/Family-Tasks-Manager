@@ -1,4 +1,4 @@
-import TitleComponent from "../TitleComponent";
+import FormTitleComponent from "../FormTitleComponent";
 import InputLabelWrapper from "../InputLabelWrapper";
 import LabelComponent from "../LabelComponent";
 import InputErrorMessage from "../InputErrorMessage";
@@ -22,7 +22,7 @@ const LoginFormComponent = ({ formik }: Props) => {
       className="login-form"
       onSubmit={handleSubmit}
     >
-      <TitleComponent>Login</TitleComponent>
+      <FormTitleComponent>Login</FormTitleComponent>
       <InputLabelWrapper>
         <LabelComponent>Email</LabelComponent>
         <InputComponent

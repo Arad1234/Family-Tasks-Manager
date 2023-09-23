@@ -1,15 +1,15 @@
-import TitleComponent from "../TitleComponent";
+import FormTitleComponent from "../FormTitleComponent";
 import InputLabelWrapper from "../InputLabelWrapper";
 import LabelComponent from "../LabelComponent";
 import InputComponent from "../InputComponent";
 import AuthButton from "../AuthButton";
-import { formikPropsType } from "../../../types";
 import InputErrorMessage from "../InputErrorMessage";
 import FormBottomText from "../FormBottomText";
 import "./ForgotPassword.scss";
+import { FormikProps } from "formik";
 
 interface Props {
-  formik: formikPropsType;
+  formik: FormikProps<{ email: string }>;
 }
 
 const ForgotPasswordForm = ({ formik }: Props) => {
@@ -20,7 +20,7 @@ const ForgotPasswordForm = ({ formik }: Props) => {
       onSubmit={handleSubmit}
       className="forgotPassword-form"
     >
-      <TitleComponent>Forgot Password</TitleComponent>
+      <FormTitleComponent>Forgot Password</FormTitleComponent>
       <InputLabelWrapper>
         <LabelComponent>Email</LabelComponent>
         <InputComponent

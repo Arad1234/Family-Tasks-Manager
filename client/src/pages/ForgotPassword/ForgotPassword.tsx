@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { useFormik } from "formik";
 import { object, string } from "yup";
 import ForgotPasswordForm from "../../components/Auth-UI/ForgotPassword/ForgotPasswordForm";
@@ -8,6 +7,7 @@ import Loader from "../../components/Loader/Loader";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { setLoading } from "../../redux/slices/Auth/auth-slice";
+import Wrapper from "../../components/Common/Wrapper";
 
 const ForgotPassword = () => {
   const dispatch = useAppDispatch();
@@ -33,18 +33,9 @@ const ForgotPassword = () => {
   return loading ? (
     <Loader height="100vh" />
   ) : (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        width: "100vw",
-      }}
-    >
+    <Wrapper>
       <ForgotPasswordForm formik={formik} />
-    </Box>
+    </Wrapper>
   );
 };
 

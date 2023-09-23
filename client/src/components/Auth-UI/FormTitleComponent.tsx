@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { ChildrenProps } from "../../types";
 
-const TitleComponent = ({ children }: ChildrenProps) => {
+const FormTitleComponent = ({ children }: ChildrenProps) => {
   return (
     <Box sx={{ display: "flex", justifyContent: "left", width: "15rem" }}>
       <Typography
@@ -17,4 +17,4 @@ const TitleComponent = ({ children }: ChildrenProps) => {
   );
 };
 
-export default TitleComponent;
+export default FormTitleComponent;

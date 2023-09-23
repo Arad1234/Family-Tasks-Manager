@@ -3,6 +3,9 @@ import { config } from "../config/config";
 import { google } from "googleapis";
 import { mailAuthConfig } from "./constants";
 import { IMailOptions } from "../types/common";
+import handlebars from "handlebars";
+import fs from "fs";
+import path from "path";
 
 const sendEmail = async (options: IMailOptions) => {
   const oAuth2Client = new google.auth.OAuth2(
@@ -24,15 +27,22 @@ const sendEmail = async (options: IMailOptions) => {
     },
   } as TransportOptions);
 
-  // 2) Define the email options
+  // 2) Create an HTML template as a message
+  const soruceHTML = fs.readFileSync(
+    path.join(__dirname, options.handlebarsPath),
+    "utf8"
+  );
+  const compiledTemplate = handlebars.compile(soruceHTML);
+
+  // 3) Define the email options
   const mailOptions = {
     from: config.email.fromEmail,
     to: options.email,
     subject: options.subject,
-    text: options.text,
+    html: compiledTemplate(options.payload),
   };
 
-  // 3) Actually send the eamil
+  // 4) Actually send the eamil
   const result = await transporter.sendMail(mailOptions);
 
   return result;

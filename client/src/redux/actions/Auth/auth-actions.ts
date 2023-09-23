@@ -13,6 +13,16 @@ interface RegisterPayload {
   confirmPassword: string;
 }
 
+interface ResetPasswordPayload {
+  newPassword: string;
+  confirmPassword: string;
+  resetToken: string;
+}
+
+interface ForgotPasswordPayload {
+  email: string;
+}
+
 export const loginThunk = createAsyncThunk<
   { userId: string; username: string }, // The type the function returns
   LoginPayload // the arguments the function get.
@@ -59,13 +69,36 @@ export const registerThunk = createAsyncThunk<
   }
 );
 
-export const forgotPasswordThunk = createAsyncThunk<string, { email: string }>(
-  "/auth/forgotPassword",
-  async ({ email }, thunkAPI) => {
+export const forgotPasswordThunk = createAsyncThunk<
+  string,
+  ForgotPasswordPayload
+>("/auth/forgotPassword", async ({ email }, thunkAPI) => {
+  try {
+    const response = await axiosClient.post("/user/forgotPassword", {
+      email,
+    });
+
+    return response.data;
+  } catch (error: any) {
+    const { data } = error.response;
+    return thunkAPI.rejectWithValue(data.message);
+  }
+});
+
+export const resetPasswordThunk = createAsyncThunk<
+  string,
+  ResetPasswordPayload
+>(
+  "/auth/resetPassword",
+  async ({ newPassword, confirmPassword, resetToken }, thunkAPI) => {
     try {
-      const response = await axiosClient.post("/user/forgotPassword", {
-        email,
-      });
+      const response = await axiosClient.patch(
+        `/user/resetPassword/${resetToken}`,
+        {
+          newPassword,
+          confirmPassword,
+        }
+      );
 
       return response.data;
     } catch (error: any) {

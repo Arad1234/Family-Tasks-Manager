@@ -8,7 +8,7 @@ const InputErrorMessage = ({ children }: ChildrenProps) => {
         color: "red",
         position: "absolute",
         top: "62px",
-        left: "40px",
+        left: "36px",
       }}
     >
       {children}
