@@ -10,7 +10,6 @@ const RoomName = ({ roomName }: Props) => {
       sx={{
         fontSize: "30px",
         fontWeight: 600,
-        color: "white",
       }}
     >
       {roomName}

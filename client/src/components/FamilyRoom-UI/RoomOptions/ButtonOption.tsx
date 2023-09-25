@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 import React from "react";
 import { useAppSelector } from "../../../redux/hooks";
+import variables from "../../../sass/variables.module.scss";
 
 interface Props {
   handleClick: () => void;
@@ -16,16 +17,15 @@ const ButtonOption = ({ handleClick, optionValue, children }: Props) => {
       onClick={handleClick}
       variant="outlined"
       sx={{
-        border: "1px solid gray",
-        color: option === optionValue ? "white" : "black",
+        border: option !== optionValue ? "1px solid white" : "",
+        color: "white",
         width: "8rem",
         height: "3rem",
         fontSize: "16px",
         textTransform: "none",
-        backgroundColor: option === optionValue ? "rgba(20, 60, 150, 0.5)" : "",
+        backgroundColor: option === optionValue ? variables.actionColor : "",
         ":hover": {
-          backgroundColor:
-            option === optionValue ? "rgba(20, 60, 150, 0.5)" : "",
+          backgroundColor: option === optionValue ? variables.actionColor : "",
         },
         fontWeight: "700",
       }}

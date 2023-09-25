@@ -19,7 +19,6 @@ const SearchInput = ({ setSearchQuery, searchQuery }: Props) => {
         value={searchQuery}
         type="text"
         variant="standard"
-        color="info"
         InputProps={{
           sx: {
             width: "80vw",

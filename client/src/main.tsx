@@ -11,27 +11,24 @@ import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import { VITE_API_KEY, VITE_SUPABASE_PROJECT_URL } from "./utils/constants";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import BackgroundColor from "./Layouts/BackgroundColor";
 
 const supabase = createClient(VITE_SUPABASE_PROJECT_URL, VITE_API_KEY);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <BackgroundColor>
-      <SessionContextProvider supabaseClient={supabase}>
-        <Provider store={store}>
-          <PersistGate
-            loading={null}
-            persistor={persistor}
-          >
-            <ToastContainer
-              draggable={false}
-              autoClose={3200}
-            />
-            <RouterProvider router={router} />
-          </PersistGate>
-        </Provider>
-      </SessionContextProvider>
-    </BackgroundColor>
+    <SessionContextProvider supabaseClient={supabase}>
+      <Provider store={store}>
+        <PersistGate
+          loading={null}
+          persistor={persistor}
+        >
+          <ToastContainer
+            draggable={false}
+            autoClose={3200}
+          />
+          <RouterProvider router={router} />
+        </PersistGate>
+      </Provider>
+    </SessionContextProvider>
   </React.StrictMode>
 );

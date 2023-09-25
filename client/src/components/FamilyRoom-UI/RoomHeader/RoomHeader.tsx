@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 import React, { useState } from "react";
 import ExitIcon from "./ExitIcon";
 import MenuModal from "./MenuModal";
+import variables from "../../../sass/variables.module.scss";
 
 interface Props {
   children: React.ReactNode;
@@ -18,8 +19,9 @@ const RoomHeader = ({ children }: Props) => {
   return (
     <Box
       sx={{
-        backgroundColor: "rgba(50, 250, 100, 0.2)",
+        backgroundColor: variables.secondaryColor,
         boxShadow: "3",
+        color: "white",
       }}
     >
       <ExitIcon />

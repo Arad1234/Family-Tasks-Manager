@@ -22,6 +22,7 @@ const DeleteButton = ({ room }: Props) => {
       color="red"
       size={30}
       onClick={handleOpenDeleteModal}
+      style={{ position: "absolute", right: "3px" }}
     />
   );
 };

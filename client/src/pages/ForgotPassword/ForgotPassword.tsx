@@ -31,7 +31,7 @@ const ForgotPassword = () => {
   });
 
   return loading ? (
-    <Loader height="100vh" />
+    <Loader />
   ) : (
     <Wrapper>
       <ForgotPasswordForm

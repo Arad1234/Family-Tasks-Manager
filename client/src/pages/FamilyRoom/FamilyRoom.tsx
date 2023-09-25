@@ -1,4 +1,4 @@
-import { Box, Divider } from "@mui/material";
+import { Box } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import WelcomeTitle from "../../components/FamilyRoom-UI/WelcomeTitle/WelcomeTitle";
 import RoomHeader from "../../components/FamilyRoom-UI/RoomHeader/RoomHeader";
@@ -22,6 +22,7 @@ import DeleteMemberModal from "../../components/FamilyRoom-UI/Modal/DeleteMember
 import AssignTaskModal from "../../components/FamilyRoom-UI/Modal/AssignTaskModal/AssignTaskModal";
 import { commonListeners } from "../../socket/Common/Listeners";
 import { removeCommonListeners } from "../../socket/Common/RemoveListeners";
+import variables from "../../sass/variables.module.scss";
 
 const FamilyRoom = () => {
   const { roomId } = useParams();
@@ -58,17 +59,19 @@ const FamilyRoom = () => {
     dispatch(setCurrentRoom(roomId));
   }, [roomId, rooms]); // When the user add task, "rooms" state is changing, therefore I need to dispatch again the current room to reflect the changes.
 
-  console.log(session, loading);
-
   return (
     <>
       <RoomHeader>{currentRoom?.roomName}</RoomHeader>
 
-      <WelcomeTitle />
-
-      <RoomOptions />
-
-      <Divider sx={{ margin: "10px 0" }} />
+      <Box
+        sx={{
+          backgroundColor: variables.secondaryColor,
+          boxShadow: "0px 9px 15px 0px gray",
+        }}
+      >
+        <WelcomeTitle />
+        <RoomOptions />
+      </Box>
 
       {modalStatus === "deleteCalendarEvent" && <DeleteEventModal />}
       {modalStatus === "deleteMember" && <DeleteMemberModal />}

@@ -39,7 +39,7 @@ const Login = () => {
   });
 
   return loading ? (
-    <Loader height="100vh" />
+    <Loader />
   ) : (
     <Wrapper>
       <LoginFormComponent formik={formik} />

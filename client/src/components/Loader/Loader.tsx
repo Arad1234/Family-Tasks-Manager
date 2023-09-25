@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
 interface Props {
-  height: string;
+  height?: string;
 }
 const Loader = ({ height }: Props) => {
   return (
@@ -11,7 +11,7 @@ const Loader = ({ height }: Props) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: height,
+        height: height ? height : "100vh",
       }}
     >
       <CircularProgress size={70} />
