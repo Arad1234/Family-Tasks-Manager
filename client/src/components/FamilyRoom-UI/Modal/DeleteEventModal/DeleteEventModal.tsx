@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
-import { deleteGoogleCalendarEvent } from "../../../../Supabase/Api";
+import { deleteGoogleCalendarEvent } from "../../../../supabase/Api";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { useSession } from "@supabase/auth-helpers-react";
 import DeleteModalButtons from "../../../Modal-Common/DeleteModalButtons";

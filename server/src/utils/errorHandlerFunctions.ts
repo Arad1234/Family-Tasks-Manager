@@ -10,6 +10,7 @@ export const handleCastErrorDB = (err: any) => {
 
 export const handleDuplicateFieldsDB = (err: any) => {
   // Regex for finding the field that was duplicated.
+  console.log(err.message);
   const values = err.message.match(/(["'])(\\?.)*?\1/);
   const duplicatedValue = values[0];
 

@@ -2,21 +2,20 @@ import { Box, Typography } from "@mui/material";
 import { useAppSelector } from "../../../redux/hooks";
 import { extractUserFromLocalStorage } from "../../../utils/helpers/LocalStorage/extractUser";
 import Task from "../Task-common/Task";
-import { IMember, IRoom } from "../../../types";
+import { IMember } from "../../../types";
 import AddTaskButton from "./AddTaskButton";
 import { useMemo } from "react";
 
 const AllTasks = () => {
   const { currentRoom } = useAppSelector((state) => state.roomsReducer);
 
-  const { familyMembers } = currentRoom as IRoom;
   const { parsedUserId: currentUserId } = extractUserFromLocalStorage();
 
   const currentMember = useMemo(() => {
-    return familyMembers?.find((member) => {
+    return currentRoom?.familyMembers?.find((member) => {
       return member.userId === currentUserId;
     });
-  }, [familyMembers]); // When familyMembers changed it means that a task is added to one of the familyMembers or something happen with the members (deleted/added), so I need to reflect the changes.
+  }, [currentRoom]); // When familyMembers changed it means that a task is added to one of the familyMembers or something happen with the members (deleted/added), so I need to reflect the changes.
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>

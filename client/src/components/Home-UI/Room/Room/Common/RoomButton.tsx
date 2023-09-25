@@ -17,14 +17,13 @@ const RoomButton = ({
     <Button
       sx={{
         width: width,
-        borderRadius: "6px",
-        background: `rgba(${backgroundColor}, 0.7)`,
-        color: "whitesmoke",
+        borderRadius: "20px",
+        background: backgroundColor,
         height: "40px",
         textTransform: "none",
         fontSize: "16px",
         fontWeight: "600",
-        ":hover": { background: `rgba(${backgroundColor}, 0.5)` },
+        ":hover": { background: backgroundColor },
       }}
       onClick={handleClick}
       variant="contained"

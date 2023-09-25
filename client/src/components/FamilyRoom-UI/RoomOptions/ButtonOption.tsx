@@ -1,31 +1,36 @@
 import { Button } from "@mui/material";
 import React from "react";
-import { useAppSelector } from "../../../redux/hooks";
+import variables from "../../../sass/variables.module.scss";
 
 interface Props {
   handleClick: () => void;
   optionValue: string;
   children: React.ReactNode;
+  selectedOption: "tasks" | "members";
 }
 
-const ButtonOption = ({ handleClick, optionValue, children }: Props) => {
-  const { option } = useAppSelector((state) => state.roomOptionsReducer);
-
+const ButtonOption = ({
+  handleClick,
+  optionValue,
+  children,
+  selectedOption,
+}: Props) => {
   return (
     <Button
       onClick={handleClick}
       variant="outlined"
       sx={{
-        border: "1px solid gray",
-        color: option === optionValue ? "white" : "black",
+        border: selectedOption !== optionValue ? "1px solid white" : "",
+        color: "white",
         width: "8rem",
         height: "3rem",
         fontSize: "16px",
         textTransform: "none",
-        backgroundColor: option === optionValue ? "rgba(20, 60, 150, 0.5)" : "",
+        backgroundColor:
+          selectedOption === optionValue ? variables.actionColor : "",
         ":hover": {
           backgroundColor:
-            option === optionValue ? "rgba(20, 60, 150, 0.5)" : "",
+            selectedOption === optionValue ? variables.actionColor : "",
         },
         fontWeight: "700",
       }}

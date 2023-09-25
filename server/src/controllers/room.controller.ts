@@ -30,8 +30,13 @@ export const roomHandler = (io: Server, socket: Socket) => {
       roomPassword,
       userId,
     });
-    // Emitting the event to all connected users.
-    io.emit("createdRoom", newRoom);
+
+    socket.join(String(newRoom._id));
+    // Emit the event to all connected users except for the one who emit the event.
+    socket.broadcast.emit("createdRoom", newRoom);
+
+    // Emit the event to the one who emitted the event (current user).
+    socket.emit("createdRoom", { ...newRoom, isCreator: true });
   },
   socket);
 
@@ -40,8 +45,9 @@ export const roomHandler = (io: Server, socket: Socket) => {
   ) {
     const { roomId } = payload;
     const deletedRoomId = await deleteFamilyRoom(roomId);
-    // Emitting the event to all connected users.
-    io.emit("deletedRoom", deletedRoomId);
+
+    socket.broadcast.emit("deletedRoom", { deletedRoomId });
+    socket.emit("deletedRoom", { deletedRoomId, isDeleter: true });
   },
   socket);
 
@@ -56,7 +62,9 @@ export const roomHandler = (io: Server, socket: Socket) => {
       roomId,
       roomPassword,
     });
-    io.emit("joinedRoom", { roomId, username, userId });
+    socket.join(roomId);
+
+    io.to(roomId).emit("joinedRoom", { roomId, username, userId });
   },
   socket);
 

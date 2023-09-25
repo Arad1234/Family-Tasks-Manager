@@ -11,6 +11,9 @@ export const memberHandler = (io: Server, socket: Socket) => {
 
     await deleteMember(payload);
 
+    socket.leave(roomId);
+
+    
     io.emit("memberDeleted", { memberId, roomId });
   },
   socket);

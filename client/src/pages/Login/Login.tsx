@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { loginThunk } from "../../redux/actions/Auth/auth-actions";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { SignInWithOAuth } from "../../Supabase/OAuth";
+import { SignInWithOAuth } from "../../supabase/OAuth";
 import Loader from "../../components/Loader/Loader";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
@@ -39,7 +39,7 @@ const Login = () => {
   });
 
   return loading ? (
-    <Loader height="100vh" />
+    <Loader />
   ) : (
     <Wrapper>
       <LoginFormComponent formik={formik} />

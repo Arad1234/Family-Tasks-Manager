@@ -9,9 +9,7 @@ import AppError from "../utils/appErrorClass";
 export const getFamilyRooms = async () => {
   // Getting the rooms with the tasks for each family member already populated.
   // Note the the DB does not populate with the tasks in the "rooms" collection.
-  const rooms = await Room.find()
-    .select("-roomPassword")
-    .populate("familyMembers.tasks");
+  const rooms = await Room.find().populate("familyMembers.tasks");
 
   return rooms;
 };
@@ -29,9 +27,9 @@ export const createFamilyRoom = async (roomData: RoomData) => {
     roomPassword,
   });
 
-  const updatedNewRoom = newRoom.toJSON();
+  const roomWithoutRoomPassword = newRoom.toJSON();
 
-  return updatedNewRoom;
+  return roomWithoutRoomPassword;
 };
 
 export const deleteFamilyRoom = async (roomId: string) => {
@@ -54,7 +52,7 @@ export const deleteFamilyRoom = async (roomId: string) => {
 export const joinFamilyRoom = async (joinRoomData: JoinRoomPayload) => {
   const { roomId, userId, username, roomPassword } = joinRoomData;
 
-  const room = await Room.findOne({ _id: roomId });
+  const room = await Room.findOne({ _id: roomId }).select("+roomPassword");
 
   if (!room) {
     throw new AppError("Room not found", NOT_FOUND);

@@ -23,7 +23,7 @@ const CreateRoomModal = () => {
     <ModalComponent>
       <ModalTitle>Room Creation</ModalTitle>
       <ModalInputs />
-      <ModalButton handleClick={handleCreateRoom}>Create</ModalButton>
+      <ModalButton onClick={handleCreateRoom}>Create</ModalButton>
     </ModalComponent>
   );
 };

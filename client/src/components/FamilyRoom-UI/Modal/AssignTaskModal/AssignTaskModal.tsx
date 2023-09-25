@@ -44,7 +44,7 @@ const AssignTaskModal = () => {
         </Typography>
       </Typography>
       <ModalInputs />
-      <ModalButton handleClick={handleAddTask}>Add Task</ModalButton>
+      <ModalButton onClick={handleAddTask}>Add Task</ModalButton>
     </ModalComponent>
   );
 };

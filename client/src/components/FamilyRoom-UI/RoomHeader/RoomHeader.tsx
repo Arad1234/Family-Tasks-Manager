@@ -3,12 +3,14 @@ import { Box, Typography } from "@mui/material";
 import React, { useState } from "react";
 import ExitIcon from "./ExitIcon";
 import MenuModal from "./MenuModal";
+import variables from "../../../sass/variables.module.scss";
 
 interface Props {
   children: React.ReactNode;
+  setOption: React.Dispatch<React.SetStateAction<"tasks" | "members">>;
 }
 
-const RoomHeader = ({ children }: Props) => {
+const RoomHeader = ({ children, setOption }: Props) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const handleOpenMenu = (e: React.MouseEvent<HTMLElement>) => {
@@ -18,11 +20,12 @@ const RoomHeader = ({ children }: Props) => {
   return (
     <Box
       sx={{
-        backgroundColor: "rgba(50, 250, 100, 0.2)",
+        backgroundColor: variables.secondaryColor,
         boxShadow: "3",
+        color: "white",
       }}
     >
-      <ExitIcon />
+      <ExitIcon setOption={setOption} />
 
       <Box
         onClick={handleOpenMenu}

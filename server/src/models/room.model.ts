@@ -16,7 +16,7 @@ const roomSchema = new Schema<IRoom, RoomModel, IRoomMethods>(
     creator: { userId: Schema.Types.ObjectId, username: String },
     familyMembers: [memberSchema],
     maxMembers: Number,
-    roomPassword: String,
+    roomPassword: {type: String},
   },
   {
     versionKey: false,

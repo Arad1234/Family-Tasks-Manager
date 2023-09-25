@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 4173 --mode dev",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --mode prod",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "merge": "git pull origin master && git merge master"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",

@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useNavigate } from "react-router-dom";
 import { axiosClient } from "../../../axiosClient";
+import variables from "../../../sass/variables.module.scss";
 
 const SignOut = () => {
   const supabase = useSupabaseClient();
@@ -18,12 +19,13 @@ const SignOut = () => {
     <Button
       sx={{
         borderRadius: "20px",
-        backgroundColor: "rgba(200, 20, 20, 0.9)",
+        backgroundColor: variables.actionColor,
         ":hover": {
-          backgroundColor: "rgba(200, 20, 20, 0.7)",
+          backgroundColor: variables.actionColor,
         },
         textTransform: "none",
         fontSize: "16px",
+        width: "7.5rem",
       }}
       variant="contained"
       onClick={handleSignOut}

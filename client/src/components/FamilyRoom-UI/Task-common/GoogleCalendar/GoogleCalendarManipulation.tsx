@@ -1,7 +1,7 @@
 import { useSession } from "@supabase/auth-helpers-react";
 import { ITask } from "../../../../types";
 import { formatDate } from "../../../../utils/helpers/formatDate";
-import { createGoogleCalendarEvent } from "../../../../Supabase/Api";
+import { createGoogleCalendarEvent } from "../../../../supabase/Api";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { setEventToDelete } from "../../../../redux/slices/CalendarEvents/CalendarEvents";
 import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";

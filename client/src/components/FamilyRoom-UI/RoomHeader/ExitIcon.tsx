@@ -3,15 +3,18 @@ import { ImExit } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../redux/hooks";
 import { setMemberForTasks } from "../../../redux/slices/FamilyRoom/members-slice";
-import { setRoomOption } from "../../../redux/slices/FamilyRoom/roomOptions-slice";
 
-const ExitIcon = () => {
+interface Props {
+  setOption: React.Dispatch<React.SetStateAction<"tasks" | "members">>;
+}
+
+const ExitIcon = ({ setOption }: Props) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const handleExitRoom = () => {
     navigate("/home");
-    dispatch(setRoomOption("tasks"));
+    setOption("tasks");
     dispatch(setMemberForTasks(null));
   };
 

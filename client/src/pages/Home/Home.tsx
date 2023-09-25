@@ -14,12 +14,11 @@ import AllRooms from "../../components/Home-UI/Room/AllRooms";
 import { roomsListeners } from "../../socket/Rooms/Listeners";
 import { errorListeners } from "../../socket/Errors/Listeners";
 import { removeErrorListeners } from "../../socket/Errors/RemoveListeners";
-import NewRoomButton from "../../components/Home-UI/Buttons/NewRoomButton";
-import SignOut from "../../components/Home-UI/Buttons/SignOut";
 import LeaveRoomModal from "../../components/Home-UI/Modal/LeaveRoomModal/LeaveRoomModal";
 import { commonListeners } from "../../socket/Common/Listeners";
 import { removeCommonListeners } from "../../socket/Common/RemoveListeners";
-import variables from "../../sass/variables.module.scss";
+import HomeHeader from "../../components/Home-UI/Header/HomeHeader";
+
 const Home = () => {
   const dispatch = useAppDispatch();
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -41,22 +40,10 @@ const Home = () => {
   }, []);
 
   return loading || !socket.connected ? (
-    <Loader height="100vh" />
+    <Loader />
   ) : (
     <>
-      <Box
-        sx={{
-          padding: "10px 20px 10px 20px",
-          display: "flex",
-          justifyContent: "space-between",
-          borderRadius: "0px 0px 30px 30px",
-          alignItems: "center",
-          background: variables.secondaryColor,
-        }}
-      >
-        <NewRoomButton />
-        <SignOut />
-      </Box>
+      <HomeHeader />
 
       <SearchInput
         searchQuery={searchQuery}

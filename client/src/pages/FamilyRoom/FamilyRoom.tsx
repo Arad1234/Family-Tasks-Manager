@@ -1,11 +1,11 @@
-import { Box, Divider } from "@mui/material";
+import { Box } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import WelcomeTitle from "../../components/FamilyRoom-UI/WelcomeTitle/WelcomeTitle";
 import RoomHeader from "../../components/FamilyRoom-UI/RoomHeader/RoomHeader";
 import RoomOptions from "../../components/FamilyRoom-UI/RoomOptions/RoomOptions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import AllTasks from "../../components/FamilyRoom-UI/Tasks/AllTasks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { setCurrentRoom } from "../../redux/slices/Rooms/rooms-slice";
 import AllMembers from "../../components/FamilyRoom-UI/Members/AllMembers";
 import { familyRoomListeners } from "../../socket/FamilyRoom/Listeners";
@@ -15,24 +15,25 @@ import Loader from "../../components/Loader/Loader";
 import { removeErrorListeners } from "../../socket/Errors/RemoveListeners";
 import { errorListeners } from "../../socket/Errors/Listeners";
 import { useSession } from "@supabase/auth-helpers-react";
-import { fetchGoogleCalendarEvents } from "../../Supabase/Api";
+import { fetchGoogleCalendarEvents } from "../../supabase/Api";
 import DeleteEventModal from "../../components/FamilyRoom-UI/Modal/DeleteEventModal/DeleteEventModal";
 import MemberTasks from "../../components/FamilyRoom-UI/Members/MemberTasks/MemberTasks";
 import DeleteMemberModal from "../../components/FamilyRoom-UI/Modal/DeleteMemberModal/DeleteMemberModal";
 import AssignTaskModal from "../../components/FamilyRoom-UI/Modal/AssignTaskModal/AssignTaskModal";
 import { commonListeners } from "../../socket/Common/Listeners";
 import { removeCommonListeners } from "../../socket/Common/RemoveListeners";
+import variables from "../../sass/variables.module.scss";
 
 const FamilyRoom = () => {
   const { roomId } = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const session = useSession();
+  const [option, setOption] = useState<"tasks" | "members">("tasks");
 
   const { memberForTasks } = useAppSelector((state) => state.membersReducer);
   const { loading } = useAppSelector((state) => state.authReducer);
   const { currentRoom, rooms } = useAppSelector((state) => state.roomsReducer);
-  const { option } = useAppSelector((state) => state.roomOptionsReducer);
   const { modalStatus } = useAppSelector((state) => state.modalReducer);
 
   useEffect(() => {
@@ -58,17 +59,22 @@ const FamilyRoom = () => {
     dispatch(setCurrentRoom(roomId));
   }, [roomId, rooms]); // When the user add task, "rooms" state is changing, therefore I need to dispatch again the current room to reflect the changes.
 
-  console.log(session, loading);
-
   return (
     <>
-      <RoomHeader>{currentRoom?.roomName}</RoomHeader>
+      <RoomHeader setOption={setOption}>{currentRoom?.roomName}</RoomHeader>
 
-      <WelcomeTitle />
-
-      <RoomOptions />
-
-      <Divider sx={{ margin: "10px 0" }} />
+      <Box
+        sx={{
+          backgroundColor: variables.secondaryColor,
+          boxShadow: "0px 9px 15px 0px gray",
+        }}
+      >
+        <WelcomeTitle />
+        <RoomOptions
+          option={option}
+          setOption={setOption}
+        />
+      </Box>
 
       {modalStatus === "deleteCalendarEvent" && <DeleteEventModal />}
       {modalStatus === "deleteMember" && <DeleteMemberModal />}
@@ -78,7 +84,7 @@ const FamilyRoom = () => {
         <Loader height="65vh" />
       ) : (
         <Box sx={{ padding: "10px" }}>
-          {option === "tasks" && currentRoom && <AllTasks />}
+          {option === "tasks" && <AllTasks />}
           {option === "members" &&
             (memberForTasks ? <MemberTasks /> : <AllMembers />)}
         </Box>

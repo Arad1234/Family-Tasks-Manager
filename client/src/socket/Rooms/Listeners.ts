@@ -14,24 +14,30 @@ export const roomsListeners = (socket: Socket, dispatch: AppDispatch) => {
   socket.on("recievedRooms", (data) => {
     const rooms = data;
     dispatch(setRooms(rooms));
-    console.log("recieved rooms!");
     dispatch(setLoading(false));
   });
 
   socket.on("createdRoom", (data) => {
+    console.log("data", data);
     const newRoom = data;
     dispatch(setCreateRoom(newRoom));
-    hideModal(dispatch);
-    dispatch(resetRoomDetails());
-    dispatch(setLoading(false));
-    toast.success("Room Created Successfully!");
+
+    if (newRoom.isCreator) {
+      hideModal(dispatch);
+      dispatch(setLoading(false));
+      dispatch(resetRoomDetails());
+      toast.success("Room Created Successfully!");
+    }
   });
 
   socket.on("deletedRoom", (data) => {
-    const deletedRoomId = data;
+    const { deletedRoomId, isDeleter } = data;
+    console.log(deletedRoomId, isDeleter);
     dispatch(setDeleteRoom(deletedRoomId));
-    hideModal(dispatch);
-    dispatch(setLoading(false));
-    toast.success("Room Deleted Successfully!");
+    if (isDeleter) {
+      hideModal(dispatch);
+      dispatch(setLoading(false));
+      toast.success("Room Deleted Successfully!");
+    }
   });
 };

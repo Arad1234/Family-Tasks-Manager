@@ -11,7 +11,10 @@ const AllRooms = ({ searchQuery }: Props) => {
   const { rooms } = useAppSelector((state) => state.roomsReducer);
 
   const filteredRooms = useMemo(() => {
-    return rooms.filter((room) => room.roomName.includes(searchQuery));
+    return rooms.filter((room) => {
+      console.log("room", room);
+      return room.roomName.includes(searchQuery);
+    });
   }, [rooms, searchQuery]);
 
   return filteredRooms.length > 0 ? (
@@ -47,5 +50,5 @@ const AllRooms = ({ searchQuery }: Props) => {
   );
 };
 
-// Using "memo" to render the "AllRooms" component only when "searchQuery" props changes.
+// Using "memo" to render the "AllRooms" component only when "searchQuery" props change.
 export default memo(AllRooms);

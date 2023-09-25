@@ -12,7 +12,7 @@ const NewRoomButton = () => {
   return (
     <Button
       sx={{
-        width: "120px",
+        width: "7.5rem",
         borderRadius: "20px",
         fontSize: "16px",
         backgroundColor: variables.actionColor,

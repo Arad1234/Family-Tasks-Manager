@@ -20,7 +20,7 @@ const JoinRoomModal = () => {
     <ModalComponent>
       <ModalTitle>Join Room</ModalTitle>
       <ModalInputs />
-      <ModalButton handleClick={handleJoinRoom}>Join</ModalButton>
+      <ModalButton onClick={handleJoinRoom}>Join</ModalButton>
     </ModalComponent>
   );
 };

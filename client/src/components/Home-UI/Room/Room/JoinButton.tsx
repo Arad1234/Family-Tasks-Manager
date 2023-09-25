@@ -3,6 +3,7 @@ import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
 import { setCurrentRoom } from "../../../../redux/slices/Rooms/rooms-slice";
 import { IRoom } from "../../../../types";
 import RoomButton from "./Common/RoomButton";
+import variables from "../../../../sass/variables.module.scss";
 
 interface Props {
   room: IRoom;
@@ -20,7 +21,7 @@ const JoinButton = ({ room }: Props) => {
 
   return (
     <RoomButton
-      backgroundColor="80, 210, 189"
+      backgroundColor={variables.actionColor}
       handleClick={handleOpenJoinModal}
       width="130px"
     >

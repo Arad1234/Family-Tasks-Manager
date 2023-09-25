@@ -3,6 +3,7 @@ import { useAppDispatch } from "../../../../redux/hooks";
 import { setMemberForDelete } from "../../../../redux/slices/FamilyRoom/members-slice";
 import { setCurrentRoom } from "../../../../redux/slices/Rooms/rooms-slice";
 import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
+import variables from "../../../../sass/variables.module.scss";
 import RoomButton from "./Common/RoomButton";
 
 interface Props {
@@ -10,7 +11,7 @@ interface Props {
   member: IMember;
 }
 
-const LeaveRoomButton = ({ roomId, member }: Props) => {
+const LeaveButton = ({ roomId, member }: Props) => {
   const dispatch = useAppDispatch();
 
   const handleShowLeaveRoomModal = () => {
@@ -21,13 +22,13 @@ const LeaveRoomButton = ({ roomId, member }: Props) => {
 
   return (
     <RoomButton
-      backgroundColor="200, 50, 50"
       handleClick={handleShowLeaveRoomModal}
-      width="70px"
+      backgroundColor={variables.actionColor}
+      width="120px"
     >
       Leave
     </RoomButton>
   );
 };
 
-export default LeaveRoomButton;
+export default LeaveButton;
