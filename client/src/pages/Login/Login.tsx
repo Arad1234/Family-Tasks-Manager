@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import { object, string } from "yup";
 import LoginFormComponent from "../../components/Auth-UI/Login/LoginFormComponent";
 import Wrapper from "../../components/Common/Wrapper";
+import LoginTitle from "../../components/Auth-UI/Login/LoginTitle";
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -41,9 +42,15 @@ const Login = () => {
   return loading ? (
     <Loader />
   ) : (
-    <Wrapper>
-      <LoginFormComponent formik={formik} />
-    </Wrapper>
+    <>
+      <Wrapper
+        height="auto"
+        gap="50px"
+      >
+        <LoginTitle />
+        <LoginFormComponent formik={formik} />
+      </Wrapper>
+    </>
   );
 };
 

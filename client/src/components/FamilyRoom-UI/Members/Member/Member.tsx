@@ -6,7 +6,6 @@ import AddTaskPlusIcon from "./AddTaskPlusIcon";
 import TasksButton from "./TasksButton";
 import MemberName from "./MemberName";
 import DeleteMemberIcon from "./DeleteMemberIcon";
-import DividerComponent from "./DividerComponent";
 
 interface Props {
   member: IMember;
@@ -28,13 +27,14 @@ const Member = ({ member }: Props) => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        gap: "16px",
+        gap: "30px",
         alignItems: "center",
-        boxShadow: "2px 3px 3px gray",
         border: "1px solid gray",
         borderRadius: "5px",
-        width: "41vw",
-        padding: "3.5rem 10px",
+        height: "20px",
+        margin: "10px 0px 10px 0px",
+        width: "80vw",
+        padding: "10px",
       }}
     >
       <Box
@@ -49,7 +49,6 @@ const Member = ({ member }: Props) => {
         <MemberName memberName={member.username} />
         {canDeleteMember && <DeleteMemberIcon member={member} />}
       </Box>
-      <DividerComponent />
 
       <Box sx={{ display: "flex", gap: "40px" }}>
         <TasksButton member={member} />

@@ -13,12 +13,8 @@ const AllMembers = () => {
   return (
     <Box
       sx={{
-        display: "grid",
+        display: "flex",
         justifyContent: "center",
-        gridTemplateColumns: familyMembers.length > 2 ? "repeat(2, 1fr)" : null,
-        gridAutoRows: "100px",
-        gridRowGap: "28px",
-        gridColumnGap: "15px",
       }}
     >
       {familyMembers.length === 1 ? (

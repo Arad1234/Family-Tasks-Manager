@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { setLoading } from "../../redux/slices/Auth/auth-slice";
 import Wrapper from "../../components/Common/Wrapper";
 import { useState } from "react";
+import ForgotPasswordTitle from "../../components/Auth-UI/ForgotPassword/ForgotPasswordTitle";
 
 const ForgotPassword = () => {
   const [sentEmailMessage, setSentEmailMessage] = useState<string | null>(null);
@@ -33,7 +34,11 @@ const ForgotPassword = () => {
   return loading ? (
     <Loader />
   ) : (
-    <Wrapper>
+    <Wrapper
+      height={sentEmailMessage ? undefined : "auto"}
+      gap={sentEmailMessage ? undefined : "50px"}
+    >
+      {!sentEmailMessage && <ForgotPasswordTitle />}
       <ForgotPasswordForm
         sentEmailMessage={sentEmailMessage}
         formik={formik}

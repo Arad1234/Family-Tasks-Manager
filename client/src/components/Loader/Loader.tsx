@@ -14,7 +14,10 @@ const Loader = ({ height }: Props) => {
         height: height ? height : "100vh",
       }}
     >
-      <CircularProgress size={70} />
+      <CircularProgress
+        sx={{ color: "white" }}
+        size={70}
+      />
     </Box>
   );
 };

@@ -66,7 +66,7 @@ const FamilyRoom = () => {
       <Box
         sx={{
           backgroundColor: variables.secondaryColor,
-          boxShadow: "0px 9px 15px 0px gray",
+          boxShadow: "0px 5px 8px 0px black",
         }}
       >
         <WelcomeTitle />

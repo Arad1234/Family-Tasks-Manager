@@ -2,7 +2,7 @@ import { useAppDispatch } from "../../redux/hooks";
 import { registerThunk } from "../../redux/actions/Auth/auth-actions";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import RegisterTitle from "../../components/Auth-UI/Register/Title";
+import RegisterTitle from "../../components/Auth-UI/Register/RegisterTitle";
 import { useFormik } from "formik";
 import { object, string } from "yup";
 import RegisterFormComponent from "../../components/Auth-UI/Register/RegisterFormComponent";
