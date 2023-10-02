@@ -1,13 +1,11 @@
 import FormTitleComponent from "../FormTitleComponent";
-import InputLabelWrapper from "../InputLabelWrapper";
-import LabelComponent from "../LabelComponent";
 import InputComponent from "../InputComponent";
 import AuthButton from "../AuthButton";
-import InputErrorMessage from "../InputErrorMessage";
 import FormBottomText from "../FormBottomText";
 import "./ForgotPassword.scss";
 import { FormikProps } from "formik";
 import SendEmailMessage from "./SendEmailMessage";
+import { inputLabelPropsStyle } from "../../../utils/constants";
 
 interface Props {
   formik: FormikProps<{ email: string }>;
@@ -27,18 +25,17 @@ const ForgotPasswordForm = ({ formik, sentEmailMessage }: Props) => {
       ) : (
         <>
           <FormTitleComponent>Forgot Password</FormTitleComponent>
-          <InputLabelWrapper>
-            <LabelComponent>Email</LabelComponent>
-            <InputComponent
-              formik={formik}
-              name="email"
-              type="email"
-              value={values.email}
-            />
-            {errors.email && touched.email && (
-              <InputErrorMessage>{errors.email}</InputErrorMessage>
-            )}
-          </InputLabelWrapper>
+          <InputComponent
+            formik={formik}
+            name="email"
+            type="email"
+            value={values.email}
+            label="Email"
+            InputLabelProps={inputLabelPropsStyle}
+            inputTouched={touched.email}
+            inputError={errors.email}
+          />
+
           <AuthButton>Send</AuthButton>
           <FormBottomText
             navigateTo="/"

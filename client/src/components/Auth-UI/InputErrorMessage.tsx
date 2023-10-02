@@ -7,7 +7,7 @@ const InputErrorMessage = ({ children }: ChildrenProps) => {
       sx={{
         color: "red",
         position: "absolute",
-        top: "62px",
+        top: "55px",
         left: "36px",
       }}
     >

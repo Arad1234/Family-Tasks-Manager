@@ -21,7 +21,7 @@ const SecondaryAuthButton = () => {
       }}
       onClick={() => navigate("/register")}
     >
-      Sign Up
+      Login with google
     </Button>
   );
 };

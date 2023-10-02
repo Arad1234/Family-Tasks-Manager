@@ -1,7 +1,4 @@
 import FormTitleComponent from "../FormTitleComponent";
-import InputLabelWrapper from "../InputLabelWrapper";
-import LabelComponent from "../LabelComponent";
-import InputErrorMessage from "../InputErrorMessage";
 import InputComponent from "../InputComponent";
 import "./Login.scss";
 import AuthButton from "../AuthButton";
@@ -9,6 +6,8 @@ import { FormikProps } from "formik";
 import SecondaryAuthButton from "./SecondaryAuthButton";
 import { Box } from "@mui/material";
 import FormBottomText from "../FormBottomText";
+import { inputLabelPropsStyle } from "../../../utils/constants";
+import ForgotPasswordText from "./ForgotPasswordText";
 
 interface Props {
   formik: FormikProps<{ email: string; password: string }>;
@@ -23,34 +22,36 @@ const LoginFormComponent = ({ formik }: Props) => {
       onSubmit={handleSubmit}
     >
       <FormTitleComponent>Login</FormTitleComponent>
-      <InputLabelWrapper>
-        <LabelComponent>Email</LabelComponent>
-        <InputComponent
-          value={values.email}
-          formik={formik}
-          type="email"
-          name="email"
-        />
-        {errors.email && touched.email && (
-          <InputErrorMessage>{errors.email}</InputErrorMessage>
-        )}
-      </InputLabelWrapper>
-      <InputLabelWrapper>
-        <LabelComponent>Password</LabelComponent>
-        <InputComponent
-          formik={formik}
-          value={values.password}
-          type="password"
-          name="password"
-        />
-        {errors.password && touched.password && (
-          <InputErrorMessage>{errors.password}</InputErrorMessage>
-        )}
-      </InputLabelWrapper>
+
+      <InputComponent
+        label="Email"
+        InputLabelProps={inputLabelPropsStyle}
+        value={values.email}
+        formik={formik}
+        type="email"
+        name="email"
+        inputTouched={touched.email}
+        inputError={errors.email}
+      />
+
+      <InputComponent
+        label="Password"
+        InputLabelProps={inputLabelPropsStyle}
+        formik={formik}
+        value={values.password}
+        type="password"
+        name="password"
+        inputTouched={touched.password}
+        inputError={errors.password}
+      />
+
+      <ForgotPasswordText />
+
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
+          marginTop: "20px",
           gap: "10px",
           alignItems: "center",
         }}
@@ -63,9 +64,9 @@ const LoginFormComponent = ({ formik }: Props) => {
 
         <FormBottomText
           marginTop="20px"
-          navigateTo="/forgotPassword"
-          actionText="Click here"
-          whiteText="Forgot your password?"
+          navigateTo="/register"
+          actionText="Sign Up"
+          whiteText="Haven't any account?"
         />
       </Box>
     </form>
