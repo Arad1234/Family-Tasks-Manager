@@ -2,19 +2,19 @@ import { Box, Typography } from "@mui/material";
 import JoinButton from "./JoinButton";
 import DeleteButton from "./DeleteButton/DeleteButton";
 import { IRoom } from "../../../../types/index";
-import { extractUserFromLocalStorage } from "../../../../utils/helpers/LocalStorage/extractUser";
 import ExploreButton from "./ExploreButton";
 import RoomName from "./RoomName";
 import LeaveButton from "./LeaveButton";
 import { useMemo } from "react";
 import variables from "../../../../sass/variables.module.scss";
+import { useAppSelector } from "../../../../redux/hooks";
 
 interface Props {
   room: IRoom;
 }
 
 const Room = ({ room }: Props) => {
-  const { parsedUserId: userId } = extractUserFromLocalStorage();
+  const userId = useAppSelector((state) => state.authReducer.userId);
 
   const { familyMembers, maxMembers, creator } = room;
 
@@ -22,8 +22,8 @@ const Room = ({ room }: Props) => {
 
   const isRoomFull = familyMembers.length === maxMembers;
 
-  const member = useMemo(() => {
-    return familyMembers.find((member) => member.userId === userId);
+  const memberId = useMemo(() => {
+    return familyMembers.find((memberId) => memberId === userId);
   }, [userId, familyMembers]);
 
   return (
@@ -62,13 +62,13 @@ const Room = ({ room }: Props) => {
           alignItems: "center",
         }}
       >
-        {member ? (
+        {memberId ? (
           <Box sx={{ display: "flex", gap: "80px" }}>
             <ExploreButton roomId={room._id} />
             {!isRoomCreator && (
               <LeaveButton
-                roomId={room._id}
-                member={member}
+                room={room}
+                memberId={memberId as string}
               />
             )}
           </Box>

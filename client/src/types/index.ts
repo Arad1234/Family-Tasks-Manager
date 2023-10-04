@@ -19,19 +19,19 @@ export interface ITask {
 
 export type TaskCreation = Omit<ITask, "_id" | "updatedAt" | "createdAt">;
 
-export interface IMember {
+export interface IUser {
   userId: string;
   username: string;
   tasks: ITask[];
+  email: string;
+  _id?: string;
 }
-
-export type FamilyMembers = IMember[];
 
 export interface IRoom {
   roomName: string;
   maxMembers: number | null;
   creator: { userId: string; username: string };
-  familyMembers: FamilyMembers;
+  familyMembers: string[] | IUser[];
   userId: string;
   _id: string;
 }
@@ -83,13 +83,11 @@ type RegisterFormikType = {
   confirmPassword: string;
 };
 
-
 type LoginFormikType = Omit<RegisterFormikType, "name" | "confirmPassword">;
 
 type forgotPasswordFormikType = Omit<LoginFormikType, "password">;
 
 type resetPasswordFormikType = { newPassword: string; confirmPassword: string };
-
 
 export type formikPropsType =
   | FormikProps<RegisterFormikType>

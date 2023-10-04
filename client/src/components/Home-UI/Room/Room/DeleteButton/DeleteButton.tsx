@@ -1,5 +1,5 @@
 import { useAppDispatch } from "../../../../../redux/hooks";
-import { setCurrentRoom } from "../../../../../redux/slices/Rooms/rooms-slice";
+import { setSelectedRoom } from "../../../../../redux/slices/Rooms/rooms-slice";
 import { setShowModal } from "../../../../../redux/slices/Modal/modal-slice";
 import { IRoom } from "../../../../../types";
 import "./DeleteButton.scss";
@@ -14,7 +14,7 @@ const DeleteButton = ({ room }: Props) => {
 
   const handleOpenDeleteModal = () => {
     dispatch(setShowModal({ isOpen: true, modalStatus: "delete" }));
-    dispatch(setCurrentRoom(room._id));
+    dispatch(setSelectedRoom(room));
   };
 
   return (

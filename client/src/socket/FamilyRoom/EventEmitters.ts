@@ -3,9 +3,25 @@ import { AddTaskData } from "../../types";
 import { setLoading } from "../../redux/slices/Auth/auth-slice";
 import { socket } from "../socket";
 
+export const getMemberRoomsSocket = (
+  dispatch: AppDispatch,
+  userId: string | null
+) => {
+  dispatch(setLoading(true));
+  socket.emit("members:getRooms", { userId });
+};
+
+export const getCurrentRoomSocket = (
+  dispatch: AppDispatch,
+  roomId: string | undefined
+) => {
+  dispatch(setLoading(true));
+  socket.emit("members:getCurrentRoom", { roomId });
+};
+
 export const deleteMemberSocket = (
   dispatch: AppDispatch,
-  memberId: string,
+  memberId: string | undefined,
   roomId: string
 ) => {
   dispatch(setLoading(true));

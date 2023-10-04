@@ -4,15 +4,22 @@ import { hideModal } from "../../../../utils/helpers/hideModal";
 import DeleteModalButtons from "../../../Modal-Common/DeleteModalButtons";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
 import { deleteMemberSocket } from "../../../../socket/FamilyRoom/EventEmitters";
+import { IUser } from "../../../../types";
 
 const DeleteMemberModal = () => {
   const dispatch = useAppDispatch();
-  const { memberForDelete } = useAppSelector((state) => state.membersReducer);
-  const { currentRoom } = useAppSelector((state) => state.roomsReducer);
+  const memberForDelete = useAppSelector(
+    (state) => state.membersReducer.memberForDelete
+  );
+  const selectedRoom = useAppSelector(
+    (state) => state.roomsReducer.selectedRoom
+  );
+
+  const memberAsTypeUser = memberForDelete as IUser;
 
   const handleDeleteMember = () => {
-    if (memberForDelete && currentRoom) {
-      deleteMemberSocket(dispatch, memberForDelete.userId, currentRoom._id);
+    if (memberAsTypeUser && selectedRoom) {
+      deleteMemberSocket(dispatch, memberAsTypeUser._id, selectedRoom._id);
     }
   };
 
@@ -23,7 +30,7 @@ const DeleteMemberModal = () => {
   return (
     <ModalComponent>
       <Typography>
-        Are you sure to want to delete {memberForDelete?.username} from family
+        Are you sure to want to delete {memberAsTypeUser.username} from family
         members?
       </Typography>
       <DeleteModalButtons

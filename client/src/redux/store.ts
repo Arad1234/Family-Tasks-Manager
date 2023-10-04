@@ -8,7 +8,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import persistedRoomsSliceReducer from "./slices/Rooms/rooms-slice";
+import roomsSliceReducer from "./slices/Rooms/rooms-slice";
 import persistedAuthReducer from "./slices/Auth/auth-slice";
 import modalSliceReducer from "./slices/Modal/modal-slice";
 import createRoomSliceReducer from "./slices/Rooms/createRoom-slice";
@@ -20,7 +20,7 @@ import membersSliceReducer from "./slices/FamilyRoom/members-slice";
 export const store = configureStore({
   reducer: {
     authReducer: persistedAuthReducer,
-    roomsReducer: persistedRoomsSliceReducer,
+    roomsReducer: roomsSliceReducer,
     modalReducer: modalSliceReducer,
     createRoomReducer: createRoomSliceReducer,
     joinRoomReducer: joinRoomSliceReducer,

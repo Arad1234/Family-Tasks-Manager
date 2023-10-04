@@ -39,6 +39,17 @@ const Login = () => {
     },
   });
 
+  //// Need to implement OAuth with google
+  const loginWithGoogle = async () => {
+    // This will trigger an auth event SIGNED_IN.
+    const { error } = await SignInWithOAuth(supabase);
+
+    if (error) {
+      alert("Error logging in to Google provider with Supabase");
+      console.log(error);
+    }
+  };
+
   return loading ? (
     <Loader />
   ) : (
@@ -48,7 +59,10 @@ const Login = () => {
         gap="50px"
       >
         <LoginTitle />
-        <LoginFormComponent formik={formik} />
+        <LoginFormComponent
+          loginWithGoogle={loginWithGoogle}
+          formik={formik}
+        />
       </Wrapper>
     </>
   );

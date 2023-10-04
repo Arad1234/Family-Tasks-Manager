@@ -10,21 +10,20 @@ import { resetRoomPassword } from "../../redux/slices/Rooms/joinRoom-slice";
 import { toast } from "react-toastify";
 
 export const commonListeners = (socket: Socket, dispatch: AppDispatch) => {
-  
   socket.on("joinedRoom", (data) => {
     const { roomId, username, userId } = data;
-    
+
     dispatch(setJoinRoom({ roomId, username, userId }));
     dispatch(resetRoomPassword());
     hideModal(dispatch);
     dispatch(setLoading(false));
     toast.success("Joined Room!");
   });
-  
+
   socket.on("memberDeleted", (data) => {
     const { memberId, roomId } = data;
-    
-    dispatch(setDeleteMember({ memberId, roomId }));
+
+    dispatch(setDeleteMember({ memberIdToDelete: memberId, roomId }));
     hideModal(dispatch);
     dispatch(setLoading(false));
     toast.success("Member Deleted Successfully!");

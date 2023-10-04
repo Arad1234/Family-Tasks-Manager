@@ -7,19 +7,22 @@ import { deleteMemberSocket } from "../../../../socket/FamilyRoom/EventEmitters"
 
 const LeaveRoomModal = () => {
   const dispatch = useAppDispatch();
-  const { memberForDelete } = useAppSelector((state) => state.membersReducer);
-  const { currentRoom } = useAppSelector((state) => state.roomsReducer);
-
+  const memberForDelete = useAppSelector(
+    (state) => state.membersReducer.memberForDelete
+  );
+  const selectedRoom = useAppSelector(
+    (state) => state.roomsReducer.selectedRoom
+  );
   const handleLeaveRoom = () => {
-    if (memberForDelete && currentRoom) {
-      deleteMemberSocket(dispatch, memberForDelete.userId, currentRoom._id);
+    if (memberForDelete && selectedRoom) {
+      deleteMemberSocket(dispatch, memberForDelete as string, selectedRoom._id);
     }
   };
 
   return (
     <ModalComponent>
       <Typography>
-        Are you sure you want to leave "{currentRoom?.roomName}" room?
+        Are you sure you want to leave "{selectedRoom?.roomName}" room?
       </Typography>
       <DeleteModalButtons
         handleDelete={handleLeaveRoom}

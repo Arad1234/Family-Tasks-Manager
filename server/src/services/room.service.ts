@@ -1,4 +1,3 @@
-import Member from "../models/member.model";
 import Room from "../models/room.model";
 import Task from "../models/task.model";
 import { RoomData } from "../types/common";
@@ -7,9 +6,7 @@ import { NOT_FOUND, UNAUTHORIZED } from "../utils/constants";
 import AppError from "../utils/appErrorClass";
 
 export const getFamilyRooms = async () => {
-  // Getting the rooms with the tasks for each family member already populated.
-  // Note the the DB does not populate with the tasks in the "rooms" collection.
-  const rooms = await Room.find().populate("familyMembers.tasks");
+  const rooms = await Room.find()
 
   return rooms;
 };
@@ -17,12 +14,10 @@ export const getFamilyRooms = async () => {
 export const createFamilyRoom = async (roomData: RoomData) => {
   const { username, maxMembers, roomName, roomPassword, userId } = roomData;
 
-  const member = new Member({ userId, username, tasks: [] });
-
   const newRoom = await Room.create({
     roomName,
     maxMembers,
-    familyMembers: [member],
+    familyMembers: [userId],
     creator: { userId, username },
     roomPassword,
   });
@@ -39,18 +34,20 @@ export const deleteFamilyRoom = async (roomId: string) => {
     throw new AppError("Room not found", NOT_FOUND);
   }
   // Delete all the tasks of the members in this room.
-  room.familyMembers.map((member) => {
-    member.tasks.map(async (taskId) => {
-      await Task.findByIdAndDelete(taskId);
+  room.familyMembers.map(async (userId) => {
+    const userTasks = await Task.find({ userId });
+    userTasks.map(async (task) => {
+      await Task.findByIdAndDelete(task._id);
     });
   });
 
   await room.deleteOne();
+
   return room._id;
 };
 
 export const joinFamilyRoom = async (joinRoomData: JoinRoomPayload) => {
-  const { roomId, userId, username, roomPassword } = joinRoomData;
+  const { roomId, userId, roomPassword } = joinRoomData;
 
   const room = await Room.findOne({ _id: roomId }).select("+roomPassword");
 
@@ -62,10 +59,8 @@ export const joinFamilyRoom = async (joinRoomData: JoinRoomPayload) => {
   if (!isPasswordValid) {
     throw new AppError("Room password is not correct!", UNAUTHORIZED);
   }
-  // Member instance according to type configuration.
-  const member = new Member({ userId, username, tasks: [] });
 
-  room.familyMembers.push(member);
+  room.familyMembers.push(Object(userId));
 
   await room.save();
 };

@@ -3,21 +3,21 @@ import React from "react";
 import variables from "../../../sass/variables.module.scss";
 
 interface Props {
-  handleClick: () => void;
+  onClick: () => void;
   optionValue: string;
   children: React.ReactNode;
   selectedOption: "tasks" | "members";
 }
 
 const ButtonOption = ({
-  handleClick,
+  onClick,
   optionValue,
   children,
   selectedOption,
 }: Props) => {
   return (
     <Button
-      onClick={handleClick}
+      onClick={onClick}
       variant="outlined"
       sx={{
         border: selectedOption !== optionValue ? "1px solid white" : "",

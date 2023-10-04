@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
-import { IMember } from "../../../../types";
-import { extractUserFromLocalStorage } from "../../../../utils/helpers/LocalStorage/extractUser";
+import { IUser } from "../../../../types";
 import { useAppSelector } from "../../../../redux/hooks";
 import AddTaskPlusIcon from "./AddTaskPlusIcon";
 import TasksButton from "./TasksButton";
@@ -8,18 +7,17 @@ import MemberName from "./MemberName";
 import DeleteMemberIcon from "./DeleteMemberIcon";
 
 interface Props {
-  member: IMember;
+  member: IUser;
 }
 
 const Member = ({ member }: Props) => {
-  const { currentRoom } = useAppSelector((state) => state.roomsReducer);
+  const familyRoom = useAppSelector((state) => state.roomsReducer.familyRoom);
+  const userId = useAppSelector((state) => state.authReducer.userId);
 
-  const { parsedUserId: currentUserId } = extractUserFromLocalStorage();
-
-  const isRoomCreator = currentRoom?.creator.userId === currentUserId;
+  const isRoomCreator = familyRoom?.creator.userId === userId;
 
   // If the user is the room creator AND it is not himself (cannot delete himself).
-  const canDeleteMember = isRoomCreator && member.userId !== currentUserId;
+  const canDeleteMember = isRoomCreator && member.userId !== userId;
 
   return (
     <Box

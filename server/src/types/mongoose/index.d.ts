@@ -6,9 +6,11 @@ export interface IUser extends Document {
   password: string;
   passwordResetToken: string | undefined;
   passwordResetExpires: Date | undefined;
+  tasks: Types.ObjectId[];
 }
 
 interface ITask extends Document {
+  userId: Types.ObjectId;
   name: string;
   description: string | undefined;
   startTime: Date | null;
@@ -16,7 +18,7 @@ interface ITask extends Document {
 }
 
 interface IMember extends Document {
-  userId: Types.ObjectId;
+  memberId: Types.ObjectId;
   username: string;
   tasks: ITask[];
 }
@@ -24,7 +26,7 @@ interface IMember extends Document {
 export interface IRoom extends Document {
   roomName: string;
   creator: { userId: Types.ObjectId; username: string };
-  familyMembers: IMember[];
+  familyMembers: Types.ObjectId[];
   maxMembers: number;
   roomPassword: string;
 }

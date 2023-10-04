@@ -6,7 +6,6 @@ import RoomOptions from "../../components/FamilyRoom-UI/RoomOptions/RoomOptions"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import AllTasks from "../../components/FamilyRoom-UI/Tasks/AllTasks";
 import { useEffect, useState } from "react";
-import { setCurrentRoom } from "../../redux/slices/Rooms/rooms-slice";
 import AllMembers from "../../components/FamilyRoom-UI/Members/AllMembers";
 import { familyRoomListeners } from "../../socket/FamilyRoom/Listeners";
 import { socket } from "../../socket/socket";
@@ -23,6 +22,7 @@ import AssignTaskModal from "../../components/FamilyRoom-UI/Modal/AssignTaskModa
 import { commonListeners } from "../../socket/Common/Listeners";
 import { removeCommonListeners } from "../../socket/Common/RemoveListeners";
 import variables from "../../sass/variables.module.scss";
+import { getCurrentRoomSocket } from "../../socket/FamilyRoom/EventEmitters";
 
 const FamilyRoom = () => {
   const { roomId } = useParams();
@@ -33,20 +33,21 @@ const FamilyRoom = () => {
 
   const { memberForTasks } = useAppSelector((state) => state.membersReducer);
   const { loading } = useAppSelector((state) => state.authReducer);
-  const { currentRoom, rooms } = useAppSelector((state) => state.roomsReducer);
+  const { familyRoom } = useAppSelector((state) => state.roomsReducer);
   const { modalStatus } = useAppSelector((state) => state.modalReducer);
 
   useEffect(() => {
     familyRoomListeners(socket, dispatch);
     commonListeners(socket, dispatch);
     errorListeners(socket, navigate, dispatch);
+    getCurrentRoomSocket(dispatch, roomId);
 
     return () => {
       removeFamilyRoomListeners(socket);
       removeErrorListeners(socket);
       removeCommonListeners(socket);
     };
-  }, []);
+  }, [roomId]);
 
   useEffect(() => {
     if (session?.provider_token) {
@@ -54,14 +55,9 @@ const FamilyRoom = () => {
     }
   }, [session?.provider_token]);
 
-  useEffect(() => {
-    // Setting the current room when the page refresh or navigates to a different family room.
-    dispatch(setCurrentRoom(roomId));
-  }, [roomId, rooms]); // When the user add task, "rooms" state is changing, therefore I need to dispatch again the current room to reflect the changes.
-
   return (
     <>
-      <RoomHeader setOption={setOption}>{currentRoom?.roomName}</RoomHeader>
+      <RoomHeader setOption={setOption}>{familyRoom?.roomName}</RoomHeader>
 
       <Box
         sx={{

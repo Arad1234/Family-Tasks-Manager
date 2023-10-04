@@ -57,7 +57,6 @@ export const roomHandler = (io: Server, socket: Socket) => {
     const { roomId, roomPassword } = payload;
     const { username, userId } = socket.data.user;
     await joinFamilyRoom({
-      username,
       userId,
       roomId,
       roomPassword,

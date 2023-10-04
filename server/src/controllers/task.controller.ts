@@ -8,7 +8,7 @@ export const taskHandler = (io: Server, socket: Socket) => {
     payload: createTaskSchemaType
   ) {
     const { newTask, roomId } = await createTask(payload);
-    io.emit("taskCreated", { newTask, memberId: payload.memberId, roomId });
+    io.emit("taskCreated", { newTask, userId: payload.userId, roomId });
   },
   socket);
 

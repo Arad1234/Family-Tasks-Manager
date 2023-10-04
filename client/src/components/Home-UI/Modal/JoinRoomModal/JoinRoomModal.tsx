@@ -8,11 +8,11 @@ import ModalInputs from "./ModalInputs";
 const JoinRoomModal = () => {
   const dispatch = useAppDispatch();
   const { roomPassword } = useAppSelector((state) => state.joinRoomReducer);
-  const { currentRoom } = useAppSelector((state) => state.roomsReducer);
+  const { selectedRoom } = useAppSelector((state) => state.roomsReducer);
 
   const handleJoinRoom = () => {
-    if (currentRoom) {
-      joinRoomSocket(dispatch, { roomId: currentRoom._id, roomPassword });
+    if (selectedRoom) {
+      joinRoomSocket(dispatch, { roomId: selectedRoom._id, roomPassword });
     }
   };
 

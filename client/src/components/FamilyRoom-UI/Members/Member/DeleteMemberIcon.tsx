@@ -3,10 +3,10 @@ import { HiUserRemove } from "react-icons/hi";
 import { useAppDispatch } from "../../../../redux/hooks";
 import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
 import { setMemberForDelete } from "../../../../redux/slices/FamilyRoom/members-slice";
-import { IMember } from "../../../../types";
+import { IUser } from "../../../../types";
 
 interface Props {
-  member: IMember;
+  member: IUser;
 }
 
 const DeleteMemberIcon = ({ member }: Props) => {

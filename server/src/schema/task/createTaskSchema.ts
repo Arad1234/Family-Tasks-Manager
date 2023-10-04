@@ -17,7 +17,7 @@ export const createTaskSchema = object({
     .nullable()
     .transform((arg) => arg && new Date(arg)),
 
-  memberId: string({ required_error: "memberId is required!" }),
+  userId: string({ required_error: "userId is required!" }),
 
   roomId: string({ required_error: "roomId is required!" }),
 }).refine(

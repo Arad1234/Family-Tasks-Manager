@@ -1,14 +1,13 @@
 import { useAppSelector } from "../../../redux/hooks";
 import { Box, Typography } from "@mui/material";
 import Member from "./Member/Member";
-import { IRoom } from "../../../types";
-import { extractUserFromLocalStorage } from "../../../utils/helpers/LocalStorage/extractUser";
+import { IRoom, IUser } from "../../../types";
 
 const AllMembers = () => {
-  const { currentRoom } = useAppSelector((state) => state.roomsReducer);
-  const { familyMembers } = currentRoom as IRoom;
+  const familyRoom = useAppSelector((state) => state.roomsReducer.familyRoom);
+  const userId = useAppSelector((state) => state.authReducer.userId);
 
-  const { parsedUserId: currentUserId } = extractUserFromLocalStorage();
+  const { familyMembers } = familyRoom as IRoom;
 
   return (
     <Box
@@ -30,11 +29,12 @@ const AllMembers = () => {
         </Box>
       ) : (
         familyMembers.map((member) => {
+          const memberAsTypeUser = member as IUser;
           return (
-            member.userId !== currentUserId && (
+            memberAsTypeUser._id !== userId && (
               <Member
-                key={member.userId}
-                member={member}
+                key={memberAsTypeUser._id}
+                member={memberAsTypeUser}
               />
             )
           );

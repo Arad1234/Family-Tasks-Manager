@@ -1,6 +1,6 @@
 import { useAppDispatch } from "../../../../redux/hooks";
 import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
-import { setCurrentRoom } from "../../../../redux/slices/Rooms/rooms-slice";
+import { setSelectedRoom } from "../../../../redux/slices/Rooms/rooms-slice";
 import { IRoom } from "../../../../types";
 import RoomButton from "./Common/RoomButton";
 import variables from "../../../../sass/variables.module.scss";
@@ -16,7 +16,7 @@ const JoinButton = ({ room }: Props) => {
     dispatch(setShowModal({ isOpen: true, modalStatus: "join" }));
 
     // When the "Join" button is clicked I set the roomId to the redux store.
-    dispatch(setCurrentRoom(room._id));
+    dispatch(setSelectedRoom(room));
   };
 
   return (

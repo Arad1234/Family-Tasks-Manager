@@ -29,14 +29,14 @@ const RoomOptions = ({ setOption, option }: Props) => {
       }}
     >
       <ButtonOption
-        handleClick={handleTaskOption}
+        onClick={handleTaskOption}
         optionValue="tasks"
         selectedOption={option}
       >
         Your Tasks
       </ButtonOption>
       <ButtonOption
-        handleClick={handleMembersOption}
+        onClick={handleMembersOption}
         optionValue="members"
         selectedOption={option}
       >

@@ -4,9 +4,8 @@ import { RoomCreationData, JoinRoomData } from "../../types";
 import { socket } from "../socket";
 
 export const getRoomsSocket = (dispatch: AppDispatch) => {
-  console.log("getting!");
   dispatch(setLoading(true));
-  socket.emit("rooms:read")
+  socket.emit("rooms:read");
 };
 
 export const createRoomSocket = (
@@ -24,7 +23,10 @@ export const createRoomSocket = (
   });
 };
 
-export const deleteRoomSocket = (dispatch: AppDispatch, roomId: string) => {
+export const deleteRoomSocket = (
+  dispatch: AppDispatch,
+  roomId: string | undefined
+) => {
   dispatch(setLoading(true));
 
   socket.emit("rooms:delete", { roomId });

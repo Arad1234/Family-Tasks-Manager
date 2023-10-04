@@ -1,16 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IRoom } from "../../../types";
-import { persistReducer } from "redux-persist";
-import storage from "redux-persist/es/storage";
 
 interface InitialState {
   rooms: IRoom[];
-  currentRoom: IRoom | null;
+  currentUserRooms: IRoom[];
+  familyRoom: IRoom | null;
+  selectedRoom: IRoom | null;
 }
 
 const initialState: InitialState = {
   rooms: [],
-  currentRoom: null,
+  currentUserRooms: [],
+  familyRoom: null,
+  selectedRoom: null,
 };
 
 const roomsSlice = createSlice({
@@ -29,25 +31,28 @@ const roomsSlice = createSlice({
       });
     },
     setJoinRoom(state, { payload }) {
-      const { roomId: joinedRoomId, username, userId } = payload;
+      const { roomId: joinedRoomId, userId } = payload;
       state.rooms = state.rooms.map((room) => {
         if (room._id === joinedRoomId) {
-          room.familyMembers.push({ username, userId, tasks: [] });
+          room.familyMembers.push(userId);
         }
         return room;
       });
     },
 
     setDeleteMember(state, { payload }) {
-      const { roomId, memberId } = payload;
+      const { roomId, memberIdToDelete } = payload;
       state.rooms = state.rooms.map((room) => {
         if (room._id === roomId) {
-          room.familyMembers = room.familyMembers.filter((member) => {
-            return member.userId !== memberId;
+          room.familyMembers = room.familyMembers.filter((memberId) => {
+            return memberId !== memberIdToDelete;
           });
         }
         return room;
       });
+    },
+    setCurrentUserRooms(state, { payload }) {
+      state.currentUserRooms = payload;
     },
 
     setAddTask(state, { payload }) {
@@ -63,32 +68,26 @@ const roomsSlice = createSlice({
         return room;
       });
     },
+    setFamilyRoom(state, { payload: familyRoom }) {
+      state.familyRoom = familyRoom;
+    },
 
-    setCurrentRoom(state, { payload: roomId }) {
-      const room = state.rooms.find((room) => room._id === roomId);
-      if (room) {
-        state.currentRoom = room;
-      }
+    setSelectedRoom(state, { payload: room }) {
+      state.selectedRoom = room;
     },
   },
 });
-
-const persistConfig = {
-  key: "rooms",
-  storage,
-  whiteList: ["rooms"],
-};
-
-const persistedRoomsReducer = persistReducer(persistConfig, roomsSlice.reducer);
 
 export const {
   setRooms,
   setCreateRoom,
   setDeleteRoom,
   setJoinRoom,
-  setCurrentRoom,
+  setSelectedRoom,
   setAddTask,
   setDeleteMember,
+  setCurrentUserRooms,
+  setFamilyRoom,
 } = roomsSlice.actions;
 
-export default persistedRoomsReducer;
+export default roomsSlice.reducer;

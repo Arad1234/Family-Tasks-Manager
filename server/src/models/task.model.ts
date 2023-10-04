@@ -3,6 +3,7 @@ import { ITask } from "../types/mongoose";
 
 export const taskSchema = new Schema<ITask>(
   {
+    userId: { type: Schema.Types.ObjectId, ref: "User" },
     name: String,
     description: String,
     startTime: Date,

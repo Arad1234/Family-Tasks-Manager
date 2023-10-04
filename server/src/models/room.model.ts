@@ -1,7 +1,6 @@
 import { Model, Schema, model } from "mongoose";
 import { IRoom } from "../types/mongoose";
 import bcrypt from "bcrypt";
-import { memberSchema } from "./member.model";
 
 interface IRoomMethods {
   validatePassword: (roomPassword: string) => Promise<boolean>;
@@ -14,9 +13,12 @@ const roomSchema = new Schema<IRoom, RoomModel, IRoomMethods>(
   {
     roomName: String,
     creator: { userId: Schema.Types.ObjectId, username: String },
-    familyMembers: [memberSchema],
+    familyMembers: {
+      type: [{ type: Schema.Types.ObjectId, ref: "User" }],
+      default: [],
+    },
     maxMembers: Number,
-    roomPassword: {type: String},
+    roomPassword: { type: String, select: false },
   },
   {
     versionKey: false,

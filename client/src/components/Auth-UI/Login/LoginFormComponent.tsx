@@ -11,9 +11,10 @@ import ForgotPasswordText from "./ForgotPasswordText";
 
 interface Props {
   formik: FormikProps<{ email: string; password: string }>;
+  loginWithGoogle: () => void;
 }
 
-const LoginFormComponent = ({ formik }: Props) => {
+const LoginFormComponent = ({ formik, loginWithGoogle }: Props) => {
   const { handleSubmit, values, errors, touched } = formik;
 
   return (
@@ -60,7 +61,7 @@ const LoginFormComponent = ({ formik }: Props) => {
 
         <p className="hr-lines">or</p>
 
-        <SecondaryAuthButton />
+        <SecondaryAuthButton loginWithGoogle={loginWithGoogle} />
 
         <FormBottomText
           marginTop="20px"
