@@ -12,9 +12,9 @@ import { toast } from "react-toastify";
 
 export const familyRoomListeners = (socket: Socket, dispatch: AppDispatch) => {
   socket.on("taskCreated", (data) => {
-    const { newTask, memberId, roomId } = data;
-
-    dispatch(setAddTask({ newTask, memberId, roomId }));
+    const { newTask, userId } = data;
+    console.log(newTask, userId);
+    dispatch(setAddTask({ newTask, userId }));
     hideModal(dispatch);
     dispatch(resetTaskDetails());
     dispatch(setLoading(false));

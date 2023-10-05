@@ -3,14 +3,14 @@ import {
   deleteFamilyRoom,
   getFamilyRooms,
   joinFamilyRoom,
-} from "../services/room.service";
+} from "../services/rooms.service";
 import { Socket, Server } from "socket.io";
 import { JoinRoomSchemaType } from "../schema/room/joinRoom.schema";
 import { CreateRoomSchemaType } from "../schema/room/createRoom.schema";
 import { DeleteRoomSchemaType } from "../schema/room/deleteRoom.schema";
 import { catchAsyncSocket } from "../utils/socket/catchAsyncSocket";
 
-export const roomHandler = (io: Server, socket: Socket) => {
+export const roomsHandler = (io: Server, socket: Socket) => {
   const getFamilyRoomsHandler = catchAsyncSocket(async function () {
     const rooms = await getFamilyRooms();
 

@@ -21,9 +21,9 @@ export const commonListeners = (socket: Socket, dispatch: AppDispatch) => {
   });
 
   socket.on("memberDeleted", (data) => {
-    const { memberId, roomId } = data;
+    const memberId = data;
 
-    dispatch(setDeleteMember({ memberIdToDelete: memberId, roomId }));
+    dispatch(setDeleteMember({ memberIdToDelete: memberId }));
     hideModal(dispatch);
     dispatch(setLoading(false));
     toast.success("Member Deleted Successfully!");

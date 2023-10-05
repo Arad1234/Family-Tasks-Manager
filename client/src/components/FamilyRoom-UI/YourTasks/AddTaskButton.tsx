@@ -2,11 +2,11 @@ import { Box, Button, Typography } from "@mui/material";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useAppDispatch } from "../../../redux/hooks";
 import { setMemberForAssignTask } from "../../../redux/slices/FamilyRoom/members-slice";
-import { IMember } from "../../../types";
+import { IUser } from "../../../types";
 import { setShowModal } from "../../../redux/slices/Modal/modal-slice";
 
 interface Props {
-  currentMember: IMember;
+  currentMember: IUser;
 }
 
 const AddTaskButton = ({ currentMember }: Props) => {
@@ -24,12 +24,12 @@ const AddTaskButton = ({ currentMember }: Props) => {
         sx={{
           width: "9.5em",
           padding: "0",
-          background: "rgba(0,130,120, 0.7)",
+          background: "rgba(0, 130, 120, 0.7)",
           color: "white",
           textTransform: "none",
           fontWeight: "600",
           fontSize: "16px",
-          ":hover": { background: "rgba(0,130,120, 0.5)" },
+          ":hover": { background: "rgba(0, 130, 120, 0.5)" },
         }}
         onClick={handleOpenAssignTaskModal}
       >
@@ -50,7 +50,7 @@ const AddTaskButton = ({ currentMember }: Props) => {
             justifyContent: "center",
             height: "45px",
             width: "65px",
-            background: "rgba(0,130,120, 0.5)",
+            background: "rgba(0, 130, 120, 0.5)",
           }}
         >
           <AiOutlinePlus size={25} />

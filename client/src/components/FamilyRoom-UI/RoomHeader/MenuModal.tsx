@@ -12,6 +12,7 @@ const MenuModal = ({ anchorEl, setAnchorEl }: Props) => {
   const currentUserRooms = useAppSelector(
     (state) => state.roomsReducer.currentUserRooms
   );
+
   const handleClose = () => {
     setAnchorEl(null);
   };

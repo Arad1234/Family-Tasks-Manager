@@ -10,11 +10,11 @@ export interface IUser extends Document {
 }
 
 interface ITask extends Document {
-  userId: Types.ObjectId;
   name: string;
   description: string | undefined;
   startTime: Date | null;
   endTime: Date | null;
+  roomId: Types.ObjectId;
 }
 
 interface IMember extends Document {

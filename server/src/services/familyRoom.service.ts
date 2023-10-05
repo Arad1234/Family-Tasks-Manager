@@ -22,3 +22,28 @@ export const deleteMember = async (payload: DeleteMemberSchemaType) => {
 
   await room.save();
 };
+
+export const getMemberRooms = async (payload: {
+  roomId: string;
+  userId: string;
+}) => {
+  const memberRooms = await Room.find({
+    familyMembers: payload.userId,
+  }).select("roomName");
+
+  return memberRooms;
+};
+
+export const getCurrentRoom = async (roomId: string) => {
+  // Populate the familyMembers ref and the user tasks ref that match the current roomId.
+  const currentRoom = await Room.findOne({ _id: roomId }).populate({
+    path: "familyMembers",
+    populate: { path: "tasks", match: { roomId } },
+  });
+
+  if (!currentRoom) {
+    throw new AppError(`Room with id ${roomId} not found`, NOT_FOUND);
+  }
+
+  return currentRoom;
+};

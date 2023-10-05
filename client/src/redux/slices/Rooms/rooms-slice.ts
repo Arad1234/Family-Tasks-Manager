@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IRoom } from "../../../types";
+import { IRoom, IUser } from "../../../types";
 
 interface InitialState {
   rooms: IRoom[];
@@ -41,32 +41,35 @@ const roomsSlice = createSlice({
     },
 
     setDeleteMember(state, { payload }) {
-      const { roomId, memberIdToDelete } = payload;
-      state.rooms = state.rooms.map((room) => {
-        if (room._id === roomId) {
-          room.familyMembers = room.familyMembers.filter((memberId) => {
-            return memberId !== memberIdToDelete;
-          });
-        }
-        return room;
-      });
+      const { memberIdToDelete } = payload;
+      console.log("payload", payload);
+      if (state.familyRoom) {
+        state.familyRoom.familyMembers = (
+          state.familyRoom.familyMembers as IUser[]
+        ).filter((member) => {
+          return member._id !== memberIdToDelete;
+        });
+      }
     },
     setCurrentUserRooms(state, { payload }) {
       state.currentUserRooms = payload;
     },
 
     setAddTask(state, { payload }) {
-      const { newTask, memberId, roomId } = payload;
-      state.rooms = state.rooms.map((room) => {
-        if (room._id === roomId) {
-          room.familyMembers.map((member) => {
-            if (member.userId === memberId) {
-              member.tasks.push(newTask);
-            }
-          });
-        }
-        return room;
-      });
+      const { newTask, userId } = payload;
+
+      console.log(newTask, userId);
+
+      if (state.familyRoom) {
+        state.familyRoom.familyMembers = (
+          state.familyRoom.familyMembers as IUser[]
+        ).map<IUser>((member) => {
+          if (member._id === userId) {
+            member.tasks.push(newTask);
+          }
+          return member;
+        });
+      }
     },
     setFamilyRoom(state, { payload: familyRoom }) {
       state.familyRoom = familyRoom;

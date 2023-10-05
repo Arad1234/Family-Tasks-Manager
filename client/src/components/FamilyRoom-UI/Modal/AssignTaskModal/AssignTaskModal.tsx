@@ -1,16 +1,16 @@
 import { Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { addTaskSocket } from "../../../../socket/FamilyRoom/EventEmitters";
-import { IMember, IRoom } from "../../../../types";
+import { IRoom, IUser } from "../../../../types";
 import ModalButton from "../../../Modal-Common/ModalButton";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
 import ModalInputs from "./ModalInputs";
 
 const AssignTaskModal = () => {
-  const { memberForAssignTask } = useAppSelector(
-    (state) => state.membersReducer
+  const memberForAssignTask = useAppSelector(
+    (state) => state.membersReducer.memberForAssignTask
   );
-  const { currentRoom } = useAppSelector((state) => state.roomsReducer);
+  const familyRoom = useAppSelector((state) => state.roomsReducer.familyRoom);
   const { name, description, startTime, endTime } = useAppSelector(
     (state) => state.createTaskReducer
   );
@@ -20,8 +20,8 @@ const AssignTaskModal = () => {
   const handleAddTask = () => {
     if ((startTime && endTime) || (!startTime && !endTime)) {
       addTaskSocket(dispatch, {
-        memberId: (memberForAssignTask as IMember).userId,
-        roomId: (currentRoom as IRoom)._id,
+        userId: (memberForAssignTask as IUser)._id,
+        roomId: (familyRoom as IRoom)._id,
         name,
         description,
         startTime,

@@ -5,7 +5,7 @@ import ExitIcon from "./ExitIcon";
 import MenuModal from "./MenuModal";
 import variables from "../../../sass/variables.module.scss";
 import { getMemberRoomsSocket } from "../../../socket/FamilyRoom/EventEmitters";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { useAppSelector } from "../../../redux/hooks";
 
 interface Props {
   children: React.ReactNode;
@@ -15,10 +15,9 @@ interface Props {
 const RoomHeader = ({ children, setOption }: Props) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const userId = useAppSelector((state) => state.authReducer.userId);
-  const dispatch = useAppDispatch();
 
   const handleOpenMenu = (e: React.MouseEvent<HTMLElement>) => {
-    getMemberRoomsSocket(dispatch, userId);
+    getMemberRoomsSocket(userId);
     setAnchorEl(e.currentTarget);
   };
 

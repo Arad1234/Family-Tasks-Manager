@@ -24,7 +24,7 @@ export interface IUser {
   username: string;
   tasks: ITask[];
   email: string;
-  _id?: string;
+  _id: string;
 }
 
 export interface IRoom {
@@ -48,7 +48,7 @@ export interface JoinRoomData {
 }
 
 export interface AddTaskData {
-  memberId: string;
+  userId: string;
   roomId: string;
   name: string;
   description: string;

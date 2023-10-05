@@ -4,7 +4,7 @@ import WelcomeTitle from "../../components/FamilyRoom-UI/WelcomeTitle/WelcomeTit
 import RoomHeader from "../../components/FamilyRoom-UI/RoomHeader/RoomHeader";
 import RoomOptions from "../../components/FamilyRoom-UI/RoomOptions/RoomOptions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import AllTasks from "../../components/FamilyRoom-UI/Tasks/AllTasks";
+import AllTasks from "../../components/FamilyRoom-UI/YourTasks/AllTasks";
 import { useEffect, useState } from "react";
 import AllMembers from "../../components/FamilyRoom-UI/Members/AllMembers";
 import { familyRoomListeners } from "../../socket/FamilyRoom/Listeners";
@@ -31,10 +31,12 @@ const FamilyRoom = () => {
   const session = useSession();
   const [option, setOption] = useState<"tasks" | "members">("tasks");
 
-  const { memberForTasks } = useAppSelector((state) => state.membersReducer);
-  const { loading } = useAppSelector((state) => state.authReducer);
-  const { familyRoom } = useAppSelector((state) => state.roomsReducer);
-  const { modalStatus } = useAppSelector((state) => state.modalReducer);
+  const memberForTasks = useAppSelector(
+    (state) => state.membersReducer.memberForTasks
+  );
+  const loading = useAppSelector((state) => state.authReducer.loading);
+  const familyRoom = useAppSelector((state) => state.roomsReducer.familyRoom);
+  const modalStatus = useAppSelector((state) => state.modalReducer.modalStatus);
 
   useEffect(() => {
     familyRoomListeners(socket, dispatch);
@@ -55,7 +57,9 @@ const FamilyRoom = () => {
     }
   }, [session?.provider_token]);
 
-  return (
+  return !familyRoom ? (
+    <Loader height="60vh" />
+  ) : (
     <>
       <RoomHeader setOption={setOption}>{familyRoom?.roomName}</RoomHeader>
 

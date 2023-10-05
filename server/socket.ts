@@ -1,11 +1,11 @@
 import { Server, Socket } from "socket.io";
 import http from "http";
 import { Application } from "express";
-import { roomHandler } from "./src/controllers/room.controller";
+import { roomsHandler } from "./src/controllers/rooms.controller";
 import { verifyToken } from "./src/middlewares/socket/verifyToken";
 import { taskHandler } from "./src/controllers/task.controller";
 import { socketValidationSchema } from "./src/middlewares/socket/socketValidationSchema";
-import { memberHandler } from "./src/controllers/member.controller";
+import { familyRoomHandler } from "./src/controllers/familyRoom.controller";
 import { sanitizeData } from "./src/middlewares/socket/sanitizeData";
 import { zodErrorHandler } from "./src/utils/socket/errorHandlers/zodErrorHandler";
 
@@ -27,8 +27,8 @@ export const connectSocketServer = (app: Application) => {
     // Sanitize incoming data against NoSql query injection for every request.
     socket.use(sanitizeData);
 
-    roomHandler(io, socket);
-    memberHandler(io, socket);
+    roomsHandler(io, socket);
+    familyRoomHandler(io, socket);
     taskHandler(io, socket);
 
     zodErrorHandler(socket);
