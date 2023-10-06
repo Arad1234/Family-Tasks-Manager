@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { Typography } from "@mui/material";
 import { deleteRoomSocket } from "../../../../socket/Rooms/EventEmitters";
 import DeleteModalButtons from "../../../Modal-Common/DeleteModalButtons";
-import { hideModal } from "../../../../utils/helpers/hideModal";
+import { setHideModal } from "../../../../redux/slices/Modal/modal-slice";
 
 const DeleteRoomModal = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +20,7 @@ const DeleteRoomModal = () => {
       </Typography>
       <DeleteModalButtons
         handleDelete={handleDeleteRoom}
-        handleCancel={() => hideModal(dispatch)}
+        handleCancel={() => dispatch(setHideModal())}
         buttonOption={"Delete"}
       />
     </ModalComponent>

@@ -2,8 +2,8 @@ import { Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
 import DeleteModalButtons from "../../../Modal-Common/DeleteModalButtons";
-import { hideModal } from "../../../../utils/helpers/hideModal";
 import { deleteMemberSocket } from "../../../../socket/FamilyRoom/EventEmitters";
+import { setHideModal } from "../../../../redux/slices/Modal/modal-slice";
 
 const LeaveRoomModal = () => {
   const dispatch = useAppDispatch();
@@ -13,6 +13,7 @@ const LeaveRoomModal = () => {
   const selectedRoom = useAppSelector(
     (state) => state.roomsReducer.selectedRoom
   );
+
   const handleLeaveRoom = () => {
     if (memberForDelete && selectedRoom) {
       deleteMemberSocket(dispatch, memberForDelete as string, selectedRoom._id);
@@ -26,7 +27,7 @@ const LeaveRoomModal = () => {
       </Typography>
       <DeleteModalButtons
         handleDelete={handleLeaveRoom}
-        handleCancel={() => hideModal(dispatch)}
+        handleCancel={() => dispatch(setHideModal())}
         buttonOption={"Leave"}
       />
     </ModalComponent>

@@ -41,6 +41,11 @@ export interface RoomCreationData {
   roomPassword: string;
   maxMembers: number | null;
 }
+export interface CreateRoomFormModal {
+  roomName: string;
+  maxMembers: number | null;
+  roomPassword: string;
+}
 
 export interface JoinRoomData {
   roomId: string;
@@ -51,11 +56,14 @@ export interface AddTaskData {
   userId: string;
   roomId: string;
   name: string;
-  description: string;
-  startTime: Date | null;
-  endTime: Date | null;
+  description?: string;
+  startTime?: Date;
+  endTime?: Date;
 }
 
+export type CreateTaskFormModal = Omit<AddTaskData, "userId" | "roomId">;
+
+// Google calendar
 type ExtendedProperties = { private: { taskCreatedAt: string } };
 
 export interface GoogleCalendarEventCreation {

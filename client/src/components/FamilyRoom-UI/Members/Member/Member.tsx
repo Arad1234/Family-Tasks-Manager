@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { IUser } from "../../../../types";
+import { IRoom, IUser } from "../../../../types";
 import { useAppSelector } from "../../../../redux/hooks";
 import AddTaskPlusIcon from "./AddTaskPlusIcon";
 import TasksButton from "./TasksButton";
@@ -11,10 +11,13 @@ interface Props {
 }
 
 const Member = ({ member }: Props) => {
-  const familyRoom = useAppSelector((state) => state.roomsReducer.familyRoom);
+  const familyRoom = useAppSelector(
+    (state) => state.familyRoomReducer.familyRoom as IRoom
+  );
+
   const userId = useAppSelector((state) => state.authReducer.userId);
 
-  const isRoomCreator = familyRoom?.creator.userId === userId;
+  const isRoomCreator = familyRoom.creator.userId === userId;
 
   // If the user is the room creator AND it is not himself (cannot delete himself).
   const canDeleteMember = isRoomCreator && member.userId !== userId;

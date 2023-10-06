@@ -4,6 +4,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 interface Props {
   height?: string;
 }
+
 const Loader = ({ height }: Props) => {
   return (
     <Box

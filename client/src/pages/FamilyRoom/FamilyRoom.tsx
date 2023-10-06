@@ -35,7 +35,7 @@ const FamilyRoom = () => {
     (state) => state.membersReducer.memberForTasks
   );
   const loading = useAppSelector((state) => state.authReducer.loading);
-  const familyRoom = useAppSelector((state) => state.roomsReducer.familyRoom);
+  const familyRoom = useAppSelector((state) => state.familyRoomReducer.familyRoom);
   const modalStatus = useAppSelector((state) => state.modalReducer.modalStatus);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const FamilyRoom = () => {
   }, [session?.provider_token]);
 
   return !familyRoom ? (
-    <Loader height="60vh" />
+    <Loader />
   ) : (
     <>
       <RoomHeader setOption={setOption}>{familyRoom?.roomName}</RoomHeader>

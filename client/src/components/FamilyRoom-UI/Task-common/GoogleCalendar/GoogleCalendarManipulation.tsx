@@ -4,7 +4,7 @@ import { formatDate } from "../../../../utils/helpers/formatDate";
 import { createGoogleCalendarEvent } from "../../../../supabase/Api";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { setEventToDelete } from "../../../../redux/slices/CalendarEvents/CalendarEvents";
-import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
+import { setOpenModal } from "../../../../redux/slices/Modal/modal-slice";
 import GoogleCalendarButton from "./Button";
 import { useMemo } from "react";
 import { Typography } from "@mui/material";
@@ -51,9 +51,7 @@ const GoogleCalendarManipulation = ({ task }: Props) => {
 
   const showDeleteEventModal = () => {
     dispatch(setEventToDelete(task.createdAt));
-    dispatch(
-      setShowModal({ isOpen: true, modalStatus: "deleteCalendarEvent" })
-    );
+    dispatch(setOpenModal("deleteCalendarEvent"));
   };
 
   return session?.provider_token ? (

@@ -1,10 +1,10 @@
 import { Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { hideModal } from "../../../../utils/helpers/hideModal";
 import DeleteModalButtons from "../../../Modal-Common/DeleteModalButtons";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
 import { deleteMemberSocket } from "../../../../socket/FamilyRoom/EventEmitters";
 import { IUser } from "../../../../types";
+import { setHideModal } from "../../../../redux/slices/Modal/modal-slice";
 
 const DeleteMemberModal = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +22,7 @@ const DeleteMemberModal = () => {
   };
 
   const handleCancel = () => {
-    hideModal(dispatch);
+    dispatch(setHideModal());
   };
 
   return (

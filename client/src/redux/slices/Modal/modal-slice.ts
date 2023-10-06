@@ -4,21 +4,28 @@ interface InitialState {
   isOpen: boolean;
   modalStatus: string;
 }
+
 const initialState: InitialState = {
   isOpen: false,
   modalStatus: "",
 };
+
 const modalSlice = createSlice({
   name: "modal",
   initialState,
   reducers: {
-    setShowModal(state, { payload }) {
-      state.isOpen = payload.isOpen;
-      state.modalStatus = payload.modalStatus;
+    setOpenModal(state, { payload }) {
+      state.isOpen = true;
+      state.modalStatus = payload;
+    },
+
+    setHideModal(state) {
+      state.isOpen = false;
+      state.modalStatus = "";
     },
   },
 });
 
-export const { setShowModal } = modalSlice.actions;
+export const { setOpenModal, setHideModal } = modalSlice.actions;
 
 export default modalSlice.reducer;

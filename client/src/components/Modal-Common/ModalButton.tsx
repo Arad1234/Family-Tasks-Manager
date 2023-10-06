@@ -7,8 +7,9 @@ type Props = {
 const ModalButton = ({ children, ...props }: Props) => (
   <Button
     {...props}
-    sx={{ fontSize: "20px", fontFamily: "system-ui" }}
+    type="submit"
     variant="contained"
+    sx={{ fontSize: "20px", fontFamily: "system-ui", marginTop: "8px" }}
   >
     {children}
   </Button>

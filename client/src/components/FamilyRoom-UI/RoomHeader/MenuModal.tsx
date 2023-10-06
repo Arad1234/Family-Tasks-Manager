@@ -10,7 +10,7 @@ interface Props {
 const MenuModal = ({ anchorEl, setAnchorEl }: Props) => {
   const open = Boolean(anchorEl);
   const currentUserRooms = useAppSelector(
-    (state) => state.roomsReducer.currentUserRooms
+    (state) => state.familyRoomReducer.currentUserRooms
   );
 
   const handleClose = () => {

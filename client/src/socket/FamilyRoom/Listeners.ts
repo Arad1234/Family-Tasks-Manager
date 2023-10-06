@@ -5,24 +5,25 @@ import {
   setAddTask,
   setFamilyRoom,
   setCurrentUserRooms,
-} from "../../redux/slices/Rooms/rooms-slice";
-import { resetTaskDetails } from "../../redux/slices/FamilyRoom/createTask-slice";
-import { hideModal } from "../../utils/helpers/hideModal";
+} from "../../redux/slices/FamilyRoom/familyRoom-slice";
 import { toast } from "react-toastify";
+import { setHideModal } from "../../redux/slices/Modal/modal-slice";
 
 export const familyRoomListeners = (socket: Socket, dispatch: AppDispatch) => {
   socket.on("taskCreated", (data) => {
     const { newTask, userId } = data;
-    console.log(newTask, userId);
+
     dispatch(setAddTask({ newTask, userId }));
-    hideModal(dispatch);
-    dispatch(resetTaskDetails());
+
+    dispatch(setHideModal());
+
     dispatch(setLoading(false));
     toast.success("Task Created Successfully!");
   });
 
   socket.on("recievedMemberRooms", (data) => {
     const rooms = data;
+
     dispatch(setCurrentUserRooms(rooms));
     dispatch(setLoading(false));
   });

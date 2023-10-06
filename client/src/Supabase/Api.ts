@@ -7,22 +7,21 @@ import {
   setDeleteGoogleEvent,
   setEventsIdAndCreatedAt,
 } from "../redux/slices/CalendarEvents/CalendarEvents";
-import { hideModal } from "../utils/helpers/hideModal";
 import { toast } from "react-toastify";
+import { setHideModal } from "../redux/slices/Modal/modal-slice";
 
 export const fetchGoogleCalendarEvents = async (
   session: Session,
   dispatch: AppDispatch
 ) => {
   try {
-    const response = await fetch(`${googleCalendarBaseURL}/primary/events`, {
+    const response = await fetch(`${googleCalendarBaseURL}/events`, {
       headers: {
         Authorization: `Bearer ${session?.provider_token}`,
       },
     });
     const data = await response.json();
-    console.log(data.items);
-    console.log(data);
+
     dispatch(setEventsIdAndCreatedAt(data.items));
   } catch (error) {
     console.log(error);
@@ -35,13 +34,14 @@ export const createGoogleCalendarEvent = async (
   dispatch: AppDispatch
 ) => {
   try {
-    const response = await fetch(`${googleCalendarBaseURL}/primary/events`, {
+    const response = await fetch(`${googleCalendarBaseURL}/events`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${session?.provider_token}`,
       },
       body: JSON.stringify(event),
     });
+
     const data = await response.json();
     if (data.error) {
       console.log(data.error);
@@ -69,13 +69,13 @@ export const deleteGoogleCalendarEvent = async (
   dispatch: AppDispatch
 ) => {
   try {
-    await fetch(`${googleCalendarBaseURL}/primary/events/${eventToDeleteId}`, {
+    await fetch(`${googleCalendarBaseURL}/events/${eventToDeleteId}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${session?.provider_token}` },
     });
 
     dispatch(setDeleteGoogleEvent(eventToDeleteId));
-    hideModal(dispatch);
+    dispatch(setHideModal());
     toast.success("Event Deleted!");
   } catch (error) {
     console.log(error);

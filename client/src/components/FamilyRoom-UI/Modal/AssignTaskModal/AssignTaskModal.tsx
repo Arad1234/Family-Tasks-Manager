@@ -1,35 +1,58 @@
 import { Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { addTaskSocket } from "../../../../socket/FamilyRoom/EventEmitters";
-import { IRoom, IUser } from "../../../../types";
-import ModalButton from "../../../Modal-Common/ModalButton";
+import { CreateTaskFormModal, IRoom, IUser } from "../../../../types";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
-import ModalInputs from "./ModalInputs";
+import ModalForm from "./ModalForm";
+import { ObjectSchema, date, object, string } from "yup";
 
 const AssignTaskModal = () => {
   const memberForAssignTask = useAppSelector(
     (state) => state.membersReducer.memberForAssignTask
   );
-  const familyRoom = useAppSelector((state) => state.roomsReducer.familyRoom);
-  const { name, description, startTime, endTime } = useAppSelector(
-    (state) => state.createTaskReducer
+  const familyRoom = useAppSelector(
+    (state) => state.familyRoomReducer.familyRoom
   );
 
   const dispatch = useAppDispatch();
 
-  const handleAddTask = () => {
-    if ((startTime && endTime) || (!startTime && !endTime)) {
-      addTaskSocket(dispatch, {
-        userId: (memberForAssignTask as IUser)._id,
-        roomId: (familyRoom as IRoom)._id,
-        name,
-        description,
-        startTime,
-        endTime,
-      });
-    } else if (startTime) {
-      alert("End time must be provided!");
-    }
+  const formInitialValues = {
+    name: "",
+    description: "",
+    startTime: undefined,
+    endTime: undefined,
+  };
+
+  const formValidationSchema: ObjectSchema<CreateTaskFormModal> = object({
+    name: string()
+      .required("Required Field")
+      .min(5, "Must be between 5 to 20 chars")
+      .max(20, "Must be between 5 to 20 chars"),
+    description: string().optional(),
+
+    startTime: date().optional(),
+    endTime: date()
+      .optional()
+      .test("end-time-condition", "End Time is required", function (value) {
+        const { startTime } = this.parent;
+        return startTime && !value ? false : true;
+      }),
+  });
+
+  const formHandleSubmit = ({
+    description,
+    endTime,
+    name,
+    startTime,
+  }: CreateTaskFormModal) => {
+    addTaskSocket(dispatch, {
+      userId: (memberForAssignTask as IUser)._id,
+      roomId: (familyRoom as IRoom)._id,
+      name,
+      description,
+      startTime,
+      endTime,
+    });
   };
 
   return (
@@ -43,8 +66,11 @@ const AssignTaskModal = () => {
           {memberForAssignTask?.username}
         </Typography>
       </Typography>
-      <ModalInputs />
-      <ModalButton onClick={handleAddTask}>Add Task</ModalButton>
+      <ModalForm
+        formHandleSubmit={formHandleSubmit}
+        formInitialValues={formInitialValues}
+        formValidationSchema={formValidationSchema}
+      />
     </ModalComponent>
   );
 };

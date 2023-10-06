@@ -1,19 +1,21 @@
 import { Box, Typography } from "@mui/material";
 import { useAppSelector } from "../../../redux/hooks";
 import Task from "../Task-common/Task";
-import { IUser } from "../../../types";
+import { IRoom, IUser } from "../../../types";
 import AddTaskButton from "./AddTaskButton";
 import { useMemo } from "react";
 
 const AllTasks = () => {
-  const familyRoom = useAppSelector((state) => state.roomsReducer.familyRoom);
+  const familyRoom = useAppSelector(
+    (state) => state.familyRoomReducer.familyRoom as IRoom
+  );
   const userId = useAppSelector((state) => state.authReducer.userId);
 
   const currentMember = useMemo(() => {
-    return familyRoom?.familyMembers.find((member) => {
+    return familyRoom.familyMembers.find((member) => {
       return (member as IUser)._id === userId;
     });
-  }, [familyRoom?.familyMembers]); // When familyMembers changed it means that a task is added to one of the familyMembers or something happen with the members (deleted/added), so I need to reflect the changes.
+  }, [familyRoom.familyMembers]); // When familyMembers changed it means that a task is added to one of the familyMembers or something happen with the members (deleted/added), so I need to reflect the changes.
 
   const currentMemberAsTypeUser = currentMember as IUser;
 

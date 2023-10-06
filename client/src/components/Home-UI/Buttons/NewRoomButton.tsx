@@ -1,12 +1,12 @@
 import { Button } from "@mui/material";
 import { useAppDispatch } from "../../../redux/hooks";
-import { setShowModal } from "../../../redux/slices/Modal/modal-slice";
+import { setOpenModal } from "../../../redux/slices/Modal/modal-slice";
 import variables from "../../../sass/variables.module.scss";
 
 const NewRoomButton = () => {
   const dispatch = useAppDispatch();
   const handleOpenCreateModal = () => {
-    dispatch(setShowModal({ isOpen: true, modalStatus: "create" }));
+    dispatch(setOpenModal("create"));
   };
 
   return (

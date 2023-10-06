@@ -4,7 +4,9 @@ import Member from "./Member/Member";
 import { IRoom, IUser } from "../../../types";
 
 const AllMembers = () => {
-  const familyRoom = useAppSelector((state) => state.roomsReducer.familyRoom);
+  const familyRoom = useAppSelector(
+    (state) => state.familyRoomReducer.familyRoom
+  );
   const userId = useAppSelector((state) => state.authReducer.userId);
 
   const { familyMembers } = familyRoom as IRoom;

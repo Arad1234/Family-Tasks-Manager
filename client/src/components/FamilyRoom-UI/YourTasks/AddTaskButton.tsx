@@ -3,7 +3,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { useAppDispatch } from "../../../redux/hooks";
 import { setMemberForAssignTask } from "../../../redux/slices/FamilyRoom/members-slice";
 import { IUser } from "../../../types";
-import { setShowModal } from "../../../redux/slices/Modal/modal-slice";
+import { setOpenModal } from "../../../redux/slices/Modal/modal-slice";
 
 interface Props {
   currentMember: IUser;
@@ -14,7 +14,7 @@ const AddTaskButton = ({ currentMember }: Props) => {
 
   const handleOpenAssignTaskModal = () => {
     dispatch(setMemberForAssignTask(currentMember));
-    dispatch(setShowModal({ isOpen: true, modalStatus: "assignTask" }));
+    dispatch(setOpenModal("assignTask"));
   };
 
   return (

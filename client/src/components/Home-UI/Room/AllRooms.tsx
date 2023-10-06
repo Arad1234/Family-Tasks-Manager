@@ -8,11 +8,10 @@ interface Props {
 }
 
 const AllRooms = ({ searchQuery }: Props) => {
-  const { rooms } = useAppSelector((state) => state.roomsReducer);
+  const rooms = useAppSelector((state) => state.roomsReducer.rooms);
 
   const filteredRooms = useMemo(() => {
     return rooms.filter((room) => {
-      console.log("room", room);
       return room.roomName.includes(searchQuery);
     });
   }, [rooms, searchQuery]);

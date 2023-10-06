@@ -4,7 +4,9 @@ import { setMemberForTasks } from "../../../../redux/slices/FamilyRoom/members-s
 
 const Header = () => {
   const dispatch = useAppDispatch();
-  const { memberForTasks } = useAppSelector((state) => state.membersReducer);
+  const memberForTasks = useAppSelector(
+    (state) => state.membersReducer.memberForTasks
+  );
 
   const handleGoBack = () => {
     dispatch(setMemberForTasks(null));

@@ -10,11 +10,11 @@ export const createTaskSchema = object({
 
   // Transform the time from string to date.
   startTime: string()
-    .nullable()
+    .optional()
     .transform((arg) => arg && new Date(arg)),
 
   endTime: string()
-    .nullable()
+    .optional()
     .transform((arg) => arg && new Date(arg)),
 
   userId: string({ required_error: "userId is required!" }),
@@ -22,7 +22,7 @@ export const createTaskSchema = object({
   roomId: string({ required_error: "roomId is required!" }),
 }).refine(
   (schema) =>
-    schema.startTime !== null && schema.endTime !== null
+    schema.startTime && schema.endTime
       ? schema.startTime <= schema.endTime
       : true,
   {

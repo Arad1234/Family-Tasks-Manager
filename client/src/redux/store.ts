@@ -11,20 +11,15 @@ import {
 import roomsSliceReducer from "./slices/Rooms/rooms-slice";
 import persistedAuthReducer from "./slices/Auth/auth-slice";
 import modalSliceReducer from "./slices/Modal/modal-slice";
-import createRoomSliceReducer from "./slices/Rooms/createRoom-slice";
-import joinRoomSliceReducer from "./slices/Rooms/joinRoom-slice";
-import createTaskSliceReducer from "./slices/FamilyRoom/createTask-slice";
 import calendarEventsSliceReducer from "./slices/CalendarEvents/CalendarEvents";
 import membersSliceReducer from "./slices/FamilyRoom/members-slice";
-
+import familyRoomSliceReducer from "./slices/FamilyRoom/familyRoom-slice";
 export const store = configureStore({
   reducer: {
     authReducer: persistedAuthReducer,
     roomsReducer: roomsSliceReducer,
+    familyRoomReducer: familyRoomSliceReducer,
     modalReducer: modalSliceReducer,
-    createRoomReducer: createRoomSliceReducer,
-    joinRoomReducer: joinRoomSliceReducer,
-    createTaskReducer: createTaskSliceReducer,
     calendarEventsReducer: calendarEventsSliceReducer,
     membersReducer: membersSliceReducer,
   },
