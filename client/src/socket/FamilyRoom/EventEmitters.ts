@@ -18,10 +18,11 @@ export const getCurrentRoomSocket = (
 export const deleteMemberSocket = (
   dispatch: AppDispatch,
   memberId: string,
-  roomId: string
+  roomId: string,
+  source: "admin" | "self"
 ) => {
   dispatch(setLoading(true));
-  socket.emit("members:delete", { memberId, roomId });
+  socket.emit("members:delete", { memberId, roomId, source });
 };
 
 export const addTaskSocket = (

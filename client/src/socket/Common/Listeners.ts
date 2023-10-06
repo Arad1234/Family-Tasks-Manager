@@ -3,10 +3,18 @@ import { AppDispatch } from "../../redux/store";
 import { setJoinRoom } from "../../redux/slices/Rooms/rooms-slice";
 import { setLoading } from "../../redux/slices/Auth/auth-slice";
 import { toast } from "react-toastify";
-import { setDeleteMember } from "../../redux/slices/FamilyRoom/familyRoom-slice";
+import {
+  setDeleteMember,
+  setFamilyRoom,
+} from "../../redux/slices/FamilyRoom/familyRoom-slice";
 import { setHideModal } from "../../redux/slices/Modal/modal-slice";
+import { NavigateFunction } from "react-router-dom";
 
-export const commonListeners = (socket: Socket, dispatch: AppDispatch) => {
+export const commonListeners = (
+  socket: Socket,
+  dispatch: AppDispatch,
+  navigate?: NavigateFunction
+) => {
   socket.on("joinedRoom", (data) => {
     const { roomId, username, userId } = data;
 
@@ -14,15 +22,36 @@ export const commonListeners = (socket: Socket, dispatch: AppDispatch) => {
     dispatch(setHideModal());
 
     dispatch(setLoading(false));
-    toast.success("Joined Room!");
+    toast.success(`${username} Joined Room!`);
   });
 
-  socket.on("memberDeleted", (data) => {
+  socket.on("userLeftRoom", (data) => {
     const memberId = data;
+    dispatch(setFamilyRoom(null));
 
     dispatch(setDeleteMember({ memberIdToDelete: memberId }));
     dispatch(setHideModal());
     dispatch(setLoading(false));
+
+    if (navigate) {
+      navigate("/home");
+    }
+
+    toast.success("Left Room Successfully!");
+  });
+
+  socket.on("memberDeletedByAdmin", (data) => {
+    const memberId = data;
+    dispatch(setFamilyRoom(null));
+
+    dispatch(setDeleteMember({ memberIdToDelete: memberId }));
+    dispatch(setHideModal());
+    dispatch(setLoading(false));
+
+    if (navigate) {
+      navigate("/home");
+    }
+
     toast.success("Member Deleted Successfully!");
   });
 };

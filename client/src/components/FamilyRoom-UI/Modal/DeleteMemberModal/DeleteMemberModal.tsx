@@ -11,13 +11,20 @@ const DeleteMemberModal = () => {
   const memberForDelete = useAppSelector(
     (state) => state.membersReducer.memberForDelete
   );
-  const familyRoom = useAppSelector((state) => state.roomsReducer.familyRoom);
+  const familyRoom = useAppSelector(
+    (state) => state.familyRoomReducer.familyRoom
+  );
 
   const memberAsTypeUser = memberForDelete as IUser;
 
   const handleDeleteMember = () => {
     if (memberAsTypeUser && familyRoom) {
-      deleteMemberSocket(dispatch, memberAsTypeUser._id, familyRoom._id);
+      deleteMemberSocket(
+        dispatch,
+        memberAsTypeUser._id,
+        familyRoom._id,
+        "admin"
+      );
     }
   };
 

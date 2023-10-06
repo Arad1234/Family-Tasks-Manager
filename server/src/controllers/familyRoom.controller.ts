@@ -11,13 +11,17 @@ export const familyRoomHandler = (io: Server, socket: Socket) => {
   const deleteMemberHandler = catchAsyncSocket(async function (
     payload: DeleteMemberSchemaType
   ) {
-    const { memberId, roomId } = payload;
+    const { memberId, roomId, source } = payload;
 
     await deleteMember(payload);
 
-    socket.leave(roomId);
+    if (source === "admin") {
+      io.emit("memberDeletedByAdmin", memberId);
+    } else if (source === "self") {
+      io.emit("userLeftRoom", memberId);
+    }
 
-    io.emit("memberDeleted", memberId);
+    socket.leave(roomId);
   },
   socket);
 

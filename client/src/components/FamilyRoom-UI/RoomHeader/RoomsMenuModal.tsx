@@ -7,7 +7,7 @@ interface Props {
   setAnchorEl: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
 }
 
-const MenuModal = ({ anchorEl, setAnchorEl }: Props) => {
+const RoomsMenuModal = ({ anchorEl, setAnchorEl }: Props) => {
   const open = Boolean(anchorEl);
   const currentUserRooms = useAppSelector(
     (state) => state.familyRoomReducer.currentUserRooms
@@ -38,4 +38,4 @@ const MenuModal = ({ anchorEl, setAnchorEl }: Props) => {
   );
 };
 
-export default MenuModal;
+export default RoomsMenuModal;

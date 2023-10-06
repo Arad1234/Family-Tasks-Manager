@@ -14,7 +14,6 @@ import AllRooms from "../../components/Home-UI/Room/AllRooms";
 import { roomsListeners } from "../../socket/Rooms/Listeners";
 import { errorListeners } from "../../socket/Errors/Listeners";
 import { removeErrorListeners } from "../../socket/Errors/RemoveListeners";
-import LeaveRoomModal from "../../components/Home-UI/Modal/LeaveRoomModal/LeaveRoomModal";
 import { commonListeners } from "../../socket/Common/Listeners";
 import { removeCommonListeners } from "../../socket/Common/RemoveListeners";
 import HomeHeader from "../../components/Home-UI/Header/HomeHeader";
@@ -56,7 +55,6 @@ const Home = () => {
       {modalStatus === "create" && <CreateRoomModal />}
       {modalStatus === "join" && <JoinRoomModal />}
       {modalStatus === "delete" && <DeleteRoomModal />}
-      {modalStatus === "leaveRoom" && <LeaveRoomModal />}
     </>
   );
 };

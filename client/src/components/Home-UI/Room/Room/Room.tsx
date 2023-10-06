@@ -4,7 +4,6 @@ import DeleteButton from "./DeleteButton/DeleteButton";
 import { IRoom } from "../../../../types/index";
 import ExploreButton from "./ExploreButton";
 import RoomName from "./RoomName";
-import LeaveButton from "./LeaveButton";
 import { useMemo } from "react";
 import variables from "../../../../sass/variables.module.scss";
 import { useAppSelector } from "../../../../redux/hooks";
@@ -65,12 +64,6 @@ const Room = ({ room }: Props) => {
         {memberId ? (
           <Box sx={{ display: "flex", gap: "80px" }}>
             <ExploreButton roomId={room._id} />
-            {!isRoomCreator && (
-              <LeaveButton
-                room={room}
-                memberId={memberId as string}
-              />
-            )}
           </Box>
         ) : isRoomFull ? (
           <Typography sx={{ fontWeight: "600", color: "rgb(200, 100, 0)" }}>

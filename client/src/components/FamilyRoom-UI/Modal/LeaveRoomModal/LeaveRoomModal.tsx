@@ -4,26 +4,25 @@ import ModalComponent from "../../../Modal-Common/ModalComponent";
 import DeleteModalButtons from "../../../Modal-Common/DeleteModalButtons";
 import { deleteMemberSocket } from "../../../../socket/FamilyRoom/EventEmitters";
 import { setHideModal } from "../../../../redux/slices/Modal/modal-slice";
+import { IRoom } from "../../../../types";
 
 const LeaveRoomModal = () => {
   const dispatch = useAppDispatch();
   const memberForDelete = useAppSelector(
-    (state) => state.membersReducer.memberForDelete
+    (state) => state.membersReducer.memberForDelete as string
   );
-  const selectedRoom = useAppSelector(
-    (state) => state.roomsReducer.selectedRoom
+  const familyRoom = useAppSelector(
+    (state) => state.familyRoomReducer.familyRoom as IRoom
   );
 
   const handleLeaveRoom = () => {
-    if (memberForDelete && selectedRoom) {
-      deleteMemberSocket(dispatch, memberForDelete as string, selectedRoom._id);
-    }
+    deleteMemberSocket(dispatch, memberForDelete, familyRoom._id, "self");
   };
 
   return (
     <ModalComponent>
       <Typography>
-        Are you sure you want to leave "{selectedRoom?.roomName}" room?
+        Are you sure you want to leave "{familyRoom.roomName}" room?
       </Typography>
       <DeleteModalButtons
         handleDelete={handleLeaveRoom}

@@ -23,6 +23,7 @@ import { commonListeners } from "../../socket/Common/Listeners";
 import { removeCommonListeners } from "../../socket/Common/RemoveListeners";
 import variables from "../../sass/variables.module.scss";
 import { getCurrentRoomSocket } from "../../socket/FamilyRoom/EventEmitters";
+import LeaveRoomModal from "../../components/FamilyRoom-UI/Modal/LeaveRoomModal/LeaveRoomModal";
 
 const FamilyRoom = () => {
   const { roomId } = useParams();
@@ -35,12 +36,14 @@ const FamilyRoom = () => {
     (state) => state.membersReducer.memberForTasks
   );
   const loading = useAppSelector((state) => state.authReducer.loading);
-  const familyRoom = useAppSelector((state) => state.familyRoomReducer.familyRoom);
+  const familyRoom = useAppSelector(
+    (state) => state.familyRoomReducer.familyRoom
+  );
   const modalStatus = useAppSelector((state) => state.modalReducer.modalStatus);
 
   useEffect(() => {
     familyRoomListeners(socket, dispatch);
-    commonListeners(socket, dispatch);
+    commonListeners(socket, dispatch, navigate);
     errorListeners(socket, navigate, dispatch);
     getCurrentRoomSocket(dispatch, roomId);
 
@@ -57,11 +60,11 @@ const FamilyRoom = () => {
     }
   }, [session?.provider_token]);
 
-  return !familyRoom ? (
+  return !familyRoom || loading ? (
     <Loader />
   ) : (
     <>
-      <RoomHeader setOption={setOption}>{familyRoom?.roomName}</RoomHeader>
+      <RoomHeader />
 
       <Box
         sx={{
@@ -79,6 +82,7 @@ const FamilyRoom = () => {
       {modalStatus === "deleteCalendarEvent" && <DeleteEventModal />}
       {modalStatus === "deleteMember" && <DeleteMemberModal />}
       {modalStatus === "assignTask" && <AssignTaskModal />}
+      {modalStatus === "leaveRoom" && <LeaveRoomModal />}
 
       {loading || !session ? (
         <Loader height="65vh" />

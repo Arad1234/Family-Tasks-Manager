@@ -1,19 +1,16 @@
-import { AiOutlineCaretDown } from "react-icons/ai";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import React, { useState } from "react";
-import ExitIcon from "./ExitIcon";
-import MenuModal from "./MenuModal";
+import RoomsMenuModal from "./RoomsMenuModal";
 import variables from "../../../sass/variables.module.scss";
 import { getMemberRoomsSocket } from "../../../socket/FamilyRoom/EventEmitters";
 import { useAppSelector } from "../../../redux/hooks";
+import RoomName from "./RoomName";
+import BurgerIcon from "../../BurgerMenu/BurgerIcon";
+import BurgerMenu from "../../BurgerMenu/BurgerMenu";
 
-interface Props {
-  children: React.ReactNode;
-  setOption: React.Dispatch<React.SetStateAction<"tasks" | "members">>;
-}
-
-const RoomHeader = ({ children, setOption }: Props) => {
+const RoomHeader = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [showBurgerMenu, setShowBurgerMenu] = useState<boolean>(false);
   const userId = useAppSelector((state) => state.authReducer.userId);
 
   const handleOpenMenu = (e: React.MouseEvent<HTMLElement>) => {
@@ -23,31 +20,26 @@ const RoomHeader = ({ children, setOption }: Props) => {
 
   return (
     <Box
+      component={"nav"}
       sx={{
+        position: "relative",
         backgroundColor: variables.secondaryColor,
         boxShadow: "3",
         color: "white",
+        display: "flex",
+        justifyContent: "center",
       }}
     >
-      <ExitIcon setOption={setOption} />
+      <RoomName handleOpenMenu={handleOpenMenu} />
 
-      <Box
-        onClick={handleOpenMenu}
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "10px",
-          gap: "13px",
-        }}
-      >
-        <Typography sx={{ fontWeight: 700, fontSize: "40px" }}>
-          {children}
-        </Typography>
-        <AiOutlineCaretDown size={25} />
-      </Box>
+      <BurgerIcon
+        showBurgerMenu={showBurgerMenu}
+        setShowBurgerMenu={setShowBurgerMenu}
+      />
 
-      <MenuModal
+      {showBurgerMenu && <BurgerMenu />}
+
+      <RoomsMenuModal
         anchorEl={anchorEl}
         setAnchorEl={setAnchorEl}
       />

@@ -21,7 +21,7 @@ const familyRoomSlice = createSlice({
     
     setDeleteMember(state, { payload }) {
       const { memberIdToDelete } = payload;
-
+      console.log(memberIdToDelete);
       if (state.familyRoom) {
         state.familyRoom.familyMembers = (
           state.familyRoom.familyMembers as IUser[]

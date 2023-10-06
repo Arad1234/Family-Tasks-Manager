@@ -14,6 +14,7 @@ import modalSliceReducer from "./slices/Modal/modal-slice";
 import calendarEventsSliceReducer from "./slices/CalendarEvents/CalendarEvents";
 import membersSliceReducer from "./slices/FamilyRoom/members-slice";
 import familyRoomSliceReducer from "./slices/FamilyRoom/familyRoom-slice";
+
 export const store = configureStore({
   reducer: {
     authReducer: persistedAuthReducer,
