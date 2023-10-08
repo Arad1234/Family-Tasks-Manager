@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import DeleteModalButtons from "../../../Modal-Common/DeleteModalButtons";
+import YesOrNoModalButtons from "../../../Modal-Common/YesOrNoModalButtons";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
 import { deleteMemberSocket } from "../../../../socket/FamilyRoom/EventEmitters";
 import { IUser } from "../../../../types";
@@ -38,8 +38,8 @@ const DeleteMemberModal = () => {
         Are you sure to want to delete {memberAsTypeUser.username} from family
         members?
       </Typography>
-      <DeleteModalButtons
-        handleDelete={handleDeleteMember}
+      <YesOrNoModalButtons
+        handleOperation={handleDeleteMember}
         handleCancel={handleCancel}
         buttonOption={"Delete"}
       />

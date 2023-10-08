@@ -32,7 +32,7 @@ const Member = ({ member }: Props) => {
         alignItems: "center",
         border: "1px solid gray",
         borderRadius: "5px",
-        height: "20px",
+        height: "7rem",
         margin: "10px 0px 10px 0px",
         width: "80vw",
         padding: "10px",
@@ -51,7 +51,9 @@ const Member = ({ member }: Props) => {
         {canDeleteMember && <DeleteMemberIcon member={member} />}
       </Box>
 
-      <Box sx={{ display: "flex", gap: "40px" }}>
+      <Box
+        sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}
+      >
         <TasksButton member={member} />
         {isRoomCreator && <AddTaskPlusIcon member={member} />}
       </Box>

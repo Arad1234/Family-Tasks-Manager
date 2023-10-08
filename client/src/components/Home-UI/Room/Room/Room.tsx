@@ -21,10 +21,10 @@ const Room = ({ room }: Props) => {
 
   const isRoomFull = familyMembers.length === maxMembers;
 
-  const memberId = useMemo(() => {
+  const isMember = useMemo(() => {
     return familyMembers.find((memberId) => memberId === userId);
   }, [userId, familyMembers]);
-
+  console.log(isMember);
   return (
     <Box
       sx={{
@@ -61,7 +61,7 @@ const Room = ({ room }: Props) => {
           alignItems: "center",
         }}
       >
-        {memberId ? (
+        {isMember ? (
           <Box sx={{ display: "flex", gap: "80px" }}>
             <ExploreButton roomId={room._id} />
           </Box>

@@ -2,7 +2,7 @@ import ModalComponent from "../../../Modal-Common/ModalComponent";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { Typography } from "@mui/material";
 import { deleteRoomSocket } from "../../../../socket/Rooms/EventEmitters";
-import DeleteModalButtons from "../../../Modal-Common/DeleteModalButtons";
+import YesOrNoModalButtons from "../../../Modal-Common/YesOrNoModalButtons";
 import { setHideModal } from "../../../../redux/slices/Modal/modal-slice";
 
 const DeleteRoomModal = () => {
@@ -18,8 +18,9 @@ const DeleteRoomModal = () => {
       <Typography variant="h6">
         Are you sure you want to delete "{selectedRoom?.roomName}" room?
       </Typography>
-      <DeleteModalButtons
-        handleDelete={handleDeleteRoom}
+      <YesOrNoModalButtons
+        width="6rem"
+        handleOperation={handleDeleteRoom}
         handleCancel={() => dispatch(setHideModal())}
         buttonOption={"Delete"}
       />

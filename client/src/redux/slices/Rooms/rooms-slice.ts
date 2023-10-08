@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IRoom } from "../../../types";
+import { IRoom, IUser } from "../../../types";
 
 interface InitialState {
   rooms: IRoom[];
@@ -36,6 +36,21 @@ const roomsSlice = createSlice({
       });
     },
 
+    setLeaveRoom(state, { payload }) {
+      const { roomId, userId } = payload;
+
+      state.rooms = state.rooms.map((room) => {
+        if (room._id === roomId) {
+          room.familyMembers = (room.familyMembers as IUser[]).filter(
+            (memberId) => {
+              return memberId !== userId;
+            }
+          );
+        }
+        return room;
+      });
+    },
+
     setSelectedRoom(state, { payload: room }) {
       state.selectedRoom = room;
     },
@@ -47,6 +62,7 @@ export const {
   setCreateRoom,
   setDeleteRoom,
   setJoinRoom,
+  setLeaveRoom,
   setSelectedRoom,
 } = roomsSlice.actions;
 

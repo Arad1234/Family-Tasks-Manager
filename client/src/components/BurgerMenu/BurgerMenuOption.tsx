@@ -1,13 +1,13 @@
-import { Typography } from "@mui/material";
+import { Typography, TypographyProps } from "@mui/material";
 import { ChildrenProps } from "../../types";
 
 const BurgerMenuOption = ({
   children,
-  onClick,
-}: ChildrenProps & { onClick: () => void }) => {
+  ...props
+}: ChildrenProps & TypographyProps) => {
   return (
     <Typography
-      onClick={onClick}
+      {...props}
       sx={{ fontSize: "23px" }}
     >
       {children}

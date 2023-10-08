@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material";
-import { extractUserFromLocalStorage } from "../../../utils/helpers/LocalStorage/extractUser";
+import { useAppSelector } from "../../../redux/hooks";
 
 const WelcomeTitle = () => {
-  const { parsedUsername: currentUsername } = extractUserFromLocalStorage();
+  const username = useAppSelector((state) => state.authReducer.username);
 
   return (
     <Box
@@ -20,7 +20,7 @@ const WelcomeTitle = () => {
           component="span"
           m={1}
         >
-          {currentUsername}!
+          {username}!
         </Typography>
       </Typography>
     </Box>

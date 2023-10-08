@@ -34,7 +34,6 @@ const LoginFormComponent = ({ formik, loginWithGoogle }: Props) => {
         inputTouched={touched.email}
         inputError={errors.email}
       />
-
       <InputComponent
         label="Password"
         InputLabelProps={inputLabelPropsStyle}

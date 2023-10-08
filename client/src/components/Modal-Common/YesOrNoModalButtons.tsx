@@ -1,27 +1,29 @@
 import { Box, Button } from "@mui/material";
 
 interface Props {
-  handleDelete: () => void;
+  handleOperation: () => void;
   handleCancel: () => void;
   buttonOption: string;
+  width?: string;
 }
 
-const DeleteModalButtons = ({
-  handleDelete,
+const YesOrNoModalButtons = ({
+  handleOperation,
   handleCancel,
   buttonOption,
+  width,
 }: Props) => {
   return (
     <Box sx={{ display: "flex", justifyContent: "space-around" }}>
       <Button
-        sx={{ width: "40%" }}
+        sx={{ width: width ? width : "auto" }}
         variant="contained"
-        onClick={handleDelete}
+        onClick={handleOperation}
       >
         {buttonOption}
       </Button>
       <Button
-        sx={{ width: "40%" }}
+        sx={{ width: width ? width : "auto" }}
         variant="contained"
         onClick={handleCancel}
       >
@@ -31,4 +33,4 @@ const DeleteModalButtons = ({
   );
 };
 
-export default DeleteModalButtons;
+export default YesOrNoModalButtons;

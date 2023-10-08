@@ -84,7 +84,7 @@ const FamilyRoom = () => {
       {modalStatus === "assignTask" && <AssignTaskModal />}
       {modalStatus === "leaveRoom" && <LeaveRoomModal />}
 
-      {loading || !session ? (
+      {loading ? (
         <Loader height="65vh" />
       ) : (
         <Box sx={{ padding: "10px" }}>

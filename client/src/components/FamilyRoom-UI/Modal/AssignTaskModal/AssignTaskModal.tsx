@@ -8,10 +8,10 @@ import { ObjectSchema, date, object, string } from "yup";
 
 const AssignTaskModal = () => {
   const memberForAssignTask = useAppSelector(
-    (state) => state.membersReducer.memberForAssignTask
+    (state) => state.membersReducer.memberForAssignTask as IUser
   );
   const familyRoom = useAppSelector(
-    (state) => state.familyRoomReducer.familyRoom
+    (state) => state.familyRoomReducer.familyRoom as IRoom
   );
 
   const dispatch = useAppDispatch();
@@ -46,8 +46,8 @@ const AssignTaskModal = () => {
     startTime,
   }: CreateTaskFormModal) => {
     addTaskSocket(dispatch, {
-      userId: (memberForAssignTask as IUser)._id,
-      roomId: (familyRoom as IRoom)._id,
+      userId: memberForAssignTask._id,
+      roomId: familyRoom._id,
       name,
       description,
       startTime,

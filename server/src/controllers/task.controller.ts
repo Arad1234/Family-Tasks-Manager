@@ -7,8 +7,10 @@ export const taskHandler = (io: Server, socket: Socket) => {
   const createTaskHandler = catchAsyncSocket(async function (
     payload: createTaskSchemaType
   ) {
+    const { roomId } = payload;
+
     const newTask = await createTask(payload);
-    io.emit("taskCreated", {
+    io.to(String(roomId)).emit("taskCreated", {
       newTask,
       userId: payload.userId,
     });

@@ -4,9 +4,10 @@ import { AiOutlineCaretDown } from "react-icons/ai";
 
 interface Props {
   handleOpenMenu: (e: React.MouseEvent<HTMLElement>) => void;
+  anchorEl: HTMLElement | null;
 }
 
-const RoomName = ({ handleOpenMenu }: Props) => {
+const RoomName = ({ handleOpenMenu, anchorEl }: Props) => {
   const familyRoom = useAppSelector(
     (state) => state.familyRoomReducer.familyRoom
   );
@@ -21,10 +22,22 @@ const RoomName = ({ handleOpenMenu }: Props) => {
         gap: "13px",
       }}
     >
-      <Typography sx={{ fontWeight: 700, fontSize: "40px" }}>
+      <Typography
+        sx={{
+          fontWeight: 700,
+          fontSize: "30px",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          maxWidth: "210px",
+        }}
+      >
         {familyRoom?.roomName}
       </Typography>
-      <AiOutlineCaretDown size={25} />
+      <AiOutlineCaretDown
+        style={{ transform: anchorEl ? "rotate(180deg)" : "rotate(0deg)" }}
+        size={25}
+      />
     </Box>
   );
 };

@@ -3,7 +3,7 @@ import ModalComponent from "../../../Modal-Common/ModalComponent";
 import { deleteGoogleCalendarEvent } from "../../../../supabase/Api";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { useSession } from "@supabase/auth-helpers-react";
-import DeleteModalButtons from "../../../Modal-Common/DeleteModalButtons";
+import YesOrNoModalButtons from "../../../Modal-Common/YesOrNoModalButtons";
 import { setHideModal } from "../../../../redux/slices/Modal/modal-slice";
 
 const DeleteEventModal = () => {
@@ -28,8 +28,9 @@ const DeleteEventModal = () => {
       <Typography>
         Are you sure to want to delete the event from Google Calendar?
       </Typography>
-      <DeleteModalButtons
-        handleDelete={handleDeleteEventFromCalendar}
+      <YesOrNoModalButtons
+        width="6rem"
+        handleOperation={handleDeleteEventFromCalendar}
         handleCancel={handleCancel}
         buttonOption="Delete"
       />

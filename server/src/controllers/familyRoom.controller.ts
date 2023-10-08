@@ -13,15 +13,42 @@ export const familyRoomHandler = (io: Server, socket: Socket) => {
   ) {
     const { memberId, roomId, source } = payload;
 
-    await deleteMember(payload);
+    const { username, roomName } = await deleteMember(payload);
 
     if (source === "admin") {
-      io.emit("memberDeletedByAdmin", memberId);
+      // To all room members
+      io.to(String(roomId)).emit("memberDeletedByAdmin", {
+        memberId,
+        username,
+        roomName,
+        toRoomMembers: true,
+      });
     } else if (source === "self") {
-      io.emit("userLeftRoom", memberId);
+      // To current user
+      socket.emit("userLeftRoom", { memberId, username, toCurrentUser: true });
+
+      // To all room members except current user
+      socket.broadcast.to(String(roomId)).emit("userLeftRoom", {
+        memberId,
+        username,
+        roomName,
+        toRoomMembers: true,
+      });
+
+      socket.leave(String(roomId));
     }
 
-    socket.leave(roomId);
+    socket.broadcast.emit("memberDeletedByAdmin", {
+      memberId,
+      roomId,
+      toAllUsers: true,
+    });
+
+    socket.broadcast.emit("userLeftRoom", {
+      memberId,
+      roomId,
+      toAllUsers: true,
+    });
   },
   socket);
 
@@ -42,6 +69,8 @@ export const familyRoomHandler = (io: Server, socket: Socket) => {
       const { roomId } = payload;
 
       const currentRoom = await getCurrentRoom(roomId);
+
+      socket.join(String(roomId));
 
       socket.emit("recievedFamilyRoom", currentRoom);
     },

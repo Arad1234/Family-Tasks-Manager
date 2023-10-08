@@ -18,15 +18,15 @@ const familyRoomSlice = createSlice({
     setFamilyRoom(state, { payload: familyRoom }) {
       state.familyRoom = familyRoom;
     },
-    
+
     setDeleteMember(state, { payload }) {
-      const { memberIdToDelete } = payload;
-      console.log(memberIdToDelete);
+      const memberId = payload;
+
       if (state.familyRoom) {
         state.familyRoom.familyMembers = (
           state.familyRoom.familyMembers as IUser[]
         ).filter((member) => {
-          return member._id !== memberIdToDelete;
+          return member._id !== memberId;
         });
       }
     },

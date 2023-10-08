@@ -30,7 +30,7 @@ export const familyRoomListeners = (socket: Socket, dispatch: AppDispatch) => {
 
   socket.on("recievedFamilyRoom", (data) => {
     const familyRoom = data;
-
+    console.log("familyRoom", familyRoom);
     dispatch(setFamilyRoom(familyRoom));
     dispatch(setLoading(false));
   });

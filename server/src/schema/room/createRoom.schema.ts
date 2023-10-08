@@ -4,9 +4,7 @@ export const createRoomSchema = object({
   roomName: string({
     required_error: "Room name is required!",
     invalid_type_error: "Room name must be a string!",
-  })
-    .min(2, "Room name should be between 2 to 15 chars")
-    .max(15, "Room name should be between 2 to 15 chars"),
+  }),
 
   maxMembers: number({
     required_error: "Max members is required!",

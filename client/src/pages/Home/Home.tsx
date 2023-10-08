@@ -17,15 +17,18 @@ import { removeErrorListeners } from "../../socket/Errors/RemoveListeners";
 import { commonListeners } from "../../socket/Common/Listeners";
 import { removeCommonListeners } from "../../socket/Common/RemoveListeners";
 import HomeHeader from "../../components/Home-UI/Header/HomeHeader";
+import connectionListeners from "../../socket/Connection/Listeners";
 
 const Home = () => {
   const dispatch = useAppDispatch();
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const { loading } = useAppSelector((state) => state.authReducer);
-  const { modalStatus } = useAppSelector((state) => state.modalReducer);
+  const loading = useAppSelector((state) => state.authReducer.loading);
+  const modalStatus = useAppSelector((state) => state.modalReducer.modalStatus);
+  const userId = useAppSelector((state) => state.authReducer.userId as string);
   const navigate = useNavigate();
 
   useEffect(() => {
+    connectionListeners(userId);
     roomsListeners(socket, dispatch);
     commonListeners(socket, dispatch);
     errorListeners(socket, navigate, dispatch);

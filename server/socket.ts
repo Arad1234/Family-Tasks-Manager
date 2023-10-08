@@ -8,6 +8,7 @@ import { socketValidationSchema } from "./src/middlewares/socket/socketValidatio
 import { familyRoomHandler } from "./src/controllers/familyRoom.controller";
 import { sanitizeData } from "./src/middlewares/socket/sanitizeData";
 import { zodErrorHandler } from "./src/utils/socket/errorHandlers/zodErrorHandler";
+import { userToSocketMap } from "./src/utils/constants";
 
 export const connectSocketServer = (app: Application) => {
   const server = http.createServer(app);
@@ -20,6 +21,11 @@ export const connectSocketServer = (app: Application) => {
 
   function onConnection(socket: Socket) {
     console.log("user connected!");
+
+    socket.on("register", (userId) => {
+      console.log("userId", userId);
+      userToSocketMap.set(userId, socket.id);
+    });
 
     // The "socketValidationSchema" middleware is used to validate the data sent from the client, the validation is handled by zod schema.
     socket.use(socketValidationSchema);

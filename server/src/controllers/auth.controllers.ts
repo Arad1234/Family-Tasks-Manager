@@ -74,7 +74,7 @@ export const forgotPasswordHandler = catchAsync(
 
       res.status(OK).json({
         status: "success",
-        message: `A link to reset your password has been emailed to ${user.email}!`,
+        message: `A link to reset your password has been emailed to ${user.email}`,
       });
     } catch (error) {
       console.log(error);

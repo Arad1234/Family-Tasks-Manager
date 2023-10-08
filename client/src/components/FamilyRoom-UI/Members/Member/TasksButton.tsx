@@ -29,7 +29,7 @@ const TasksButton = ({ member }: Props) => {
       }}
       onClick={handleShowMemberTasks}
     >
-      Tasks
+      View tasks
     </Button>
   );
 };

@@ -15,8 +15,8 @@ const BurgerIcon = ({ setShowBurgerMenu, showBurgerMenu }: Props) => {
           color: "white",
           zIndex: "2",
           position: "absolute",
-          right: "0px",
-          top: "0px",
+          right: "2px",
+          top: "10px",
         }
       : {
           width: "2.2em",
@@ -44,7 +44,7 @@ const BurgerIcon = ({ setShowBurgerMenu, showBurgerMenu }: Props) => {
         flexDirection: "column",
         gap: "7px",
         right: "10px",
-        top: "10px",
+        top: "19px",
       }}
     >
       <Box sx={burgerBarStyle}></Box>

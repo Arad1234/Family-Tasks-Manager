@@ -1,11 +1,18 @@
 import Room from "../models/room.model";
 import Task from "../models/task.model";
+import User from "../models/user.model";
 import { DeleteMemberSchemaType } from "../schema/member/deleteMember.schema";
 import AppError from "../utils/appErrorClass";
 import { NOT_FOUND } from "../utils/constants";
 
 export const deleteMember = async (payload: DeleteMemberSchemaType) => {
   const { memberId, roomId } = payload;
+
+  const userTodelete = await User.findById(memberId);
+
+  if (!userTodelete) {
+    throw new AppError("User not found", NOT_FOUND);
+  }
 
   const room = await Room.findOne({ _id: roomId });
 
@@ -21,6 +28,8 @@ export const deleteMember = async (payload: DeleteMemberSchemaType) => {
   });
 
   await room.save();
+
+  return { username: userTodelete?.username, roomName: room.roomName };
 };
 
 export const getMemberRooms = async (payload: {

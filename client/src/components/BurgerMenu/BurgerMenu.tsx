@@ -5,26 +5,24 @@ import BurgerMenuOption from "./BurgerMenuOption";
 import { setMemberForDelete } from "../../redux/slices/FamilyRoom/members-slice";
 import { setOpenModal } from "../../redux/slices/Modal/modal-slice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { axiosClient } from "../../axiosClient";
-import { useNavigate } from "react-router-dom";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import SignOutModal from "../Common/SignOutModal";
 
 const BurgerMenu = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const supabase = useSupabaseClient();
   const userId = useAppSelector((state) => state.authReducer.userId);
+  const modalStatus = useAppSelector((state) => state.modalReducer.modalStatus);
+  const familyRoom = useAppSelector(
+    (state) => state.familyRoomReducer.familyRoom
+  );
+  const isRoomCreator = familyRoom?.creator.userId === userId;
 
   const handleOpenLeaveRoomModal = () => {
     dispatch(setMemberForDelete(userId));
     dispatch(setOpenModal("leaveRoom"));
   };
 
-  const handleSignOut = async () => {
-    navigate("/");
-    // This will trigger the auth event "SIGNED_OUT".
-    await supabase.auth.signOut();
-    await axiosClient.post("/user/logout");
+  const handleOpenSignOutModal = () => {
+    dispatch(setOpenModal("signOut"));
   };
 
   const burgerMenuStyle = useMemo(() => {
@@ -60,14 +58,27 @@ const BurgerMenu = () => {
           gap: "30px",
         }}
       >
-        <BurgerMenuOption onClick={handleOpenLeaveRoomModal}>
-          Leave Room
-        </BurgerMenuOption>
-        <BurgerMenuOption onClick={handleOpenLeaveRoomModal}>
+        {isRoomCreator ? (
+          <BurgerMenuOption
+            color={"red"}
+            onClick={() => console.log("fill!")}
+          >
+            Delete Room
+          </BurgerMenuOption>
+        ) : (
+          <BurgerMenuOption onClick={handleOpenLeaveRoomModal}>
+            Leave Room
+          </BurgerMenuOption>
+        )}
+        <BurgerMenuOption onClick={() => console.log("fill!")}>
           Profile
         </BurgerMenuOption>
-        <BurgerMenuOption onClick={handleSignOut}>Sign Out</BurgerMenuOption>
+        <BurgerMenuOption onClick={handleOpenSignOutModal}>
+          Sign Out
+        </BurgerMenuOption>
       </Box>
+
+      {modalStatus === "signOut" && <SignOutModal />}
     </Box>
   );
 };

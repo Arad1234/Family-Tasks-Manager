@@ -1,6 +1,9 @@
 import { Socket } from "socket.io-client";
 import { AppDispatch } from "../../redux/store";
-import { setJoinRoom } from "../../redux/slices/Rooms/rooms-slice";
+import {
+  setJoinRoom,
+  setLeaveRoom,
+} from "../../redux/slices/Rooms/rooms-slice";
 import { setLoading } from "../../redux/slices/Auth/auth-slice";
 import { toast } from "react-toastify";
 import {
@@ -25,33 +28,49 @@ export const commonListeners = (
     toast.success(`${username} Joined Room!`);
   });
 
+  // Two different listeners that implement the same state logic but generate different behavior for each user.
   socket.on("userLeftRoom", (data) => {
-    const memberId = data;
-    dispatch(setFamilyRoom(null));
+    const {
+      memberId,
+      username,
+      roomName,
+      roomId,
+      toCurrentUser,
+      toAllUsers,
+      toRoomMembers,
+    } = data;
 
-    dispatch(setDeleteMember({ memberIdToDelete: memberId }));
-    dispatch(setHideModal());
-    dispatch(setLoading(false));
+    dispatch(setDeleteMember(memberId));
 
-    if (navigate) {
-      navigate("/home");
+    if (toCurrentUser) {
+      dispatch(setFamilyRoom(null));
+      dispatch(setHideModal());
+      navigate!("/home");
     }
 
-    toast.success("Left Room Successfully!");
+    if (toRoomMembers) {
+      toast.info(`${username} left "${roomName}" room`);
+    }
+
+    if (toAllUsers) {
+      dispatch(setLeaveRoom({ roomId, userId: memberId }));
+    }
   });
 
   socket.on("memberDeletedByAdmin", (data) => {
-    const memberId = data;
-    dispatch(setFamilyRoom(null));
+    const { memberId, username, roomName, roomId, toRoomMembers, toAllUsers } =
+      data;
 
-    dispatch(setDeleteMember({ memberIdToDelete: memberId }));
-    dispatch(setHideModal());
-    dispatch(setLoading(false));
-
-    if (navigate) {
-      navigate("/home");
+    if (toRoomMembers) {
+      dispatch(setDeleteMember(memberId));
+      toast.info(`${username} removed from "${roomName}"`);
+      dispatch(setHideModal());
+      dispatch(setLoading(false));
     }
 
-    toast.success("Member Deleted Successfully!");
+    if (toAllUsers) {
+      dispatch(setLeaveRoom({ roomId, userId: memberId }));
+    }
   });
 };
+// Two different listeners that implement the same state logic but generate different behavior for each user.

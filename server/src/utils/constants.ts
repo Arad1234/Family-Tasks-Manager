@@ -19,3 +19,5 @@ export const mailAuthConfig = {
 };
 
 export const isProduction = config.environment.nodeEnv === "production";
+
+export const userToSocketMap = new Map();

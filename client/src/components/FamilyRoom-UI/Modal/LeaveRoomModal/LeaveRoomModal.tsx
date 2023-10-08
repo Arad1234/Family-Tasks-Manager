@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
-import DeleteModalButtons from "../../../Modal-Common/DeleteModalButtons";
+import YesOrNoModalButtons from "../../../Modal-Common/YesOrNoModalButtons";
 import { deleteMemberSocket } from "../../../../socket/FamilyRoom/EventEmitters";
 import { setHideModal } from "../../../../redux/slices/Modal/modal-slice";
 import { IRoom } from "../../../../types";
@@ -23,9 +23,16 @@ const LeaveRoomModal = () => {
     <ModalComponent>
       <Typography>
         Are you sure you want to leave "{familyRoom.roomName}" room?
+        <Typography
+          sx={{ display: "block", fontWeight: "600" }}
+          component={"span"}
+        >
+          All your tasks will be deleted
+        </Typography>
       </Typography>
-      <DeleteModalButtons
-        handleDelete={handleLeaveRoom}
+      <YesOrNoModalButtons
+        width="6rem"
+        handleOperation={handleLeaveRoom}
         handleCancel={() => dispatch(setHideModal())}
         buttonOption={"Leave"}
       />

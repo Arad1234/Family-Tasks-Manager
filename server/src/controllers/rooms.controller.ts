@@ -64,7 +64,7 @@ export const roomsHandler = (io: Server, socket: Socket) => {
 
     socket.join(String(roomId));
 
-    io.to(roomId).emit("joinedRoom", { roomId, username, userId });
+    io.to(String(roomId)).emit("joinedRoom", { roomId, username, userId });
   },
   socket);
 

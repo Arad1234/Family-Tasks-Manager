@@ -16,10 +16,7 @@ const CreateRoomModal = () => {
   };
 
   const formValidationSchema = object({
-    roomName: string()
-      .required("Required Field")
-      .min(2, "Must be between 2 to 15 chars")
-      .max(15, "Must be between 2 to 15 chars"),
+    roomName: string().required("Required Field"),
     maxMembers: number()
       .required("Required Field")
       .min(2, "Must be min 2 and max 10")
