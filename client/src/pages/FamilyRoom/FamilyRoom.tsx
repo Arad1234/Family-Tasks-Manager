@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import WelcomeTitle from "../../components/FamilyRoom-UI/WelcomeTitle/WelcomeTitle";
 import RoomHeader from "../../components/FamilyRoom-UI/RoomHeader/RoomHeader";
 import RoomOptions from "../../components/FamilyRoom-UI/RoomOptions/RoomOptions";
@@ -8,7 +8,6 @@ import AllTasks from "../../components/FamilyRoom-UI/YourTasks/AllTasks";
 import { useEffect, useState } from "react";
 import AllMembers from "../../components/FamilyRoom-UI/Members/AllMembers";
 import { familyRoomListeners } from "../../socket/FamilyRoom/Listeners";
-import { socket } from "../../socket/socket";
 import { removeFamilyRoomListeners } from "../../socket/FamilyRoom/RemoveListeners";
 import Loader from "../../components/Loader/Loader";
 import { removeErrorListeners } from "../../socket/Errors/RemoveListeners";
@@ -24,9 +23,12 @@ import { removeCommonListeners } from "../../socket/Common/RemoveListeners";
 import variables from "../../sass/variables.module.scss";
 import { getCurrentRoomSocket } from "../../socket/FamilyRoom/EventEmitters";
 import LeaveRoomModal from "../../components/FamilyRoom-UI/Modal/LeaveRoomModal/LeaveRoomModal";
+import socketIDListeners from "../../socket/SocketID/Listeners";
+import removeSocketIDListeners from "../../socket/SocketID/RemoveListeners";
 
 const FamilyRoom = () => {
   const { roomId } = useParams();
+  const location = useLocation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const session = useSession();
@@ -42,15 +44,17 @@ const FamilyRoom = () => {
   const modalStatus = useAppSelector((state) => state.modalReducer.modalStatus);
 
   useEffect(() => {
-    familyRoomListeners(socket, dispatch);
-    commonListeners(socket, dispatch, navigate);
-    errorListeners(socket, navigate, dispatch);
+    familyRoomListeners(dispatch);
+    commonListeners(dispatch, navigate);
+    socketIDListeners(location, navigate, dispatch);
+    errorListeners(navigate, dispatch);
     getCurrentRoomSocket(dispatch, roomId);
 
     return () => {
-      removeFamilyRoomListeners(socket);
-      removeErrorListeners(socket);
-      removeCommonListeners(socket);
+      removeFamilyRoomListeners();
+      removeErrorListeners();
+      removeCommonListeners();
+      removeSocketIDListeners();
     };
   }, [roomId]);
 

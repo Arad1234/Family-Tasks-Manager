@@ -6,6 +6,7 @@ import {
 } from "../services/familyRoom.service";
 import { DeleteMemberSchemaType } from "../schema/member/deleteMember.schema";
 import { catchAsyncSocket } from "../utils/socket/catchAsyncSocket";
+import { userToSocketMap } from "../utils/constants";
 
 export const familyRoomHandler = (io: Server, socket: Socket) => {
   const deleteMemberHandler = catchAsyncSocket(async function (
@@ -16,6 +17,12 @@ export const familyRoomHandler = (io: Server, socket: Socket) => {
     const { username, roomName } = await deleteMember(payload);
 
     if (source === "admin") {
+      const socketId = userToSocketMap.get(memberId);
+      const userDeletedSocket = io.sockets.sockets.get(socketId) as Socket;
+
+      io.to(socketId).emit("removedFromRoom", roomId);
+
+      userDeletedSocket.leave(roomId);
       // To all room members
       io.to(String(roomId)).emit("memberDeletedByAdmin", {
         memberId,

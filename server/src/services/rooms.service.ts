@@ -4,9 +4,10 @@ import { RoomData } from "../types/common";
 import { JoinRoomPayload } from "../types/socket";
 import { NOT_FOUND, UNAUTHORIZED } from "../utils/constants";
 import AppError from "../utils/appErrorClass";
+import User from "../models/user.model";
 
 export const getFamilyRooms = async () => {
-  const rooms = await Room.find()
+  const rooms = await Room.find();
 
   return rooms;
 };
@@ -63,4 +64,8 @@ export const joinFamilyRoom = async (joinRoomData: JoinRoomPayload) => {
   room.familyMembers.push(Object(userId));
 
   await room.save();
+
+  const newMember = await User.findOne({ _id: userId });
+
+  return newMember;
 };

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import CreateRoomModal from "../../components/Home-UI/Modal/CreateRoomModal/CreateRoomModal";
 import { Box } from "@mui/material";
@@ -18,26 +18,33 @@ import { commonListeners } from "../../socket/Common/Listeners";
 import { removeCommonListeners } from "../../socket/Common/RemoveListeners";
 import HomeHeader from "../../components/Home-UI/Header/HomeHeader";
 import connectionListeners from "../../socket/Connection/Listeners";
+import socketIDListeners from "../../socket/SocketID/Listeners";
+import removeSocketIDListeners from "../../socket/SocketID/RemoveListeners";
+import RemovedYouMessageModal from "../../components/Common/RemovedYouMessageModal";
 
 const Home = () => {
   const dispatch = useAppDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState<string>("");
+
   const loading = useAppSelector((state) => state.authReducer.loading);
   const modalStatus = useAppSelector((state) => state.modalReducer.modalStatus);
   const userId = useAppSelector((state) => state.authReducer.userId as string);
-  const navigate = useNavigate();
 
   useEffect(() => {
     connectionListeners(userId);
-    roomsListeners(socket, dispatch);
-    commonListeners(socket, dispatch);
-    errorListeners(socket, navigate, dispatch);
+    roomsListeners(dispatch);
+    socketIDListeners(location, navigate, dispatch);
+    commonListeners(dispatch);
+    errorListeners(navigate, dispatch);
     getRoomsSocket(dispatch);
 
     return () => {
-      removeRoomsListeners(socket);
-      removeCommonListeners(socket);
-      removeErrorListeners(socket);
+      removeRoomsListeners();
+      removeCommonListeners();
+      removeErrorListeners();
+      removeSocketIDListeners();
     };
   }, []);
 
@@ -58,6 +65,7 @@ const Home = () => {
       {modalStatus === "create" && <CreateRoomModal />}
       {modalStatus === "join" && <JoinRoomModal />}
       {modalStatus === "delete" && <DeleteRoomModal />}
+      {modalStatus === "adminRemovedYou" && <RemovedYouMessageModal />}
     </>
   );
 };

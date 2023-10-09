@@ -1,6 +1,6 @@
-import { Socket } from "socket.io-client";
+import { socket } from "../socket";
 
-export const removeErrorListeners = (socket: Socket) => {
+export const removeErrorListeners = () => {
   socket.off("error");
   socket.off("connect_error");
 };

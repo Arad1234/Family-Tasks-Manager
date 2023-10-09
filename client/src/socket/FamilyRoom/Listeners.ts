@@ -1,4 +1,3 @@
-import { Socket } from "socket.io-client";
 import { AppDispatch } from "../../redux/store";
 import { setLoading } from "../../redux/slices/Auth/auth-slice";
 import {
@@ -8,8 +7,9 @@ import {
 } from "../../redux/slices/FamilyRoom/familyRoom-slice";
 import { toast } from "react-toastify";
 import { setHideModal } from "../../redux/slices/Modal/modal-slice";
+import { socket } from "../socket";
 
-export const familyRoomListeners = (socket: Socket, dispatch: AppDispatch) => {
+export const familyRoomListeners = (dispatch: AppDispatch) => {
   socket.on("taskCreated", (data) => {
     const { newTask, userId } = data;
 

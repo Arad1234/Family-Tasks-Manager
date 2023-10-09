@@ -55,16 +55,23 @@ export const roomsHandler = (io: Server, socket: Socket) => {
     payload: JoinRoomSchemaType
   ) {
     const { roomId, roomPassword } = payload;
-    const { username, userId } = socket.data.user;
-    await joinFamilyRoom({
+    const { userId } = socket.data.user;
+    const newMember = await joinFamilyRoom({
       userId,
       roomId,
       roomPassword,
     });
 
     socket.join(String(roomId));
+    socket.emit("joinedRoom", { toCurrentUser: true, roomId, newMember });
 
-    io.to(String(roomId)).emit("joinedRoom", { roomId, username, userId });
+    socket.broadcast.to(String(roomId)).emit("joinedRoom", {
+      roomId,
+      newMember,
+      toRoomMembers: true,
+    });
+
+    io.except(String(roomId)).emit("joinedRoom", { roomId, newMember });
   },
   socket);
 

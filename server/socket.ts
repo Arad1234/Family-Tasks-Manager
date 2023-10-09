@@ -23,8 +23,13 @@ export const connectSocketServer = (app: Application) => {
     console.log("user connected!");
 
     socket.on("register", (userId) => {
-      console.log("userId", userId);
       userToSocketMap.set(userId, socket.id);
+      socket.join(socket.id);
+    });
+
+    socket.on("custom-disconnect", (userId) => {
+      userToSocketMap.delete(userId);
+      socket.disconnect();
     });
 
     // The "socketValidationSchema" middleware is used to validate the data sent from the client, the validation is handled by zod schema.

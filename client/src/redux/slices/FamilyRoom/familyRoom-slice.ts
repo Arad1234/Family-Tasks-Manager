@@ -19,6 +19,10 @@ const familyRoomSlice = createSlice({
       state.familyRoom = familyRoom;
     },
 
+    setAddMember(state, { payload: newMember }) {
+      state.familyRoom?.familyMembers.push(newMember);
+    },
+
     setDeleteMember(state, { payload }) {
       const memberId = payload;
 
@@ -56,6 +60,7 @@ export const {
   setDeleteMember,
   setCurrentUserRooms,
   setFamilyRoom,
+  setAddMember,
 } = familyRoomSlice.actions;
 
 export default familyRoomSlice.reducer;

@@ -1,4 +1,3 @@
-import { Socket } from "socket.io-client";
 import { AppDispatch } from "../../redux/store";
 import {
   setJoinRoom,
@@ -7,25 +6,32 @@ import {
 import { setLoading } from "../../redux/slices/Auth/auth-slice";
 import { toast } from "react-toastify";
 import {
+  setAddMember,
   setDeleteMember,
   setFamilyRoom,
 } from "../../redux/slices/FamilyRoom/familyRoom-slice";
 import { setHideModal } from "../../redux/slices/Modal/modal-slice";
 import { NavigateFunction } from "react-router-dom";
+import { socket } from "../socket";
 
 export const commonListeners = (
-  socket: Socket,
   dispatch: AppDispatch,
   navigate?: NavigateFunction
 ) => {
   socket.on("joinedRoom", (data) => {
-    const { roomId, username, userId } = data;
+    const { roomId, newMember, toRoomMembers, toCurrentUser } = data;
 
-    dispatch(setJoinRoom({ roomId, username, userId }));
-    dispatch(setHideModal());
+    dispatch(setJoinRoom({ roomId, userId: newMember._id })); // Home page
 
-    dispatch(setLoading(false));
-    toast.success(`${username} Joined Room!`);
+    if (toCurrentUser) {
+      dispatch(setHideModal());
+      dispatch(setLoading(false));
+    }
+
+    if (toRoomMembers) {
+      dispatch(setAddMember(newMember)); // FamilyRoom page
+      toast.success(`${newMember.username} Joined Room!`);
+    }
   });
 
   // Two different listeners that implement the same state logic but generate different behavior for each user.
