@@ -14,6 +14,7 @@ const BurgerMenu = () => {
   const familyRoom = useAppSelector(
     (state) => state.familyRoomReducer.familyRoom
   );
+
   const isRoomCreator = familyRoom?.creator.userId === userId;
 
   const handleOpenLeaveRoomModal = () => {
@@ -31,12 +32,12 @@ const BurgerMenu = () => {
       width: 0px
     }
     to {
-      width: 100% 
+      width: 100vw
     }
   `;
 
     return {
-      width: "100%",
+      width: "100vw",
       height: "100vh",
       position: "absolute",
       backgroundColor: variables.secondaryColor,
@@ -58,18 +59,19 @@ const BurgerMenu = () => {
           gap: "30px",
         }}
       >
-        {isRoomCreator ? (
-          <BurgerMenuOption
-            color={"red"}
-            onClick={() => console.log("fill!")}
-          >
-            Delete Room
-          </BurgerMenuOption>
-        ) : (
-          <BurgerMenuOption onClick={handleOpenLeaveRoomModal}>
-            Leave Room
-          </BurgerMenuOption>
-        )}
+        {familyRoom &&
+          (isRoomCreator ? (
+            <BurgerMenuOption
+              color={"red"}
+              onClick={() => console.log("fill!")}
+            >
+              Delete Room
+            </BurgerMenuOption>
+          ) : (
+            <BurgerMenuOption onClick={handleOpenLeaveRoomModal}>
+              Leave Room
+            </BurgerMenuOption>
+          ))}
         <BurgerMenuOption onClick={() => console.log("fill!")}>
           Profile
         </BurgerMenuOption>

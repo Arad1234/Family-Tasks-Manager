@@ -11,6 +11,7 @@ const RoomName = ({ handleOpenMenu, anchorEl }: Props) => {
   const familyRoom = useAppSelector(
     (state) => state.familyRoomReducer.familyRoom
   );
+
   return (
     <Box
       onClick={handleOpenMenu}
@@ -35,7 +36,10 @@ const RoomName = ({ handleOpenMenu, anchorEl }: Props) => {
         {familyRoom?.roomName}
       </Typography>
       <AiOutlineCaretDown
-        style={{ transform: anchorEl ? "rotate(180deg)" : "rotate(0deg)" }}
+        style={{
+          transform: anchorEl ? "rotate(180deg)" : "rotate(0deg)",
+          transition: "transform 0.3s",
+        }}
         size={25}
       />
     </Box>

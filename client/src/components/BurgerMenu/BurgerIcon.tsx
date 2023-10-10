@@ -2,15 +2,18 @@ import { Box, SxProps } from "@mui/material";
 import { useMemo } from "react";
 import variables from "../../sass/variables.module.scss";
 import { MdClear } from "react-icons/md";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import {
+  setHideMenu,
+  setOpenMenu,
+} from "../../redux/slices/BurgerMenu/burgerMenu-slice";
 
-interface Props {
-  setShowBurgerMenu: React.Dispatch<React.SetStateAction<boolean>>;
-  showBurgerMenu: boolean;
-}
+const BurgerIcon = () => {
+  const { isShowMenu } = useAppSelector((state) => state.burgerMenuReducer);
+  const dispatch = useAppDispatch();
 
-const BurgerIcon = ({ setShowBurgerMenu, showBurgerMenu }: Props) => {
   const burgerBarStyle: SxProps = useMemo(() => {
-    return showBurgerMenu
+    return isShowMenu
       ? {
           color: "white",
           zIndex: "2",
@@ -25,17 +28,17 @@ const BurgerIcon = ({ setShowBurgerMenu, showBurgerMenu }: Props) => {
           backgroundColor: "white",
           color: variables.actionColor,
         };
-  }, [showBurgerMenu]);
+  }, [isShowMenu]);
 
-  return showBurgerMenu ? (
+  return isShowMenu ? (
     <MdClear
       style={burgerBarStyle}
-      onClick={() => setShowBurgerMenu(false)}
+      onClick={() => dispatch(setHideMenu())}
       size="50"
     />
   ) : (
     <Box
-      onClick={() => setShowBurgerMenu(true)}
+      onClick={() => dispatch(setOpenMenu())}
       sx={{
         position: "absolute",
         height: "auto",

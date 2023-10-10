@@ -26,11 +26,11 @@ export const commonListeners = (
     if (toCurrentUser) {
       dispatch(setHideModal());
       dispatch(setLoading(false));
+      toast.success(`Joined room!`);
     }
 
     if (toRoomMembers) {
       dispatch(setAddMember(newMember)); // FamilyRoom page
-      toast.success(`${newMember.username} Joined Room!`);
     }
   });
 

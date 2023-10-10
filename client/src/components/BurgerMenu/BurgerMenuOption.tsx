@@ -8,7 +8,7 @@ const BurgerMenuOption = ({
   return (
     <Typography
       {...props}
-      sx={{ fontSize: "23px" }}
+      sx={{ fontSize: "30px", fontWeight: "600" }}
     >
       {children}
     </Typography>

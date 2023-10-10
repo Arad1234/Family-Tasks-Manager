@@ -10,10 +10,12 @@ const socketIDListeners = (
 ) => {
   socket.on("removedFromRoom", (data) => {
     const roomId = data;
+    console.log(roomId);
+    console.log(location.pathname);
     if (location.pathname.includes(roomId)) {
       navigate("/home");
+      dispatch(setOpenModal("adminRemovedYou"));
     }
-    dispatch(setOpenModal("adminRemovedYou"));
   });
 };
 

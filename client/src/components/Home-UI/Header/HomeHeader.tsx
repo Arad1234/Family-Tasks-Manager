@@ -1,22 +1,33 @@
 import { Box } from "@mui/material";
-import NewRoomButton from "../Buttons/NewRoomButton";
-import SignOut from "../Buttons/SignOut";
 import variables from "../../../sass/variables.module.scss";
+import BurgerIcon from "../../BurgerMenu/BurgerIcon";
+import { useAppSelector } from "../../../redux/hooks";
+import BurgerMenu from "../../BurgerMenu/BurgerMenu";
+import SearchIcon from "./SearchIcon";
 
 const HomeHeader = () => {
+  const isShowMenu = useAppSelector(
+    (state) => state.burgerMenuReducer.isShowMenu
+  );
+
   return (
     <Box
+      component={"nav"}
       sx={{
-        padding: "10px 20px 10px 20px",
+        position: "relative",
+        backgroundColor: variables.secondaryColor,
+        boxShadow: "3",
+        color: "white",
         display: "flex",
-        justifyContent: "space-between",
-        borderRadius: "0px 0px 35px 35px",
-        alignItems: "center",
-        background: variables.secondaryColor,
+        justifyContent: "center",
+        height: "65px",
       }}
     >
-      <NewRoomButton />
-      <SignOut />
+      <BurgerIcon />
+
+      {isShowMenu && <BurgerMenu />}
+      {/* <NewRoomButton /> */}
+      <SearchIcon />
     </Box>
   );
 };

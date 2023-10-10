@@ -1,6 +1,5 @@
 import { Box, Typography } from "@mui/material";
 import JoinButton from "./JoinButton";
-import DeleteButton from "./DeleteButton/DeleteButton";
 import { IRoom } from "../../../../types/index";
 import ExploreButton from "./ExploreButton";
 import RoomName from "./RoomName";
@@ -15,16 +14,14 @@ interface Props {
 const Room = ({ room }: Props) => {
   const userId = useAppSelector((state) => state.authReducer.userId);
 
-  const { familyMembers, maxMembers, creator } = room;
-
-  const isRoomCreator = creator.userId === userId;
+  const { familyMembers, maxMembers } = room;
 
   const isRoomFull = familyMembers.length === maxMembers;
 
   const isMember = useMemo(() => {
     return familyMembers.find((memberId) => memberId === userId);
   }, [userId, familyMembers]);
-  console.log(isMember);
+
   return (
     <Box
       sx={{
@@ -76,7 +73,6 @@ const Room = ({ room }: Props) => {
             <JoinButton room={room} />
           </Box>
         )}
-        {isRoomCreator && <DeleteButton room={room} />}
       </Box>
     </Box>
   );
