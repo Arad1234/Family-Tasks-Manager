@@ -10,7 +10,7 @@ import { removeRoomsListeners } from "../../socket/Rooms/RemoveListeners";
 import SearchInput from "../../components/Home-UI/SearchInput/SearchInput";
 import DeleteRoomModal from "../../components/Home-UI/Modal/DeleteRoomModal/DeleteRoomModal";
 import { getRoomsSocket } from "../../socket/Rooms/EventEmitters";
-import AllRooms from "../../components/Home-UI/Room/AllRooms";
+import AllRooms from "../../components/Home-UI/Room/AllRooms/AllRooms";
 import { roomsListeners } from "../../socket/Rooms/Listeners";
 import { errorListeners } from "../../socket/Errors/Listeners";
 import { removeErrorListeners } from "../../socket/Errors/RemoveListeners";
@@ -33,11 +33,11 @@ const Home = () => {
   const userId = useAppSelector((state) => state.authReducer.userId as string);
 
   useEffect(() => {
-    connectionListeners(userId);
     roomsListeners(dispatch);
-    socketIDListeners(location, navigate, dispatch);
     commonListeners(dispatch);
     errorListeners(navigate, dispatch);
+    socketIDListeners(location, navigate, dispatch);
+    connectionListeners(userId);
     getRoomsSocket(dispatch);
 
     return () => {

@@ -1,7 +1,8 @@
-import { Box, Typography } from "@mui/material";
-import Room from "./Room/Room";
-import { useAppSelector } from "../../../redux/hooks";
+import { Box } from "@mui/material";
+import Room from "../Room/Room";
+import { useAppSelector } from "../../../../redux/hooks";
 import { memo, useMemo } from "react";
+import NoRoomsFound from "./NoRoomsFound";
 
 interface Props {
   searchQuery: string;
@@ -36,16 +37,7 @@ const AllRooms = ({ searchQuery }: Props) => {
       })}
     </Box>
   ) : (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "70vh",
-      }}
-    >
-      <Typography variant="h4">No Rooms Found</Typography>
-    </Box>
+    <NoRoomsFound />
   );
 };
 
