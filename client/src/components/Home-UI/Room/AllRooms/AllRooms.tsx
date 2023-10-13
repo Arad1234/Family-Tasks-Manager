@@ -24,7 +24,7 @@ const AllRooms = ({ searchQuery }: Props) => {
         flexDirection: "column",
         width: "90vw",
         gap: "20px",
-        margin: "10px",
+        marginTop: "40px",
       }}
     >
       {filteredRooms.map((room) => {

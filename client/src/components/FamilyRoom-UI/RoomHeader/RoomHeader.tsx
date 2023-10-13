@@ -1,7 +1,5 @@
-import { Box } from "@mui/material";
 import React, { useState } from "react";
 import RoomsMenuModal from "./RoomsMenuModal";
-import variables from "../../../sass/variables.module.scss";
 import { getMemberRoomsSocket } from "../../../socket/FamilyRoom/EventEmitters";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import RoomName from "./RoomName";
@@ -10,6 +8,7 @@ import BurgerMenu from "../../BurgerMenu/BurgerMenu";
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { setFamilyRoom } from "../../../redux/slices/FamilyRoom/familyRoom-slice";
+import HeaderComponent from "../../Common/Header";
 
 const RoomHeader = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -26,17 +25,7 @@ const RoomHeader = () => {
   };
 
   return (
-    <Box
-      component={"nav"}
-      sx={{
-        position: "relative",
-        backgroundColor: variables.secondaryColor,
-        boxShadow: "3",
-        color: "white",
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
+    <HeaderComponent>
       <IoMdArrowBack
         style={{ position: "absolute", left: "10px", top: "15px" }}
         size={35}
@@ -59,7 +48,7 @@ const RoomHeader = () => {
         anchorEl={anchorEl}
         setAnchorEl={setAnchorEl}
       />
-    </Box>
+    </HeaderComponent>
   );
 };
 

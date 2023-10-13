@@ -17,9 +17,7 @@ const RoomName = ({ handleOpenMenu, anchorEl }: Props) => {
       onClick={handleOpenMenu}
       sx={{
         display: "flex",
-        justifyContent: "center",
         alignItems: "center",
-        padding: "10px",
         gap: "13px",
       }}
     >

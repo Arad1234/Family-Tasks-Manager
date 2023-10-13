@@ -14,17 +14,14 @@ import { removeErrorListeners } from "../../socket/Errors/RemoveListeners";
 import { errorListeners } from "../../socket/Errors/Listeners";
 import { useSession } from "@supabase/auth-helpers-react";
 import { fetchGoogleCalendarEvents } from "../../supabase/Api";
-import DeleteEventModal from "../../components/FamilyRoom-UI/Modal/DeleteEventModal/DeleteEventModal";
 import MemberTasks from "../../components/FamilyRoom-UI/Members/MemberTasks/MemberTasks";
-import DeleteMemberModal from "../../components/FamilyRoom-UI/Modal/DeleteMemberModal/DeleteMemberModal";
-import AssignTaskModal from "../../components/FamilyRoom-UI/Modal/AssignTaskModal/AssignTaskModal";
-import { commonListeners } from "../../socket/Common/Listeners";
 import { removeCommonListeners } from "../../socket/Common/RemoveListeners";
 import variables from "../../sass/variables.module.scss";
 import { getCurrentRoomSocket } from "../../socket/FamilyRoom/EventEmitters";
-import LeaveRoomModal from "../../components/FamilyRoom-UI/Modal/LeaveRoomModal/LeaveRoomModal";
-import socketIDListeners from "../../socket/SocketID/Listeners";
 import removeSocketIDListeners from "../../socket/SocketID/RemoveListeners";
+import AllModals from "../../components/Modal-Common/AllModals";
+import { commonListeners } from "../../socket/Common/Listeners";
+import socketIDListeners from "../../socket/SocketID/Listeners";
 
 const FamilyRoom = () => {
   const { roomId } = useParams();
@@ -41,7 +38,6 @@ const FamilyRoom = () => {
   const familyRoom = useAppSelector(
     (state) => state.familyRoomReducer.familyRoom
   );
-  const modalStatus = useAppSelector((state) => state.modalReducer.modalStatus);
 
   useEffect(() => {
     familyRoomListeners(dispatch);
@@ -83,10 +79,7 @@ const FamilyRoom = () => {
         />
       </Box>
 
-      {modalStatus === "deleteCalendarEvent" && <DeleteEventModal />}
-      {modalStatus === "deleteMember" && <DeleteMemberModal />}
-      {modalStatus === "assignTask" && <AssignTaskModal />}
-      {modalStatus === "leaveRoom" && <LeaveRoomModal />}
+      <AllModals />
 
       {loading ? (
         <Loader height="65vh" />

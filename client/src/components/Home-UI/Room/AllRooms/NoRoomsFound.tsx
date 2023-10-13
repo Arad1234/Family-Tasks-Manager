@@ -8,7 +8,7 @@ const NoRoomsFound = () => {
         color: "white",
         justifyContent: "center",
         alignItems: "center",
-        height: "70vh",
+        height: "88vh",
       }}
     >
       <Typography variant="h4">No Rooms Found</Typography>

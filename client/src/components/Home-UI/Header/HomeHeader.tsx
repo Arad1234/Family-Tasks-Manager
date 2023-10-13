@@ -1,34 +1,39 @@
-import { Box } from "@mui/material";
-import variables from "../../../sass/variables.module.scss";
 import BurgerIcon from "../../BurgerMenu/BurgerIcon";
 import { useAppSelector } from "../../../redux/hooks";
 import BurgerMenu from "../../BurgerMenu/BurgerMenu";
-import SearchIcon from "./SearchIcon";
+import SearchIcon from "./Search/SearchIcon";
+import SearchInput from "./Search/SearchInput";
+import { useState } from "react";
+import HeaderComponent from "../../Common/Header";
 
-const HomeHeader = () => {
+interface Props {
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+  searchQuery: string;
+}
+
+const HomeHeader = ({ setSearchQuery, searchQuery }: Props) => {
   const isShowMenu = useAppSelector(
     (state) => state.burgerMenuReducer.isShowMenu
   );
 
+  const [isShowSearchBar, setIsShowSearchBar] = useState(false);
+
   return (
-    <Box
-      component={"nav"}
-      sx={{
-        position: "relative",
-        backgroundColor: variables.secondaryColor,
-        boxShadow: "3",
-        color: "white",
-        display: "flex",
-        justifyContent: "center",
-        height: "65px",
-      }}
-    >
+    <HeaderComponent>
       <BurgerIcon />
 
       {isShowMenu && <BurgerMenu />}
-      {/* <NewRoomButton /> */}
-      <SearchIcon />
-    </Box>
+
+      {isShowSearchBar ? (
+        <SearchInput
+          setIsShowSearchBar={setIsShowSearchBar}
+          setSearchQuery={setSearchQuery}
+          searchQuery={searchQuery}
+        />
+      ) : (
+        <SearchIcon setIsShowSearchBar={setIsShowSearchBar} />
+      )}
+    </HeaderComponent>
   );
 };
 

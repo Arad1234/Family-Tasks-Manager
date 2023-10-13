@@ -24,22 +24,25 @@ const InputComponent = ({
   let inputIcon = null;
   const iconStyle = { size: 23, style: { margin: "5px" } };
 
-  if (props.name === "name") {
-    inputIcon = <BiSolidUser {...iconStyle} />;
-  } else if (props.name === "email") {
-    inputIcon = <MdEmail {...iconStyle} />;
-  } else {
-    inputIcon = hidePassword ? (
-      <AiFillEye
-        {...iconStyle}
-        onClick={() => setHidePassword(false)}
-      />
-    ) : (
-      <AiFillEyeInvisible
-        {...iconStyle}
-        onClick={() => setHidePassword(true)}
-      />
-    );
+  switch (props.name) {
+    case "name":
+      inputIcon = <BiSolidUser {...iconStyle} />;
+      break;
+    case "email":
+      inputIcon = <MdEmail {...iconStyle} />;
+      break;
+    default:
+      inputIcon = hidePassword ? (
+        <AiFillEyeInvisible
+          {...iconStyle}
+          onClick={() => setHidePassword(false)}
+        />
+      ) : (
+        <AiFillEye
+          {...iconStyle}
+          onClick={() => setHidePassword(true)}
+        />
+      );
   }
 
   return (

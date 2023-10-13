@@ -12,8 +12,8 @@ interface Props {
 const JoinButton = ({ room }: Props) => {
   const dispatch = useAppDispatch();
 
-  const handleOpenJoinModal = () => {
-    dispatch(setOpenModal("join"));
+  const handleOpenJoinRoomModal = () => {
+    dispatch(setOpenModal("joinRoom"));
 
     // When the "Join" button is clicked I set the room to the redux store.
     dispatch(setSelectedRoom(room));
@@ -22,7 +22,7 @@ const JoinButton = ({ room }: Props) => {
   return (
     <RoomButton
       backgroundColor={variables.actionColor}
-      handleClick={handleOpenJoinModal}
+      handleClick={handleOpenJoinRoomModal}
       width="130px"
     >
       Join

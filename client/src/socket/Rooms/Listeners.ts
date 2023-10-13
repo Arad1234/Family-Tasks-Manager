@@ -8,6 +8,7 @@ import {
 import { toast } from "react-toastify";
 import { setHideModal } from "../../redux/slices/Modal/modal-slice";
 import { socket } from "../socket";
+import { setHideMenu } from "../../redux/slices/BurgerMenu/burgerMenu-slice";
 
 export const roomsListeners = (dispatch: AppDispatch) => {
   socket.on("recievedRooms", (data) => {
@@ -24,6 +25,7 @@ export const roomsListeners = (dispatch: AppDispatch) => {
     if (newRoom.isCreator) {
       dispatch(setHideModal());
       dispatch(setLoading(false));
+      dispatch(setHideMenu());
       toast.success("Room Created Successfully!");
     }
   });

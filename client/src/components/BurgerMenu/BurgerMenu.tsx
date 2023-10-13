@@ -5,12 +5,10 @@ import BurgerMenuOption from "./BurgerMenuOption";
 import { setMemberForDelete } from "../../redux/slices/FamilyRoom/members-slice";
 import { setOpenModal } from "../../redux/slices/Modal/modal-slice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import SignOutModal from "../Common/SignOutModal";
 
 const BurgerMenu = () => {
   const dispatch = useAppDispatch();
   const userId = useAppSelector((state) => state.authReducer.userId);
-  const modalStatus = useAppSelector((state) => state.modalReducer.modalStatus);
   const familyRoom = useAppSelector(
     (state) => state.familyRoomReducer.familyRoom
   );
@@ -26,6 +24,10 @@ const BurgerMenu = () => {
     dispatch(setOpenModal("signOut"));
   };
 
+  const handleOpenCreateRoomModal = () => {
+    dispatch(setOpenModal("createRoom"));
+  };
+
   const burgerMenuStyle = useMemo(() => {
     const sildeMenu = keyframes`
     from {
@@ -39,7 +41,7 @@ const BurgerMenu = () => {
     return {
       width: "100vw",
       height: "100vh",
-      position: "absolute",
+      position: "fixed",
       backgroundColor: variables.secondaryColor,
       zIndex: "1",
       right: "0",
@@ -59,8 +61,8 @@ const BurgerMenu = () => {
           gap: "30px",
         }}
       >
-        {familyRoom &&
-          (isRoomCreator ? (
+        {familyRoom ? (
+          isRoomCreator ? (
             <BurgerMenuOption
               color={"red"}
               onClick={() => console.log("fill!")}
@@ -71,7 +73,13 @@ const BurgerMenu = () => {
             <BurgerMenuOption onClick={handleOpenLeaveRoomModal}>
               Leave Room
             </BurgerMenuOption>
-          ))}
+          )
+        ) : (
+          <BurgerMenuOption onClick={handleOpenCreateRoomModal}>
+            New Room
+          </BurgerMenuOption>
+        )}
+
         <BurgerMenuOption onClick={() => console.log("fill!")}>
           Profile
         </BurgerMenuOption>
@@ -79,8 +87,6 @@ const BurgerMenu = () => {
           Sign Out
         </BurgerMenuOption>
       </Box>
-
-      {modalStatus === "signOut" && <SignOutModal />}
     </Box>
   );
 };

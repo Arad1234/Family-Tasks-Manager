@@ -10,8 +10,7 @@ const socketIDListeners = (
 ) => {
   socket.on("removedFromRoom", (data) => {
     const roomId = data;
-    console.log(roomId);
-    console.log(location.pathname);
+    // If location pathname includes the roomId, the user will be navigated automatically to the home page.
     if (location.pathname.includes(roomId)) {
       navigate("/home");
       dispatch(setOpenModal("adminRemovedYou"));
