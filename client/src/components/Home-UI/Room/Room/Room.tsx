@@ -13,7 +13,6 @@ interface Props {
 
 const Room = ({ room }: Props) => {
   const userId = useAppSelector((state) => state.authReducer.userId);
-
   const { familyMembers, maxMembers } = room;
 
   const isRoomFull = familyMembers.length === maxMembers;

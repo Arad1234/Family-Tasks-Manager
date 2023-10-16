@@ -3,6 +3,7 @@ import { setLoading } from "../../redux/slices/Auth/auth-slice";
 import {
   setCreateRoom,
   setDeleteRoom,
+  setIncrementPage,
   setRooms,
 } from "../../redux/slices/Rooms/rooms-slice";
 import { toast } from "react-toastify";
@@ -13,7 +14,11 @@ import { setHideMenu } from "../../redux/slices/BurgerMenu/burgerMenu-slice";
 export const roomsListeners = (dispatch: AppDispatch) => {
   socket.on("recievedRooms", (data) => {
     const rooms = data;
-    dispatch(setRooms(rooms));
+
+    if (rooms.length > 0) {
+      dispatch(setRooms(rooms));
+      dispatch(setIncrementPage());
+    }
     dispatch(setLoading(false));
   });
 

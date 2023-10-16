@@ -11,11 +11,14 @@ import { DeleteRoomSchemaType } from "../schema/room/deleteRoom.schema";
 import { catchAsyncSocket } from "../utils/socket/catchAsyncSocket";
 
 export const roomsHandler = (io: Server, socket: Socket) => {
-  const getFamilyRoomsHandler = catchAsyncSocket(async function () {
-    const rooms = await getFamilyRooms();
+  const getFamilyRoomsHandler = catchAsyncSocket(async function (payload: {
+    page: number;
+  }) {
+    const rooms = await getFamilyRooms(payload.page);
 
     socket.emit("recievedRooms", rooms);
-  }, socket);
+  },
+  socket);
 
   const createRoomHandler = catchAsyncSocket(async function (
     payload: CreateRoomSchemaType

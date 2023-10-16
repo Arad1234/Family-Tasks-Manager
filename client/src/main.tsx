@@ -15,20 +15,20 @@ import "react-toastify/dist/ReactToastify.css";
 const supabase = createClient(VITE_SUPABASE_PROJECT_URL, VITE_API_KEY);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <SessionContextProvider supabaseClient={supabase}>
-      <Provider store={store}>
-        <PersistGate
-          loading={null}
-          persistor={persistor}
-        >
-          <ToastContainer
-            draggable={false}
-            autoClose={3200}
-          />
-          <RouterProvider router={router} />
-        </PersistGate>
-      </Provider>
-    </SessionContextProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <SessionContextProvider supabaseClient={supabase}>
+    <Provider store={store}>
+      <PersistGate
+        loading={null}
+        persistor={persistor}
+      >
+        <ToastContainer
+          draggable={false}
+          autoClose={3200}
+        />
+        <RouterProvider router={router} />
+      </PersistGate>
+    </Provider>
+  </SessionContextProvider>
+  // </React.StrictMode>
 );

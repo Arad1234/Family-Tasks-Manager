@@ -3,9 +3,9 @@ import { AppDispatch } from "../../redux/store";
 import { RoomCreationData, JoinRoomData } from "../../types";
 import { socket } from "../socket";
 
-export const getRoomsSocket = (dispatch: AppDispatch) => {
+export const getRoomsSocket = (dispatch: AppDispatch, page: number) => {
   dispatch(setLoading(true));
-  socket.emit("rooms:read");
+  socket.emit("rooms:read", { page });
 };
 
 export const createRoomSocket = (

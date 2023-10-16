@@ -4,11 +4,13 @@ import { IRoom, IUser } from "../../../types";
 interface InitialState {
   rooms: IRoom[];
   selectedRoom: IRoom | null;
+  page: number;
 }
 
 const initialState: InitialState = {
   rooms: [],
   selectedRoom: null,
+  page: 0,
 };
 
 const roomsSlice = createSlice({
@@ -16,7 +18,8 @@ const roomsSlice = createSlice({
   initialState,
   reducers: {
     setRooms(state, { payload: allRooms }) {
-      state.rooms = allRooms;
+      state.rooms = [...state.rooms, ...allRooms];
+      // state.rooms = allRooms;
     },
     setCreateRoom(state, { payload: newRoom }) {
       state.rooms.push(newRoom);
@@ -54,6 +57,10 @@ const roomsSlice = createSlice({
     setSelectedRoom(state, { payload: room }) {
       state.selectedRoom = room;
     },
+
+    setIncrementPage(state) {
+      state.page += 1;
+    },
   },
 });
 
@@ -64,6 +71,7 @@ export const {
   setJoinRoom,
   setLeaveRoom,
   setSelectedRoom,
+  setIncrementPage,
 } = roomsSlice.actions;
 
 export default roomsSlice.reducer;

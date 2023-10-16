@@ -18,6 +18,8 @@ export const mailAuthConfig = {
   refreshToken: config.email.refreshToken,
 };
 
+export const PAGE_LIMIT = 5;
+
 export const isProduction = config.environment.nodeEnv === "production";
 
 export const userToSocketMap = new Map();

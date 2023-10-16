@@ -2,13 +2,15 @@ import Room from "../models/room.model";
 import Task from "../models/task.model";
 import { RoomData } from "../types/common";
 import { JoinRoomPayload } from "../types/socket";
-import { NOT_FOUND, UNAUTHORIZED } from "../utils/constants";
+import { NOT_FOUND, PAGE_LIMIT, UNAUTHORIZED } from "../utils/constants";
 import AppError from "../utils/appErrorClass";
 import User from "../models/user.model";
 
-export const getFamilyRooms = async () => {
-  const rooms = await Room.find();
-
+export const getFamilyRooms = async (page: number) => {
+  const rooms = await Room.find()
+    .skip(page * PAGE_LIMIT)
+    .limit(PAGE_LIMIT);
+  console.log(rooms);
   return rooms;
 };
 
