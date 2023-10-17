@@ -1,0 +1,21 @@
+{
+  "name": "family_tasks_manager",
+  "version": "1.0.0",
+  "description": "A real-time family tasks manager app built using React.js, Redux, TypeScript (Front & Back), Node.js, Express.js, MongoDB, Socket.IO, JWT, Zod, MUI, Supabase Auth, and Docker.",
+  "main": "index.js",
+  "scripts": {
+    "merge": "git pull && git pull origin main && git merge main",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arad1234/Family-Tasks-Manager.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Arad1234/Family-Tasks-Manager/issues"
+  },
+  "homepage": "https://github.com/Arad1234/Family-Tasks-Manager#readme"
+}

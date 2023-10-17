@@ -1,12 +1,20 @@
 import { setLoading } from "../../redux/slices/Auth/auth-slice";
+import { setIsIntersecting } from "../../redux/slices/Pagination/pagination-slice";
 import { AppDispatch } from "../../redux/store";
 import { RoomCreationData, JoinRoomData } from "../../types";
 import { socket } from "../socket";
 
-export const getRoomsSocket = (dispatch: AppDispatch) => {
-  console.log("getting!");
-  dispatch(setLoading(true));
-  socket.emit("rooms:read")
+export const getRoomsSocket = (
+  dispatch: AppDispatch,
+  page: number,
+  isIntersecting?: boolean
+) => {
+  if (isIntersecting) {
+    dispatch(setIsIntersecting(true));
+  } else {
+    dispatch(setLoading(true));
+  }
+  socket.emit("rooms:read", { page });
 };
 
 export const createRoomSocket = (
@@ -24,7 +32,10 @@ export const createRoomSocket = (
   });
 };
 
-export const deleteRoomSocket = (dispatch: AppDispatch, roomId: string) => {
+export const deleteRoomSocket = (
+  dispatch: AppDispatch,
+  roomId: string | undefined
+) => {
   dispatch(setLoading(true));
 
   socket.emit("rooms:delete", { roomId });

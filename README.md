@@ -62,12 +62,21 @@ To run the Family Tasks Manager app locally, follow these steps:
 
 4. Set up the environment variables:
 
-   - Create a `.env` file in the `server` directory and add the following variables:
+   - Create a `.env.dev` file in the `server` directory and add the following variables:
 
      - `MONGODB_URI`: MongoDB connection URI
      - `SECRET_KEY`: Secret key for JWT authentication
+     - `PORT`: Your server's port
 
-   - Create a `.env` file in the `client` directory and add the following variables:
+     - `JWT_EXPIRES_IN`: JWT's expires in time
+
+     - `CLIENT_HOST`: Your client's host
+
+     - `NODE_ENV`: Running environment (development or production)
+
+     - `FROM_EMAIL`: The email from which to send the message to reset the password.
+
+   - Create a `.env.dev` file in the `client` directory and add the following variables:
      - `VITE_SUPABASE_PROJECT_URL`: Supabase project URL
      - `VITE_API_KEY`: Supabase project API key
      - `VITE_SCOPES`: Permissions scopes for the Google Calendar API.
@@ -84,4 +93,4 @@ To run the Family Tasks Manager app locally, follow these steps:
 
 6. Open the app in your browser:
 
-   Open [http://localhost:5173](http://localhost:5173) to view the app in your browser.
+   Open [http://localhost:4173](http://localhost:4173) to view the app in your browser.

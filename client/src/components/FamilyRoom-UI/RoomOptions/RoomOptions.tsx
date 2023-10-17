@@ -1,18 +1,22 @@
 import { Box } from "@mui/material";
 import { useAppDispatch } from "../../../redux/hooks";
-import { setRoomOption } from "../../../redux/slices/FamilyRoom/roomOptions-slice";
 import ButtonOption from "./ButtonOption";
 import { setMemberForTasks } from "../../../redux/slices/FamilyRoom/members-slice";
 
-const RoomOptions = () => {
+interface Props {
+  setOption: React.Dispatch<React.SetStateAction<"tasks" | "members">>;
+  option: "tasks" | "members";
+}
+
+const RoomOptions = ({ setOption, option }: Props) => {
   const dispatch = useAppDispatch();
 
   const handleTaskOption = () => {
-    dispatch(setRoomOption("tasks"));
+    setOption("tasks");
     dispatch(setMemberForTasks(null)); // Setting selectedMember to null to show all members.
   };
   const handleMembersOption = () => {
-    dispatch(setRoomOption("members"));
+    setOption("members");
   };
 
   return (
@@ -25,14 +29,16 @@ const RoomOptions = () => {
       }}
     >
       <ButtonOption
-        handleClick={handleTaskOption}
+        onClick={handleTaskOption}
         optionValue="tasks"
+        selectedOption={option}
       >
         Your Tasks
       </ButtonOption>
       <ButtonOption
-        handleClick={handleMembersOption}
+        onClick={handleMembersOption}
         optionValue="members"
+        selectedOption={option}
       >
         Members
       </ButtonOption>

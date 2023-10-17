@@ -1,33 +1,45 @@
 import { Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { hideModal } from "../../../../utils/helpers/hideModal";
-import DeleteModalButtons from "../../../Modal-Common/DeleteModalButtons";
+import YesOrNoModalButtons from "../../../Modal-Common/YesOrNoModalButtons";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
 import { deleteMemberSocket } from "../../../../socket/FamilyRoom/EventEmitters";
+import { IUser } from "../../../../types";
+import { setHideModal } from "../../../../redux/slices/Modal/modal-slice";
 
 const DeleteMemberModal = () => {
   const dispatch = useAppDispatch();
-  const { memberForDelete } = useAppSelector((state) => state.membersReducer);
-  const { currentRoom } = useAppSelector((state) => state.roomsReducer);
+  const memberForDelete = useAppSelector(
+    (state) => state.membersReducer.memberForDelete
+  );
+  const familyRoom = useAppSelector(
+    (state) => state.familyRoomReducer.familyRoom
+  );
+
+  const memberAsTypeUser = memberForDelete as IUser;
 
   const handleDeleteMember = () => {
-    if (memberForDelete && currentRoom) {
-      deleteMemberSocket(dispatch, memberForDelete.userId, currentRoom._id);
+    if (memberAsTypeUser && familyRoom) {
+      deleteMemberSocket(
+        dispatch,
+        memberAsTypeUser._id,
+        familyRoom._id,
+        "admin"
+      );
     }
   };
 
   const handleCancel = () => {
-    hideModal(dispatch);
+    dispatch(setHideModal());
   };
 
   return (
     <ModalComponent>
       <Typography>
-        Are you sure to want to delete {memberForDelete?.username} from family
+        Are you sure to want to delete {memberAsTypeUser.username} from family
         members?
       </Typography>
-      <DeleteModalButtons
-        handleDelete={handleDeleteMember}
+      <YesOrNoModalButtons
+        handleOperation={handleDeleteMember}
         handleCancel={handleCancel}
         buttonOption={"Delete"}
       />

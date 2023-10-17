@@ -1,32 +1,82 @@
-import { Socket } from "socket.io-client";
 import { AppDispatch } from "../../redux/store";
 import {
-  setDeleteMember,
   setJoinRoom,
+  setLeaveRoom,
 } from "../../redux/slices/Rooms/rooms-slice";
-import { hideModal } from "../../utils/helpers/hideModal";
 import { setLoading } from "../../redux/slices/Auth/auth-slice";
-import { resetRoomPassword } from "../../redux/slices/Rooms/joinRoom-slice";
 import { toast } from "react-toastify";
+import {
+  setAddMember,
+  setDeleteMember,
+  setFamilyRoom,
+} from "../../redux/slices/FamilyRoom/familyRoom-slice";
+import { setHideModal } from "../../redux/slices/Modal/modal-slice";
+import { NavigateFunction } from "react-router-dom";
+import { socket } from "../socket";
 
-export const commonListeners = (socket: Socket, dispatch: AppDispatch) => {
-  
+export const commonListeners = (
+  dispatch: AppDispatch,
+  navigate?: NavigateFunction
+) => {
   socket.on("joinedRoom", (data) => {
-    const { roomId, username, userId } = data;
-    
-    dispatch(setJoinRoom({ roomId, username, userId }));
-    dispatch(resetRoomPassword());
-    hideModal(dispatch);
-    dispatch(setLoading(false));
-    toast.success("Joined Room!");
+    const { roomId, newMember, toRoomMembers, toCurrentUser } = data;
+
+    dispatch(setJoinRoom({ roomId, userId: newMember._id })); // Home page
+
+    if (toCurrentUser) {
+      dispatch(setHideModal());
+      dispatch(setLoading(false));
+      toast.success(`Joined room!`);
+    }
+
+    if (toRoomMembers) {
+      dispatch(setAddMember(newMember)); // FamilyRoom page
+    }
   });
-  
-  socket.on("memberDeleted", (data) => {
-    const { memberId, roomId } = data;
-    
-    dispatch(setDeleteMember({ memberId, roomId }));
-    hideModal(dispatch);
-    dispatch(setLoading(false));
-    toast.success("Member Deleted Successfully!");
+
+  // Two different listeners that implement the same state logic but generate different behavior for each user.
+  socket.on("userLeftRoom", (data) => {
+    const {
+      memberId,
+      username,
+      roomName,
+      roomId,
+      toCurrentUser,
+      toAllUsers,
+      toRoomMembers,
+    } = data;
+
+    dispatch(setDeleteMember(memberId));
+
+    if (toCurrentUser) {
+      dispatch(setFamilyRoom(null));
+      dispatch(setHideModal());
+      navigate!("/home");
+    }
+
+    if (toRoomMembers) {
+      toast.info(`${username} left "${roomName}" room`);
+    }
+
+    if (toAllUsers) {
+      dispatch(setLeaveRoom({ roomId, userId: memberId }));
+    }
+  });
+
+  socket.on("memberDeletedByAdmin", (data) => {
+    const { memberId, username, roomName, roomId, toRoomMembers, toAllUsers } =
+      data;
+
+    if (toRoomMembers) {
+      dispatch(setDeleteMember(memberId));
+      toast.info(`${username} removed from "${roomName}"`);
+      dispatch(setHideModal());
+      dispatch(setLoading(false));
+    }
+
+    if (toAllUsers) {
+      dispatch(setLeaveRoom({ roomId, userId: memberId }));
+    }
   });
 };
+// Two different listeners that implement the same state logic but generate different behavior for each user.

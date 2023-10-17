@@ -1,50 +1,54 @@
-import { AiOutlineCaretDown } from "react-icons/ai";
-import { Box, Typography } from "@mui/material";
 import React, { useState } from "react";
-import ExitIcon from "./ExitIcon";
-import MenuModal from "./MenuModal";
+import RoomsMenuModal from "./RoomsMenuModal";
+import { getMemberRoomsSocket } from "../../../socket/FamilyRoom/EventEmitters";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import RoomName from "./RoomName";
+import BurgerIcon from "../../BurgerMenu/BurgerIcon";
+import BurgerMenu from "../../BurgerMenu/BurgerMenu";
+import { IoMdArrowBack } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+import { setFamilyRoom } from "../../../redux/slices/FamilyRoom/familyRoom-slice";
+import HeaderComponent from "../../Common/Header";
 
-interface Props {
-  children: React.ReactNode;
-}
-
-const RoomHeader = ({ children }: Props) => {
+const RoomHeader = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const userId = useAppSelector((state) => state.authReducer.userId);
+  const isShowMenu = useAppSelector(
+    (state) => state.burgerMenuReducer.isShowMenu
+  );
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleOpenMenu = (e: React.MouseEvent<HTMLElement>) => {
+    getMemberRoomsSocket(userId);
     setAnchorEl(e.currentTarget);
   };
 
   return (
-    <Box
-      sx={{
-        backgroundColor: "rgba(50, 250, 100, 0.2)",
-        boxShadow: "3",
-      }}
-    >
-      <ExitIcon />
-
-      <Box
-        onClick={handleOpenMenu}
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "10px",
-          gap: "13px",
+    <HeaderComponent>
+      <IoMdArrowBack
+        style={{ position: "absolute", left: "10px", top: "15px" }}
+        size={35}
+        onClick={() => {
+          navigate("/home");
+          dispatch(setFamilyRoom(null));
         }}
-      >
-        <Typography sx={{ fontWeight: 700, fontSize: "40px" }}>
-          {children}
-        </Typography>
-        <AiOutlineCaretDown size={25} />
-      </Box>
+      />
 
-      <MenuModal
+      <RoomName
+        anchorEl={anchorEl}
+        handleOpenMenu={handleOpenMenu}
+      />
+
+      <BurgerIcon />
+
+      {isShowMenu && <BurgerMenu />}
+
+      <RoomsMenuModal
         anchorEl={anchorEl}
         setAnchorEl={setAnchorEl}
       />
-    </Box>
+    </HeaderComponent>
   );
 };
 

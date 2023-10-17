@@ -1,73 +1,87 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import CreateRoomModal from "../../components/Home-UI/Modal/CreateRoomModal/CreateRoomModal";
 import { Box } from "@mui/material";
 import Loader from "../../components/Loader/Loader";
-import JoinRoomModal from "../../components/Home-UI/Modal/JoinRoomModal/JoinRoomModal";
 import { socket } from "../../socket/socket";
 import { removeRoomsListeners } from "../../socket/Rooms/RemoveListeners";
-import SearchInput from "../../components/Home-UI/SearchInput/SearchInput";
-import DeleteRoomModal from "../../components/Home-UI/Modal/DeleteRoomModal/DeleteRoomModal";
-import { getRoomsSocket } from "../../socket/Rooms/EventEmitters";
-import AllRooms from "../../components/Home-UI/Room/AllRooms";
+import AllRooms from "../../components/Home-UI/Room/AllRooms/AllRooms";
 import { roomsListeners } from "../../socket/Rooms/Listeners";
 import { errorListeners } from "../../socket/Errors/Listeners";
 import { removeErrorListeners } from "../../socket/Errors/RemoveListeners";
-import NewRoomButton from "../../components/Home-UI/Buttons/NewRoomButton";
-import SignOut from "../../components/Home-UI/Buttons/SignOut";
-import LeaveRoomModal from "../../components/Home-UI/Modal/LeaveRoomModal/LeaveRoomModal";
 import { commonListeners } from "../../socket/Common/Listeners";
 import { removeCommonListeners } from "../../socket/Common/RemoveListeners";
+import HomeHeader from "../../components/Home-UI/Header/HomeHeader";
+import connectionListeners from "../../socket/Connection/Listeners";
+import socketIDListeners from "../../socket/SocketID/Listeners";
+import removeSocketIDListeners from "../../socket/SocketID/RemoveListeners";
+import AllModals from "../../components/Modal-Common/AllModals";
+import { getRoomsSocket } from "../../socket/Rooms/EventEmitters";
+import useCustomRef from "../../hooks/useCustomRef";
 
-const Home = () => {
+export const Home = () => {
   const dispatch = useAppDispatch();
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const { loading } = useAppSelector((state) => state.authReducer);
-  const { modalStatus } = useAppSelector((state) => state.modalReducer);
+  const location = useLocation();
   const navigate = useNavigate();
 
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const page = useAppSelector((state) => state.paginationReducer.page);
+  const { loading, userId } = useAppSelector((state) => state.authReducer);
+
   useEffect(() => {
-    roomsListeners(socket, dispatch);
-    commonListeners(socket, dispatch);
-    errorListeners(socket, navigate, dispatch);
-    getRoomsSocket(dispatch);
+    roomsListeners(dispatch);
+    commonListeners(dispatch);
+    errorListeners(navigate, dispatch);
+    socketIDListeners(location, navigate, dispatch);
+    connectionListeners(userId as string);
 
     return () => {
-      removeRoomsListeners(socket);
-      removeCommonListeners(socket);
-      removeErrorListeners(socket);
+      removeRoomsListeners();
+      removeCommonListeners();
+      removeErrorListeners();
+      removeSocketIDListeners();
     };
   }, []);
 
+  const ctx = useCustomRef(page);
+
+  // Using callBackRef to check if the "node" has been changed from null to an HTML element, if it does, the callback will be executed.
+  const callBackRef = useCallback((node: HTMLDivElement | null) => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          getRoomsSocket(dispatch, ctx.current, true);
+        }
+      },
+      { threshold: 1 }
+    );
+
+    if (node !== null) {
+      observer.observe(node);
+    }
+  }, []);
+
+  useEffect(() => {
+    getRoomsSocket(dispatch, page);
+  }, []);
+
   return loading || !socket.connected ? (
-    <Loader height="100vh" />
+    <Loader />
   ) : (
     <>
-      <Box
-        sx={{
-          padding: "10px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <NewRoomButton />
-        <SignOut />
-      </Box>
-
-      <SearchInput
-        searchQuery={searchQuery}
+      <HomeHeader
         setSearchQuery={setSearchQuery}
+        searchQuery={searchQuery}
       />
+
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <AllRooms searchQuery={searchQuery} />
+        <AllRooms
+          searchQuery={searchQuery}
+          ref={callBackRef}
+        />
       </Box>
 
-      {modalStatus === "create" && <CreateRoomModal />}
-      {modalStatus === "join" && <JoinRoomModal />}
-      {modalStatus === "delete" && <DeleteRoomModal />}
-      {modalStatus === "leaveRoom" && <LeaveRoomModal />}
+      <AllModals />
     </>
   );
 };

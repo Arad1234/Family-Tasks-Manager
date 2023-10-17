@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { configDotenv } from "dotenv";
+import dotenv from "dotenv";
 import authRouter from "./src/routes/authRoutes";
 import cookieParser from "cookie-parser";
 import { expressErrorHandler } from "./src/middlewares/express/expressErrorHandler";
@@ -13,8 +13,9 @@ import mongoSanitize from "express-mongo-sanitize";
 import { NOT_FOUND } from "./src/utils/constants";
 import AppError from "./src/utils/appErrorClass";
 import { connectDB } from "./db";
+import { config } from "./src/config/config";
 
-configDotenv();
+dotenv.config();
 
 // Handling exception errors.
 process.on("uncaughtException", (err: any) => {
@@ -73,7 +74,7 @@ app.all("*", (req, _res, next) => {
 
 app.use(expressErrorHandler);
 
-const port = process.env.PORT || 3000;
+const port = config.server.port || 3000;
 
 const server = app.listen(port, () => {
   console.log(`Listening on port ${port}`);

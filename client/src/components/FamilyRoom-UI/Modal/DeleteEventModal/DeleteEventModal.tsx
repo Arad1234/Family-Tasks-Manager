@@ -1,14 +1,14 @@
 import { Typography } from "@mui/material";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
-import { deleteGoogleCalendarEvent } from "../../../../Supabase/Api";
+import { deleteGoogleCalendarEvent } from "../../../../supabase/Api";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { useSession } from "@supabase/auth-helpers-react";
-import DeleteModalButtons from "../../../Modal-Common/DeleteModalButtons";
-import { hideModal } from "../../../../utils/helpers/hideModal";
+import YesOrNoModalButtons from "../../../Modal-Common/YesOrNoModalButtons";
+import { setHideModal } from "../../../../redux/slices/Modal/modal-slice";
 
 const DeleteEventModal = () => {
-  const { eventToDelete } = useAppSelector(
-    (state) => state.calendarEventsReducer
+  const eventToDelete = useAppSelector(
+    (state) => state.calendarEventsReducer.eventToDelete
   );
   const dispatch = useAppDispatch();
   const session = useSession();
@@ -18,16 +18,19 @@ const DeleteEventModal = () => {
       deleteGoogleCalendarEvent(eventToDelete.id, session, dispatch);
     }
   };
+
   const handleCancel = () => {
-    hideModal(dispatch);
+    dispatch(setHideModal());
   };
+
   return (
     <ModalComponent>
       <Typography>
         Are you sure to want to delete the event from Google Calendar?
       </Typography>
-      <DeleteModalButtons
-        handleDelete={handleDeleteEventFromCalendar}
+      <YesOrNoModalButtons
+        width="6rem"
+        handleOperation={handleDeleteEventFromCalendar}
         handleCancel={handleCancel}
         buttonOption="Delete"
       />

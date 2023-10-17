@@ -6,9 +6,7 @@ interface Props {
 
 const MemberName = ({ memberName }: Props) => {
   return (
-    <Typography
-      sx={{ fontWeight: "600", fontSize: "20px", wordWrap: "break-word" }}
-    >
+    <Typography sx={{ fontWeight: "600", fontSize: "30px" }}>
       {memberName}
     </Typography>
   );

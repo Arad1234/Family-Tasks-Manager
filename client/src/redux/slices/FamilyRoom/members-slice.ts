@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IMember } from "../../../types";
+import { IUser } from "../../../types";
 
 interface InitialState {
-  members: IMember[];
-  memberForTasks: IMember | null;
-  memberForDelete: IMember | null;
-  memberForAssignTask: IMember | null;
+  members: IUser[];
+  memberForTasks: IUser | null;
+  memberForDelete: IUser | string | null;
+  memberForAssignTask: IUser | null;
 }
 
 const initialState: InitialState = {

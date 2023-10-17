@@ -1,6 +1,7 @@
-import { Socket } from "socket.io-client";
+import { socket } from "../socket";
 
-export const removeCommonListeners = (socket: Socket) => {
-  socket.off("memberDeleted");
+export const removeCommonListeners = () => {
+  socket.off("memberDeletedByAdmin");
   socket.off("joinedRoom");
+  socket.off("userLeftRoom");
 };

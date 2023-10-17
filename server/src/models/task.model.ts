@@ -7,6 +7,7 @@ export const taskSchema = new Schema<ITask>(
     description: String,
     startTime: Date,
     endTime: Date,
+    roomId: { type: Schema.Types.ObjectId, ref: "Room" },
   },
   { versionKey: false, timestamps: true }
 );

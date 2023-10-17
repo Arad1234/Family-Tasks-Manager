@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { ITask } from "../../../types";
 import TaskCreatedAt from "./TaskCreatedAt";
-import TaskTimeToDo from "./TaskTimeToDo";
+import TaskTimeRange from "./TaskTimeRange";
 import GoogleCalendarManipulation from "./GoogleCalendar/GoogleCalendarManipulation";
 import TaskName from "./TaskName";
 import TaskDescription from "./TaskDescription";
@@ -33,7 +33,7 @@ const Task = ({ task }: Props) => {
       <TaskDescription taskDescription={task.description} />
       {task.startTime && (
         <>
-          <TaskTimeToDo task={task} />
+          <TaskTimeRange task={task} />
           {/* Mount the "AddToCalendarButton" if the user did not clicked to show any other member tasks. */}
           {!memberForTasks && <GoogleCalendarManipulation task={task} />}
         </>

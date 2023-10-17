@@ -1,10 +1,10 @@
 import { Button } from "@mui/material";
 import { useAppDispatch } from "../../../../redux/hooks";
-import { IMember } from "../../../../types";
+import { IUser } from "../../../../types";
 import { setMemberForTasks } from "../../../../redux/slices/FamilyRoom/members-slice";
 
 interface Props {
-  member: IMember;
+  member: IUser;
 }
 
 const TasksButton = ({ member }: Props) => {
@@ -29,7 +29,7 @@ const TasksButton = ({ member }: Props) => {
       }}
       onClick={handleShowMemberTasks}
     >
-      Tasks
+      View tasks
     </Button>
   );
 };

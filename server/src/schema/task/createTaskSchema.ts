@@ -8,25 +8,25 @@ export const createTaskSchema = object({
 
   description: string().optional(),
 
-  // Transforming the time from string to date.
+  // Transform the time from string to date.
   startTime: string()
-    .nullable()
+    .optional()
     .transform((arg) => arg && new Date(arg)),
 
   endTime: string()
-    .nullable()
+    .optional()
     .transform((arg) => arg && new Date(arg)),
 
-  memberId: string({ required_error: "memberId is required!" }),
+  userId: string({ required_error: "userId is required!" }),
 
   roomId: string({ required_error: "roomId is required!" }),
 }).refine(
   (schema) =>
-    schema.startTime !== null && schema.endTime !== null
+    schema.startTime && schema.endTime
       ? schema.startTime <= schema.endTime
       : true,
   {
-    message: "Start Time must be before End Time!",
+    message: "Start Time must be smaller than End Time!",
   }
 );
 

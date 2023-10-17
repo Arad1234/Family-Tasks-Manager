@@ -1,4 +1,4 @@
-import mongoose, { Model } from "mongoose";
+import { Model, Schema, model } from "mongoose";
 import bcrypt from "bcrypt";
 import { IUser } from "../types/mongoose";
 import crypto from "crypto";
@@ -11,13 +11,17 @@ interface IUserMethods {
 
 type UserModel = Model<IUser, {}, IUserMethods>;
 
-const userSchema = new mongoose.Schema<IUser, {}, IUserMethods>(
+const userSchema = new Schema<IUser, {}, IUserMethods>(
   {
     username: String,
     email: { type: String, unique: true },
-    password: String,
+    password: { type: String, select: false },
     passwordResetToken: String,
     passwordResetExpires: Date,
+    tasks: {
+      type: [{ type: Schema.Types.ObjectId, ref: "Task" }],
+      default: [],
+    },
   },
   { versionKey: false }
 );
@@ -52,6 +56,6 @@ userSchema.methods.createPasswordResetToken = function () {
   return resetToken;
 };
 
-const User = mongoose.model<IUser, UserModel>("User", userSchema);
+const User = model<IUser, UserModel>("User", userSchema);
 
 export default User;

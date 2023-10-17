@@ -1,13 +1,14 @@
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { loginThunk } from "../../redux/actions/Auth/auth-actions";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { SignInWithOAuth } from "../../Supabase/OAuth";
+import { SignInWithOAuth } from "../../supabase/OAuth";
 import Loader from "../../components/Loader/Loader";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { object, string } from "yup";
 import LoginFormComponent from "../../components/Auth-UI/Login/LoginFormComponent";
 import Wrapper from "../../components/Common/Wrapper";
+import LoginTitle from "../../components/Auth-UI/Login/LoginTitle";
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -38,12 +39,32 @@ const Login = () => {
     },
   });
 
+  //// Need to implement OAuth with google
+  const loginWithGoogle = async () => {
+    // This will trigger an auth event SIGNED_IN.
+    const { error } = await SignInWithOAuth(supabase);
+
+    if (error) {
+      alert("Error logging in to Google provider with Supabase");
+      console.log(error);
+    }
+  };
+
   return loading ? (
-    <Loader height="100vh" />
+    <Loader />
   ) : (
-    <Wrapper>
-      <LoginFormComponent formik={formik} />
-    </Wrapper>
+    <>
+      <Wrapper
+        height="auto"
+        gap="50px"
+      >
+        <LoginTitle />
+        <LoginFormComponent
+          loginWithGoogle={loginWithGoogle}
+          formik={formik}
+        />
+      </Wrapper>
+    </>
   );
 };
 

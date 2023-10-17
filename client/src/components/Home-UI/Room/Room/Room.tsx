@@ -1,29 +1,24 @@
 import { Box, Typography } from "@mui/material";
 import JoinButton from "./JoinButton";
-import DeleteButton from "./DeleteButton/DeleteButton";
 import { IRoom } from "../../../../types/index";
-import { extractUserFromLocalStorage } from "../../../../utils/helpers/LocalStorage/extractUser";
-import EnterRoomButton from "./EnterRoomButton";
+import ExploreButton from "./ExploreButton";
 import RoomName from "./RoomName";
-import LeaveRoomButton from "./LeaveRoomButton";
 import { useMemo } from "react";
 import variables from "../../../../sass/variables.module.scss";
+import { useAppSelector } from "../../../../redux/hooks";
 
 interface Props {
   room: IRoom;
 }
 
 const Room = ({ room }: Props) => {
-  const { parsedUserId: userId } = extractUserFromLocalStorage();
-
-  const { familyMembers, maxMembers, creator } = room;
-
-  const isRoomCreator = creator.userId === userId;
+  const userId = useAppSelector((state) => state.authReducer.userId);
+  const { familyMembers, maxMembers } = room;
 
   const isRoomFull = familyMembers.length === maxMembers;
 
-  const member = useMemo(() => {
-    return familyMembers.find((member) => member.userId === userId);
+  const isMember = useMemo(() => {
+    return familyMembers.find((memberId) => memberId === userId);
   }, [userId, familyMembers]);
 
   return (
@@ -36,7 +31,6 @@ const Room = ({ room }: Props) => {
         flexDirection: "column",
         gap: "10px",
         height: "125px",
-        boxShadow: "3px 2px 6px 1px gray",
       }}
     >
       <Box
@@ -44,12 +38,12 @@ const Room = ({ room }: Props) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          color: "white",
         }}
       >
         <RoomName roomName={room.roomName} />
-
         <Box sx={{ display: "flex" }}>
-          <Typography sx={{ fontSize: "20px", color: "white" }}>
+          <Typography sx={{ fontSize: "20px" }}>
             Members: {familyMembers.length}/{maxMembers}
           </Typography>
         </Box>
@@ -58,20 +52,15 @@ const Room = ({ room }: Props) => {
       <Box
         sx={{
           display: "flex",
-          justifyContent: "space-between",
+          position: "relative",
+          justifyContent: "center",
           alignItems: "center",
         }}
       >
-        {member ? (
-          <>
-            <EnterRoomButton roomId={room._id} />
-            {!isRoomCreator && (
-              <LeaveRoomButton
-                roomId={room._id}
-                member={member}
-              />
-            )}
-          </>
+        {isMember ? (
+          <Box sx={{ display: "flex", gap: "80px" }}>
+            <ExploreButton roomId={room._id} />
+          </Box>
         ) : isRoomFull ? (
           <Typography sx={{ fontWeight: "600", color: "rgb(200, 100, 0)" }}>
             Room Is Full
@@ -83,7 +72,6 @@ const Room = ({ room }: Props) => {
             <JoinButton room={room} />
           </Box>
         )}
-        {isRoomCreator && <DeleteButton room={room} />}
       </Box>
     </Box>
   );

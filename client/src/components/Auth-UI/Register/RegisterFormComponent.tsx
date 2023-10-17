@@ -1,12 +1,10 @@
 import FormTitleComponent from "../FormTitleComponent";
-import InputLabelWrapper from "../InputLabelWrapper";
-import LabelComponent from "../LabelComponent";
-import InputErrorMessage from "../InputErrorMessage";
 import InputComponent from "../InputComponent";
 import "./Register.scss";
 import AuthButton from "../AuthButton";
 import { FormikProps } from "formik";
 import FormBottomText from "../FormBottomText";
+import { inputLabelPropsStyle } from "../../../utils/constants";
 
 interface Props {
   formik: FormikProps<{
@@ -27,59 +25,49 @@ const RegisterFormComponent = ({ formik }: Props) => {
     >
       <FormTitleComponent>Sign Up</FormTitleComponent>
 
-      <InputLabelWrapper>
-        <LabelComponent>Username</LabelComponent>
-        <InputComponent
-          formik={formik}
-          value={values.name}
-          name="name"
-          type="text"
-        />
-        {errors.name && touched.name && (
-          <InputErrorMessage>{errors.name}</InputErrorMessage>
-        )}
-      </InputLabelWrapper>
+      <InputComponent
+        label="Username"
+        InputLabelProps={inputLabelPropsStyle}
+        formik={formik}
+        value={values.name}
+        name="name"
+        type="text"
+        inputTouched={touched.name}
+        inputError={errors.name}
+      />
 
-      <InputLabelWrapper>
-        <LabelComponent>Email</LabelComponent>
+      <InputComponent
+        formik={formik}
+        value={values.email}
+        name="email"
+        type="email"
+        label="Email"
+        InputLabelProps={inputLabelPropsStyle}
+        inputTouched={touched.email}
+        inputError={errors.email}
+      />
 
-        <InputComponent
-          formik={formik}
-          value={values.email}
-          name="email"
-          type="email"
-        />
-        {errors.email && touched.email && (
-          <InputErrorMessage>{errors.email}</InputErrorMessage>
-        )}
-      </InputLabelWrapper>
+      <InputComponent
+        label="Password"
+        InputLabelProps={inputLabelPropsStyle}
+        formik={formik}
+        value={values.password}
+        name="password"
+        type="password"
+        inputTouched={touched.password}
+        inputError={errors.password}
+      />
 
-      <InputLabelWrapper>
-        <LabelComponent>Password</LabelComponent>
-        <InputComponent
-          formik={formik}
-          value={values.password}
-          name="password"
-          type="password"
-        />
-        {errors.password && touched.password && (
-          <InputErrorMessage>{errors.password}</InputErrorMessage>
-        )}
-      </InputLabelWrapper>
-
-      <InputLabelWrapper>
-        <LabelComponent>Confirm Password</LabelComponent>
-
-        <InputComponent
-          formik={formik}
-          value={values.confirmPassword}
-          name="confirmPassword"
-          type="password"
-        />
-        {errors.confirmPassword && touched.confirmPassword && (
-          <InputErrorMessage>{errors.confirmPassword}</InputErrorMessage>
-        )}
-      </InputLabelWrapper>
+      <InputComponent
+        label="Confirm Password"
+        InputLabelProps={inputLabelPropsStyle}
+        formik={formik}
+        value={values.confirmPassword}
+        name="confirmPassword"
+        type="password"
+        inputTouched={touched.confirmPassword}
+        inputError={errors.confirmPassword}
+      />
 
       <AuthButton>Sign Up</AuthButton>
 

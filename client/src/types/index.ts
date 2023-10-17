@@ -19,19 +19,19 @@ export interface ITask {
 
 export type TaskCreation = Omit<ITask, "_id" | "updatedAt" | "createdAt">;
 
-export interface IMember {
+export interface IUser {
   userId: string;
   username: string;
   tasks: ITask[];
+  email: string;
+  _id: string;
 }
-
-export type FamilyMembers = IMember[];
 
 export interface IRoom {
   roomName: string;
   maxMembers: number | null;
   creator: { userId: string; username: string };
-  familyMembers: FamilyMembers;
+  familyMembers: string[] | IUser[];
   userId: string;
   _id: string;
 }
@@ -41,6 +41,11 @@ export interface RoomCreationData {
   roomPassword: string;
   maxMembers: number | null;
 }
+export interface CreateRoomFormModal {
+  roomName: string;
+  maxMembers: number | null;
+  roomPassword: string;
+}
 
 export interface JoinRoomData {
   roomId: string;
@@ -48,14 +53,17 @@ export interface JoinRoomData {
 }
 
 export interface AddTaskData {
-  memberId: string;
+  userId: string;
   roomId: string;
   name: string;
-  description: string;
-  startTime: Date | null;
-  endTime: Date | null;
+  description?: string;
+  startTime?: Date;
+  endTime?: Date;
 }
 
+export type CreateTaskFormModal = Omit<AddTaskData, "userId" | "roomId">;
+
+// Google calendar
 type ExtendedProperties = { private: { taskCreatedAt: string } };
 
 export interface GoogleCalendarEventCreation {

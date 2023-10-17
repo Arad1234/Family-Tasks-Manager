@@ -1,6 +1,6 @@
-import { Socket } from "socket.io-client";
+import { socket } from "../socket";
 
-export const removeRoomsListeners = (socket: Socket) => {
+export const removeRoomsListeners = () => {
   socket.off("createdRoom");
   socket.off("recievedRooms");
   socket.off("deletedRoom");

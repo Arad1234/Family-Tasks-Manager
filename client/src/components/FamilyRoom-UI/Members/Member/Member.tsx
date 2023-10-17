@@ -1,26 +1,26 @@
 import { Box } from "@mui/material";
-import { IMember } from "../../../../types";
-import { extractUserFromLocalStorage } from "../../../../utils/helpers/LocalStorage/extractUser";
+import { IRoom, IUser } from "../../../../types";
 import { useAppSelector } from "../../../../redux/hooks";
 import AddTaskPlusIcon from "./AddTaskPlusIcon";
 import TasksButton from "./TasksButton";
 import MemberName from "./MemberName";
 import DeleteMemberIcon from "./DeleteMemberIcon";
-import DividerComponent from "./DividerComponent";
 
 interface Props {
-  member: IMember;
+  member: IUser;
 }
 
 const Member = ({ member }: Props) => {
-  const { currentRoom } = useAppSelector((state) => state.roomsReducer);
+  const familyRoom = useAppSelector(
+    (state) => state.familyRoomReducer.familyRoom as IRoom
+  );
 
-  const { parsedUserId: currentUserId } = extractUserFromLocalStorage();
+  const userId = useAppSelector((state) => state.authReducer.userId);
 
-  const isRoomCreator = currentRoom?.creator.userId === currentUserId;
+  const isRoomCreator = familyRoom.creator.userId === userId;
 
   // If the user is the room creator AND it is not himself (cannot delete himself).
-  const canDeleteMember = isRoomCreator && member.userId !== currentUserId;
+  const canDeleteMember = isRoomCreator && member.userId !== userId;
 
   return (
     <Box
@@ -28,13 +28,14 @@ const Member = ({ member }: Props) => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        gap: "16px",
+        gap: "30px",
         alignItems: "center",
-        boxShadow: "2px 3px 3px gray",
         border: "1px solid gray",
         borderRadius: "5px",
-        width: "41vw",
-        padding: "3.5rem 10px",
+        height: "7rem",
+        margin: "10px 0px 10px 0px",
+        width: "80vw",
+        padding: "10px",
       }}
     >
       <Box
@@ -49,9 +50,10 @@ const Member = ({ member }: Props) => {
         <MemberName memberName={member.username} />
         {canDeleteMember && <DeleteMemberIcon member={member} />}
       </Box>
-      <DividerComponent />
 
-      <Box sx={{ display: "flex", gap: "40px" }}>
+      <Box
+        sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}
+      >
         <TasksButton member={member} />
         {isRoomCreator && <AddTaskPlusIcon member={member} />}
       </Box>

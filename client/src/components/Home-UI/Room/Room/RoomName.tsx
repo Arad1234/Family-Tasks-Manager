@@ -9,8 +9,12 @@ const RoomName = ({ roomName }: Props) => {
     <Typography
       sx={{
         fontSize: "30px",
+        textAlign: "center",
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        maxWidth: "320px",
         fontWeight: 600,
-        color: "white",
       }}
     >
       {roomName}

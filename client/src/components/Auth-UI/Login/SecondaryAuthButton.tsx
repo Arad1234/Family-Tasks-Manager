@@ -1,9 +1,11 @@
 import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const SecondaryAuthButton = () => {
-  const navigate = useNavigate();
+interface Props {
+  loginWithGoogle: () => void;
+}
 
+const SecondaryAuthButton = ({ loginWithGoogle }: Props) => {
   return (
     <Button
       sx={{
@@ -19,9 +21,9 @@ const SecondaryAuthButton = () => {
         color: "black",
         ":hover": { backgroundColor: "#E5E4E2" },
       }}
-      onClick={() => navigate("/register")}
+      onClick={() => toast.info("Dont work!")}
     >
-      Sign Up
+      Login with google
     </Button>
   );
 };

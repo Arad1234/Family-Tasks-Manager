@@ -10,6 +10,5 @@ export interface CreateRoomPayload {
 export interface JoinRoomPayload {
   roomId: string;
   userId: string;
-  username: string;
   roomPassword: string;
 }

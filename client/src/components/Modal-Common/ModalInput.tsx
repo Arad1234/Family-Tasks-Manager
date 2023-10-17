@@ -1,55 +1,21 @@
-import { Box, TextField, Typography } from "@mui/material";
-import { InputChangeEvent } from "../../types";
-import { useAppDispatch } from "../../redux/hooks";
+import { Box, TextField, TextFieldProps } from "@mui/material";
+import ModalInputErrorMessage from "./ModalInputErrorMessage";
 
-interface Props {
-  type: string;
-  setChange: (payload: string | number | Date | null) => {
-    type: string;
-    payload: string | number;
-  };
-  label: string;
-  isRequired: boolean;
-  disabled: boolean;
-  value: string | Date | number | null;
-}
+type Props = {
+  errorMessage: string | undefined;
+  touched: boolean;
+} & TextFieldProps;
 
-const ModalInput = ({
-  type,
-  setChange,
-  label,
-  isRequired,
-  disabled,
-  value,
-}: Props) => {
-  const dispatch = useAppDispatch();
-
-  const handleInputChange = (e: InputChangeEvent) => {
-    const { value, valueAsNumber, valueAsDate } = e.target;
-    let inputValue = null;
-    if (type === "number") {
-      inputValue = valueAsNumber;
-    } else if (type === "date") {
-      inputValue = valueAsDate;
-    } else {
-      inputValue = value;
-    }
-
-    dispatch(setChange(inputValue));
-  };
-
+const ModalInput = ({ errorMessage, touched, ...props }: Props) => {
   return (
-    <Box>
-      <Typography sx={{ fontSize: "20px" }}>{label}</Typography>
+    <Box sx={{ position: "relative" }}>
       <TextField
-        onChange={handleInputChange}
+        {...props}
         sx={{ width: "100%" }}
-        required={isRequired}
-        label={isRequired ? "Required" : ""}
-        type={type}
-        disabled={disabled}
-        value={value ? value : ""}
       />
+      {errorMessage && touched && (
+        <ModalInputErrorMessage>{errorMessage}</ModalInputErrorMessage>
+      )}
     </Box>
   );
 };

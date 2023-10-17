@@ -1,11 +1,10 @@
-import { Socket } from "socket.io-client";
 import { NavigateFunction } from "react-router-dom";
 import { AppDispatch } from "../../redux/store";
 import { setLoading } from "../../redux/slices/Auth/auth-slice";
 import { toast } from "react-toastify";
+import { socket } from "../socket";
 
 export const errorListeners = (
-  socket: Socket,
   navigate: NavigateFunction,
   dispatch: AppDispatch
 ) => {

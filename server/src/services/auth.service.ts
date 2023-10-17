@@ -21,11 +21,12 @@ export const createUser = async (userData: UserRegisterDetails) => {
 export const loginUser = async (userInfo: UserLoginDetails) => {
   const { email, password } = userInfo;
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).select("+password");
 
   if (!user) {
     throw new AppError("Wrong email or password", UNAUTHORIZED);
   }
+
   const isPasswordValid = await bcrypt.compare(password, user.password);
 
   if (!isPasswordValid) {
@@ -70,7 +71,7 @@ export const resetPassword = async (
   const user = await User.findOne({
     passwordResetToken: hashedToken,
     passwordResetExpires: { $gt: Date.now() },
-  });
+  }).select("+password");
 
   if (!user) {
     throw new AppError("Token is invalid or has expired!", BAD_REQUEST);

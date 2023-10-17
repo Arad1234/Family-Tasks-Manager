@@ -1,19 +1,19 @@
 import { Box } from "@mui/material";
 import { AiOutlinePlus } from "react-icons/ai";
-import { setShowModal } from "../../../../redux/slices/Modal/modal-slice";
+import { setOpenModal } from "../../../../redux/slices/Modal/modal-slice";
 import { useAppDispatch } from "../../../../redux/hooks";
 import { setMemberForAssignTask } from "../../../../redux/slices/FamilyRoom/members-slice";
-import { IMember } from "../../../../types";
+import { IUser } from "../../../../types";
 
 interface Props {
-  member: IMember;
+  member: IUser;
 }
 
 const AddTaskPlusIcon = ({ member }: Props) => {
   const disptach = useAppDispatch();
 
   const handleOpenModal = () => {
-    disptach(setShowModal({ isOpen: true, modalStatus: "assignTask" }));
+    disptach(setOpenModal("assignTask"));
     disptach(setMemberForAssignTask(member));
   };
 

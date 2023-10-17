@@ -1,5 +1,5 @@
-import { Socket } from "socket.io-client";
+import { socket } from "../socket";
 
-export const removeFamilyRoomListeners = (socket: Socket) => {
+export const removeFamilyRoomListeners = () => {
   socket.off("taskCreated");
 };

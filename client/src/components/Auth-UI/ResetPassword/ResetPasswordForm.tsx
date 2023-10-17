@@ -1,11 +1,10 @@
 import { FormikProps } from "formik";
 import InputComponent from "../InputComponent";
-import InputLabelWrapper from "../InputLabelWrapper";
-import LabelComponent from "../LabelComponent";
 import "./ResetPasswordForm.scss";
 import AuthButton from "../AuthButton";
 import FormTitleComponent from "../FormTitleComponent";
-import InputErrorMessage from "../InputErrorMessage";
+import FormBottomText from "../FormBottomText";
+import { inputLabelPropsStyle } from "../../../utils/constants";
 
 interface Props {
   formik: FormikProps<{ newPassword: string; confirmPassword: string }>;
@@ -20,32 +19,33 @@ const ResetPasswordForm = ({ formik }: Props) => {
       className="resetPassword-form"
     >
       <FormTitleComponent>Reset Your Pasword</FormTitleComponent>
-      <InputLabelWrapper>
-        <LabelComponent>New Password</LabelComponent>
-        <InputComponent
-          formik={formik}
-          name="newPassword"
-          type="password"
-          value={values.newPassword}
-        />
-        {errors.newPassword && touched.newPassword && (
-          <InputErrorMessage>{errors.newPassword}</InputErrorMessage>
-        )}
-      </InputLabelWrapper>
+      <InputComponent
+        formik={formik}
+        name="newPassword"
+        type="password"
+        value={values.newPassword}
+        label="New Password"
+        InputLabelProps={inputLabelPropsStyle}
+        inputTouched={touched.newPassword}
+        inputError={errors.newPassword}
+      />
 
-      <InputLabelWrapper>
-        <LabelComponent>Confirm Password</LabelComponent>
-        <InputComponent
-          formik={formik}
-          name="confirmPassword"
-          type="password"
-          value={values.confirmPassword}
-        />
-        {errors.confirmPassword && touched.confirmPassword && (
-          <InputErrorMessage>{errors.confirmPassword}</InputErrorMessage>
-        )}
-      </InputLabelWrapper>
+      <InputComponent
+        formik={formik}
+        name="confirmPassword"
+        type="password"
+        value={values.confirmPassword}
+        label="Confirm Password"
+        InputLabelProps={inputLabelPropsStyle}
+        inputTouched={touched.confirmPassword}
+        inputError={errors.confirmPassword}
+      />
+
       <AuthButton>Create New Password</AuthButton>
+      <FormBottomText
+        actionText="Go To Login Page"
+        navigateTo="/"
+      />
     </form>
   );
 };

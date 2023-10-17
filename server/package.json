@@ -5,9 +5,9 @@
   "main": "server.ts",
   "scripts": {
     "dev": "env-cmd -f .env.dev nodemon",
-    "demoProd": "env-cmd -f .env.prod tsnd --respawn server.ts",
+    "demoProd": "env-cmd -f .env.prod nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx tsc",
+    "build": "rimraf build && ncc build server.ts -o build && ncp .env.prod ./build/.env && rimraf build/code-points.mem",
     "debug": "ndb nodemon server.ts"
   },
   "keywords": [],
@@ -29,6 +29,7 @@
     "install": "^0.13.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.3.1",
+    "ncp": "^2.0.0",
     "nodemailer": "^6.9.5",
     "npm": "^10.1.0",
     "socket.io": "^4.7.1",
@@ -48,6 +49,7 @@
     "@types/nodemailer": "^6.4.10",
     "@types/socket.io": "^3.0.2",
     "@types/validator": "^13.11.1",
+    "cp": "^0.2.0",
     "env-cmd": "^10.1.0",
     "ndb": "^1.1.5",
     "nodemon": "^2.0.22",

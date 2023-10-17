@@ -1,15 +1,19 @@
-import { Button } from "@mui/material";
+import { Button, ButtonProps } from "@mui/material";
 
-interface Props {
-  handleClick: () => void;
+type Props = {
   children: React.ReactNode;
-}
+} & ButtonProps;
 
-const ModalButton = ({ handleClick, children }: Props) => (
+const ModalButton = ({ children, ...props }: Props) => (
   <Button
-    onClick={handleClick}
-    sx={{ fontSize: "20px", fontFamily: "system-ui" }}
+    {...props}
+    type="submit"
     variant="contained"
+    sx={{
+      fontSize: "20px",
+      fontFamily: "system-ui",
+      marginTop: "8px",
+    }}
   >
     {children}
   </Button>
