@@ -3,6 +3,7 @@ import Room from "../Room/Room";
 import { useAppSelector } from "../../../../redux/hooks";
 import { Ref, forwardRef, memo, useMemo } from "react";
 import NoRoomsFound from "./NoRoomsFound";
+import IntersectionLoader from "./IntersectionLoader";
 
 interface Props {
   searchQuery: string;
@@ -10,6 +11,9 @@ interface Props {
 
 const AllRooms = forwardRef((props: Props, ref: Ref<HTMLDivElement>) => {
   const rooms = useAppSelector((state) => state.roomsReducer.rooms);
+  const { isAllRooms, isIntersecting } = useAppSelector(
+    (state) => state.paginationReducer
+  );
 
   const filteredRooms = useMemo(() => {
     return rooms.filter((room) => {
@@ -35,10 +39,16 @@ const AllRooms = forwardRef((props: Props, ref: Ref<HTMLDivElement>) => {
           />
         );
       })}
-      <div
-        style={{ height: "1px", width: "100%", marginTop: "0vh" }}
-        ref={ref}
-      ></div>
+      {isAllRooms ? (
+        <div style={{ height: "40px", width: "100%", marginTop: "0vh" }}></div>
+      ) : isIntersecting ? (
+        <IntersectionLoader />
+      ) : (
+        <div
+          style={{ height: "40px", width: "100%", marginTop: "0vh" }}
+          ref={ref}
+        ></div>
+      )}
     </Box>
   ) : (
     <NoRoomsFound />

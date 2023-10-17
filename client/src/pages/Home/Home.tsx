@@ -17,6 +17,7 @@ import socketIDListeners from "../../socket/SocketID/Listeners";
 import removeSocketIDListeners from "../../socket/SocketID/RemoveListeners";
 import AllModals from "../../components/Modal-Common/AllModals";
 import { getRoomsSocket } from "../../socket/Rooms/EventEmitters";
+import useCustomRef from "../../hooks/useCustomRef";
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -24,7 +25,7 @@ export const Home = () => {
   const navigate = useNavigate();
 
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const page = useAppSelector((state) => state.roomsReducer.page);
+  const page = useAppSelector((state) => state.paginationReducer.page);
   const { loading, userId } = useAppSelector((state) => state.authReducer);
 
   useEffect(() => {
@@ -42,24 +43,23 @@ export const Home = () => {
     };
   }, []);
 
-  // Using callBackRef to check if the "node" has been changed from null to an HTML elemen, if it does, the callback will be executed.
-  const callBackRef = useCallback(
-    (node: HTMLDivElement | null) => {
-      const observer = new IntersectionObserver(
-        (entries) => {
+  const ctx = useCustomRef(page);
 
-          if (entries[0].isIntersecting) {
-            getRoomsSocket(dispatch, page);
-          }
-        },
-        { threshold: 1 }
-      );
-      if (node !== null && !loading) {
-        observer.observe(node);
-      }
-    },
-    [loading]
-  );
+  // Using callBackRef to check if the "node" has been changed from null to an HTML element, if it does, the callback will be executed.
+  const callBackRef = useCallback((node: HTMLDivElement | null) => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          getRoomsSocket(dispatch, ctx.current, true);
+        }
+      },
+      { threshold: 1 }
+    );
+
+    if (node !== null) {
+      observer.observe(node);
+    }
+  }, []);
 
   useEffect(() => {
     getRoomsSocket(dispatch, page);

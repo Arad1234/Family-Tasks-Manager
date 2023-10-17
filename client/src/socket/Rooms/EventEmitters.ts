@@ -1,10 +1,19 @@
 import { setLoading } from "../../redux/slices/Auth/auth-slice";
+import { setIsIntersecting } from "../../redux/slices/Pagination/pagination-slice";
 import { AppDispatch } from "../../redux/store";
 import { RoomCreationData, JoinRoomData } from "../../types";
 import { socket } from "../socket";
 
-export const getRoomsSocket = (dispatch: AppDispatch, page: number) => {
-  dispatch(setLoading(true));
+export const getRoomsSocket = (
+  dispatch: AppDispatch,
+  page: number,
+  isIntersecting?: boolean
+) => {
+  if (isIntersecting) {
+    dispatch(setIsIntersecting(true));
+  } else {
+    dispatch(setLoading(true));
+  }
   socket.emit("rooms:read", { page });
 };
 

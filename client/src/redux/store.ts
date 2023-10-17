@@ -15,6 +15,7 @@ import calendarEventsSliceReducer from "./slices/CalendarEvents/CalendarEvents";
 import membersSliceReducer from "./slices/FamilyRoom/members-slice";
 import familyRoomSliceReducer from "./slices/FamilyRoom/familyRoom-slice";
 import burgerMenuSliceReducer from "./slices/BurgerMenu/burgerMenu-slice";
+import paginationSliceReducer from "./slices/Pagination/pagination-slice";
 
 export const store = configureStore({
   reducer: {
@@ -25,6 +26,7 @@ export const store = configureStore({
     calendarEventsReducer: calendarEventsSliceReducer,
     membersReducer: membersSliceReducer,
     burgerMenuReducer: burgerMenuSliceReducer,
+    paginationReducer: paginationSliceReducer,
   },
   devTools: true,
   middleware: (getDefaultMiddleware) =>
