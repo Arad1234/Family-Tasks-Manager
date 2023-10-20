@@ -16,46 +16,58 @@ export const familyRoomHandler = (io: Server, socket: Socket) => {
 
     const { username, roomName } = await deleteMember(payload);
 
-    if (source === "admin") {
-      const socketId = userToSocketMap.get(memberId);
-      const userDeletedSocket = io.sockets.sockets.get(socketId) as Socket;
+    const socketId = userToSocketMap.get(memberId);
 
-      io.to(socketId).emit("removedFromRoom", roomId);
+    if (source === "admin") {
+      const userDeletedSocket = io.sockets.sockets.get(socketId) as Socket;
+      // Emit only to the removed member
+      io.to(socketId).emit("memberDeletedByAdmin", {
+        roomId,
+        memberId,
+        toRemovedMember: true,
+      });
+
+      // Emit to all room memebers except the removed member
+      io.to(String(roomId)).except(socketId).emit("memberDeletedByAdmin", {
+        memberId,
+        username,
+        roomName,
+        roomId,
+        toRoomMembers: true,
+      });
+
+      // Emit to all users except room members
+      io.except(String(roomId)).emit("memberDeletedByAdmin", {
+        memberId,
+        roomId,
+      });
 
       userDeletedSocket.leave(roomId);
-      // To all room members
-      io.to(String(roomId)).emit("memberDeletedByAdmin", {
+    } else if (source === "self") {
+      // To current user
+      socket.emit("userLeftRoom", {
         memberId,
+        username,
+        roomId,
+        toCurrentUser: true,
+      });
+
+      // Emit to all room members except current user
+      io.to(String(roomId)).except(socketId).emit("userLeftRoom", {
+        memberId,
+        roomId,
         username,
         roomName,
         toRoomMembers: true,
       });
-    } else if (source === "self") {
-      // To current user
-      socket.emit("userLeftRoom", { memberId, username, toCurrentUser: true });
 
-      // To all room members except current user
-      socket.broadcast.to(String(roomId)).emit("userLeftRoom", {
+      io.except(String(roomId)).emit("userLeftRoom", {
         memberId,
-        username,
-        roomName,
-        toRoomMembers: true,
+        roomId,
       });
 
       socket.leave(String(roomId));
     }
-
-    socket.broadcast.emit("memberDeletedByAdmin", {
-      memberId,
-      roomId,
-      toAllUsers: true,
-    });
-
-    socket.broadcast.emit("userLeftRoom", {
-      memberId,
-      roomId,
-      toAllUsers: true,
-    });
   },
   socket);
 

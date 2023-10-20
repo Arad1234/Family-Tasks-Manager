@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import RoomsMenuModal from "./RoomsMenuModal";
-import { getMemberRoomsSocket } from "../../../socket/FamilyRoom/EventEmitters";
+import { getMemberRoomsSocket } from "@Redux/actions/familyRoom-actions";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import RoomName from "./RoomName";
 import BurgerIcon from "../../BurgerMenu/BurgerIcon";
@@ -20,7 +20,7 @@ const RoomHeader = () => {
   const navigate = useNavigate();
 
   const handleOpenMenu = (e: React.MouseEvent<HTMLElement>) => {
-    getMemberRoomsSocket(userId);
+    dispatch(getMemberRoomsSocket(userId));
     setAnchorEl(e.currentTarget);
   };
 

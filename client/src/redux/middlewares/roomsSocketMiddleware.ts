@@ -10,14 +10,11 @@ import {
 import { setLoading } from "../slices/Auth/auth-slice";
 import { socket } from "../../socket/socket";
 import { setIsIntersecting } from "../slices/Pagination/pagination-slice";
-import { roomsListeners } from "../../socket/Listeners/roomsListeners";
 
-export const roomsSocketMiddleware: Middleware = (storeAPI) => {
-  const { dispatch } = storeAPI;
+export const roomsSocketMiddleware: Middleware =
+  (storeAPI) => (next) => (action) => {
+    const { dispatch } = storeAPI;
 
-  roomsListeners(dispatch);
-
-  return (next) => (action) => {
     const { type, payload } = action;
 
     switch (type) {
@@ -44,15 +41,12 @@ export const roomsSocketMiddleware: Middleware = (storeAPI) => {
 
       case DELETE_ROOM_SOCKET:
         dispatch(setLoading(true));
-
         socket.emit("rooms:delete", { ...payload });
         break;
 
       case JOIN_ROOM_SOCKET:
         dispatch(setLoading(true));
-
         socket.emit("rooms:join", { ...payload });
-
         break;
 
       case LEAVE_ROOM_SOCKET:
@@ -63,4 +57,3 @@ export const roomsSocketMiddleware: Middleware = (storeAPI) => {
 
     next(action);
   };
-};

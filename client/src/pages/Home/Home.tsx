@@ -5,16 +5,14 @@ import { Box } from "@mui/material";
 import Loader from "@Components/Loader/Loader";
 import { socket } from "@Socket/socket";
 import AllRooms from "@Components/Home-UI/Room/AllRooms/AllRooms";
-import { errorListeners } from "@Socket/Errors/Listeners";
-import { removeErrorListeners } from "@Socket/Errors/RemoveListeners";
-import { commonListeners } from "@Socket/Common/Listeners";
-import { removeCommonListeners } from "@Socket/Common/RemoveListeners";
 import HomeHeader from "@Components/Home-UI/Header/HomeHeader";
-import connectionListeners from "@Socket/Connection/Listeners";
-import socketIDListeners from "@Socket/SocketID/Listeners";
-import removeSocketIDListeners from "@Socket/SocketID/RemoveListeners";
 import AllModals from "@Components/Modal-Common/AllModals";
-import { getRoomsSocket } from "@Redux/actions/rooms-actions";
+import {
+  getRoomsSocket,
+  initializeCommonListeners,
+  initializeConnectionListeners,
+  initializeErrorListeners,
+} from "@Redux/actions/rooms-actions";
 import useCustomRef from "@Hooks/useCustomRef";
 
 export const Home = () => {
@@ -26,16 +24,14 @@ export const Home = () => {
   const { loading, userId } = useAppSelector((state) => state.authReducer);
 
   useEffect(() => {
-    commonListeners(dispatch);
-    errorListeners(navigate, dispatch);
-    socketIDListeners(location, navigate, dispatch);
-    connectionListeners(userId as string);
+    if (userId) {
+      dispatch(initializeConnectionListeners());
+    }
+  }, [userId]);
 
-    return () => {
-      removeCommonListeners();
-      removeErrorListeners();
-      removeSocketIDListeners();
-    };
+  useEffect(() => {
+    dispatch(initializeCommonListeners({ navigate, location }));
+    dispatch(initializeErrorListeners({ navigate }));
   }, []);
 
   const ctx = useCustomRef(page);

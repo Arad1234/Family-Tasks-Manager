@@ -20,12 +20,11 @@ const familyRoomSlice = createSlice({
     },
 
     setAddMember(state, { payload: newMember }) {
+      console.log(newMember);
       state.familyRoom?.familyMembers.push(newMember);
     },
 
-    setDeleteMember(state, { payload }) {
-      const memberId = payload;
-
+    setDeleteMember(state, { payload: memberId }) {
       if (state.familyRoom) {
         state.familyRoom.familyMembers = (
           state.familyRoom.familyMembers as IUser[]
@@ -34,8 +33,8 @@ const familyRoomSlice = createSlice({
         });
       }
     },
-    setCurrentUserRooms(state, { payload }) {
-      state.currentUserRooms = payload;
+    setCurrentUserRooms(state, { payload: userRooms }) {
+      state.currentUserRooms = userRooms;
     },
 
     setAddTask(state, { payload }) {

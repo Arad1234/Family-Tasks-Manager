@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { addTaskSocket } from "../../../../socket/FamilyRoom/EventEmitters";
+import { addTaskSocket } from "@Redux/actions/familyRoom-actions";
 import { CreateTaskFormModal, IRoom, IUser } from "../../../../types";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
 import ModalForm from "./ModalForm";
@@ -45,14 +45,16 @@ const AssignTaskModal = () => {
     name,
     startTime,
   }: CreateTaskFormModal) => {
-    addTaskSocket(dispatch, {
-      userId: memberForAssignTask._id,
-      roomId: familyRoom._id,
-      name,
-      description,
-      startTime,
-      endTime,
-    });
+    dispatch(
+      addTaskSocket({
+        userId: memberForAssignTask._id,
+        roomId: familyRoom._id,
+        name,
+        description,
+        startTime,
+        endTime,
+      })
+    );
   };
 
   return (

@@ -5,8 +5,8 @@ import { toast } from "react-toastify";
 import { socket } from "../socket";
 
 export const errorListeners = (
-  navigate: NavigateFunction,
-  dispatch: AppDispatch
+  dispatch: AppDispatch,
+  navigate: NavigateFunction
 ) => {
   socket.on("error", (err) => {
     console.log(err);

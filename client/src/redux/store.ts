@@ -1,13 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import {
-  persistStore,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
+import { persistStore } from "redux-persist";
 import roomsSliceReducer from "./slices/Rooms/rooms-slice";
 import persistedAuthReducer from "./slices/Auth/auth-slice";
 import modalSliceReducer from "./slices/Modal/modal-slice";
@@ -16,7 +8,9 @@ import membersSliceReducer from "./slices/FamilyRoom/members-slice";
 import familyRoomSliceReducer from "./slices/FamilyRoom/familyRoom-slice";
 import burgerMenuSliceReducer from "./slices/BurgerMenu/burgerMenu-slice";
 import paginationSliceReducer from "./slices/Pagination/pagination-slice";
-import { roomsSocketMiddleware } from "./middlewares/roomSocketMiddleware";
+import { roomsSocketMiddleware } from "./middlewares/roomsSocketMiddleware";
+import { familyRoomSocketMiddleware } from "./middlewares/familyRoomSocketMiddleware";
+import { initializeListenersMiddleware } from "./middlewares/initializeListenersMiddleware";
 
 export const store = configureStore({
   reducer: {
@@ -31,11 +25,11 @@ export const store = configureStore({
   },
   devTools: true,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }).concat(roomsSocketMiddleware),
+    getDefaultMiddleware({ serializableCheck: false }).concat([
+      initializeListenersMiddleware,
+      roomsSocketMiddleware,
+      familyRoomSocketMiddleware,
+    ]),
 });
 
 // Give redux the option to make the store persistent throughout page reloads.

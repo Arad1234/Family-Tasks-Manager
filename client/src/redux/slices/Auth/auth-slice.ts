@@ -34,8 +34,9 @@ const authSlice = createSlice({
     setLoading(state, { payload }) {
       state.loading = payload;
     },
-    reset(state) {
+    resetAuthDetails(state) {
       state.userId = null;
+      state.username = "";
     },
   },
 
@@ -46,7 +47,6 @@ const authSlice = createSlice({
       builder.addCase(loginThunk.fulfilled, (state, { payload }) => {
         state.userId = payload.userId;
         state.username = payload.username;
-        state.success = "Success!";
       }),
       builder.addCase(loginThunk.rejected, (state) => {
         state.loading = false;
@@ -82,6 +82,6 @@ const persistConfig = {
 };
 const persistedAuthReducer = persistReducer(persistConfig, authSlice.reducer);
 
-export const { setLoading, reset } = authSlice.actions;
+export const { setLoading, resetAuthDetails } = authSlice.actions;
 
 export default persistedAuthReducer;

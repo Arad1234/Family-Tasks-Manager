@@ -14,6 +14,7 @@ const SearchInput = ({ setIsShowSearchBar }: Props) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const dispatch = useAppDispatch();
   const initialMountRef = useRef(true);
+
   const handleSearchInputChange = (e: InputChangeEvent) => {
     setSearchQuery(e.target.value);
   };

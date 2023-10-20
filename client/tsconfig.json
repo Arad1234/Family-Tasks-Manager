@@ -6,7 +6,8 @@
       "@Components/*": ["./src/components/*"],
       "@Socket/*": ["./src/socket/*"],
       "@Redux/*": ["./src/redux/*"],
-      "@Hooks/*": ["./src/hooks/*"]
+      "@Hooks/*": ["./src/hooks/*"],
+      "@Utils/*": ["./src/utils/*"]
     },
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],

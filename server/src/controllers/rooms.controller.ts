@@ -71,6 +71,7 @@ export const roomsHandler = (io: Server, socket: Socket) => {
   ) {
     const { roomId, roomPassword } = payload;
     const { userId } = socket.data.user;
+
     const newMember = await joinFamilyRoom({
       userId,
       roomId,
@@ -78,6 +79,7 @@ export const roomsHandler = (io: Server, socket: Socket) => {
     });
 
     socket.join(String(roomId));
+
     socket.emit("joinedRoom", { toCurrentUser: true, roomId, newMember });
 
     socket.broadcast.to(String(roomId)).emit("joinedRoom", {

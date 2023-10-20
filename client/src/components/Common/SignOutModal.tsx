@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import YesOrNoModalButtons from "../Modal-Common/YesOrNoModalButtons";
 import { socket } from "../../socket/socket";
 import { useAppSelector } from "../../redux/hooks";
+import { resetAuthDetails } from "@Redux/slices/Auth/auth-slice";
 
 const SignOutModal = () => {
   const navigate = useNavigate();
@@ -16,6 +17,8 @@ const SignOutModal = () => {
   const userId = useAppSelector((state) => state.authReducer.userId);
 
   const handleSignOut = async () => {
+    dispatch(resetAuthDetails());
+
     navigate("/");
     socket.emit("custom-disconnect", userId);
 
