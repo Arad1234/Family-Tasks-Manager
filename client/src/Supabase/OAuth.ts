@@ -1,5 +1,5 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import { VITE_SCOPES } from "../utils/constants";
+import { VITE_SCOPES } from "../utils/constants/genericConstants";
 
 export const SignInWithOAuth = async (supabase: SupabaseClient) => {
   const { error } = await supabase.auth.signInWithOAuth({

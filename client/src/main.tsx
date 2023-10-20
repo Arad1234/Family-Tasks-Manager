@@ -8,7 +8,7 @@ import "./index.scss";
 import { PersistGate } from "redux-persist/integration/react";
 import { createClient } from "@supabase/supabase-js";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
-import { VITE_API_KEY, VITE_SUPABASE_PROJECT_URL } from "./utils/constants";
+import { VITE_API_KEY, VITE_SUPABASE_PROJECT_URL } from "./utils/constants/genericConstants";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

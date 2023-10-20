@@ -16,6 +16,7 @@ import membersSliceReducer from "./slices/FamilyRoom/members-slice";
 import familyRoomSliceReducer from "./slices/FamilyRoom/familyRoom-slice";
 import burgerMenuSliceReducer from "./slices/BurgerMenu/burgerMenu-slice";
 import paginationSliceReducer from "./slices/Pagination/pagination-slice";
+import { roomsSocketMiddleware } from "./middlewares/roomSocketMiddleware";
 
 export const store = configureStore({
   reducer: {
@@ -34,7 +35,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(roomsSocketMiddleware),
 });
 
 // Give redux the option to make the store persistent throughout page reloads.

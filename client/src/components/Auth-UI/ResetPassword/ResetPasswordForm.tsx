@@ -4,7 +4,7 @@ import "./ResetPasswordForm.scss";
 import AuthButton from "../AuthButton";
 import FormTitleComponent from "../FormTitleComponent";
 import FormBottomText from "../FormBottomText";
-import { inputLabelPropsStyle } from "../../../utils/constants";
+import { inputLabelPropsStyle } from "../../../utils/constants/genericConstants";
 
 interface Props {
   formik: FormikProps<{ newPassword: string; confirmPassword: string }>;

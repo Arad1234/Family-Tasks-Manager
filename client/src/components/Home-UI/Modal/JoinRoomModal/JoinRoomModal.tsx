@@ -1,5 +1,5 @@
 import { object, string } from "yup";
-import { joinRoomSocket } from "../../../../socket/Rooms/EventEmitters";
+import { joinRoomSocket } from "../../../../redux/actions/rooms-actions";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
 import ModalTitle from "../../../Modal-Common/ModalTitle";
 import ModalForm from "./ModalForm";
@@ -21,7 +21,7 @@ const JoinRoomModal = () => {
 
   const formHandleSubmit = ({ roomPassword }: { roomPassword: string }) => {
     if (selectedRoom) {
-      joinRoomSocket(dispatch, { roomId: selectedRoom._id, roomPassword });
+      dispatch(joinRoomSocket({ roomId: selectedRoom._id, roomPassword }));
     }
   };
 

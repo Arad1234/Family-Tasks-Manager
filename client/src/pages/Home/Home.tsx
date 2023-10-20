@@ -1,42 +1,37 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { Box } from "@mui/material";
-import Loader from "../../components/Loader/Loader";
-import { socket } from "../../socket/socket";
-import { removeRoomsListeners } from "../../socket/Rooms/RemoveListeners";
-import AllRooms from "../../components/Home-UI/Room/AllRooms/AllRooms";
-import { roomsListeners } from "../../socket/Rooms/Listeners";
-import { errorListeners } from "../../socket/Errors/Listeners";
-import { removeErrorListeners } from "../../socket/Errors/RemoveListeners";
-import { commonListeners } from "../../socket/Common/Listeners";
-import { removeCommonListeners } from "../../socket/Common/RemoveListeners";
-import HomeHeader from "../../components/Home-UI/Header/HomeHeader";
-import connectionListeners from "../../socket/Connection/Listeners";
-import socketIDListeners from "../../socket/SocketID/Listeners";
-import removeSocketIDListeners from "../../socket/SocketID/RemoveListeners";
-import AllModals from "../../components/Modal-Common/AllModals";
-import { getRoomsSocket } from "../../socket/Rooms/EventEmitters";
-import useCustomRef from "../../hooks/useCustomRef";
+import Loader from "@Components/Loader/Loader";
+import { socket } from "@Socket/socket";
+import AllRooms from "@Components/Home-UI/Room/AllRooms/AllRooms";
+import { errorListeners } from "@Socket/Errors/Listeners";
+import { removeErrorListeners } from "@Socket/Errors/RemoveListeners";
+import { commonListeners } from "@Socket/Common/Listeners";
+import { removeCommonListeners } from "@Socket/Common/RemoveListeners";
+import HomeHeader from "@Components/Home-UI/Header/HomeHeader";
+import connectionListeners from "@Socket/Connection/Listeners";
+import socketIDListeners from "@Socket/SocketID/Listeners";
+import removeSocketIDListeners from "@Socket/SocketID/RemoveListeners";
+import AllModals from "@Components/Modal-Common/AllModals";
+import { getRoomsSocket } from "@Redux/actions/rooms-actions";
+import useCustomRef from "@Hooks/useCustomRef";
 
 export const Home = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [searchQuery, setSearchQuery] = useState<string>("");
   const page = useAppSelector((state) => state.paginationReducer.page);
   const { loading, userId } = useAppSelector((state) => state.authReducer);
 
   useEffect(() => {
-    roomsListeners(dispatch);
     commonListeners(dispatch);
     errorListeners(navigate, dispatch);
     socketIDListeners(location, navigate, dispatch);
     connectionListeners(userId as string);
 
     return () => {
-      removeRoomsListeners();
       removeCommonListeners();
       removeErrorListeners();
       removeSocketIDListeners();
@@ -45,12 +40,12 @@ export const Home = () => {
 
   const ctx = useCustomRef(page);
 
-  // Using callBackRef to check if the "node" has been changed from null to an HTML element, if it does, the callback will be executed.
+  // Using callback ref to call the callBackRef function whenever there a ref is created in the child component ((node) => callBackRef(node)).
   const callBackRef = useCallback((node: HTMLDivElement | null) => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          getRoomsSocket(dispatch, ctx.current, true);
+          dispatch(getRoomsSocket({ page: ctx.current, isIntersecting: true }));
         }
       },
       { threshold: 1 }
@@ -62,23 +57,17 @@ export const Home = () => {
   }, []);
 
   useEffect(() => {
-    getRoomsSocket(dispatch, page);
+    dispatch(getRoomsSocket({ page }));
   }, []);
 
   return loading || !socket.connected ? (
     <Loader />
   ) : (
     <>
-      <HomeHeader
-        setSearchQuery={setSearchQuery}
-        searchQuery={searchQuery}
-      />
+      <HomeHeader />
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <AllRooms
-          searchQuery={searchQuery}
-          ref={callBackRef}
-        />
+        <AllRooms ref={callBackRef} />
       </Box>
 
       <AllModals />

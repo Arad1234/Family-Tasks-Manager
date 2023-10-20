@@ -1,27 +1,25 @@
 import { Box } from "@mui/material";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import WelcomeTitle from "../../components/FamilyRoom-UI/WelcomeTitle/WelcomeTitle";
-import RoomHeader from "../../components/FamilyRoom-UI/RoomHeader/RoomHeader";
-import RoomOptions from "../../components/FamilyRoom-UI/RoomOptions/RoomOptions";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import AllTasks from "../../components/FamilyRoom-UI/YourTasks/AllTasks";
+import RoomHeader from "@Components/FamilyRoom-UI/RoomHeader/RoomHeader";
+import { useAppDispatch, useAppSelector } from "@Redux/hooks";
+import AllTasks from "@Components/FamilyRoom-UI/YourTasks/AllTasks";
 import { useEffect, useState } from "react";
-import AllMembers from "../../components/FamilyRoom-UI/Members/AllMembers";
-import { familyRoomListeners } from "../../socket/FamilyRoom/Listeners";
-import { removeFamilyRoomListeners } from "../../socket/FamilyRoom/RemoveListeners";
-import Loader from "../../components/Loader/Loader";
-import { removeErrorListeners } from "../../socket/Errors/RemoveListeners";
-import { errorListeners } from "../../socket/Errors/Listeners";
+import AllMembers from "@Components/FamilyRoom-UI/Members/AllMembers";
+import { familyRoomListeners } from "@Socket/FamilyRoom/Listeners";
+import { removeFamilyRoomListeners } from "@Socket/FamilyRoom/RemoveListeners";
+import Loader from "@Components/Loader/Loader";
+import { removeErrorListeners } from "@Socket/Errors/RemoveListeners";
+import { errorListeners } from "@Socket/Errors/Listeners";
 import { useSession } from "@supabase/auth-helpers-react";
 import { fetchGoogleCalendarEvents } from "../../supabase/Api";
-import MemberTasks from "../../components/FamilyRoom-UI/Members/MemberTasks/MemberTasks";
-import { removeCommonListeners } from "../../socket/Common/RemoveListeners";
-import variables from "../../sass/variables.module.scss";
-import { getCurrentRoomSocket } from "../../socket/FamilyRoom/EventEmitters";
-import removeSocketIDListeners from "../../socket/SocketID/RemoveListeners";
-import AllModals from "../../components/Modal-Common/AllModals";
-import { commonListeners } from "../../socket/Common/Listeners";
-import socketIDListeners from "../../socket/SocketID/Listeners";
+import MemberTasks from "@Components/FamilyRoom-UI/Members/MemberTasks/MemberTasks";
+import { removeCommonListeners } from "@Socket/Common/RemoveListeners";
+import { getCurrentRoomSocket } from "@Socket/FamilyRoom/EventEmitters";
+import removeSocketIDListeners from "@Socket/SocketID/RemoveListeners";
+import AllModals from "@Components/Modal-Common/AllModals";
+import { commonListeners } from "@Socket/Common/Listeners";
+import socketIDListeners from "@Socket/SocketID/Listeners";
+import SubHeader from "@Components/FamilyRoom-UI/SubHeader/SubHeader";
 
 const FamilyRoom = () => {
   const { roomId } = useParams();
@@ -66,18 +64,10 @@ const FamilyRoom = () => {
     <>
       <RoomHeader />
 
-      <Box
-        sx={{
-          backgroundColor: variables.secondaryColor,
-          boxShadow: "0px 5px 8px 0px black",
-        }}
-      >
-        <WelcomeTitle />
-        <RoomOptions
-          option={option}
-          setOption={setOption}
-        />
-      </Box>
+      <SubHeader
+        setOption={setOption}
+        option={option}
+      />
 
       <AllModals />
 

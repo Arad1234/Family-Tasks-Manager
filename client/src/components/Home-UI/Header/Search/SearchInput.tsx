@@ -1,21 +1,32 @@
 import { Box, TextField, keyframes } from "@mui/material";
 import { InputChangeEvent } from "../../../../types";
 import ClearInputIcon from "./ClearInputIcon";
+import useDebounce from "../../../../hooks/useDebounce";
+import { useEffect, useRef, useState } from "react";
+import { getRoomsByName } from "../../../../redux/actions/rooms-actions";
+import { useAppDispatch } from "../../../../redux/hooks";
 
 interface Props {
   setIsShowSearchBar: React.Dispatch<React.SetStateAction<boolean>>;
-  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
-  searchQuery: string;
 }
 
-const SearchInput = ({
-  setIsShowSearchBar,
-  setSearchQuery,
-  searchQuery,
-}: Props) => {
+const SearchInput = ({ setIsShowSearchBar }: Props) => {
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const dispatch = useAppDispatch();
+  const initialMountRef = useRef(true);
   const handleSearchInputChange = (e: InputChangeEvent) => {
     setSearchQuery(e.target.value);
   };
+
+  const debounceValue = useDebounce(searchQuery, 500);
+
+  useEffect(() => {
+    if (initialMountRef.current) {
+      initialMountRef.current = false;
+    } else {
+      dispatch(getRoomsByName(searchQuery));
+    }
+  }, [debounceValue]);
 
   const handleInputBlur = () => {
     setIsShowSearchBar(false);

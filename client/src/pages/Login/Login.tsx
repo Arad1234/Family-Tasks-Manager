@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { loginThunk } from "../../redux/actions/Auth/auth-actions";
+import { loginThunk } from "../../redux/thunk/Auth/auth-actions";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { SignInWithOAuth } from "../../supabase/OAuth";
 import Loader from "../../components/Loader/Loader";

@@ -1,27 +1,18 @@
 import { Box } from "@mui/material";
 import Room from "../Room/Room";
 import { useAppSelector } from "../../../../redux/hooks";
-import { Ref, forwardRef, memo, useMemo } from "react";
+import { Ref, forwardRef } from "react";
 import NoRoomsFound from "./NoRoomsFound";
 import IntersectionLoader from "./IntersectionLoader";
+import { observerTargetElementStyle } from "../../../../utils/constants/genericConstants";
 
-interface Props {
-  searchQuery: string;
-}
-
-const AllRooms = forwardRef((props: Props, ref: Ref<HTMLDivElement>) => {
+const AllRooms = forwardRef((_props, ref: Ref<HTMLDivElement>) => {
   const rooms = useAppSelector((state) => state.roomsReducer.rooms);
   const { isAllRooms, isIntersecting } = useAppSelector(
     (state) => state.paginationReducer
   );
 
-  const filteredRooms = useMemo(() => {
-    return rooms.filter((room) => {
-      return room.roomName.includes(props.searchQuery);
-    });
-  }, [rooms, props.searchQuery]);
-
-  return filteredRooms.length > 0 ? (
+  return rooms.length > 0 ? (
     <Box
       sx={{
         display: "flex",
@@ -31,7 +22,7 @@ const AllRooms = forwardRef((props: Props, ref: Ref<HTMLDivElement>) => {
         marginTop: "40px",
       }}
     >
-      {filteredRooms.map((room) => {
+      {rooms.map((room) => {
         return (
           <Room
             key={room._id}
@@ -40,12 +31,12 @@ const AllRooms = forwardRef((props: Props, ref: Ref<HTMLDivElement>) => {
         );
       })}
       {isAllRooms ? (
-        <div style={{ height: "40px", width: "100%", marginTop: "0vh" }}></div>
+        <div style={observerTargetElementStyle}></div>
       ) : isIntersecting ? (
         <IntersectionLoader />
       ) : (
         <div
-          style={{ height: "40px", width: "100%", marginTop: "0vh" }}
+          style={observerTargetElementStyle}
           ref={ref}
         ></div>
       )}
@@ -56,4 +47,4 @@ const AllRooms = forwardRef((props: Props, ref: Ref<HTMLDivElement>) => {
 });
 
 // Using "memo" to render the "AllRooms" component only when "searchQuery" props change.
-export default memo(AllRooms);
+export default AllRooms;

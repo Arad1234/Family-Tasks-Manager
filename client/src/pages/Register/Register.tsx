@@ -1,5 +1,5 @@
 import { useAppDispatch } from "../../redux/hooks";
-import { registerThunk } from "../../redux/actions/Auth/auth-actions";
+import { registerThunk } from "../../redux/thunk/Auth/auth-actions";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import RegisterTitle from "../../components/Auth-UI/Register/RegisterTitle";

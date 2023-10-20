@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import React from "react";
-import variables from "../../../sass/variables.module.scss";
+import variables from "../../../../sass/variables.module.scss";
 
 interface Props {
   onClick: () => void;

@@ -1,6 +1,6 @@
 import { Session } from "@supabase/supabase-js";
 import { GoogleCalendarEventCreation } from "../types";
-import { googleCalendarBaseURL } from "../utils/constants";
+import { googleCalendarBaseURL } from "../utils/constants/genericConstants";
 import { AppDispatch } from "../redux/store";
 import {
   setAddGoogleEvent,

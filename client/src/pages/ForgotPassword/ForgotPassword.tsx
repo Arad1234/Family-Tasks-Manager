@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { object, string } from "yup";
 import ForgotPasswordForm from "../../components/Auth-UI/ForgotPassword/ForgotPasswordForm";
-import { forgotPasswordThunk } from "../../redux/actions/Auth/auth-actions";
+import { forgotPasswordThunk } from "../../redux/thunk/Auth/auth-actions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import Loader from "../../components/Loader/Loader";
 import { toast } from "react-toastify";

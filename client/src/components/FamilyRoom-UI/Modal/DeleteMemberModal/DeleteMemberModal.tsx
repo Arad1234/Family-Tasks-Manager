@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import YesOrNoModalButtons from "../../../Modal-Common/YesOrNoModalButtons";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
-import { deleteMemberSocket } from "../../../../socket/FamilyRoom/EventEmitters";
+import { deleteMemberSocket } from "../../../../redux/actions/rooms-actions";
 import { IUser } from "../../../../types";
 import { setHideModal } from "../../../../redux/slices/Modal/modal-slice";
 
@@ -19,11 +19,12 @@ const DeleteMemberModal = () => {
 
   const handleDeleteMember = () => {
     if (memberAsTypeUser && familyRoom) {
-      deleteMemberSocket(
-        dispatch,
-        memberAsTypeUser._id,
-        familyRoom._id,
-        "admin"
+      dispatch(
+        deleteMemberSocket({
+          memberId: memberAsTypeUser._id,
+          roomId: familyRoom._id,
+          source: "admin",
+        })
       );
     }
   };

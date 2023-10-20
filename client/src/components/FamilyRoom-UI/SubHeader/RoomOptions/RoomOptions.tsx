@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
-import { useAppDispatch } from "../../../redux/hooks";
+import { useAppDispatch } from "../../../../redux/hooks";
 import ButtonOption from "./ButtonOption";
-import { setMemberForTasks } from "../../../redux/slices/FamilyRoom/members-slice";
+import { setMemberForTasks } from "../../../../redux/slices/FamilyRoom/members-slice";
 
 interface Props {
   setOption: React.Dispatch<React.SetStateAction<"tasks" | "members">>;

@@ -13,6 +13,7 @@ import {
 import { setHideModal } from "../../redux/slices/Modal/modal-slice";
 import { NavigateFunction } from "react-router-dom";
 import { socket } from "../socket";
+import { setHideMenu } from "../../redux/slices/BurgerMenu/burgerMenu-slice";
 
 export const commonListeners = (
   dispatch: AppDispatch,
@@ -45,12 +46,13 @@ export const commonListeners = (
       toAllUsers,
       toRoomMembers,
     } = data;
-
+    console.log("user left room!");
     dispatch(setDeleteMember(memberId));
 
     if (toCurrentUser) {
       dispatch(setFamilyRoom(null));
       dispatch(setHideModal());
+      dispatch(setHideMenu());
       navigate!("/home");
     }
 

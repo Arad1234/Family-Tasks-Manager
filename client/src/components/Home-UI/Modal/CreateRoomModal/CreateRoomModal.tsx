@@ -3,7 +3,7 @@ import ModalComponent from "../../../Modal-Common/ModalComponent";
 import { number, object, string } from "yup";
 import ModalForm from "./ModalForm";
 import { CreateRoomFormModal } from "../../../../types";
-import { createRoomSocket } from "../../../../socket/Rooms/EventEmitters";
+import { createRoomSocket } from "../../../../redux/actions/rooms-actions";
 import { useAppDispatch } from "../../../../redux/hooks";
 
 const CreateRoomModal = () => {
@@ -31,11 +31,13 @@ const CreateRoomModal = () => {
     roomName,
     roomPassword,
   }: CreateRoomFormModal) => {
-    createRoomSocket(dispatch, {
-      maxMembers,
-      roomName,
-      roomPassword,
-    });
+    dispatch(
+      createRoomSocket({
+        maxMembers,
+        roomName,
+        roomPassword,
+      })
+    );
   };
 
   return (

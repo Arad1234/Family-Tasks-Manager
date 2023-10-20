@@ -2,6 +2,7 @@ import {
   createFamilyRoom,
   deleteFamilyRoom,
   getFamilyRooms,
+  getRoomsByName,
   joinFamilyRoom,
 } from "../services/rooms.service";
 import { Socket, Server } from "socket.io";
@@ -17,6 +18,17 @@ export const roomsHandler = (io: Server, socket: Socket) => {
     const rooms = await getFamilyRooms(payload.page);
 
     socket.emit("recievedRooms", rooms);
+  },
+  socket);
+
+  const getRoomsByNameHandler = catchAsyncSocket(async function (payload: {
+    roomName: string;
+  }) {
+    const { roomName } = payload;
+
+    const rooms = await getRoomsByName(roomName);
+
+    socket.emit("recievedRoomsByName", rooms);
   },
   socket);
 
@@ -82,4 +94,5 @@ export const roomsHandler = (io: Server, socket: Socket) => {
   socket.on("rooms:delete", deleteRoomHandler);
   socket.on("rooms:join", joinRoomHandler);
   socket.on("rooms:read", getFamilyRoomsHandler);
+  socket.on("rooms:readByName", getRoomsByNameHandler);
 };

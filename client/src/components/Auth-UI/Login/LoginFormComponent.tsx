@@ -6,7 +6,7 @@ import { FormikProps } from "formik";
 import SecondaryAuthButton from "./SecondaryAuthButton";
 import { Box } from "@mui/material";
 import FormBottomText from "../FormBottomText";
-import { inputLabelPropsStyle } from "../../../utils/constants";
+import { inputLabelPropsStyle } from "../../../utils/constants/genericConstants";
 import ForgotPasswordText from "./ForgotPasswordText";
 
 interface Props {

@@ -7,10 +7,17 @@ import AppError from "../utils/appErrorClass";
 import User from "../models/user.model";
 
 export const getFamilyRooms = async (page: number) => {
+  // Paginate the rooms after intersecting the front with the last element.
   const rooms = await Room.find()
     .skip(page * PAGE_LIMIT)
     .limit(PAGE_LIMIT);
-  console.log(rooms);
+
+  return rooms;
+};
+
+export const getRoomsByName = async (roomName: string) => {
+  const rooms = await Room.find({ roomName });
+
   return rooms;
 };
 

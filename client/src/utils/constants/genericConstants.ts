@@ -7,3 +7,10 @@ export const googleCalendarBaseURL =
 export const inputLabelPropsStyle = {
   style: { color: "rgba(255, 255, 255, 0.6)" },
 };
+
+export const observerTargetElementStyle = {
+  height: "60px",
+  width: "100%",
+  marginTop: "0vh",
+};
+

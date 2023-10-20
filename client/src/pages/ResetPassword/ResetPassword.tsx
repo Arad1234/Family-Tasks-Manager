@@ -4,7 +4,7 @@ import Wrapper from "../../components/Common/Wrapper";
 import { object, string } from "yup";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../redux/hooks";
-import { resetPasswordThunk } from "../../redux/actions/Auth/auth-actions";
+import { resetPasswordThunk } from "../../redux/thunk/Auth/auth-actions";
 import { toast } from "react-toastify";
 
 const ResetPassword = () => {

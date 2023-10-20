@@ -1,7 +1,7 @@
 import ModalComponent from "../../../Modal-Common/ModalComponent";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { Typography } from "@mui/material";
-import { deleteRoomSocket } from "../../../../socket/Rooms/EventEmitters";
+import { deleteRoomSocket } from "../../../../redux/actions/rooms-actions";
 import YesOrNoModalButtons from "../../../Modal-Common/YesOrNoModalButtons";
 import { setHideModal } from "../../../../redux/slices/Modal/modal-slice";
 
@@ -10,7 +10,7 @@ const DeleteRoomModal = () => {
   const { selectedRoom } = useAppSelector((state) => state.roomsReducer);
 
   const handleDeleteRoom = () => {
-    deleteRoomSocket(dispatch, selectedRoom?._id);
+    dispatch(deleteRoomSocket(selectedRoom?._id));
   };
 
   return (
