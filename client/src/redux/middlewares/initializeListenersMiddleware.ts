@@ -1,8 +1,8 @@
-import { commonListeners } from "@Socket/Listeners/commonListeners";
-import { errorListeners } from "@Socket/Listeners/errorListeners";
-import connectionListeners from "@Socket/Listeners/connectionListeners";
-import { familyRoomListeners } from "@Socket/Listeners/familyRoomListeners";
-import { roomsListeners } from "@Socket/Listeners/roomsListeners";
+import { commonListeners } from "@Socket/listeners/commonListeners";
+import { errorListeners } from "@Socket/listeners/errorListeners";
+import connectionListeners from "@Socket/listeners/connectionListeners";
+import { familyRoomListeners } from "@Socket/listeners/familyRoomListeners";
+import { roomsListeners } from "@Socket/listeners/roomsListeners";
 import {
   INITIALIZE_COMMON_LISTENERS,
   INITIALIZE_CONNECTION_LISENERS,

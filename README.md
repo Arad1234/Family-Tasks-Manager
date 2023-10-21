@@ -45,8 +45,14 @@ To run the Family Tasks Manager app locally, follow these steps:
    ```bash
    git clone https://github.com/Arad1234/Family-Tasks-Manager.git
    ```
+2. Fetch the branches and checkout to "dev" branch:
 
-2. Install dependencies:
+   ```bash
+   git fetch -a
+   git checkout dev
+   ```
+
+3. Install dependencies:
 
    ```bash
    # Install client dependencies
@@ -58,9 +64,9 @@ To run the Family Tasks Manager app locally, follow these steps:
    npm install
    ```
 
-3. Create a Supabase and Google Cloud projects
+4. Create a Supabase and Google Cloud projects
 
-4. Set up the environment variables:
+5. Set up the environment variables:
 
    - Create a `.env.dev` file in the `server` directory and add the following variables:
 
@@ -81,7 +87,7 @@ To run the Family Tasks Manager app locally, follow these steps:
      - `VITE_API_KEY`: Supabase project API key
      - `VITE_SCOPES`: Permissions scopes for the Google Calendar API.
 
-5. Start the server and client:
+6. Start the server and client:
 
    ```bash
    # Start the client (from the client directory)
@@ -91,6 +97,6 @@ To run the Family Tasks Manager app locally, follow these steps:
    npm run dev
    ```
 
-6. Open the app in your browser:
+7. Open the app in your browser:
 
    Open [http://localhost:4173](http://localhost:4173) to view the app in your browser.
