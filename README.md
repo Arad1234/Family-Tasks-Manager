@@ -45,10 +45,9 @@ To run the Family Tasks Manager app locally, follow these steps:
    ```bash
    git clone https://github.com/Arad1234/Family-Tasks-Manager.git
    ```
-2. Fetch the branches and checkout to "dev" branch:
+2. Checkout to "dev" branch:
 
    ```bash
-   git fetch -a
    git checkout dev
    ```
 
