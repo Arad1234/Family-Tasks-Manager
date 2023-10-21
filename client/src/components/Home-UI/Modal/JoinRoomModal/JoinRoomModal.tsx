@@ -1,9 +1,9 @@
 import { object, string } from "yup";
-import { joinRoomSocket } from "../../../../redux/actions/rooms-actions";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
 import ModalTitle from "../../../Modal-Common/ModalTitle";
 import ModalForm from "./ModalForm";
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "@Redux/hooks";
+import { joinRoomSocket } from "@Redux/actions/rooms-actions";
 
 const JoinRoomModal = () => {
   const dispatch = useAppDispatch();

@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
 import Room from "../Room/Room";
-import { useAppSelector } from "../../../../redux/hooks";
+import { useAppSelector } from "@Redux/hooks";
 import { Ref, forwardRef } from "react";
 import NoRoomsFound from "./NoRoomsFound";
 import IntersectionLoader from "./IntersectionLoader";
-import { observerTargetElementStyle } from "../../../../utils/constants/genericConstants";
+import { observerTargetElementStyle } from "@Utils/constants/genericConstants";
 
 const AllRooms = forwardRef((_props, ref: Ref<HTMLDivElement>) => {
   const rooms = useAppSelector((state) => state.roomsReducer.rooms);

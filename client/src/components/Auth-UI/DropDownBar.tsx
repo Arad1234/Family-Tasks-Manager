@@ -1,6 +1,6 @@
 import { Box, keyframes } from "@mui/material";
-import variables from "../../sass/variables.module.scss";
-import { ChildrenProps } from "../../types";
+import variables from "@Sass/variables.module.scss";
+import { ChildrenProps } from "@Types/index";
 
 const DropDownBar = ({ children }: ChildrenProps) => {
   const dropDown = keyframes`

@@ -1,21 +1,21 @@
 import { toast } from "react-toastify";
-import { setLoading } from "../../redux/slices/Auth/auth-slice";
-import { setHideMenu } from "../../redux/slices/BurgerMenu/burgerMenu-slice";
-import { setHideModal } from "../../redux/slices/Modal/modal-slice";
-import {
-  setIncrementPage,
-  setIsAllRooms,
-  setIsIntersecting,
-} from "../../redux/slices/Pagination/pagination-slice";
+import { socket } from "../socket";
+import { setAddMember } from "@Redux/slices/FamilyRoom/familyRoom-slice";
+import { AppDispatch } from "@Redux/store";
 import {
   setCreateRoom,
   setDeleteRoom,
   setJoinRoom,
   setRooms,
-} from "../../redux/slices/Rooms/rooms-slice";
-import { AppDispatch } from "../../redux/store";
-import { socket } from "../socket";
-import { setAddMember } from "@Redux/slices/FamilyRoom/familyRoom-slice";
+} from "@Redux/slices/Rooms/rooms-slice";
+import {
+  setIncrementPage,
+  setIsAllRooms,
+  setIsIntersecting,
+} from "@Redux/slices/Pagination/pagination-slice";
+import { setLoading } from "@Redux/slices/Auth/auth-slice";
+import { setHideModal } from "@Redux/slices/Modal/modal-slice";
+import { setHideMenu } from "@Redux/slices/BurgerMenu/burgerMenu-slice";
 
 export const roomsListeners = (dispatch: AppDispatch) => {
   socket.on("recievedRooms", (rooms) => {

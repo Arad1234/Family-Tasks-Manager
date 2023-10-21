@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import RoomButton from "./Common/RoomButton";
-import variables from "../../../../sass/variables.module.scss";
+import variables from "@Sass/variables.module.scss";
 interface Props {
   roomId: string;
 }

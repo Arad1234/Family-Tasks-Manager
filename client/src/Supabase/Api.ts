@@ -1,14 +1,15 @@
-import { Session } from "@supabase/supabase-js";
-import { GoogleCalendarEventCreation } from "../types";
-import { googleCalendarBaseURL } from "../utils/constants/genericConstants";
-import { AppDispatch } from "../redux/store";
 import {
   setAddGoogleEvent,
   setDeleteGoogleEvent,
   setEventsIdAndCreatedAt,
-} from "../redux/slices/CalendarEvents/CalendarEvents";
+} from "@Redux/slices/CalendarEvents/CalendarEvents";
+import { setHideModal } from "@Redux/slices/Modal/modal-slice";
+import { AppDispatch } from "@Redux/store";
+import { GoogleCalendarEventCreation } from "@Types/index";
+import { googleCalendarBaseURL } from "@Utils/constants/genericConstants";
+import { Session } from "@supabase/supabase-js";
+
 import { toast } from "react-toastify";
-import { setHideModal } from "../redux/slices/Modal/modal-slice";
 
 export const fetchGoogleCalendarEvents = async (
   session: Session,

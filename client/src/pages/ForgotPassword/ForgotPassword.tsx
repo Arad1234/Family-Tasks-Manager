@@ -1,14 +1,14 @@
 import { useFormik } from "formik";
 import { object, string } from "yup";
-import ForgotPasswordForm from "../../components/Auth-UI/ForgotPassword/ForgotPasswordForm";
-import { forgotPasswordThunk } from "../../redux/thunk/Auth/auth-actions";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import Loader from "../../components/Loader/Loader";
 import { toast } from "react-toastify";
-import { setLoading } from "../../redux/slices/Auth/auth-slice";
-import Wrapper from "../../components/Common/Wrapper";
 import { useState } from "react";
-import ForgotPasswordTitle from "../../components/Auth-UI/ForgotPassword/ForgotPasswordTitle";
+import { useAppDispatch, useAppSelector } from "@Redux/hooks";
+import { forgotPasswordThunk } from "@Redux/thunk/Auth/auth-actions";
+import { setLoading } from "@Redux/slices/Auth/auth-slice";
+import Loader from "@Components/Loader/Loader";
+import Wrapper from "@Components/Auth-UI/Wrapper";
+import ForgotPasswordTitle from "@Components/Auth-UI/ForgotPassword/ForgotPasswordTitle";
+import ForgotPasswordForm from "@Components/Auth-UI/ForgotPassword/ForgotPasswordForm";
 
 const ForgotPassword = () => {
   const [sentEmailMessage, setSentEmailMessage] = useState<string | null>(null);

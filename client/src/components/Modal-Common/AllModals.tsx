@@ -1,4 +1,4 @@
-import { useAppSelector } from "../../redux/hooks";
+import { useAppSelector } from "@Redux/hooks";
 import RemovedYouMessageModal from "../Common/RemovedYouMessageModal";
 import SignOutModal from "../Common/SignOutModal";
 import AssignTaskModal from "../FamilyRoom-UI/Modal/AssignTaskModal/AssignTaskModal";

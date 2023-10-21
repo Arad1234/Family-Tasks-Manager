@@ -2,9 +2,9 @@ import ModalTitle from "../../../Modal-Common/ModalTitle";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
 import { number, object, string } from "yup";
 import ModalForm from "./ModalForm";
-import { CreateRoomFormModal } from "../../../../types";
-import { createRoomSocket } from "../../../../redux/actions/rooms-actions";
-import { useAppDispatch } from "../../../../redux/hooks";
+import { CreateRoomFormModal } from "@Types/index";
+import { createRoomSocket } from "@Redux/actions/rooms-actions";
+import { useAppDispatch } from "@Redux/hooks";
 
 const CreateRoomModal = () => {
   const dispatch = useAppDispatch();

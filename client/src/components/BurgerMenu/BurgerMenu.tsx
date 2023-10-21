@@ -1,10 +1,10 @@
 import { Box, keyframes } from "@mui/material";
 import { useMemo } from "react";
-import variables from "../../sass/variables.module.scss";
+import variables from "@Sass/variables.module.scss";
 import BurgerMenuOption from "./BurgerMenuOption";
-import { setMemberForDelete } from "../../redux/slices/FamilyRoom/members-slice";
-import { setOpenModal } from "../../redux/slices/Modal/modal-slice";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { setMemberForDelete } from "@Redux/slices/FamilyRoom/members-slice";
+import { setOpenModal } from "@Redux/slices/Modal/modal-slice";
+import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 
 const BurgerMenu = () => {
   const dispatch = useAppDispatch();

@@ -1,7 +1,7 @@
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { setHideModal } from "../../redux/slices/Modal/modal-slice";
+import { useAppDispatch, useAppSelector } from "@Redux/hooks";
+import { setHideModal } from "@Redux/slices/Modal/modal-slice";
+import { ChildrenProps } from "@Types/index";
 import { Box, Modal } from "@mui/material";
-import { ChildrenProps } from "../../types";
 
 const ModalComponent = ({ children }: ChildrenProps) => {
   const isOpen = useAppSelector((state) => state.modalReducer.isOpen);

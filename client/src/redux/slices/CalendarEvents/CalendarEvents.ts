@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { EventIdAndCreatedAt } from "../../../types";
+import { EventIdAndCreatedAt } from "@Types/index";
 
 interface InitialState {
   eventsIdAndCreatedAtList: EventIdAndCreatedAt[];

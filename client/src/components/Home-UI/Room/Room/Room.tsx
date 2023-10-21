@@ -1,11 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import JoinButton from "./JoinButton";
-import { IRoom } from "../../../../types/index";
+import { IRoom } from "@Types/index";
 import ExploreButton from "./ExploreButton";
 import RoomName from "./RoomName";
 import { useMemo } from "react";
-import variables from "../../../../sass/variables.module.scss";
-import { useAppSelector } from "../../../../redux/hooks";
+import variables from "@Sass/variables.module.scss";
+import { useAppSelector } from "@Redux/hooks";
 
 interface Props {
   room: IRoom;

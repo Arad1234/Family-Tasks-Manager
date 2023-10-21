@@ -1,18 +1,16 @@
-import { AppDispatch } from "../../redux/store";
-import { setLeaveRoom } from "../../redux/slices/Rooms/rooms-slice";
-import { setLoading } from "../../redux/slices/Auth/auth-slice";
 import { toast } from "react-toastify";
+
+import { Location, NavigateFunction } from "react-router-dom";
+import { AppDispatch } from "@Redux/store";
+import { socket } from "@Socket/socket";
 import {
   setDeleteMember,
   setFamilyRoom,
-} from "../../redux/slices/FamilyRoom/familyRoom-slice";
-import {
-  setHideModal,
-  setOpenModal,
-} from "../../redux/slices/Modal/modal-slice";
-import { Location, NavigateFunction } from "react-router-dom";
-import { socket } from "../socket";
-import { setHideMenu } from "../../redux/slices/BurgerMenu/burgerMenu-slice";
+} from "@Redux/slices/FamilyRoom/familyRoom-slice";
+import { setHideModal, setOpenModal } from "@Redux/slices/Modal/modal-slice";
+import { setHideMenu } from "@Redux/slices/BurgerMenu/burgerMenu-slice";
+import { setLeaveRoom } from "@Redux/slices/Rooms/rooms-slice";
+import { setLoading } from "@Redux/slices/Auth/auth-slice";
 
 export const commonListeners = (
   dispatch: AppDispatch,

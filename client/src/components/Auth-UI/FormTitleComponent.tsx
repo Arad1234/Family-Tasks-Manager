@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { ChildrenProps } from "../../types";
+import { ChildrenProps } from "@Types/index";
 
 const FormTitleComponent = ({ children }: ChildrenProps) => {
   return (

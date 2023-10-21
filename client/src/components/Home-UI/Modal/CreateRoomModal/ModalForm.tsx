@@ -1,9 +1,9 @@
 import ModalInput from "../../../Modal-Common/ModalInput";
-import useCustomFormik from "../../../../hooks/useCustomFormik";
 import ModalButton from "../../../Modal-Common/ModalButton";
 import ModalFormWrapper from "../../../Modal-Common/ModalFormWrapper";
 import { ObjectSchema } from "yup";
-import { CreateRoomFormModal } from "../../../../types";
+import { CreateRoomFormModal } from "@Types/index";
+import useCustomFormik from "@Hooks/useCustomFormik";
 
 interface Props {
   formInitialValues: CreateRoomFormModal;

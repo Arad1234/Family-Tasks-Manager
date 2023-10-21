@@ -2,7 +2,7 @@ import ModalInput from "../../../Modal-Common/ModalInput";
 import ModalFormWrapper from "../../../Modal-Common/ModalFormWrapper";
 import ModalButton from "../../../Modal-Common/ModalButton";
 import { ObjectSchema } from "yup";
-import useCustomFormik from "../../../../hooks/useCustomFormik";
+import useCustomFormik from "@Hooks/useCustomFormik";
 
 interface Props {
   formInitialValues: { roomPassword: string };

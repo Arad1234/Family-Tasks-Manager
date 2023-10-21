@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import variables from "../../sass/variables.module.scss";
+import variables from "@Sass/variables.module.scss";
 import { useNavigate } from "react-router-dom";
 
 interface Props {

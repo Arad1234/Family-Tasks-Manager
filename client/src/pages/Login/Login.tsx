@@ -1,14 +1,14 @@
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { loginThunk } from "../../redux/thunk/Auth/auth-actions";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { SignInWithOAuth } from "../../supabase/OAuth";
-import Loader from "../../components/Loader/Loader";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { object, string } from "yup";
-import LoginFormComponent from "../../components/Auth-UI/Login/LoginFormComponent";
-import Wrapper from "../../components/Common/Wrapper";
-import LoginTitle from "../../components/Auth-UI/Login/LoginTitle";
+import { useAppDispatch, useAppSelector } from "@Redux/hooks";
+import { loginThunk } from "@Redux/thunk/Auth/auth-actions";
+import Loader from "@Components/Loader/Loader";
+import Wrapper from "@Components/Auth-UI/Wrapper";
+import LoginTitle from "@Components/Auth-UI/Login/LoginTitle";
+import LoginFormComponent from "@Components/Auth-UI/Login/LoginFormComponent";
+import { SignInWithOAuth } from "@Supabase/OAuth";
 
 const Login = () => {
   const dispatch = useAppDispatch();

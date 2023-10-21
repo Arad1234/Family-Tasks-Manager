@@ -1,6 +1,6 @@
 import { Box, SxProps } from "@mui/material";
 import { useMemo } from "react";
-import variables from "../../sass/variables.module.scss";
+import variables from "@Sass/variables.module.scss";
 import { MdClear } from "react-icons/md";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {

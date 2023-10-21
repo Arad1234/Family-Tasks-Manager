@@ -5,7 +5,7 @@ import FormBottomText from "../FormBottomText";
 import "./ForgotPassword.scss";
 import { FormikProps } from "formik";
 import SendEmailMessage from "./SendEmailMessage";
-import { inputLabelPropsStyle } from "../../../utils/constants/genericConstants";
+import { inputLabelPropsStyle } from "@Utils/constants/genericConstants";
 
 interface Props {
   formik: FormikProps<{ email: string }>;

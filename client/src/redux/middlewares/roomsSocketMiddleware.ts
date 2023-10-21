@@ -6,9 +6,9 @@ import {
   GET_ROOMS_SOCKET,
   JOIN_ROOM_SOCKET,
   LEAVE_ROOM_SOCKET,
-} from "../../utils/constants/actionTypeConstants";
+} from "@Utils/constants/actionTypeConstants";
 import { setLoading } from "../slices/Auth/auth-slice";
-import { socket } from "../../socket/socket";
+import { socket } from "@Socket/socket";
 import { setIsIntersecting } from "../slices/Pagination/pagination-slice";
 
 export const roomsSocketMiddleware: Middleware =

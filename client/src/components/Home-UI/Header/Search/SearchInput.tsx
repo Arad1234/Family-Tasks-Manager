@@ -1,10 +1,10 @@
 import { Box, TextField, keyframes } from "@mui/material";
-import { InputChangeEvent } from "../../../../types";
 import ClearInputIcon from "./ClearInputIcon";
-import useDebounce from "../../../../hooks/useDebounce";
 import { useEffect, useRef, useState } from "react";
-import { getRoomsByName } from "../../../../redux/actions/rooms-actions";
-import { useAppDispatch } from "../../../../redux/hooks";
+import { useAppDispatch } from "@Redux/hooks";
+import { InputChangeEvent } from "@Types/index";
+import useDebounce from "@Hooks/useDebounce";
+import { getRoomsByName } from "@Redux/actions/rooms-actions";
 
 interface Props {
   setIsShowSearchBar: React.Dispatch<React.SetStateAction<boolean>>;

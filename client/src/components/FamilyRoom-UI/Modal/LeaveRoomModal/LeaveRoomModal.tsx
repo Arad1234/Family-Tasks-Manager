@@ -1,10 +1,10 @@
 import { Typography } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
 import YesOrNoModalButtons from "../../../Modal-Common/YesOrNoModalButtons";
-import { deleteMemberSocket } from "../../../../redux/actions/rooms-actions";
-import { setHideModal } from "../../../../redux/slices/Modal/modal-slice";
-import { IRoom } from "../../../../types";
+import { useAppDispatch, useAppSelector } from "@Redux/hooks";
+import { deleteMemberSocket } from "@Redux/actions/rooms-actions";
+import { setHideModal } from "@Redux/slices/Modal/modal-slice";
+import { IRoom } from "@Types/index";
 
 const LeaveRoomModal = () => {
   const dispatch = useAppDispatch();

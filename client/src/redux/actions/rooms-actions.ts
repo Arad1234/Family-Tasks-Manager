@@ -9,7 +9,7 @@ import {
   INITIALIZE_ERROR_LISTENERS,
   JOIN_ROOM_SOCKET,
   LEAVE_ROOM_SOCKET,
-} from "../../utils/constants/actionTypeConstants";
+} from "@Utils/constants/actionTypeConstants";
 
 interface IGetRoomsSocket {
   page: number;

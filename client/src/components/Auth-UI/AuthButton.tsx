@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@mui/material";
-import variables from "../../sass/variables.module.scss";
+import variables from "@Sass/variables.module.scss";
 
 interface Props {
   children: React.ReactNode;

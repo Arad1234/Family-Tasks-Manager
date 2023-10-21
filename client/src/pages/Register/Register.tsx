@@ -1,12 +1,12 @@
-import { useAppDispatch } from "../../redux/hooks";
-import { registerThunk } from "../../redux/thunk/Auth/auth-actions";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import RegisterTitle from "../../components/Auth-UI/Register/RegisterTitle";
 import { useFormik } from "formik";
 import { object, string } from "yup";
-import RegisterFormComponent from "../../components/Auth-UI/Register/RegisterFormComponent";
-import Wrapper from "../../components/Common/Wrapper";
+import { useAppDispatch } from "@Redux/hooks";
+import { registerThunk } from "@Redux/thunk/Auth/auth-actions";
+import RegisterTitle from "@Components/Auth-UI/Register/RegisterTitle";
+import Wrapper from "@Components/Auth-UI/Wrapper";
+import RegisterFormComponent from "@Components/Auth-UI/Register/RegisterFormComponent";
 
 const Register = () => {
   const navigate = useNavigate();

@@ -4,7 +4,7 @@ import "./Register.scss";
 import AuthButton from "../AuthButton";
 import { FormikProps } from "formik";
 import FormBottomText from "../FormBottomText";
-import { inputLabelPropsStyle } from "../../../utils/constants/genericConstants";
+import { inputLabelPropsStyle } from "@Utils/constants/genericConstants";
 
 interface Props {
   formik: FormikProps<{

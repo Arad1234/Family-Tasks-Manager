@@ -1,13 +1,13 @@
 import { useSession } from "@supabase/auth-helpers-react";
-import { ITask } from "../../../../types";
-import { formatDate } from "../../../../utils/helpers/formatDate";
-import { createGoogleCalendarEvent } from "../../../../supabase/Api";
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { setEventToDelete } from "../../../../redux/slices/CalendarEvents/CalendarEvents";
-import { setOpenModal } from "../../../../redux/slices/Modal/modal-slice";
 import GoogleCalendarButton from "./Button";
 import { useMemo } from "react";
 import { Typography } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "@Redux/hooks";
+import { ITask } from "@Types/index";
+import { formatDate } from "@Utils/helpers/formatDate";
+import { createGoogleCalendarEvent } from "@Supabase/Api";
+import { setEventToDelete } from "@Redux/slices/CalendarEvents/CalendarEvents";
+import { setOpenModal } from "@Redux/slices/Modal/modal-slice";
 
 interface Props {
   task: ITask;

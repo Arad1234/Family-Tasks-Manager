@@ -1,8 +1,8 @@
 import { NavigateFunction } from "react-router-dom";
-import { AppDispatch } from "../../redux/store";
-import { setLoading } from "../../redux/slices/Auth/auth-slice";
 import { toast } from "react-toastify";
 import { socket } from "../socket";
+import { AppDispatch } from "@Redux/store";
+import { setLoading } from "@Redux/slices/Auth/auth-slice";
 
 export const errorListeners = (
   dispatch: AppDispatch,

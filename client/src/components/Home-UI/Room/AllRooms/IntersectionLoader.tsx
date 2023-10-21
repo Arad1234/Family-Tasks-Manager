@@ -1,5 +1,5 @@
 import { Box, CircularProgress } from "@mui/material";
-import { observerTargetElementStyle } from "../../../../utils/constants/genericConstants";
+import { observerTargetElementStyle } from "@Utils/constants/genericConstants";
 
 const IntersectionLoader = () => {
   return (

@@ -1,5 +1,5 @@
+import { ChildrenProps } from "@Types/index";
 import { Typography } from "@mui/material";
-import { ChildrenProps } from "../../types";
 
 const ModalTitle = ({ children }: ChildrenProps) => {
   return (

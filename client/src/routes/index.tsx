@@ -1,11 +1,11 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
-import Home from "../pages/Home/Home";
-import Login from "../pages/Login/Login";
-import Register from "../pages/Register/Register";
-import FamilyRoom from "../pages/FamilyRoom/FamilyRoom";
-import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
-import ResetPassword from "../pages/ResetPassword/ResetPassword";
-import BackgroundColor from "../layouts/BackgroundColor";
+import Home from "@Pages/Home/Home";
+import Login from "@Pages/Login/Login";
+import Register from "@Pages/Register/Register";
+import FamilyRoom from "@Pages/FamilyRoom/FamilyRoom";
+import ForgotPassword from "@Pages/ForgotPassword/ForgotPassword";
+import ResetPassword from "@Pages/ResetPassword/ResetPassword";
+import BackgroundColor from "@Layouts/BackgroundColor";
 
 export const router = createBrowserRouter([
   {

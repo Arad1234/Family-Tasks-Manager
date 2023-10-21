@@ -1,4 +1,4 @@
-import { ChildrenProps } from "../../types";
+import { ChildrenProps } from "@Types/index";
 
 const ModalFormWrapper = ({
   children,

@@ -4,10 +4,15 @@
     "baseUrl": ".",
     "paths": {
       "@Components/*": ["./src/components/*"],
+      "@Pages/*": ["./src/pages/*"],
+      "@Layouts/*": ["./src/layouts/*"],
       "@Socket/*": ["./src/socket/*"],
       "@Redux/*": ["./src/redux/*"],
       "@Hooks/*": ["./src/hooks/*"],
-      "@Utils/*": ["./src/utils/*"]
+      "@Utils/*": ["./src/utils/*"],
+      "@Types/*": ["./src/types/*"],
+      "@Sass/*": ["./src/sass/*"],
+      "@Supabase/*": ["./src/supabase/*"]
     },
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],

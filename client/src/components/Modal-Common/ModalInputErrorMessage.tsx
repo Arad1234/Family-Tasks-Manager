@@ -1,5 +1,5 @@
+import { ChildrenProps } from "@Types/index";
 import { Typography } from "@mui/material";
-import { ChildrenProps } from "../../types";
 
 const ModalInputErrorMessage = ({ children }: ChildrenProps) => {
   return (
@@ -8,7 +8,7 @@ const ModalInputErrorMessage = ({ children }: ChildrenProps) => {
         color: "red",
         position: "absolute",
         top: "58px",
-        left: "2px"
+        left: "2px",
       }}
     >
       {children}

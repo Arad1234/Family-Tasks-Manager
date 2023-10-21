@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { ChildrenProps } from "../../../types";
+import { ChildrenProps } from "@Types/index";
 
 const SendEmailMessage = ({ children }: ChildrenProps) => {
   return (

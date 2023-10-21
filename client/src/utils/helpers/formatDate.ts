@@ -1,5 +1,5 @@
+import { ITask } from "@Types/index";
 import moment from "moment-timezone";
-import { ITask } from "../../types";
 
 export const formatDate = (task: ITask) => {
   const utcStartTime = moment.utc(task.startTime).format("YYYY-MM-DD HH:mm");

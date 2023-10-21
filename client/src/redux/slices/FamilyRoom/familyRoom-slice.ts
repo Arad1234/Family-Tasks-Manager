@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IRoom, IUser } from "../../../types";
+import { IRoom, IUser } from "@Types/index";
 
 interface InitialState {
   currentUserRooms: IRoom[];

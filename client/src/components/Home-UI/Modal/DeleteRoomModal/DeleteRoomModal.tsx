@@ -1,9 +1,9 @@
 import ModalComponent from "../../../Modal-Common/ModalComponent";
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { Typography } from "@mui/material";
-import { deleteRoomSocket } from "../../../../redux/actions/rooms-actions";
 import YesOrNoModalButtons from "../../../Modal-Common/YesOrNoModalButtons";
-import { setHideModal } from "../../../../redux/slices/Modal/modal-slice";
+import { setHideModal } from "@Redux/slices/Modal/modal-slice";
+import { useAppDispatch, useAppSelector } from "@Redux/hooks";
+import { deleteRoomSocket } from "@Redux/actions/rooms-actions";
 
 const DeleteRoomModal = () => {
   const dispatch = useAppDispatch();

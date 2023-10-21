@@ -1,5 +1,5 @@
 import { Box, TextField, TextFieldProps } from "@mui/material";
-import { formikPropsType } from "../../types";
+import { formikPropsType } from "@Types/index";
 import InputErrorMessage from "./InputErrorMessage";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { BiSolidUser } from "react-icons/bi";

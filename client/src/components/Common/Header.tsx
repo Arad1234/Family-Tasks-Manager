@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import { ChildrenProps } from "../../types";
-import variables from "../../sass/variables.module.scss";
+import { ChildrenProps } from "@Types/index";
+import variables from "@Sass/variables.module.scss";
 
 const HeaderComponent = ({ children }: ChildrenProps) => {
   return (

@@ -14,8 +14,8 @@ const Wrapper = ({ children, height, gap }: Props) => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        height: height ? height : "100vh",
         width: "100vw",
+        height: height ? height : "100vh",
         gap: gap ? gap : "auto",
       }}
     >

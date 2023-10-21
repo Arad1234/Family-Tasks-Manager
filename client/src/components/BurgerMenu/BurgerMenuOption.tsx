@@ -1,5 +1,5 @@
 import { Typography, TypographyProps } from "@mui/material";
-import { ChildrenProps } from "../../types";
+import { ChildrenProps } from "@Types/index";
 
 const BurgerMenuOption = ({
   children,

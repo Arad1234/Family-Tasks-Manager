@@ -1,11 +1,11 @@
 import { useFormik } from "formik";
-import ResetPasswordForm from "../../components/Auth-UI/ResetPassword/ResetPasswordForm";
-import Wrapper from "../../components/Common/Wrapper";
 import { object, string } from "yup";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../redux/hooks";
-import { resetPasswordThunk } from "../../redux/thunk/Auth/auth-actions";
 import { toast } from "react-toastify";
+import { useAppDispatch } from "@Redux/hooks";
+import { resetPasswordThunk } from "@Redux/thunk/Auth/auth-actions";
+import Wrapper from "@Components/Auth-UI/Wrapper";
+import ResetPasswordForm from "@Components/Auth-UI/ResetPassword/ResetPasswordForm";
 
 const ResetPassword = () => {
   const dispatch = useAppDispatch();
