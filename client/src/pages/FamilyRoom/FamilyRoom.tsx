@@ -54,9 +54,13 @@ const FamilyRoom = () => {
         <Loader height="65vh" />
       ) : (
         <Box sx={{ padding: "10px" }}>
-          {option === "tasks" && <AllTasks />}
-          {option === "members" &&
-            (memberForTasks ? <MemberTasks /> : <AllMembers />)}
+          {option === "tasks" ? (
+            <AllTasks />
+          ) : memberForTasks ? (
+            <MemberTasks />
+          ) : (
+            <AllMembers />
+          )}
         </Box>
       )}
     </>

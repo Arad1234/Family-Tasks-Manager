@@ -12,20 +12,20 @@ interface Props {
 
 const SearchInput = ({ setIsShowSearchBar }: Props) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const initalizeRef = useRef(false);
   const dispatch = useAppDispatch();
-  const initialMountRef = useRef(true);
 
   const handleSearchInputChange = (e: InputChangeEvent) => {
     setSearchQuery(e.target.value);
   };
 
-  const debounceValue = useDebounce(searchQuery, 500);
+  const debounceValue = useDebounce(searchQuery);
 
   useEffect(() => {
-    if (initialMountRef.current) {
-      initialMountRef.current = false;
+    if (!initalizeRef.current) {
+      initalizeRef.current = true;
     } else {
-      dispatch(getRoomsByName(searchQuery));
+      dispatch(getRoomsByName(debounceValue));
     }
   }, [debounceValue]);
 

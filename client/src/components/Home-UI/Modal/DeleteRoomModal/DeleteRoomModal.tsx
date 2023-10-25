@@ -7,7 +7,7 @@ import { deleteRoomSocket } from "@Redux/actions/rooms-actions";
 
 const DeleteRoomModal = () => {
   const dispatch = useAppDispatch();
-  const { selectedRoom } = useAppSelector((state) => state.roomsReducer);
+  const  selectedRoom  = useAppSelector((state) => state.roomsReducer.selectedRoom);
 
   const handleDeleteRoom = () => {
     dispatch(deleteRoomSocket(selectedRoom?._id));

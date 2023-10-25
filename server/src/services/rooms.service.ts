@@ -5,6 +5,8 @@ import { JoinRoomPayload } from "../types/socket";
 import { NOT_FOUND, PAGE_LIMIT, UNAUTHORIZED } from "../utils/constants";
 import AppError from "../utils/appErrorClass";
 import User from "../models/user.model";
+import { IMember } from "../types/mongoose";
+import mongoose, { Types } from "mongoose";
 
 export const getFamilyRooms = async (page: number) => {
   // Paginate the rooms after intersecting the front with the last element.
@@ -16,7 +18,14 @@ export const getFamilyRooms = async (page: number) => {
 };
 
 export const getRoomsByName = async (roomName: string) => {
-  const rooms = await Room.find({ roomName });
+  let rooms;
+  if (roomName.trim().length) {
+    rooms = await Room.find({
+      roomName: { $regex: roomName, $options: "i" },
+    });
+  } else {
+    rooms = getFamilyRooms(0);
+  }
 
   return rooms;
 };
@@ -27,7 +36,7 @@ export const createFamilyRoom = async (roomData: RoomData) => {
   const newRoom = await Room.create({
     roomName,
     maxMembers,
-    familyMembers: [userId],
+    familyMembers: [{ userId, username, tasks: [] }],
     creator: { userId, username },
     roomPassword,
   });
@@ -44,8 +53,8 @@ export const deleteFamilyRoom = async (roomId: string) => {
     throw new AppError("Room not found", NOT_FOUND);
   }
   // Delete all the tasks of the members in this room.
-  room.familyMembers.map(async (userId) => {
-    const userTasks = await Task.find({ userId });
+  room.familyMembers.map(async (member) => {
+    const userTasks = await Task.find({ userId: member.userId });
     userTasks.map(async (task) => {
       await Task.findByIdAndDelete(task._id);
     });
@@ -69,12 +78,20 @@ export const joinFamilyRoom = async (joinRoomData: JoinRoomPayload) => {
   if (!isPasswordValid) {
     throw new AppError("Room password is not correct!", UNAUTHORIZED);
   }
+  const user = await User.findOne({ _id: userId });
 
-  room.familyMembers.push(Object(userId));
+  if (!user) {
+    throw new AppError("User not found", UNAUTHORIZED);
+  }
+  const newMember = {
+    userId: user._id,
+    username: user.username,
+    tasks: [],
+  };
+
+  room.familyMembers.push(newMember);
 
   await room.save();
-
-  const newMember = await User.findOne({ _id: userId });
 
   return newMember;
 };

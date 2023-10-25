@@ -6,7 +6,9 @@ import {
   setCreateRoom,
   setDeleteRoom,
   setJoinRoom,
+  setLoadingRooms,
   setRooms,
+  setSearchedRooms,
 } from "@Redux/slices/Rooms/rooms-slice";
 import {
   setIncrementPage,
@@ -19,7 +21,6 @@ import { setHideMenu } from "@Redux/slices/BurgerMenu/burgerMenu-slice";
 
 export const roomsListeners = (dispatch: AppDispatch) => {
   socket.on("recievedRooms", (rooms) => {
-    console.log("recived rooms!");
     if (rooms.length > 0) {
       dispatch(setRooms(rooms));
       dispatch(setIncrementPage());
@@ -29,12 +30,12 @@ export const roomsListeners = (dispatch: AppDispatch) => {
 
     dispatch(setIsIntersecting(false));
 
-    dispatch(setLoading(false));
+    dispatch(setLoadingRooms(false));
   });
 
   socket.on("recievedRoomsByName", (rooms) => {
-    dispatch(setRooms(rooms));
-    dispatch(setLoading(false));
+    dispatch(setSearchedRooms(rooms));
+    dispatch(setLoadingRooms(false));
   });
 
   socket.on("createdRoom", (newRoom) => {
@@ -60,7 +61,7 @@ export const roomsListeners = (dispatch: AppDispatch) => {
   socket.on("joinedRoom", (data) => {
     const { roomId, newMember, toRoomMembers, toCurrentUser } = data;
     console.log("joinedRoom listener!");
-    dispatch(setJoinRoom({ roomId, userId: newMember._id })); // Home page
+    dispatch(setJoinRoom({ roomId, userId: newMember.userId })); // Home page
 
     if (toCurrentUser) {
       dispatch(setHideModal());

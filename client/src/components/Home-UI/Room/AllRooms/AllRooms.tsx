@@ -46,5 +46,4 @@ const AllRooms = forwardRef((_props, ref: Ref<HTMLDivElement>) => {
   );
 });
 
-// Using "memo" to render the "AllRooms" component only when "searchQuery" props change.
 export default AllRooms;

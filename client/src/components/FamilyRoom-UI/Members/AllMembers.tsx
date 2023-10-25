@@ -5,11 +5,11 @@ import { IRoom, IUser } from "../../../types";
 
 const AllMembers = () => {
   const familyRoom = useAppSelector(
-    (state) => state.familyRoomReducer.familyRoom
+    (state) => state.familyRoomReducer.familyRoom as IRoom
   );
   const userId = useAppSelector((state) => state.authReducer.userId);
 
-  const { familyMembers } = familyRoom as IRoom;
+  const { familyMembers } = familyRoom;
 
   return (
     <Box
@@ -33,9 +33,9 @@ const AllMembers = () => {
         familyMembers.map((member) => {
           const memberAsTypeUser = member as IUser;
           return (
-            memberAsTypeUser._id !== userId && (
+            memberAsTypeUser.userId !== userId && (
               <Member
-                key={memberAsTypeUser._id}
+                key={memberAsTypeUser.userId}
                 member={memberAsTypeUser}
               />
             )

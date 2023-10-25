@@ -10,6 +10,7 @@ import {
 import { setLoading } from "../slices/Auth/auth-slice";
 import { socket } from "@Socket/socket";
 import { setIsIntersecting } from "../slices/Pagination/pagination-slice";
+import { setLoadingRooms } from "@Redux/slices/Rooms/rooms-slice";
 
 export const roomsSocketMiddleware: Middleware =
   (storeAPI) => (next) => (action) => {
@@ -22,15 +23,15 @@ export const roomsSocketMiddleware: Middleware =
         if (payload.isIntersecting) {
           dispatch(setIsIntersecting(true));
         } else {
-          dispatch(setLoading(true));
+          dispatch(setLoadingRooms(true));
         }
 
         socket.emit("rooms:read", { page: payload.page });
         break;
 
       case GET_ROOMS_BY_NAME_SOCKET:
-        dispatch(setLoading(true));
-        socket.emit("rooms:readByName", { searchQuery: payload.searchQuery });
+        dispatch(setLoadingRooms(true));
+        socket.emit("rooms:readByName", { roomName: payload.searchQuery });
         break;
 
       case CREATE_ROOM_SOCKET:

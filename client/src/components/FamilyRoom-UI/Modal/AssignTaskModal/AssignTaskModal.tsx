@@ -47,7 +47,7 @@ const AssignTaskModal = () => {
   }: CreateTaskFormModal) => {
     dispatch(
       addTaskSocket({
-        userId: memberForAssignTask._id,
+        userId: memberForAssignTask.userId,
         roomId: familyRoom._id,
         name,
         description,

@@ -21,7 +21,7 @@ const DeleteMemberModal = () => {
     if (memberAsTypeUser && familyRoom) {
       dispatch(
         deleteMemberSocket({
-          memberId: memberAsTypeUser._id,
+          memberId: memberAsTypeUser.userId,
           roomId: familyRoom._id,
           source: "admin",
         })

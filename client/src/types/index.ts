@@ -31,7 +31,7 @@ export interface IRoom {
   roomName: string;
   maxMembers: number | null;
   creator: { userId: string; username: string };
-  familyMembers: string[] | IUser[];
+  familyMembers: Omit<IUser, "email" | "_id">[];
   userId: string;
   _id: string;
 }

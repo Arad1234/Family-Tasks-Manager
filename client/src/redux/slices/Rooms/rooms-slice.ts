@@ -3,11 +3,13 @@ import { IRoom, IUser } from "@Types/index";
 
 interface InitialState {
   rooms: IRoom[];
+  isSearchRoom: boolean;
   selectedRoom: IRoom | null;
 }
 
 const initialState: InitialState = {
   rooms: [],
+  isSearchRoom: false,
   selectedRoom: null,
 };
 
@@ -15,8 +17,12 @@ const roomsSlice = createSlice({
   name: "room",
   initialState,
   reducers: {
-    setRooms(state, { payload: allRooms }) {
-      state.rooms = [...state.rooms, ...allRooms];
+    setRooms(state, { payload: rooms }) {
+      console.log(rooms);
+      state.rooms = [...state.rooms, ...rooms];
+    },
+    setSearchedRooms(state, { payload: searchedRooms }) {
+      state.rooms = searchedRooms;
     },
     setCreateRoom(state, { payload: newRoom }) {
       state.rooms.push(newRoom);
@@ -54,16 +60,22 @@ const roomsSlice = createSlice({
     setSelectedRoom(state, { payload: room }) {
       state.selectedRoom = room;
     },
+
+    setLoadingRooms(state, { payload }) {
+      state.isSearchRoom = payload;
+    },
   },
 });
 
 export const {
   setRooms,
+  setSearchedRooms,
   setCreateRoom,
   setDeleteRoom,
   setJoinRoom,
   setLeaveRoom,
   setSelectedRoom,
+  setLoadingRooms,
 } = roomsSlice.actions;
 
 export default roomsSlice.reducer;

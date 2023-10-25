@@ -8,9 +8,9 @@ import { NOT_FOUND } from "../utils/constants";
 export const deleteMember = async (payload: DeleteMemberSchemaType) => {
   const { memberId, roomId } = payload;
 
-  const userTodelete = await User.findById(memberId);
+  const userToDelete = await User.findById(memberId);
 
-  if (!userTodelete) {
+  if (!userToDelete) {
     throw new AppError("User not found", NOT_FOUND);
   }
 
@@ -23,32 +23,28 @@ export const deleteMember = async (payload: DeleteMemberSchemaType) => {
   await Task.deleteMany({ userId: memberId });
 
   // Delete the member from the room's family members.
-  room.familyMembers = room.familyMembers.filter((userId) => {
-    return userId.toString() !== memberId;
+  room.familyMembers = room.familyMembers.filter((member) => {
+    return member.userId.toString() !== memberId;
   });
 
   await room.save();
 
-  return { username: userTodelete?.username, roomName: room.roomName };
+  return { username: userToDelete.username, roomName: room.roomName };
 };
 
-export const getMemberRooms = async (payload: {
-  roomId: string;
-  userId: string;
-}) => {
+export const getMemberRooms = async (userId: string) => {
   const memberRooms = await Room.find({
-    familyMembers: payload.userId,
+    familyMembers: { $elemMatch: { userId } },
   }).select("roomName");
 
   return memberRooms;
 };
 
 export const getCurrentRoom = async (roomId: string) => {
-  // Populate the familyMembers ref and the user tasks ref that match the current roomId.
-  const currentRoom = await Room.findOne({ _id: roomId }).populate({
-    path: "familyMembers",
-    populate: { path: "tasks", match: { roomId } },
-  });
+  // Populate the and the user tasks ref that match the current roomId.
+  const currentRoom = await Room.findOne({ _id: roomId }).populate(
+    "familyMembers.tasks"
+  );
 
   if (!currentRoom) {
     throw new AppError(`Room with id ${roomId} not found`, NOT_FOUND);

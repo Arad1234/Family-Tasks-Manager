@@ -1,5 +1,5 @@
+import Room from "../models/room.model";
 import Task from "../models/task.model";
-import User from "../models/user.model";
 import { createTaskSchemaType } from "../schema/task/createTaskSchema";
 import AppError from "../utils/appErrorClass";
 import { NOT_FOUND } from "../utils/constants";
@@ -15,15 +15,20 @@ export const createTask = async (taskData: createTaskSchemaType) => {
     roomId,
   });
 
-  const user = await User.findOne({ _id: userId });
+  const room = await Room.findOne({ _id: roomId });
 
-  if (!user) {
-    throw new AppError(`User with id ${userId} not found`, NOT_FOUND);
+  if (!room) {
+    throw new AppError(`Room with id ${roomId} not found`, NOT_FOUND);
   }
 
-  user.tasks.push(newTask._id);
+  room.familyMembers = room.familyMembers.map((member) => {
+    if (member.userId.toString() === userId) {
+      member.tasks.push(newTask._id);
+    }
+    return member;
+  });
 
-  await user.save();
-
+  await room.save();
+  
   return newTask;
 };

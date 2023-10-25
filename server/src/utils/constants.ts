@@ -12,7 +12,7 @@ export const {
 
 export const mailAuthConfig = {
   type: "OAuth2",
-  user: "aradgoller072@gmail.com",
+  user: config.email.adminEmail,
   clientId: config.email.clientId,
   clientSecret: config.email.clientSecret,
   refreshToken: config.email.refreshToken,

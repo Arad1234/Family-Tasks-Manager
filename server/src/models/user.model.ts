@@ -11,17 +11,13 @@ interface IUserMethods {
 
 type UserModel = Model<IUser, {}, IUserMethods>;
 
-const userSchema = new Schema<IUser, {}, IUserMethods>(
+export const userSchema = new Schema<IUser, {}, IUserMethods>(
   {
     username: String,
-    email: { type: String, unique: true },
+    email: { type: String, unique: true, lowercase: true },
     password: { type: String, select: false },
     passwordResetToken: String,
     passwordResetExpires: Date,
-    tasks: {
-      type: [{ type: Schema.Types.ObjectId, ref: "Task" }],
-      default: [],
-    },
   },
   { versionKey: false }
 );
@@ -29,7 +25,7 @@ const userSchema = new Schema<IUser, {}, IUserMethods>(
 userSchema.pre("save", async function (next) {
   const user = this;
 
-  if (!user.isModified("password")) {
+  if (!user.isModified("password") || !user.password) {
     return next();
   }
 

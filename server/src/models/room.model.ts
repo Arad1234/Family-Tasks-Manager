@@ -1,6 +1,7 @@
-import { Model, Schema, model } from "mongoose";
+import { Model, Schema, Types, model } from "mongoose";
 import { IRoom } from "../types/mongoose";
 import bcrypt from "bcrypt";
+import { userSchema } from "./user.model";
 
 interface IRoomMethods {
   validatePassword: (roomPassword: string) => Promise<boolean>;
@@ -13,10 +14,16 @@ const roomSchema = new Schema<IRoom, RoomModel, IRoomMethods>(
   {
     roomName: String,
     creator: { userId: Schema.Types.ObjectId, username: String },
-    familyMembers: {
-      type: [{ type: Schema.Types.ObjectId, ref: "User" }],
-      default: [],
-    },
+    familyMembers: [
+      {
+        type: {
+          username: String,
+          userId: Schema.Types.ObjectId,
+          tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }], // Embedding the user because this is a "one to a few relationship".
+          _id: false,
+        },
+      },
+    ],
     maxMembers: Number,
     roomPassword: { type: String, select: false },
   },

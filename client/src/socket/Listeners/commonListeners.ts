@@ -33,6 +33,7 @@ export const commonListeners = (
       dispatch(setFamilyRoom(null));
       dispatch(setHideModal());
       dispatch(setHideMenu());
+      dispatch(setLoading(false));
       navigate!("/home");
     }
 
@@ -52,7 +53,7 @@ export const commonListeners = (
       toRoomMembers,
       toRemovedMember,
     } = data;
-
+    console.log(data);
     if (toRemovedMember) {
       if (location.pathname.includes(roomId)) {
         navigate("/home");

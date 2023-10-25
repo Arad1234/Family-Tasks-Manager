@@ -10,6 +10,7 @@ const {
   FROM_EMAIL,
   CLIENT_HOST,
   NODE_ENV,
+  ADMIN_EMAIL,
 } = process.env;
 
 export const config = {
@@ -25,6 +26,7 @@ export const config = {
   },
   email: {
     fromEmail: FROM_EMAIL,
+    adminEmail: ADMIN_EMAIL,
     clientId: CLIENT_ID,
     clientSecret: CLIENT_SECRET,
     refreshToken: REFRESH_TOKEN,

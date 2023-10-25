@@ -66,7 +66,7 @@ export const roomsHandler = (io: Server, socket: Socket) => {
   },
   socket);
 
-  const joinRoomHandler = catchAsyncSocket(async function (
+  const joinRoomHandler =  catchAsyncSocket(async function (
     payload: JoinRoomSchemaType
   ) {
     const { roomId, roomPassword } = payload;

@@ -12,6 +12,6 @@ export const taskSchema = new Schema<ITask>(
   { versionKey: false, timestamps: true }
 );
 
-const Task = model("Task", taskSchema);
+const Task = model<ITask>("Task", taskSchema);
 
 export default Task;

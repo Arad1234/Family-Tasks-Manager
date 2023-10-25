@@ -10,7 +10,7 @@ import crypto from "crypto";
 
 export const createUser = async (userData: UserRegisterDetails) => {
   const { username, email, password } = userData;
-
+  
   await User.create({
     username,
     email,

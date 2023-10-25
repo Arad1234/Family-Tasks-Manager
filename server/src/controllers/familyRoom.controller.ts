@@ -12,6 +12,7 @@ export const familyRoomHandler = (io: Server, socket: Socket) => {
   const deleteMemberHandler = catchAsyncSocket(async function (
     payload: DeleteMemberSchemaType
   ) {
+    console.log("payload", payload);
     const { memberId, roomId, source } = payload;
 
     const { username, roomName } = await deleteMember(payload);
@@ -73,11 +74,10 @@ export const familyRoomHandler = (io: Server, socket: Socket) => {
 
   const getMemberRoomsHandler = catchAsyncSocket(async function (payload: {
     userId: string;
-    roomId: string;
   }) {
-    const { roomId, userId } = payload;
+    const { userId } = payload;
 
-    const memberRooms = await getMemberRooms({ roomId, userId });
+    const memberRooms = await getMemberRooms(userId);
 
     socket.emit("recievedMemberRooms", memberRooms);
   },

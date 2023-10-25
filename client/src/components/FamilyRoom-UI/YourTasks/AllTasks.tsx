@@ -13,7 +13,7 @@ const AllTasks = () => {
 
   const currentMember = useMemo(() => {
     return familyRoom.familyMembers.find((member) => {
-      return (member as IUser)._id === userId;
+      return member.userId === userId;
     });
   }, [familyRoom.familyMembers]); // When familyMembers changed it means that a task is added to one of the familyMembers or something happen with the members (deleted/added), so I need to reflect the changes.
 

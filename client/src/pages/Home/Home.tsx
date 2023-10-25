@@ -21,6 +21,9 @@ export const Home = () => {
   const navigate = useNavigate();
 
   const page = useAppSelector((state) => state.paginationReducer.page);
+  const isSearchRoom = useAppSelector(
+    (state) => state.roomsReducer.isSearchRoom
+  );
   const { loading, userId } = useAppSelector((state) => state.authReducer);
 
   useEffect(() => {
@@ -32,8 +35,9 @@ export const Home = () => {
   useEffect(() => {
     dispatch(initializeCommonListeners({ navigate, location }));
     dispatch(initializeErrorListeners({ navigate }));
-  }, []);
+  }, [location, navigate]);
 
+  // Using custom ref to avoid useCallback closure.
   const ctx = useCustomRef(page);
 
   // Using callback ref to call the callBackRef function whenever there a ref is created in the child component ((node) => callBackRef(node)).
@@ -63,7 +67,11 @@ export const Home = () => {
       <HomeHeader />
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <AllRooms ref={callBackRef} />
+        {isSearchRoom ? (
+          <Loader height="88vh" />
+        ) : (
+          <AllRooms ref={callBackRef} />
+        )}
       </Box>
 
       <AllModals />
