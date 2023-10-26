@@ -8,6 +8,7 @@ import { Box } from "@mui/material";
 import FormBottomText from "../FormBottomText";
 import { inputLabelPropsStyle } from "@Utils/constants/genericConstants";
 import ForgotPasswordText from "./ForgotPasswordText";
+import { FormStyled } from "../styles/form.styled";
 
 interface Props {
   formik: FormikProps<{ email: string; password: string }>;
@@ -18,8 +19,7 @@ const LoginFormComponent = ({ formik, loginWithGoogle }: Props) => {
   const { handleSubmit, values, errors, touched } = formik;
 
   return (
-    <form
-      className="login-form"
+    <FormStyled
       onSubmit={handleSubmit}
     >
       <FormTitleComponent>Login</FormTitleComponent>
@@ -69,7 +69,7 @@ const LoginFormComponent = ({ formik, loginWithGoogle }: Props) => {
           whiteText="Haven't any account?"
         />
       </Box>
-    </form>
+    </FormStyled>
   );
 };
 

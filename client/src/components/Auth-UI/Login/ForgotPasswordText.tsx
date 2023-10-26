@@ -7,9 +7,9 @@ const ForgotPasswordText = () => {
   return (
     <Typography
       sx={{
-        position: "fixed",
         color: "#4d9fff",
-        top: "24.2rem",
+        position: "fixed",
+        top: "24.5rem",
         right: "75px",
       }}
       onClick={() => navigate("/forgotPassword")}

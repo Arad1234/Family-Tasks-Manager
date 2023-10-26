@@ -1,10 +1,10 @@
 import { FormikProps } from "formik";
 import InputComponent from "../InputComponent";
-import "./ResetPasswordForm.scss";
 import AuthButton from "../AuthButton";
 import FormTitleComponent from "../FormTitleComponent";
 import FormBottomText from "../FormBottomText";
 import { inputLabelPropsStyle } from "@Utils/constants/genericConstants";
+import { FormStyled } from "../styles/form.styled";
 
 interface Props {
   formik: FormikProps<{ newPassword: string; confirmPassword: string }>;
@@ -14,10 +14,7 @@ const ResetPasswordForm = ({ formik }: Props) => {
   const { values, errors, touched, handleSubmit } = formik;
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="resetPassword-form"
-    >
+    <FormStyled onSubmit={handleSubmit}>
       <FormTitleComponent>Reset Your Pasword</FormTitleComponent>
       <InputComponent
         formik={formik}
@@ -46,7 +43,7 @@ const ResetPasswordForm = ({ formik }: Props) => {
         actionText="Go To Login Page"
         navigateTo="/"
       />
-    </form>
+    </FormStyled>
   );
 };
 

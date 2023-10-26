@@ -46,4 +46,5 @@ const AllRooms = forwardRef((_props, ref: Ref<HTMLDivElement>) => {
   );
 });
 
+AllRooms.displayName = "AllRooms";
 export default AllRooms;

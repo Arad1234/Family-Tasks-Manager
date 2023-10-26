@@ -10,7 +10,7 @@ const useCallBackRef = <T extends number>(payload: T) => {
       const observer = new IntersectionObserver(
         (entries) => {
           const [entry] = entries;
-          if (entry) {
+          if (entry.isIntersecting) {
             dispatch(getRoomsSocket({ page: payload, isIntersecting: true }));
           }
         },

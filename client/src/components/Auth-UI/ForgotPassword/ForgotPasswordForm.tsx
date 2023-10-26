@@ -2,10 +2,10 @@ import FormTitleComponent from "../FormTitleComponent";
 import InputComponent from "../InputComponent";
 import AuthButton from "../AuthButton";
 import FormBottomText from "../FormBottomText";
-import "./ForgotPassword.scss";
 import { FormikProps } from "formik";
 import SendEmailMessage from "./SendEmailMessage";
 import { inputLabelPropsStyle } from "@Utils/constants/genericConstants";
+import { FormStyled } from "../styles/form.styled";
 
 interface Props {
   formik: FormikProps<{ email: string }>;
@@ -16,10 +16,7 @@ const ForgotPasswordForm = ({ formik, sentEmailMessage }: Props) => {
   const { values, errors, touched, handleSubmit } = formik;
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="forgotPassword-form"
-    >
+    <FormStyled onSubmit={handleSubmit}>
       {sentEmailMessage ? (
         <SendEmailMessage>{sentEmailMessage}</SendEmailMessage>
       ) : (
@@ -43,7 +40,7 @@ const ForgotPasswordForm = ({ formik, sentEmailMessage }: Props) => {
           />
         </>
       )}
-    </form>
+    </FormStyled>
   );
 };
 
