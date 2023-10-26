@@ -19,7 +19,7 @@ const SearchInput = ({ setIsShowSearchBar }: Props) => {
     setSearchQuery(e.target.value);
   };
 
-  const debounceValue = useDebounce(searchQuery);
+  const debounceValue = useDebounce<string>(searchQuery);
 
   useEffect(() => {
     if (!initalizeRef.current) {

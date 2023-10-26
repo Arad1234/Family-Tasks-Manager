@@ -6,8 +6,8 @@ import useCustomFormik from "@Hooks/useCustomFormik";
 
 interface Props {
   formInitialValues: { roomPassword: string };
-  formValidationSchema: ObjectSchema<{ roomPassword: string }>;
   formHandleSubmit: (values: { roomPassword: string }) => void;
+  formValidationSchema: ObjectSchema<{ roomPassword: string }>;
 }
 
 const ModalForm = ({
@@ -15,7 +15,7 @@ const ModalForm = ({
   formInitialValues,
   formValidationSchema,
 }: Props) => {
-  const formik = useCustomFormik({
+  const formik = useCustomFormik<{ roomPassword: string }>({
     formHandleSubmit,
     formInitialValues,
     formValidationSchema,

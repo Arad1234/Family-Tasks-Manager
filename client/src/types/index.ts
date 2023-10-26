@@ -1,12 +1,15 @@
 import { FormikProps } from "formik";
 import React from "react";
+import { Location, NavigateFunction } from "react-router-dom";
 
+// Common
 export type InputChangeEvent = React.ChangeEvent<HTMLInputElement>;
 
 export interface ChildrenProps {
   children: React.ReactNode;
 }
 
+// Schema
 export interface ITask {
   name: string;
   description: string;
@@ -16,8 +19,6 @@ export interface ITask {
   updatedAt: string;
   _id: string;
 }
-
-export type TaskCreation = Omit<ITask, "_id" | "updatedAt" | "createdAt">;
 
 export interface IUser {
   userId: string;
@@ -36,6 +37,7 @@ export interface IRoom {
   _id: string;
 }
 
+// Data to server
 export interface RoomCreationData {
   roomName: string;
   roomPassword: string;
@@ -52,16 +54,7 @@ export interface JoinRoomData {
   roomPassword: string;
 }
 
-export interface AddTaskData {
-  userId: string;
-  roomId: string;
-  name: string;
-  description?: string;
-  startTime?: Date;
-  endTime?: Date;
-}
-
-export type CreateTaskFormModal = Omit<AddTaskData, "userId" | "roomId">;
+export type CreateTaskFormModal = Omit<IAddTaskSocket, "userId" | "roomId">;
 
 // Google calendar
 type ExtendedProperties = { private: { taskCreatedAt: string } };
@@ -102,3 +95,46 @@ export type formikPropsType =
   | FormikProps<LoginFormikType>
   | FormikProps<forgotPasswordFormikType>
   | FormikProps<resetPasswordFormikType>;
+
+// Socket
+//// Emitters payload
+export interface IGetRoomsSocket {
+  page: number;
+  isIntersecting?: boolean;
+}
+
+export interface ICreateRoomsSocket {
+  maxMembers: number | null;
+  roomName: string;
+  roomPassword: string;
+}
+
+export interface IJoinRoomSocket {
+  roomId: string;
+  roomPassword: string;
+}
+
+export interface IDeleteMemeberSocket {
+  memberId: string;
+  roomId: string;
+  source: "admin" | "self";
+}
+
+export interface IAddTaskSocket {
+  userId: string;
+  roomId: string;
+  name: string;
+  description?: string;
+  startTime?: Date;
+  endTime?: Date;
+}
+
+//// Listeners
+export interface ICommonListeners {
+  navigate: NavigateFunction;
+  location: Location;
+}
+
+export interface IErrorListeners {
+  navigate: NavigateFunction;
+}

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-const useCustomRef = (data: any) => {
+const useCustomRef = <T>(data: T): { current: T } => {
   const ctx = useRef(data);
   ctx.current = data;
   return ctx;

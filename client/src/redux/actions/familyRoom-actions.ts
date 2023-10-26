@@ -3,7 +3,7 @@ import {
   GET_CURRENT_ROOM_SOCKET,
   GET_MEMBER_ROOMS_SOCKET,
 } from "@Utils/constants/actionTypeConstants";
-import { AddTaskData } from "src/types";
+import { IAddTaskSocket } from "src/types";
 
 export const getMemberRoomsSocket = (userId: string | null) => {
   return {
@@ -26,7 +26,7 @@ export const addTaskSocket = ({
   startTime,
   endTime,
   roomId,
-}: AddTaskData) => {
+}: IAddTaskSocket) => {
   return {
     type: ADD_TASK_SOCKET,
     payload: { description, userId, name, startTime, endTime, roomId },

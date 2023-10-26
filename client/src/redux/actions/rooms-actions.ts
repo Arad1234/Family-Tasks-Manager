@@ -1,69 +1,17 @@
-import { Location, NavigateFunction } from "react-router-dom";
+import {
+  ICreateRoomsSocket,
+  IDeleteMemeberSocket,
+  IGetRoomsSocket,
+  IJoinRoomSocket,
+} from "@Types/index";
 import {
   CREATE_ROOM_SOCKET,
   DELETE_ROOM_SOCKET,
   GET_ROOMS_BY_NAME_SOCKET,
   GET_ROOMS_SOCKET,
-  INITIALIZE_COMMON_LISTENERS,
-  INITIALIZE_CONNECTION_LISENERS,
-  INITIALIZE_ERROR_LISTENERS,
   JOIN_ROOM_SOCKET,
   LEAVE_ROOM_SOCKET,
 } from "@Utils/constants/actionTypeConstants";
-
-interface IGetRoomsSocket {
-  page: number;
-  isIntersecting?: boolean;
-}
-
-interface ICreateRoomsSocket {
-  maxMembers: number | null;
-  roomName: string;
-  roomPassword: string;
-}
-
-interface IJoinRoomsSocket {
-  roomId: string;
-  roomPassword: string;
-}
-
-interface IDeleteMemeberSocket {
-  memberId: string;
-  roomId: string;
-  source: "admin" | "self";
-}
-
-interface ICommonListeners {
-  navigate: NavigateFunction;
-  location: Location;
-}
-
-interface IErrorListeners {
-  navigate: NavigateFunction;
-}
-
-export const initializeConnectionListeners = () => {
-  return {
-    type: INITIALIZE_CONNECTION_LISENERS,
-  };
-};
-
-export const initializeCommonListeners = ({
-  navigate,
-  location,
-}: ICommonListeners) => {
-  return {
-    type: INITIALIZE_COMMON_LISTENERS,
-    payload: { navigate, location },
-  };
-};
-
-export const initializeErrorListeners = ({ navigate }: IErrorListeners) => {
-  return {
-    type: INITIALIZE_ERROR_LISTENERS,
-    payload: { navigate },
-  };
-};
 
 export const getRoomsSocket = ({ page, isIntersecting }: IGetRoomsSocket) => {
   return {
@@ -87,7 +35,7 @@ export const deleteRoomSocket = (roomId: string | undefined) => {
   return { type: DELETE_ROOM_SOCKET, payload: { roomId } };
 };
 
-export const joinRoomSocket = ({ roomId, roomPassword }: IJoinRoomsSocket) => {
+export const joinRoomSocket = ({ roomId, roomPassword }: IJoinRoomSocket) => {
   return { type: JOIN_ROOM_SOCKET, payload: { roomId, roomPassword } };
 };
 

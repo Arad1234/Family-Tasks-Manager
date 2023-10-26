@@ -16,7 +16,7 @@ const ModalForm = ({
   formInitialValues,
   formValidationSchema,
 }: Props) => {
-  const formik = useCustomFormik({
+  const formik = useCustomFormik<CreateTaskFormModal>({
     formHandleSubmit,
     formInitialValues,
     formValidationSchema,

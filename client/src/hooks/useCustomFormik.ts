@@ -1,10 +1,10 @@
-import { useFormik } from "formik";
+import { FormikValues, useFormik } from "formik";
 import { ObjectSchema } from "yup";
 
-const useCustomFormik = (options: {
-  formHandleSubmit: (values: any) => void;
-  formInitialValues: any;
-  formValidationSchema: ObjectSchema<any>;
+const useCustomFormik = <T extends FormikValues>(options: {
+  formHandleSubmit: (values: T) => void;
+  formInitialValues: T;
+  formValidationSchema: ObjectSchema<T>;
 }) => {
   const formik = useFormik({
     initialValues: options.formInitialValues,
