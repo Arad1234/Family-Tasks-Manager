@@ -1,19 +1,12 @@
 import { Typography } from "@mui/material";
-import { ChildrenProps } from "@Types/index";
 
-const InputErrorMessage = ({ children }: ChildrenProps) => {
-  return (
-    <Typography
-      sx={{
-        color: "rgb(250, 100, 50)",
-        position: "absolute",
-        top: "55px",
-        left: "36px",
-      }}
-    >
-      {children}
-    </Typography>
-  );
+interface Props {
+  children: React.ReactNode;
+  className?: string;
+}
+
+const InputErrorMessage = ({ children, className }: Props) => {
+  return <Typography className={className}>{children}</Typography>;
 };
 
 export default InputErrorMessage;

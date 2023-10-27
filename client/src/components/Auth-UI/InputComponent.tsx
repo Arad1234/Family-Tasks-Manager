@@ -1,10 +1,10 @@
 import { Box, TextField, TextFieldProps } from "@mui/material";
 import { formikPropsType } from "@Types/index";
-import InputErrorMessage from "./InputErrorMessage";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { BiSolidUser } from "react-icons/bi";
 import { MdEmail } from "react-icons/md";
 import { useState } from "react";
+import { InputErrorMessageStyled } from "./styles/InputErrorMessage.styled";
 
 type Props = {
   formik: formikPropsType;
@@ -81,7 +81,7 @@ const InputComponent = ({
       />
 
       {inputError && inputTouched && (
-        <InputErrorMessage>{inputError}</InputErrorMessage>
+        <InputErrorMessageStyled>{inputError}</InputErrorMessageStyled>
       )}
     </Box>
   );

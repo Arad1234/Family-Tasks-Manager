@@ -2,22 +2,17 @@ import { Box } from "@mui/material";
 
 interface Props {
   children: React.ReactNode;
+  className?: string; // Getting the className from styled component.
   height?: string;
   gap?: string;
 }
 
-const Wrapper = ({ children, height, gap }: Props) => {
+const Wrapper = ({ children, height, gap, className }: Props) => {
   return (
     <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100vw",
-        height: height ? height : "100vh",
-        gap: gap ? gap : "auto",
-      }}
+      height={height}
+      gap={gap}
+      className={className}
     >
       {children}
     </Box>

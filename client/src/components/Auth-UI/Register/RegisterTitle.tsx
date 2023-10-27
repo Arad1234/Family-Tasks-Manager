@@ -1,9 +1,9 @@
 import { Typography } from "@mui/material";
-import DropDownBar from "../DropDownBar";
+import { DropDownBarStyled } from "../styles/dropDownBar.styled";
 
 const RegisterTitle = () => {
   return (
-    <DropDownBar>
+    <DropDownBarStyled>
       <Typography
         sx={{
           fontSize: "25px",
@@ -25,7 +25,7 @@ const RegisterTitle = () => {
           Family Tasks Manager
         </Typography>
       </Typography>
-    </DropDownBar>
+    </DropDownBarStyled>
   );
 };
 

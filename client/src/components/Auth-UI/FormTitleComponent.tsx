@@ -1,18 +1,11 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { ChildrenProps } from "@Types/index";
+import { FormTitleStyled } from "./styles/formTitle.styled";
 
 const FormTitleComponent = ({ children }: ChildrenProps) => {
   return (
     <Box sx={{ display: "flex", justifyContent: "left", width: "15rem" }}>
-      <Typography
-        sx={{
-          fontSize: "24px",
-          fontWeight: "500",
-          color: "white",
-        }}
-      >
-        {children}
-      </Typography>
+      <FormTitleStyled>{children}</FormTitleStyled>
     </Box>
   );
 };

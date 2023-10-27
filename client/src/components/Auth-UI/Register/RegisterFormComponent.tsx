@@ -1,10 +1,10 @@
 import FormTitleComponent from "../FormTitleComponent";
 import InputComponent from "../InputComponent";
-import AuthButton from "../AuthButton";
 import { FormikProps } from "formik";
 import FormBottomText from "../FormBottomText";
 import { inputLabelPropsStyle } from "@Utils/constants/genericConstants";
 import { FormStyled } from "../styles/form.styled";
+import { AuthButtonStyled } from "../styles/authButton.styled";
 
 interface Props {
   formik: FormikProps<{
@@ -68,8 +68,7 @@ const RegisterFormComponent = ({ formik }: Props) => {
         inputTouched={touched.confirmPassword}
         inputError={errors.confirmPassword}
       />
-
-      <AuthButton>Sign Up</AuthButton>
+      <AuthButtonStyled>Sign Up</AuthButtonStyled>
 
       <FormBottomText
         actionText="Log In"

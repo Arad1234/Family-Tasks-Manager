@@ -4,8 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAppDispatch } from "@Redux/hooks";
 import { resetPasswordThunk } from "@Redux/thunk/Auth/auth-actions";
-import Wrapper from "@Components/Auth-UI/Wrapper";
 import ResetPasswordForm from "@Components/Auth-UI/ResetPassword/ResetPasswordForm";
+import { FormWrapperStyled } from "@Components/Auth-UI/styles/formWrapper.styled";
 
 const ResetPassword = () => {
   const dispatch = useAppDispatch();
@@ -37,9 +37,9 @@ const ResetPassword = () => {
   });
 
   return (
-    <Wrapper>
+    <FormWrapperStyled>
       <ResetPasswordForm formik={formik} />
-    </Wrapper>
+    </FormWrapperStyled>
   );
 };
 

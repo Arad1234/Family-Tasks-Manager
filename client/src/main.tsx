@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -14,6 +13,7 @@ import {
 } from "./utils/constants/genericConstants";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { StyledEngineProvider } from "@mui/material";
 
 const supabase = createClient(VITE_SUPABASE_PROJECT_URL, VITE_API_KEY);
 
@@ -29,7 +29,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           draggable={false}
           autoClose={3200}
         />
-        <RouterProvider router={router} />
+        <StyledEngineProvider injectFirst>
+          <RouterProvider router={router} />
+        </StyledEngineProvider>
       </PersistGate>
     </Provider>
   </SessionContextProvider>

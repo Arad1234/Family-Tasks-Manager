@@ -1,10 +1,10 @@
 import { FormikProps } from "formik";
 import InputComponent from "../InputComponent";
-import AuthButton from "../AuthButton";
 import FormTitleComponent from "../FormTitleComponent";
 import FormBottomText from "../FormBottomText";
 import { inputLabelPropsStyle } from "@Utils/constants/genericConstants";
 import { FormStyled } from "../styles/form.styled";
+import { AuthButtonStyled } from "../styles/authButton.styled";
 
 interface Props {
   formik: FormikProps<{ newPassword: string; confirmPassword: string }>;
@@ -38,7 +38,7 @@ const ResetPasswordForm = ({ formik }: Props) => {
         inputError={errors.confirmPassword}
       />
 
-      <AuthButton>Create New Password</AuthButton>
+      <AuthButtonStyled>Create New Password</AuthButtonStyled>
       <FormBottomText
         actionText="Go To Login Page"
         navigateTo="/"

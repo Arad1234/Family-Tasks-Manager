@@ -6,9 +6,9 @@ import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { forgotPasswordThunk } from "@Redux/thunk/Auth/auth-actions";
 import { setLoading } from "@Redux/slices/Auth/auth-slice";
 import Loader from "@Components/Loader/Loader";
-import Wrapper from "@Components/Auth-UI/Wrapper";
 import ForgotPasswordTitle from "@Components/Auth-UI/ForgotPassword/ForgotPasswordTitle";
 import ForgotPasswordForm from "@Components/Auth-UI/ForgotPassword/ForgotPasswordForm";
+import { FormWrapperStyled } from "@Components/Auth-UI/styles/formWrapper.styled";
 
 const ForgotPassword = () => {
   const [sentEmailMessage, setSentEmailMessage] = useState<string | null>(null);
@@ -34,7 +34,7 @@ const ForgotPassword = () => {
   return loading ? (
     <Loader />
   ) : (
-    <Wrapper
+    <FormWrapperStyled
       height={sentEmailMessage ? undefined : "auto"}
       gap={sentEmailMessage ? undefined : "50px"}
     >
@@ -43,7 +43,7 @@ const ForgotPassword = () => {
         sentEmailMessage={sentEmailMessage}
         formik={formik}
       />
-    </Wrapper>
+    </FormWrapperStyled>
   );
 };
 

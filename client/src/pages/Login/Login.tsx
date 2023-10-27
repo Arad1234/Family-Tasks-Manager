@@ -5,10 +5,10 @@ import { object, string } from "yup";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { loginThunk } from "@Redux/thunk/Auth/auth-actions";
 import Loader from "@Components/Loader/Loader";
-import Wrapper from "@Components/Auth-UI/Wrapper";
 import LoginTitle from "@Components/Auth-UI/Login/LoginTitle";
 import LoginFormComponent from "@Components/Auth-UI/Login/LoginFormComponent";
 import { SignInWithOAuth } from "@Supabase/OAuth";
+import { FormWrapperStyled } from "@Components/Auth-UI/styles/formWrapper.styled";
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -54,7 +54,7 @@ const Login = () => {
     <Loader />
   ) : (
     <>
-      <Wrapper
+      <FormWrapperStyled
         height="auto"
         gap="50px"
       >
@@ -63,7 +63,7 @@ const Login = () => {
           loginWithGoogle={loginWithGoogle}
           formik={formik}
         />
-      </Wrapper>
+      </FormWrapperStyled>
     </>
   );
 };

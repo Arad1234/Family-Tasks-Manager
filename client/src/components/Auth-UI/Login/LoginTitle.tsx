@@ -1,9 +1,9 @@
 import { Typography } from "@mui/material";
-import DropDownBar from "../DropDownBar";
+import { DropDownBarStyled } from "../styles/dropDownBar.styled";
 
 const LoginTitle = () => {
   return (
-    <DropDownBar>
+    <DropDownBarStyled>
       <Typography
         sx={{ fontSize: "25px", color: "white", textAlign: "center" }}
       >
@@ -20,7 +20,7 @@ const LoginTitle = () => {
           Let's Sign you in
         </Typography>
       </Typography>
-    </DropDownBar>
+    </DropDownBarStyled>
   );
 };
 
