@@ -44,6 +44,7 @@ export const deleteMemberSocket = ({
   roomId,
   source,
 }: IDeleteMemeberSocket) => {
+  console.log("memberId, roomId, source", memberId, roomId, source);
   return {
     type: LEAVE_ROOM_SOCKET,
     payload: { memberId, roomId, source },

@@ -44,13 +44,14 @@ const familyRoomSlice = createSlice({
       const { newTask, userId } = payload;
 
       if (state.familyRoom) {
-        state.familyRoom.familyMembers =
-          state.familyRoom.familyMembers.map<IUser>((member) => {
+        state.familyRoom.familyMembers = state.familyRoom.familyMembers.map(
+          (member) => {
             if (member.userId === userId) {
               member.tasks.push(newTask);
             }
             return member;
-          });
+          }
+        );
       }
     },
   },

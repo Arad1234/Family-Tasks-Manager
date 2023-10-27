@@ -1,8 +1,11 @@
+import useInitializeSocketListeners from "@Hooks/useInitializeSocketListeners";
 import { Box } from "@mui/material";
 import variables from "@Sass/variables.module.scss";
 import { ChildrenProps } from "@Types/index";
 
 const BackgroundColor = ({ children }: ChildrenProps) => {
+  useInitializeSocketListeners();
+
   return (
     <Box
       sx={{

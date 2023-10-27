@@ -9,7 +9,6 @@ import Loader from "@Components/Loader/Loader";
 import { useSession } from "@supabase/auth-helpers-react";
 import MemberTasks from "@Components/FamilyRoom-UI/Members/MemberTasks/MemberTasks";
 import { getCurrentRoomSocket } from "@Redux/actions/familyRoom-actions";
-import AllModals from "@Components/Modal-Common/AllModals";
 import SubHeader from "@Components/FamilyRoom-UI/SubHeader/SubHeader";
 import { fetchGoogleCalendarEvents } from "@Supabase/Api";
 
@@ -47,8 +46,6 @@ const FamilyRoom = () => {
         setOption={setOption}
         option={option}
       />
-
-      <AllModals />
 
       {loading ? (
         <Loader height="65vh" />

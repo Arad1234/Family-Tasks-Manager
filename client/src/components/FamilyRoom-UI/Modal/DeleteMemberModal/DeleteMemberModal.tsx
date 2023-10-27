@@ -2,26 +2,24 @@ import { Typography } from "@mui/material";
 import YesOrNoModalButtons from "../../../Modal-Common/YesOrNoModalButtons";
 import ModalComponent from "../../../Modal-Common/ModalComponent";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
-import { IUser } from "@Types/index";
+import { IMember } from "@Types/index";
 import { setHideModal } from "@Redux/slices/Modal/modal-slice";
 import { deleteMemberSocket } from "@Redux/actions/rooms-actions";
 
 const DeleteMemberModal = () => {
   const dispatch = useAppDispatch();
   const memberForDelete = useAppSelector(
-    (state) => state.membersReducer.memberForDelete
+    (state) => state.membersReducer.memberForDelete as IMember
   );
   const familyRoom = useAppSelector(
     (state) => state.familyRoomReducer.familyRoom
   );
 
-  const memberAsTypeUser = memberForDelete as IUser;
-
   const handleDeleteMember = () => {
-    if (memberAsTypeUser && familyRoom) {
+    if (memberForDelete && familyRoom) {
       dispatch(
         deleteMemberSocket({
-          memberId: memberAsTypeUser.userId,
+          memberId: memberForDelete.userId,
           roomId: familyRoom._id,
           source: "admin",
         })
@@ -36,7 +34,7 @@ const DeleteMemberModal = () => {
   return (
     <ModalComponent>
       <Typography>
-        Are you sure to want to delete {memberAsTypeUser.username} from family
+        Are you sure to want to delete {memberForDelete.username} from family
         members?
       </Typography>
       <YesOrNoModalButtons

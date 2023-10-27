@@ -13,11 +13,11 @@ export const initializeConnectionListeners = () => {
 
 export const initializeCommonListeners = ({
   navigate,
-  location,
+  locationPath,
 }: ICommonListeners) => {
   return {
     type: INITIALIZE_COMMON_LISTENERS,
-    payload: { navigate, location },
+    payload: { navigate, locationPath },
   };
 };
 

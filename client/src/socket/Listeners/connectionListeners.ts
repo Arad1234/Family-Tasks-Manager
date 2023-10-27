@@ -1,6 +1,9 @@
 import { socket } from "../socket";
 
 const connectionListeners = (userId: string) => {
+  socket.off("disconnect");
+  socket.off("connect");
+
   socket.on("disconnect", () => {
     console.log("User disconnected!");
   });

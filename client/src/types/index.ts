@@ -1,6 +1,6 @@
 import { FormikProps } from "formik";
 import React from "react";
-import { Location, NavigateFunction } from "react-router-dom";
+import { NavigateFunction } from "react-router-dom";
 
 // Common
 export type InputChangeEvent = React.ChangeEvent<HTMLInputElement>;
@@ -28,11 +28,13 @@ export interface IUser {
   _id: string;
 }
 
+export type IMember = Omit<IUser, "email" | "_id">;
+
 export interface IRoom {
   roomName: string;
   maxMembers: number | null;
   creator: { userId: string; username: string };
-  familyMembers: Omit<IUser, "email" | "_id">[];
+  familyMembers: IMember[];
   userId: string;
   _id: string;
 }
@@ -132,7 +134,7 @@ export interface IAddTaskSocket {
 //// Listeners
 export interface ICommonListeners {
   navigate: NavigateFunction;
-  location: Location;
+  locationPath: string;
 }
 
 export interface IErrorListeners {

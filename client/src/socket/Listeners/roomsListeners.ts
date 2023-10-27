@@ -20,6 +20,12 @@ import { setHideModal } from "@Redux/slices/Modal/modal-slice";
 import { setHideMenu } from "@Redux/slices/BurgerMenu/burgerMenu-slice";
 
 export const roomsListeners = (dispatch: AppDispatch) => {
+  socket.off("recievedRooms");
+  socket.off("recievedRoomsByName");
+  socket.off("createdRoom");
+  socket.off("deletedRoom");
+  socket.off("joinedRoom");
+
   socket.on("recievedRooms", (rooms) => {
     if (rooms.length > 0) {
       dispatch(setRooms(rooms));
@@ -60,8 +66,8 @@ export const roomsListeners = (dispatch: AppDispatch) => {
 
   socket.on("joinedRoom", (data) => {
     const { roomId, newMember, toRoomMembers, toCurrentUser } = data;
-    console.log("joinedRoom listener!");
-    dispatch(setJoinRoom({ roomId, userId: newMember.userId })); // Home page
+
+    dispatch(setJoinRoom({ roomId, newMember })); // Home page
 
     if (toCurrentUser) {
       dispatch(setHideModal());

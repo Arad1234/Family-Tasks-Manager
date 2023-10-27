@@ -17,10 +17,6 @@ export const initializeListenersMiddleware: Middleware = (storeAPI) => {
 
   roomsListeners(dispatch);
 
-  let isInitializeConnection = false;
-  let isInitializeCommon = false;
-  let isInitializeError = false;
-
   return (next) => (action) => {
     const state = getState();
 
@@ -30,24 +26,19 @@ export const initializeListenersMiddleware: Middleware = (storeAPI) => {
 
     switch (type) {
       case INITIALIZE_CONNECTION_LISENERS:
-        if (userId && !isInitializeConnection) {
+        if (userId) {
           connectionListeners(userId);
-          isInitializeConnection = true;
         }
         break;
 
       case INITIALIZE_COMMON_LISTENERS:
-        if (!isInitializeCommon) {
-          commonListeners(dispatch, payload.navigate, payload.location);
-          isInitializeCommon = true;
-        }
+        commonListeners(dispatch, payload.navigate, payload.locationPath);
+
         break;
 
       case INITIALIZE_ERROR_LISTENERS:
-        if (!isInitializeError) {
-          errorListeners(dispatch, payload.navigate);
-          isInitializeError = true;
-        }
+        errorListeners(dispatch, payload.navigate);
+
         break;
     }
     next(action);

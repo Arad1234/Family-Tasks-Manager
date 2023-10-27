@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 
-import { Location, NavigateFunction } from "react-router-dom";
+import { NavigateFunction } from "react-router-dom";
 import { AppDispatch } from "@Redux/store";
 import { socket } from "@Socket/socket";
 import {
@@ -15,8 +15,11 @@ import { setLoading } from "@Redux/slices/Auth/auth-slice";
 export const commonListeners = (
   dispatch: AppDispatch,
   navigate: NavigateFunction,
-  location: Location
+  locationPath: string
 ) => {
+  socket.off("userLeftRoom");
+  socket.off("memberDeletedByAdmin");
+
   // Two different listeners that implement the same state logic but generate different behavior for each user.
   socket.on("userLeftRoom", (data) => {
     const {
@@ -34,7 +37,7 @@ export const commonListeners = (
       dispatch(setHideModal());
       dispatch(setHideMenu());
       dispatch(setLoading(false));
-      navigate!("/home");
+      navigate("/home");
     }
 
     if (toRoomMembers) {
@@ -53,9 +56,8 @@ export const commonListeners = (
       toRoomMembers,
       toRemovedMember,
     } = data;
-    console.log(data);
     if (toRemovedMember) {
-      if (location.pathname.includes(roomId)) {
+      if (locationPath.includes(roomId)) {
         navigate("/home");
         dispatch(setOpenModal("adminRemovedYou"));
       }
@@ -65,7 +67,6 @@ export const commonListeners = (
       toast.info(`${username} removed from "${roomName}"`);
       dispatch(setHideModal());
       dispatch(setLoading(false));
-      dispatch(setLeaveRoom({ roomId, userId: memberId }));
     }
 
     dispatch(setLeaveRoom({ roomId, userId: memberId }));

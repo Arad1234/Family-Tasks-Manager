@@ -10,6 +10,10 @@ import { setHideModal } from "@Redux/slices/Modal/modal-slice";
 import { socket } from "../socket";
 
 export const familyRoomListeners = (dispatch: AppDispatch) => {
+  socket.off("taskCreated");
+  socket.off("recievedMemberRooms");
+  socket.off("recievedFamilyRoom");
+
   socket.on("taskCreated", ({ newTask, userId }) => {
     dispatch(setAddTask({ newTask, userId }));
 

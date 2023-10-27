@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IRoom, IUser } from "@Types/index";
+import { IRoom } from "@Types/index";
 
 interface InitialState {
   rooms: IRoom[];
@@ -18,7 +18,6 @@ const roomsSlice = createSlice({
   initialState,
   reducers: {
     setRooms(state, { payload: rooms }) {
-      console.log(rooms);
       state.rooms = [...state.rooms, ...rooms];
     },
     setSearchedRooms(state, { payload: searchedRooms }) {
@@ -33,10 +32,10 @@ const roomsSlice = createSlice({
       });
     },
     setJoinRoom(state, { payload }) {
-      const { roomId: joinedRoomId, userId } = payload;
+      const { roomId: joinedRoomId, newMember } = payload;
       state.rooms = state.rooms.map((room) => {
         if (room._id === joinedRoomId) {
-          room.familyMembers.push(userId);
+          room.familyMembers.push(newMember);
         }
         return room;
       });
@@ -47,11 +46,9 @@ const roomsSlice = createSlice({
 
       state.rooms = state.rooms.map((room) => {
         if (room._id === roomId) {
-          room.familyMembers = (room.familyMembers as IUser[]).filter(
-            (memberId) => {
-              return memberId !== userId;
-            }
-          );
+          room.familyMembers = room.familyMembers.filter((member) => {
+            return member.userId !== userId;
+          });
         }
         return room;
       });

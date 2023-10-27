@@ -8,6 +8,10 @@ export const errorListeners = (
   dispatch: AppDispatch,
   navigate: NavigateFunction
 ) => {
+  socket.off("error");
+  socket.off("connect_error");
+  socket.off("connect_timeout");
+
   socket.on("error", (err) => {
     console.log(err);
     toast.error(err.message);
