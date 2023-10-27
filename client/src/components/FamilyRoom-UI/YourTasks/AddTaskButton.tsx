@@ -4,6 +4,7 @@ import { useAppDispatch } from "../../../redux/hooks";
 import { setMemberForAssignTask } from "../../../redux/slices/FamilyRoom/members-slice";
 import { IUser } from "../../../types";
 import { setOpenModal } from "../../../redux/slices/Modal/modal-slice";
+import { ASSIGN_TASK_MODAL } from "@Utils/constants/modalStatusConstants";
 
 interface Props {
   currentMember: IUser;
@@ -14,7 +15,7 @@ const AddTaskButton = ({ currentMember }: Props) => {
 
   const handleOpenAssignTaskModal = () => {
     dispatch(setMemberForAssignTask(currentMember));
-    dispatch(setOpenModal("assignTask"));
+    dispatch(setOpenModal(ASSIGN_TASK_MODAL));
   };
 
   return (

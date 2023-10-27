@@ -11,6 +11,7 @@ import { setHideModal, setOpenModal } from "@Redux/slices/Modal/modal-slice";
 import { setHideMenu } from "@Redux/slices/BurgerMenu/burgerMenu-slice";
 import { setLeaveRoom } from "@Redux/slices/Rooms/rooms-slice";
 import { setLoading } from "@Redux/slices/Auth/auth-slice";
+import { ADMIN_REMOVED_YOU_MODAL } from "@Utils/constants/modalStatusConstants";
 
 export const commonListeners = (
   dispatch: AppDispatch,
@@ -59,7 +60,7 @@ export const commonListeners = (
     if (toRemovedMember) {
       if (locationPath.includes(roomId)) {
         navigate("/home");
-        dispatch(setOpenModal("adminRemovedYou"));
+        dispatch(setOpenModal(ADMIN_REMOVED_YOU_MODAL));
       }
     }
     if (toRoomMembers) {

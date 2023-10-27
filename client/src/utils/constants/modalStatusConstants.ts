@@ -1,0 +1,9 @@
+export const CREATE_ROOM_MODAL = "createRoom";
+export const JOIN_ROOM_MODAL = "joinRoom";
+export const DELETE_ROOM_MODAL = "deleteRoom";
+export const ADMIN_REMOVED_YOU_MODAL = "adminRemovedYou";
+export const DELETE_CALENDAR_EVENT_MODAL = "deleteCalendarEvent";
+export const DELETE_MEMBER_MODAL = "deleteMember";
+export const ASSIGN_TASK_MODAL = "assignTask";
+export const LEAVE_ROOM_MODAL = "leaveRoom";
+export const SIGN_OUT_MODAL = "signOut";

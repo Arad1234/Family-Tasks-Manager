@@ -6,14 +6,16 @@ import FamilyRoom from "@Pages/FamilyRoom/FamilyRoom";
 import ForgotPassword from "@Pages/ForgotPassword/ForgotPassword";
 import ResetPassword from "@Pages/ResetPassword/ResetPassword";
 import BackgroundColor from "@Layouts/BackgroundColor";
-import { createPortal } from "react-dom";
 import AllModals from "@Components/Modal-Common/AllModals";
+import ReactPortal from "@Components/Common/ReactPortal";
 
 export const router = createBrowserRouter([
   {
     element: (
       <>
-        {createPortal(<AllModals />, document.getElementById("modals")!)}
+        <ReactPortal nodeId="modals">
+          <AllModals />
+        </ReactPortal>
         <BackgroundColor>
           <Outlet />
         </BackgroundColor>

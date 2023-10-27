@@ -8,6 +8,7 @@ import { formatDate } from "@Utils/helpers/formatDate";
 import { createGoogleCalendarEvent } from "@Supabase/Api";
 import { setEventToDelete } from "@Redux/slices/CalendarEvents/CalendarEvents";
 import { setOpenModal } from "@Redux/slices/Modal/modal-slice";
+import { DELETE_CALENDAR_EVENT_MODAL } from "@Utils/constants/modalStatusConstants";
 
 interface Props {
   task: ITask;
@@ -51,7 +52,7 @@ const GoogleCalendarManipulation = ({ task }: Props) => {
 
   const showDeleteEventModal = () => {
     dispatch(setEventToDelete(task.createdAt));
-    dispatch(setOpenModal("deleteCalendarEvent"));
+    dispatch(setOpenModal(DELETE_CALENDAR_EVENT_MODAL));
   };
 
   return session?.provider_token ? (

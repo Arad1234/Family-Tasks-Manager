@@ -4,6 +4,7 @@ import { setOpenModal } from "../../../../redux/slices/Modal/modal-slice";
 import { useAppDispatch } from "../../../../redux/hooks";
 import { setMemberForAssignTask } from "../../../../redux/slices/FamilyRoom/members-slice";
 import { IUser } from "../../../../types";
+import { ASSIGN_TASK_MODAL } from "@Utils/constants/modalStatusConstants";
 
 interface Props {
   member: IUser;
@@ -13,7 +14,7 @@ const AddTaskPlusIcon = ({ member }: Props) => {
   const disptach = useAppDispatch();
 
   const handleOpenModal = () => {
-    disptach(setOpenModal("assignTask"));
+    disptach(setOpenModal(ASSIGN_TASK_MODAL));
     disptach(setMemberForAssignTask(member));
   };
 

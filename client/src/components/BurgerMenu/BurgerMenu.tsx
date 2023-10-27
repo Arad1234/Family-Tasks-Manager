@@ -5,6 +5,11 @@ import BurgerMenuOption from "./BurgerMenuOption";
 import { setMemberForDelete } from "@Redux/slices/FamilyRoom/members-slice";
 import { setOpenModal } from "@Redux/slices/Modal/modal-slice";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
+import {
+  CREATE_ROOM_MODAL,
+  LEAVE_ROOM_MODAL,
+  SIGN_OUT_MODAL,
+} from "@Utils/constants/modalStatusConstants";
 
 const BurgerMenu = () => {
   const dispatch = useAppDispatch();
@@ -17,15 +22,15 @@ const BurgerMenu = () => {
 
   const handleOpenLeaveRoomModal = () => {
     dispatch(setMemberForDelete(userId));
-    dispatch(setOpenModal("leaveRoom"));
+    dispatch(setOpenModal(LEAVE_ROOM_MODAL));
   };
 
   const handleOpenSignOutModal = () => {
-    dispatch(setOpenModal("signOut"));
+    dispatch(setOpenModal(SIGN_OUT_MODAL));
   };
 
   const handleOpenCreateRoomModal = () => {
-    dispatch(setOpenModal("createRoom"));
+    dispatch(setOpenModal(CREATE_ROOM_MODAL));
   };
 
   const burgerMenuStyle = useMemo(() => {

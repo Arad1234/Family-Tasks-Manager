@@ -18,6 +18,7 @@ const SignOutModal = () => {
 
   const handleSignOut = async () => {
     dispatch(resetAuthDetails());
+    dispatch(setHideModal());
 
     navigate("/");
     socket.emit("custom-disconnect", userId);

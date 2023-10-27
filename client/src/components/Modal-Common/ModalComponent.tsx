@@ -5,6 +5,7 @@ import { Box, Modal } from "@mui/material";
 
 const ModalComponent = ({ children }: ChildrenProps) => {
   const isOpen = useAppSelector((state) => state.modalReducer.isOpen);
+
   const dispatch = useAppDispatch();
 
   const handleOnClose = () => {
