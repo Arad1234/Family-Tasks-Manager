@@ -1,11 +1,11 @@
-import FormTitleComponent from "../FormTitleComponent";
-import InputComponent from "../InputComponent";
-import FormBottomText from "../FormBottomText";
+import FormTitleComponent from "../FormTitleComponent/FormTitleComponent";
+import InputComponent from "../InputComponent/InputComponent";
+import FormBottomText from "../FormBottomText/FormBottomText";
 import { FormikProps } from "formik";
 import SendEmailMessage from "./SendEmailMessage";
 import { inputLabelPropsStyle } from "@Utils/constants/genericConstants";
 import { FormStyled } from "../styles/form.styled";
-import { AuthButtonStyled } from "../styles/authButton.styled";
+import { AuthButtonStyled } from "../AuthButton/AuthButton.styled";
 
 interface Props {
   formik: FormikProps<{ email: string }>;

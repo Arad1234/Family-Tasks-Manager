@@ -1,11 +1,11 @@
 import { Typography } from "@mui/material";
-import ModalComponent from "../Modal-Common/ModalComponent";
+import ModalComponent from "./Modal/ModalComponent";
 import { useNavigate } from "react-router-dom";
 import { axiosClient } from "../../axiosClient";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { setHideModal } from "@Redux/slices/Modal/modal-slice";
 import { useDispatch } from "react-redux";
-import YesOrNoModalButtons from "../Modal-Common/YesOrNoModalButtons";
+import YesOrNoModalButtons from "./Modal/YesOrNoModalButtons";
 import { socket } from "@Socket/socket";
 import { useAppSelector } from "@Redux/hooks";
 import { resetAuthDetails } from "@Redux/slices/Auth/auth-slice";

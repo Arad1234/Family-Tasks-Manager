@@ -3,12 +3,12 @@ import RoomsMenuModal from "./RoomsMenuModal";
 import { getMemberRoomsSocket } from "@Redux/actions/familyRoom-actions";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import RoomName from "./RoomName";
-import BurgerIcon from "../../BurgerMenu/BurgerIcon";
-import BurgerMenu from "../../BurgerMenu/BurgerMenu";
+import BurgerIcon from "../../Common/BurgerMenu/BurgerIcon";
+import BurgerMenu from "../../Common/BurgerMenu/BurgerMenu";
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { setFamilyRoom } from "../../../redux/slices/FamilyRoom/familyRoom-slice";
-import HeaderComponent from "../../Common/Header";
+import HeaderComponentStyled from "@Components/Common/Header/Header.styled";
 
 const RoomHeader = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -25,7 +25,7 @@ const RoomHeader = () => {
   };
 
   return (
-    <HeaderComponent>
+    <HeaderComponentStyled>
       <IoMdArrowBack
         style={{ position: "absolute", left: "10px", top: "15px" }}
         size={35}
@@ -48,7 +48,7 @@ const RoomHeader = () => {
         anchorEl={anchorEl}
         setAnchorEl={setAnchorEl}
       />
-    </HeaderComponent>
+    </HeaderComponentStyled>
   );
 };
 

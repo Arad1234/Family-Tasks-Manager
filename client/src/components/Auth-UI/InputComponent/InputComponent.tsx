@@ -4,7 +4,7 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { BiSolidUser } from "react-icons/bi";
 import { MdEmail } from "react-icons/md";
 import { useState } from "react";
-import { InputErrorMessageStyled } from "./styles/InputErrorMessage.styled";
+import { InputErrorMessageStyled } from "../InputErrorMessage/InputErrorMessage.styled";
 
 type Props = {
   formik: formikPropsType;

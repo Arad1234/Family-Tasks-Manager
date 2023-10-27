@@ -1,10 +1,10 @@
-import BurgerIcon from "../../BurgerMenu/BurgerIcon";
-import BurgerMenu from "../../BurgerMenu/BurgerMenu";
+import BurgerIcon from "../../Common/BurgerMenu/BurgerIcon";
+import BurgerMenu from "../../Common/BurgerMenu/BurgerMenu";
 import SearchIcon from "./Search/SearchIcon";
 import SearchInput from "./Search/SearchInput";
 import { useState } from "react";
-import HeaderComponent from "../../Common/Header";
 import { useAppSelector } from "@Redux/hooks";
+import HeaderComponentStyled from "@Components/Common/Header/Header.styled";
 
 const HomeHeader = () => {
   const isShowMenu = useAppSelector(
@@ -14,7 +14,7 @@ const HomeHeader = () => {
   const [isShowSearchBar, setIsShowSearchBar] = useState(false);
 
   return (
-    <HeaderComponent>
+    <HeaderComponentStyled>
       <BurgerIcon />
 
       {isShowMenu && <BurgerMenu />}
@@ -24,7 +24,7 @@ const HomeHeader = () => {
       ) : (
         <SearchIcon setIsShowSearchBar={setIsShowSearchBar} />
       )}
-    </HeaderComponent>
+    </HeaderComponentStyled>
   );
 };
 

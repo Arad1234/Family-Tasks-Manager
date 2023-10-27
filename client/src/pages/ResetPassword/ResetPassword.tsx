@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { useAppDispatch } from "@Redux/hooks";
 import { resetPasswordThunk } from "@Redux/thunk/Auth/auth-actions";
 import ResetPasswordForm from "@Components/Auth-UI/ResetPassword/ResetPasswordForm";
-import { FormWrapperStyled } from "@Components/Auth-UI/styles/formWrapper.styled";
+import { FormWrapperStyled } from "@Components/Auth-UI/Wrapper/Wrapper.styled";
 
 const ResetPassword = () => {
   const dispatch = useAppDispatch();

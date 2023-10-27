@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
-import ModalComponent from "../../../Modal-Common/ModalComponent";
+import ModalComponent from "../../../Common/Modal/ModalComponent";
 import { useSession } from "@supabase/auth-helpers-react";
-import YesOrNoModalButtons from "../../../Modal-Common/YesOrNoModalButtons";
+import YesOrNoModalButtons from "../../../Common/Modal/YesOrNoModalButtons";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { deleteGoogleCalendarEvent } from "@Supabase/Api";
 import { setHideModal } from "@Redux/slices/Modal/modal-slice";

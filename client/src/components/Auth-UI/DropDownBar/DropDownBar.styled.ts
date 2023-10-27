@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import DropDownBar from "../DropDownBar";
+import DropDownBar from "./DropDownBar";
 import variables from "@Sass/variables.module.scss";
 
 const dropDownAnimatiom = keyframes`

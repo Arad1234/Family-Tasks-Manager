@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import ModalComponent from "../Modal-Common/ModalComponent";
+import ModalComponent from "./Modal/ModalComponent";
 
 const RemovedYouMessageModal = () => {
   return (

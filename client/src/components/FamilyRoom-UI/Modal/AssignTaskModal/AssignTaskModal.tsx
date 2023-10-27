@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { addTaskSocket } from "@Redux/actions/familyRoom-actions";
-import ModalComponent from "../../../Modal-Common/ModalComponent";
+import ModalComponent from "../../../Common/Modal/ModalComponent";
 import ModalForm from "./ModalForm";
 import { ObjectSchema, date, object, string } from "yup";
 import { useAppSelector, useAppDispatch } from "@Redux/hooks";

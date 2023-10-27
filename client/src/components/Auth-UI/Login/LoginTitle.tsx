@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { DropDownBarStyled } from "../styles/dropDownBar.styled";
+import { DropDownBarStyled } from "../DropDownBar/DropDownBar.styled";
 
 const LoginTitle = () => {
   return (

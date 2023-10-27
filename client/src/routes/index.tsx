@@ -1,13 +1,15 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
-import Home from "@Pages/Home/Home";
-import Login from "@Pages/Login/Login";
-import Register from "@Pages/Register/Register";
-import FamilyRoom from "@Pages/FamilyRoom/FamilyRoom";
-import ForgotPassword from "@Pages/ForgotPassword/ForgotPassword";
-import ResetPassword from "@Pages/ResetPassword/ResetPassword";
-import BackgroundColor from "@Layouts/BackgroundColor";
-import AllModals from "@Components/Modal-Common/AllModals";
+import AllModals from "@Components/Common/Modal/AllModals";
 import ReactPortal from "@Components/Common/ReactPortal";
+import BackgroundColorStyled from "@Layouts/BackgroundColor/BackgroundColor.styled";
+import {
+  FamilyRoom,
+  ForgotPassword,
+  Home,
+  Login,
+  Register,
+  ResetPassword,
+} from "@Pages/index";
 
 export const router = createBrowserRouter([
   {
@@ -16,9 +18,9 @@ export const router = createBrowserRouter([
         <ReactPortal nodeId="modals">
           <AllModals />
         </ReactPortal>
-        <BackgroundColor>
+        <BackgroundColorStyled>
           <Outlet />
-        </BackgroundColor>
+        </BackgroundColorStyled>
       </>
     ),
     children: [

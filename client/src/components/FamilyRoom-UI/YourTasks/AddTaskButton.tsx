@@ -2,12 +2,12 @@ import { Box, Button, Typography } from "@mui/material";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useAppDispatch } from "../../../redux/hooks";
 import { setMemberForAssignTask } from "../../../redux/slices/FamilyRoom/members-slice";
-import { IUser } from "../../../types";
+import { IMember } from "../../../types";
 import { setOpenModal } from "../../../redux/slices/Modal/modal-slice";
 import { ASSIGN_TASK_MODAL } from "@Utils/constants/modalStatusConstants";
 
 interface Props {
-  currentMember: IUser;
+  currentMember: IMember;
 }
 
 const AddTaskButton = ({ currentMember }: Props) => {

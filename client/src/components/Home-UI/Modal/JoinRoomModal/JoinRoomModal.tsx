@@ -1,6 +1,6 @@
 import { object, string } from "yup";
-import ModalComponent from "../../../Modal-Common/ModalComponent";
-import ModalTitle from "../../../Modal-Common/ModalTitle";
+import ModalComponent from "../../../Common/Modal/ModalComponent";
+import ModalTitle from "../../../Common/Modal/ModalTitle";
 import ModalForm from "./ModalForm";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { joinRoomSocket } from "@Redux/actions/rooms-actions";

@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
-import ModalComponent from "../../../Modal-Common/ModalComponent";
-import YesOrNoModalButtons from "../../../Modal-Common/YesOrNoModalButtons";
+import ModalComponent from "../../../Common/Modal/ModalComponent";
+import YesOrNoModalButtons from "../../../Common/Modal/YesOrNoModalButtons";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { deleteMemberSocket } from "@Redux/actions/rooms-actions";
 import { setHideModal } from "@Redux/slices/Modal/modal-slice";

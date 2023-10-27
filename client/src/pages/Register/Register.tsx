@@ -6,7 +6,7 @@ import { useAppDispatch } from "@Redux/hooks";
 import { registerThunk } from "@Redux/thunk/Auth/auth-actions";
 import RegisterTitle from "@Components/Auth-UI/Register/RegisterTitle";
 import RegisterFormComponent from "@Components/Auth-UI/Register/RegisterFormComponent";
-import { FormWrapperStyled } from "@Components/Auth-UI/styles/formWrapper.styled";
+import { FormWrapperStyled } from "@Components/Auth-UI/Wrapper/Wrapper.styled";
 
 const Register = () => {
   const navigate = useNavigate();

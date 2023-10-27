@@ -1,6 +1,6 @@
-import ModalInput from "../../../Modal-Common/ModalInput";
-import ModalButton from "../../../Modal-Common/ModalButton";
-import ModalFormWrapper from "../../../Modal-Common/ModalFormWrapper";
+import ModalInput from "../../../Common/Modal/ModalInput";
+import ModalButton from "../../../Common/Modal/ModalButton";
+import ModalFormWrapper from "../../../Common/Modal/ModalFormWrapper";
 import { ObjectSchema } from "yup";
 import { CreateRoomFormModal } from "@Types/index";
 import useCustomFormik from "@Hooks/useCustomFormik";

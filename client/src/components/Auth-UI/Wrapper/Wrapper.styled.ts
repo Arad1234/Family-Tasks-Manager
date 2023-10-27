@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Wrapper from "../Wrapper";
+import Wrapper from "./Wrapper";
 
 export const FormWrapperStyled = styled(Wrapper)<{
   height: string;

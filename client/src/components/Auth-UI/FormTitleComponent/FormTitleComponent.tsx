@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { ChildrenProps } from "@Types/index";
-import { FormTitleStyled } from "./styles/formTitle.styled";
+import { FormTitleStyled } from "./FormTitle.styled";
 
 const FormTitleComponent = ({ children }: ChildrenProps) => {
   return (

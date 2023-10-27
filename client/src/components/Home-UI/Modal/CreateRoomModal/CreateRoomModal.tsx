@@ -1,5 +1,5 @@
-import ModalTitle from "../../../Modal-Common/ModalTitle";
-import ModalComponent from "../../../Modal-Common/ModalComponent";
+import ModalTitle from "../../../Common/Modal/ModalTitle";
+import ModalComponent from "../../../Common/Modal/ModalComponent";
 import { number, object, string } from "yup";
 import ModalForm from "./ModalForm";
 import { CreateRoomFormModal } from "@Types/index";

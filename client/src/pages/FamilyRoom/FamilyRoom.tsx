@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import AllTasks from "@Components/FamilyRoom-UI/YourTasks/AllTasks";
 import { useEffect, useState } from "react";
 import AllMembers from "@Components/FamilyRoom-UI/Members/AllMembers";
-import Loader from "@Components/Loader/Loader";
+import Loader from "@Components/Common/Loader";
 import { useSession } from "@supabase/auth-helpers-react";
 import MemberTasks from "@Components/FamilyRoom-UI/Members/MemberTasks/MemberTasks";
 import { getCurrentRoomSocket } from "@Redux/actions/familyRoom-actions";

@@ -1,6 +1,6 @@
-import ModalInput from "../../../Modal-Common/ModalInput";
-import ModalFormWrapper from "../../../Modal-Common/ModalFormWrapper";
-import ModalButton from "../../../Modal-Common/ModalButton";
+import ModalInput from "../../../Common/Modal/ModalInput";
+import ModalFormWrapper from "../../../Common/Modal/ModalFormWrapper";
+import ModalButton from "../../../Common/Modal/ModalButton";
 import { CreateTaskFormModal } from "../../../../types";
 import { ObjectSchema } from "yup";
 import useCustomFormik from "../../../../hooks/useCustomFormik";

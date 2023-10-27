@@ -30,10 +30,10 @@ const AllRooms = forwardRef((_props, ref: Ref<HTMLDivElement>) => {
           />
         );
       })}
-      {isAllRooms ? (
-        <div style={observerTargetElementStyle}></div>
-      ) : isIntersecting ? (
+      {isIntersecting ? (
         <IntersectionLoader />
+      ) : isAllRooms ? (
+        <div style={observerTargetElementStyle}></div>
       ) : (
         <div
           style={observerTargetElementStyle}

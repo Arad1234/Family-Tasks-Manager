@@ -5,10 +5,10 @@ import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { forgotPasswordThunk } from "@Redux/thunk/Auth/auth-actions";
 import { setLoading } from "@Redux/slices/Auth/auth-slice";
-import Loader from "@Components/Loader/Loader";
+import Loader from "@Components/Common/Loader";
 import ForgotPasswordTitle from "@Components/Auth-UI/ForgotPassword/ForgotPasswordTitle";
 import ForgotPasswordForm from "@Components/Auth-UI/ForgotPassword/ForgotPasswordForm";
-import { FormWrapperStyled } from "@Components/Auth-UI/styles/formWrapper.styled";
+import { FormWrapperStyled } from "@Components/Auth-UI/Wrapper/Wrapper.styled";
 
 const ForgotPassword = () => {
   const [sentEmailMessage, setSentEmailMessage] = useState<string | null>(null);

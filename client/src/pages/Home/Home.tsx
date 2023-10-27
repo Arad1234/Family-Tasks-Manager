@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { Box } from "@mui/material";
-import Loader from "@Components/Loader/Loader";
+import Loader from "@Components/Common/Loader";
 import { socket } from "@Socket/socket";
-import AllRooms from "@Components/Home-UI/Room/AllRooms/AllRooms";
+import AllRooms from "@Components/Home-UI/Rooms/AllRooms/AllRooms";
 import HomeHeader from "@Components/Home-UI/Header/HomeHeader";
 import { getRoomsSocket } from "@Redux/actions/rooms-actions";
 import useCallbackRef from "@Hooks/useCallbackRef";

@@ -1,10 +1,10 @@
 import { FormikProps } from "formik";
-import InputComponent from "../InputComponent";
-import FormTitleComponent from "../FormTitleComponent";
-import FormBottomText from "../FormBottomText";
+import InputComponent from "../InputComponent/InputComponent";
+import FormTitleComponent from "../FormTitleComponent/FormTitleComponent";
+import FormBottomText from "../FormBottomText/FormBottomText";
 import { inputLabelPropsStyle } from "@Utils/constants/genericConstants";
 import { FormStyled } from "../styles/form.styled";
-import { AuthButtonStyled } from "../styles/authButton.styled";
+import { AuthButtonStyled } from "../AuthButton/AuthButton.styled";
 
 interface Props {
   formik: FormikProps<{ newPassword: string; confirmPassword: string }>;

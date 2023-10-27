@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import RoomButton from "./Common/RoomButton";
-import variables from "@Sass/variables.module.scss";
+import RoomButtonStyled from "./RoomButton/RoomButton.styled";
 
 interface Props {
   roomId: string;
@@ -14,13 +13,12 @@ const ExploreButton = ({ roomId }: Props) => {
   };
 
   return (
-    <RoomButton
-      backgroundColor={variables.actionColor}
+    <RoomButtonStyled
       handleClick={handleEnterRoom}
       width="120px"
     >
       Explore
-    </RoomButton>
+    </RoomButtonStyled>
   );
 };
 

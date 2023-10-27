@@ -2,11 +2,11 @@ import { Box, SxProps } from "@mui/material";
 import { useMemo } from "react";
 import variables from "@Sass/variables.module.scss";
 import { MdClear } from "react-icons/md";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import {
   setHideMenu,
   setOpenMenu,
-} from "../../redux/slices/BurgerMenu/burgerMenu-slice";
+} from "../../../redux/slices/BurgerMenu/burgerMenu-slice";
 
 const BurgerIcon = () => {
   const { isShowMenu } = useAppSelector((state) => state.burgerMenuReducer);
@@ -22,9 +22,9 @@ const BurgerIcon = () => {
           top: "10px",
         }
       : {
-          width: "2.2em",
-          height: "0.3em",
-          borderRadius: "0.5em",
+          width: "30px",
+          height: "3px",
+          borderRadius: "5px",
           backgroundColor: "white",
           color: variables.actionColor,
         };
@@ -47,7 +47,7 @@ const BurgerIcon = () => {
         flexDirection: "column",
         gap: "7px",
         right: "10px",
-        top: "19px",
+        top: "22px",
       }}
     >
       <Box sx={burgerBarStyle}></Box>

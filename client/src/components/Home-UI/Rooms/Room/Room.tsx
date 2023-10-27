@@ -2,10 +2,10 @@ import { Box, Typography } from "@mui/material";
 import JoinButton from "./JoinButton";
 import { IRoom } from "@Types/index";
 import ExploreButton from "./ExploreButton";
-import RoomName from "./RoomName";
 import { useMemo } from "react";
 import variables from "@Sass/variables.module.scss";
 import { useAppSelector } from "@Redux/hooks";
+import RoomNameStyled from "./RoomName/RoomName.styled";
 
 interface Props {
   room: IRoom;
@@ -14,7 +14,7 @@ interface Props {
 const Room = ({ room }: Props) => {
   const userId = useAppSelector((state) => state.authReducer.userId);
   const { familyMembers, maxMembers } = room;
-  
+
   const isRoomFull = familyMembers.length === maxMembers;
 
   const isMember = useMemo(() => {
@@ -41,7 +41,7 @@ const Room = ({ room }: Props) => {
           color: "white",
         }}
       >
-        <RoomName roomName={room.roomName} />
+        <RoomNameStyled roomName={room.roomName} />
         <Box sx={{ display: "flex" }}>
           <Typography sx={{ fontSize: "20px" }}>
             Members: {familyMembers.length}/{maxMembers}

@@ -8,7 +8,7 @@ const SearchIcon = ({ setIsShowSearchBar }: Props) => {
   return (
     <AiOutlineSearch
       size={35}
-      style={{ position: "absolute", left: "30px", top: "15px" }}
+      style={{ position: "absolute", left: "12px", top: "15px" }}
       onClick={() => setIsShowSearchBar(true)}
     />
   );

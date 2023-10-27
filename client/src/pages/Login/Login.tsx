@@ -4,11 +4,11 @@ import { useFormik } from "formik";
 import { object, string } from "yup";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { loginThunk } from "@Redux/thunk/Auth/auth-actions";
-import Loader from "@Components/Loader/Loader";
+import Loader from "@Components/Common/Loader";
 import LoginTitle from "@Components/Auth-UI/Login/LoginTitle";
 import LoginFormComponent from "@Components/Auth-UI/Login/LoginFormComponent";
 import { SignInWithOAuth } from "@Supabase/OAuth";
-import { FormWrapperStyled } from "@Components/Auth-UI/styles/formWrapper.styled";
+import { FormWrapperStyled } from "@Components/Auth-UI/Wrapper/Wrapper.styled";
 
 const Login = () => {
   const dispatch = useAppDispatch();
