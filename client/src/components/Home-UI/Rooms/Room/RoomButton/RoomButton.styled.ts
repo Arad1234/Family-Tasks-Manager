@@ -5,6 +5,8 @@ import variables from "@Sass/variables.module.scss";
 const RoomButtonStyled = styled(RoomButton)<{ width: string }>`
   width: ${(props) => props.width};
   border-radius: 20px;
+  z-index: 0;
+  color: white;
   background: ${variables.actionColor};
   height: 40px;
   text-transform: none;

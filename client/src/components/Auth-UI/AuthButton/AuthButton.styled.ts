@@ -2,19 +2,24 @@ import styled from "styled-components";
 import variables from "@Sass/variables.module.scss";
 import AuthButton from "./AuthButton";
 
-export const AuthButtonStyled = styled(AuthButton)`
+export const AuthButtonStyled = styled(AuthButton)<{
+  backgroundColor?: string;
+  color?: string;
+}>`
   padding: 13px;
-  height: 35px;
+  height: 37px;
   border-radius: 5px;
   outline: none;
-  margin-top: 10px;
-  background-color: ${variables.actionColor};
+  background-color: ${(props) =>
+    props.backgroundColor ? props.backgroundColor : variables.actionColor};
   font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
+  color: ${(props) => (props.color ? props.color : "white")};
   width: 62vw;
   text-transform: none;
 
   &:hover {
-    background-color: ${variables.actionColor};
+    background-color: ${(props) =>
+      props.backgroundColor ? props.backgroundColor : variables.actionColor};
   }
 `;

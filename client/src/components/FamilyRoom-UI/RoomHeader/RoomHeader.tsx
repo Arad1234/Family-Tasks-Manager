@@ -3,7 +3,7 @@ import RoomsMenuModal from "./RoomsMenuModal";
 import { getMemberRoomsSocket } from "@Redux/actions/familyRoom-actions";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import RoomName from "./RoomName";
-import BurgerIcon from "../../Common/BurgerMenu/BurgerIcon";
+import MenuIcon from "../../Common/BurgerMenu/MenuIcon";
 import BurgerMenu from "../../Common/BurgerMenu/BurgerMenu";
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
@@ -40,7 +40,7 @@ const RoomHeader = () => {
         handleOpenMenu={handleOpenMenu}
       />
 
-      <BurgerIcon />
+      <MenuIcon />
 
       {isShowMenu && <BurgerMenu />}
 

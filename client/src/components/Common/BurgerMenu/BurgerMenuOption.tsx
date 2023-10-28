@@ -1,4 +1,4 @@
-import { Typography, TypographyProps } from "@mui/material";
+import { Divider, Typography, TypographyProps } from "@mui/material";
 import { ChildrenProps } from "@Types/index";
 
 const BurgerMenuOption = ({
@@ -6,12 +6,20 @@ const BurgerMenuOption = ({
   ...props
 }: ChildrenProps & TypographyProps) => {
   return (
-    <Typography
-      {...props}
-      sx={{ fontSize: "30px", fontWeight: "600" }}
-    >
-      {children}
-    </Typography>
+    <>
+      <Typography
+        {...props}
+        sx={{ fontSize: "25px", fontWeight: "500" }}
+      >
+        {children}
+      </Typography>
+      <Divider
+        sx={{
+          width: "270px",
+          borderColor: "gray",
+        }}
+      />
+    </>
   );
 };
 

@@ -8,18 +8,20 @@ import {
   setOpenMenu,
 } from "../../../redux/slices/BurgerMenu/burgerMenu-slice";
 
-const BurgerIcon = () => {
-  const { isShowMenu } = useAppSelector((state) => state.burgerMenuReducer);
+const MenuIcon = () => {
+  const isShowMenu = useAppSelector(
+    (state) => state.burgerMenuReducer.isShowMenu
+  );
   const dispatch = useAppDispatch();
 
-  const burgerBarStyle: SxProps = useMemo(() => {
+  const menuIconStyle: SxProps = useMemo(() => {
     return isShowMenu
       ? {
           color: "white",
           zIndex: "2",
           position: "absolute",
-          right: "2px",
-          top: "10px",
+          right: "8px",
+          top: "15px",
         }
       : {
           width: "30px",
@@ -32,9 +34,9 @@ const BurgerIcon = () => {
 
   return isShowMenu ? (
     <MdClear
-      style={burgerBarStyle}
+      style={menuIconStyle}
       onClick={() => dispatch(setHideMenu())}
-      size="50"
+      size="40"
     />
   ) : (
     <Box
@@ -50,11 +52,11 @@ const BurgerIcon = () => {
         top: "22px",
       }}
     >
-      <Box sx={burgerBarStyle}></Box>
-      <Box sx={burgerBarStyle}></Box>
-      <Box sx={burgerBarStyle}></Box>
+      <Box sx={menuIconStyle}></Box>
+      <Box sx={menuIconStyle}></Box>
+      <Box sx={menuIconStyle}></Box>
     </Box>
   );
 };
 
-export default BurgerIcon;
+export default MenuIcon;

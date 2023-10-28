@@ -1,9 +1,11 @@
 $primaryColor: #616161;
 $secondaryColor: #393939;
 $actionColor: #4d5ffe;
+$secondActionColor: #4d9fff;
 
 :export {
   primaryColor: $primaryColor;
   secondaryColor: $secondaryColor;
   actionColor: $actionColor;
+  secondActionColor: $secondActionColor;
 }

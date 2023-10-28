@@ -2,13 +2,13 @@ import FormTitleComponent from "../FormTitleComponent/FormTitleComponent";
 import InputComponent from "../InputComponent/InputComponent";
 import "./Login.scss";
 import { FormikProps } from "formik";
-import SecondaryAuthButton from "./SecondaryAuthButton";
 import { Box } from "@mui/material";
 import FormBottomText from "../FormBottomText/FormBottomText";
 import { inputLabelPropsStyle } from "@Utils/constants/genericConstants";
 import ForgotPasswordText from "./ForgotPasswordText";
 import { FormStyled } from "../styles/form.styled";
 import { AuthButtonStyled } from "../AuthButton/AuthButton.styled";
+import { toast } from "react-toastify";
 
 interface Props {
   formik: FormikProps<{ email: string; password: string }>;
@@ -58,7 +58,16 @@ const LoginFormComponent = ({ formik, loginWithGoogle }: Props) => {
 
         <p className="hr-lines">or</p>
 
-        <SecondaryAuthButton loginWithGoogle={loginWithGoogle} />
+        <AuthButtonStyled
+          backgroundColor="#E5E4E2"
+          color="black"
+          type="button"
+          handleOnClick={() =>
+            toast.info("need to pass loginWithGoogle function")
+          }
+        >
+          Login with google
+        </AuthButtonStyled>
 
         <FormBottomText
           marginTop="20px"

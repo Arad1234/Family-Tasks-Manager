@@ -50,7 +50,7 @@ const BurgerMenu = () => {
       backgroundColor: variables.secondaryColor,
       zIndex: "1",
       right: "0",
-      animation: `${sildeMenu} 0.8s`,
+      animation: `${sildeMenu} 0.4s`,
     };
   }, []);
 
@@ -58,18 +58,18 @@ const BurgerMenu = () => {
     <Box sx={burgerMenuStyle}>
       <Box
         sx={{
-          margin: "80px 0px 0px 30px",
+          margin: "70px 0px 0px 30px",
           width: "100vw",
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
-          gap: "30px",
+          gap: "20px",
         }}
       >
         {familyRoom ? (
           isRoomCreator ? (
             <BurgerMenuOption
-              color={"red"}
+              color={"rgb(212, 119, 119)"}
               onClick={() => console.log("fill!")}
             >
               Delete Room

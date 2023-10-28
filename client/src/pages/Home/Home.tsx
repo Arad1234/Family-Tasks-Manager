@@ -6,7 +6,7 @@ import { socket } from "@Socket/socket";
 import AllRooms from "@Components/Home-UI/Rooms/AllRooms/AllRooms";
 import HomeHeader from "@Components/Home-UI/Header/HomeHeader";
 import { getRoomsSocket } from "@Redux/actions/rooms-actions";
-import useCallbackRef from "@Hooks/useCallbackRef";
+import useIntersectionObserver from "@Hooks/useIntersectionObserver";
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -17,8 +17,8 @@ export const Home = () => {
   );
   const { loading } = useAppSelector((state) => state.authReducer);
 
-  // Using callback ref to call the callBackRef function whenever a ref is created in the child component ((node) => callBackRef(node)).
-  const callBackRef = useCallbackRef<number>(page);
+  // Using callback ref to call the "callBackRef" function whenever a ref is created in the child component ((node) => callBackRef(node)).
+  const callBackRef = useIntersectionObserver<number>(page);
 
   useEffect(() => {
     dispatch(getRoomsSocket({ page }));

@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import variables from "@Sass/variables.module.scss";
 
 const ForgotPasswordText = () => {
   const navigate = useNavigate();
@@ -7,9 +8,9 @@ const ForgotPasswordText = () => {
   return (
     <Typography
       sx={{
-        color: "#4d9fff",
+        color: variables.secondActionColor,
         position: "fixed",
-        top: "24.5rem",
+        top: "25.3rem",
         right: "75px",
       }}
       onClick={() => navigate("/forgotPassword")}

@@ -1,4 +1,4 @@
-import BurgerIcon from "../../Common/BurgerMenu/BurgerIcon";
+import BurgerIcon from "../../Common/BurgerMenu/MenuIcon";
 import BurgerMenu from "../../Common/BurgerMenu/BurgerMenu";
 import SearchIcon from "./Search/SearchIcon";
 import SearchInput from "./Search/SearchInput";

@@ -15,7 +15,7 @@ const ExploreButton = ({ roomId }: Props) => {
   return (
     <RoomButtonStyled
       handleClick={handleEnterRoom}
-      width="120px"
+      width="150px"
     >
       Explore
     </RoomButtonStyled>

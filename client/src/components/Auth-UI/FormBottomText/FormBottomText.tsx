@@ -23,7 +23,7 @@ const FormBottomText = ({
       <Typography
         onClick={() => navigate(navigateTo)}
         component={"span"}
-        sx={{ color: variables.actionColor, fontSize: "18px" }}
+        sx={{ color: variables.secondActionColor, fontSize: "18px" }}
       >
         {actionText}
       </Typography>

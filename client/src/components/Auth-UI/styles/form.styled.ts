@@ -9,7 +9,7 @@ export const FormStyled = styled.form`
   padding: 30px 0;
   align-items: center;
   justify-content: center;
-  gap: 30px;
+  gap: 37px;
   background-color: ${variables.secondaryColor};
   border-radius: 20px;
 `;

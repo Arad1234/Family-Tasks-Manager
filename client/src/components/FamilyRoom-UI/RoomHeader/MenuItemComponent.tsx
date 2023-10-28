@@ -23,6 +23,7 @@ const MenuItemComponent = ({ room, setAnchorEl }: Props) => {
           fontWeight: "600",
           wordWrap: "break-word",
           display: "flex",
+          color: "white",
           flexDirection: "column",
           alignItems: "center",
         }}
@@ -30,7 +31,10 @@ const MenuItemComponent = ({ room, setAnchorEl }: Props) => {
       >
         {room.roomName}
       </MenuItem>
-      <Divider variant="middle" />
+      <Divider
+        variant="middle"
+        sx={{ borderColor: "gray" }}
+      />
     </>
   );
 };

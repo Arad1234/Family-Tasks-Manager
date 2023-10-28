@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Fab } from "@mui/material";
 
 interface Props {
   children: React.ReactNode;
@@ -8,13 +8,12 @@ interface Props {
 
 const RoomButton = ({ children, handleClick, className }: Props) => {
   return (
-    <Button
+    <Fab
       className={className}
       onClick={handleClick}
-      variant="contained"
     >
       {children}
-    </Button>
+    </Fab>
   );
 };
 

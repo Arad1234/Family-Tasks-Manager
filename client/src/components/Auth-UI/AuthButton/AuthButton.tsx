@@ -4,15 +4,17 @@ import { Button } from "@mui/material";
 interface Props {
   children: React.ReactNode;
   className?: string;
-  style?: string;
+  type?: "button" | "submit";
+  handleOnClick?: () => void;
 }
 
-const AuthButton = ({ className, children }: Props) => {
+const AuthButton = ({ className, children, type, handleOnClick }: Props) => {
   return (
     <Button
       className={className}
-      type="submit"
+      type={type ? type : "submit"}
       variant="contained"
+      onClick={handleOnClick}
     >
       {children}
     </Button>

@@ -2,7 +2,7 @@ import { getRoomsSocket } from "@Redux/actions/rooms-actions";
 import { useAppDispatch } from "@Redux/hooks";
 import { useCallback } from "react";
 
-const useCallBackRef = <T extends number>(payload: T) => {
+const useIntersectionObserver = <T extends number>(payload: T) => {
   const dispatch = useAppDispatch();
 
   const callBackRef = useCallback(
@@ -27,4 +27,4 @@ const useCallBackRef = <T extends number>(payload: T) => {
   return callBackRef;
 };
 
-export default useCallBackRef;
+export default useIntersectionObserver;

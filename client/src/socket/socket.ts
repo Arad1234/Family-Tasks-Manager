@@ -6,4 +6,7 @@ const URL =
   //   :
   "http://localhost:4000";
 
-export const socket: Socket = io(URL, { withCredentials: true });
+export const socket: Socket = io(URL, {
+  withCredentials: true,
+  reconnectionAttempts: 3,
+});
