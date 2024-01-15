@@ -22,7 +22,7 @@ export const createTask = async (taskData: createTaskSchemaType) => {
 	}
 
 	room.familyMembers = room.familyMembers.map((member) => {
-		if (member.userId.toString() === userId) {
+		if (member.userId.toString() === userId && member.tasks) {
 			member.tasks.push(newTask._id);
 		}
 		return member;

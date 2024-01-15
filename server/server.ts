@@ -10,7 +10,7 @@ import xss from 'xss-clean';
 import hpp from 'hpp';
 import rateLimit from 'express-rate-limit';
 import mongoSanitize from 'express-mongo-sanitize';
-import { NOT_FOUND } from './src/utils/constants';
+import { NOT_FOUND, ONE_HOUR, corsOptions } from './src/utils/constants';
 import AppError from './src/utils/appErrorClass';
 import { connectDB } from './db';
 import { config } from './src/config/config';
@@ -26,13 +26,6 @@ process.on('uncaughtException', (err: any) => {
 
 const app = express();
 
-const corsOptions = {
-	origin: ['http://localhost:4173'],
-	credentials: true,
-	methods: ['GET', 'POST', 'OPTIONS', 'DELETE', 'PUT', 'PATCH'],
-	allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-};
-
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors(corsOptions));
@@ -41,7 +34,7 @@ app.options('*', cors(corsOptions));
 // limit requests from same API to 500.
 const limiter = rateLimit({
 	max: 500,
-	windowMs: 60 * 60 * 1000,
+	windowMs: ONE_HOUR,
 	message: 'To much requests, try again in an hour!',
 });
 
@@ -66,7 +59,7 @@ connectDB().then(() => {
 app.use('/api/v1/user', authRouter);
 
 app.all('*', (req, _res, next) => {
-	next(new AppError(`Can't find ${req.originalUrl} on this server!`, NOT_FOUND));
+	throw new AppError(`Can't find ${req.originalUrl} on this server!`, NOT_FOUND);
 });
 
 app.use(expressErrorHandler);

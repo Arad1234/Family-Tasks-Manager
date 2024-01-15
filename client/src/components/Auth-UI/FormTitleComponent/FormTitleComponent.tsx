@@ -1,13 +1,12 @@
-import { Box } from "@mui/material";
-import { ChildrenProps } from "@Types/index";
-import { FormTitleStyled } from "./FormTitle.styled";
+import { ChildrenProps } from '@Types/index';
+import { StyledFormTitle, StyledFormTitleContainer } from './FormTitleComponent.styled';
 
 const FormTitleComponent = ({ children }: ChildrenProps) => {
-  return (
-    <Box sx={{ display: "flex", justifyContent: "left", width: "17.5rem" }}>
-      <FormTitleStyled>{children}</FormTitleStyled>
-    </Box>
-  );
+	return (
+		<StyledFormTitleContainer>
+			<StyledFormTitle>{children}</StyledFormTitle>
+		</StyledFormTitleContainer>
+	);
 };
 
 export default FormTitleComponent;

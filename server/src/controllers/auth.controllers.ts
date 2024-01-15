@@ -1,21 +1,17 @@
 import { NextFunction, Request, Response } from 'express';
 import { CreateUserSchemaType } from '../schema/user/user.schema';
 import { createUser, forgotPassword, loginUser, resetPassword } from '../services/auth.service';
-import { CREATED, INTERNAL_SERVER_ERROR, OK, isProduction } from '../utils/constants';
+import { CREATED, INTERNAL_SERVER_ERROR, OK, cookieOptions, isProduction } from '../utils/constants';
 import { catchAsync } from '../utils/express/catchAsync';
 import AppError from '../utils/appErrorClass';
 import sendEmail from '../utils/sendEmail';
 
-export const loginUserHandler = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+export const loginUserHandler = catchAsync(async (req, res, next) => {
 	const { email, password } = req.body;
 
 	const { user, token } = await loginUser({ email, password });
 
-	res.cookie('token', token, {
-		httpOnly: true,
-		maxAge: 900000000,
-		secure: isProduction,
-	});
+	res.cookie('token', token, cookieOptions);
 	res.status(OK).json({ status: 'ok', userId: user._id, username: user.username });
 });
 
@@ -23,8 +19,8 @@ export const createUserHandler = catchAsync(
 	async (
 		// Defining the type of the request body as "CreateUserInput" type.
 		req: Request<{}, {}, CreateUserSchemaType>,
-		res: Response,
-		_next: NextFunction
+		res,
+		_next
 	) => {
 		const { username, email, password } = req.body;
 
@@ -34,12 +30,12 @@ export const createUserHandler = catchAsync(
 	}
 );
 
-export const logoutUserHandler = catchAsync(async (_req: Request, res: Response, _next: NextFunction) => {
+export const logoutUserHandler = catchAsync(async (_req, res, _next) => {
 	res.clearCookie('token');
 	res.status(OK).json({ status: 'success', message: 'Logged out successfully!' });
 });
 
-export const forgotPasswordHandler = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+export const forgotPasswordHandler = catchAsync(async (req, res, next) => {
 	const { email } = req.body;
 
 	const { user, link } = await forgotPassword(email);
@@ -69,7 +65,7 @@ export const forgotPasswordHandler = catchAsync(async (req: Request, res: Respon
 	}
 });
 
-export const resetPasswordHandler = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+export const resetPasswordHandler = catchAsync(async (req, res, next) => {
 	const { newPassword } = req.body;
 	const { resetToken } = req.params;
 

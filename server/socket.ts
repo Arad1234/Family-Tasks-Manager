@@ -9,12 +9,13 @@ import { familyRoomHandler } from './src/controllers/familyRoom.controller';
 import { sanitizeData } from './src/middlewares/socket/sanitizeData';
 import { zodErrorHandler } from './src/utils/socket/errorHandlers/zodErrorHandler';
 import { userToSocketMap } from './src/utils/constants';
+import { config } from './src/config/config';
 
 export const connectSocketServer = (app: Application) => {
 	const server = http.createServer(app);
 
 	const io = new Server(server, {
-		cors: { origin: 'http://localhost:4173', credentials: true },
+		cors: { origin: config.client.clientHost, credentials: true },
 	});
 
 	io.use(verifyToken).on('connection', onConnection);

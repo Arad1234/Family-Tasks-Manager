@@ -9,8 +9,8 @@ const useIntersectionObserver = <T extends number>(payload: T) => {
 		(node: HTMLDivElement | null) => {
 			const observer = new IntersectionObserver(
 				(entries) => {
-					const [entry] = entries;
-					if (entry.isIntersecting) {
+					const [firstEntry] = entries;
+					if (firstEntry.isIntersecting) {
 						dispatch(getRoomsSocket({ page: payload, isIntersecting: true }));
 					}
 				},

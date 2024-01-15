@@ -14,11 +14,11 @@ export const createTaskSchema = object({
 		.optional()
 		.transform((arg) => arg && new Date(arg)),
 
-	userId: string({ required_error: 'userId is required!' }),
+	userId: string({ required_error: 'user id is required!' }),
 
-	roomId: string({ required_error: 'roomId is required!' }),
+	roomId: string({ required_error: 'room id is required!' }),
 }).refine((schema) => (schema.startTime && schema.endTime ? schema.startTime <= schema.endTime : true), {
-	message: 'Start Time must be smaller than End Time!',
+	message: 'Start Time must be earlier than End Time!',
 });
 
 export type createTaskSchemaType = TypeOf<typeof createTaskSchema>;

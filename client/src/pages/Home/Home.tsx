@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
 import { Box } from '@mui/material';
-import Loader from '@Components/Common/Loader';
+import Loader from '@Components/Common/Loader/Loader';
 import { socket } from '@Socket/socket';
 import AllRooms from '@Components/Home-UI/Rooms/AllRooms/AllRooms';
 import HomeHeader from '@Components/Home-UI/Header/HomeHeader';

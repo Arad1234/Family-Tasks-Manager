@@ -8,7 +8,7 @@ export interface IUser extends Document {
 	passwordResetExpires: Date | undefined;
 }
 
-interface ITask extends Document {
+export interface ITask extends Document {
 	name: string;
 	description: string | undefined;
 	startTime: Date | null;
@@ -19,7 +19,7 @@ interface ITask extends Document {
 interface IMember {
 	userId: Types.ObjectId;
 	username: string;
-	tasks: ITask[];
+	tasks?: ITask[];
 }
 
 export interface IRoom extends Document {

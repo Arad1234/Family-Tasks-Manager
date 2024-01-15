@@ -34,7 +34,7 @@ export const createFamilyRoom = async (roomData: RoomData) => {
 	const newRoom = await Room.create({
 		roomName,
 		maxMembers,
-		familyMembers: [{ userId, username, tasks: [] }],
+		familyMembers: [{ userId, username }],
 		creator: { userId, username },
 		roomPassword,
 	});
@@ -73,20 +73,22 @@ export const joinFamilyRoom = async (joinRoomData: JoinRoomPayload) => {
 	if (!room) {
 		throw new AppError('Room not found', NOT_FOUND);
 	}
+
 	const isPasswordValid = await room.validatePassword(roomPassword);
 
 	if (!isPasswordValid) {
 		throw new AppError('Room password is not correct!', UNAUTHORIZED);
 	}
+
 	const user = await User.findOne({ _id: userId });
 
 	if (!user) {
 		throw new AppError('User not found', UNAUTHORIZED);
 	}
+
 	const newMember = {
 		userId: user._id,
 		username: user.username,
-		tasks: [],
 	};
 
 	room.familyMembers.push(newMember);
