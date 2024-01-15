@@ -7,7 +7,7 @@ const RoomNameStyled = styled(RoomName)`
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 320px;
+  max-width: 300px;
   font-weight: 600;
 `;
 

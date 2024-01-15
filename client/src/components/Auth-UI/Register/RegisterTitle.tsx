@@ -10,7 +10,6 @@ const RegisterTitle = () => {
           padding: "0 ",
           textAlign: "center",
           fontWeight: "500",
-          color: "white",
         }}
       >
         Welcome To The

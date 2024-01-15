@@ -23,7 +23,7 @@ const MenuItemComponent = ({ room, setAnchorEl }: Props) => {
           fontWeight: "600",
           wordWrap: "break-word",
           display: "flex",
-          color: "white",
+
           flexDirection: "column",
           alignItems: "center",
         }}

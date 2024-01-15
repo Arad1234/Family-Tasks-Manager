@@ -47,7 +47,7 @@ const BurgerMenu = () => {
       width: "100vw",
       height: "100vh",
       position: "fixed",
-      backgroundColor: variables.secondaryColor,
+      backgroundColor: variables.primaryColor,
       zIndex: "1",
       right: "0",
       animation: `${sildeMenu} 0.4s`,

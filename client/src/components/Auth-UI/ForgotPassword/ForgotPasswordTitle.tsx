@@ -8,7 +8,6 @@ const ForgotPasswordTitle = () => {
         sx={{
           fontSize: "25px",
           textAlign: "center",
-          color: "white",
           width: "75vw",
           fontWeight: "500",
         }}

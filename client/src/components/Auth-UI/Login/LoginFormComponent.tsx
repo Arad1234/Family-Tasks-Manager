@@ -73,7 +73,7 @@ const LoginFormComponent = ({ formik, loginWithGoogle }: Props) => {
           marginTop="20px"
           navigateTo="/register"
           actionText="Sign Up"
-          whiteText="Haven't any account?"
+          commonText="Haven't any account?"
         />
       </Box>
     </FormStyled>

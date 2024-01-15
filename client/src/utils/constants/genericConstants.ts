@@ -5,7 +5,7 @@ export const googleCalendarBaseURL =
   "https://www.googleapis.com/calendar/v3/calendars/primary";
 
 export const inputLabelPropsStyle = {
-  style: { color: "rgba(255, 255, 255, 0.6)" },
+  style: { color: "" },
 };
 
 export const observerTargetElementStyle = {
@@ -13,4 +13,3 @@ export const observerTargetElementStyle = {
   width: "100%",
   marginTop: "0vh",
 };
-

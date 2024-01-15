@@ -15,7 +15,7 @@ export const AuthButtonStyled = styled(AuthButton)<{
   font-weight: 600;
   font-size: 15px;
   color: ${(props) => (props.color ? props.color : "white")};
-  width: 62vw;
+  width: 17.5rem;
   text-transform: none;
 
   &:hover {

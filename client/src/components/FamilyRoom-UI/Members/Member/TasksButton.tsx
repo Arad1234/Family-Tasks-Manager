@@ -24,7 +24,6 @@ const TasksButton = ({ member }: Props) => {
         padding: "3px 9px",
         fontSize: "17px",
         fontWeight: "bold",
-        color: "white",
         ":hover": { background: "rgba(50, 250, 100, 0.3)" },
       }}
       onClick={handleShowMemberTasks}

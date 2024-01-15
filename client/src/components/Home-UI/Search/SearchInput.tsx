@@ -1,16 +1,13 @@
-import { Box, TextField, keyframes } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import ClearInputIcon from "./ClearInputIcon";
 import { useEffect, useRef, useState } from "react";
 import { useAppDispatch } from "@Redux/hooks";
 import { InputChangeEvent } from "@Types/index";
 import useDebounce from "@Hooks/useDebounce";
 import { getRoomsByName } from "@Redux/actions/rooms-actions";
+import { AiOutlineSearch } from "react-icons/ai";
 
-interface Props {
-  setIsShowSearchBar: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const SearchInput = ({ setIsShowSearchBar }: Props) => {
+const SearchInput = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const initalizeRef = useRef(false);
   const dispatch = useAppDispatch();
@@ -29,49 +26,43 @@ const SearchInput = ({ setIsShowSearchBar }: Props) => {
     }
   }, [debounceValue]);
 
-  const handleInputBlur = () => {
-    setIsShowSearchBar(false);
-    setSearchQuery("");
-  };
-
-  const sildeSearchBar = keyframes`
-  from {
-    width: 0
-  }
-  to {
-    width: 80%
-  }
-`;
-
   return (
     <Box
       sx={{
         display: "flex",
-        alignItems: "center",
-        marginLeft: "20px",
+        justifyContent: "center",
         width: "100%",
+        marginTop: "20px",
       }}
     >
       <TextField
-        autoFocus={true}
-        onBlur={handleInputBlur}
         onChange={handleSearchInputChange}
         placeholder="Search room..."
         value={searchQuery}
-        type="text"
-        variant="standard"
-        sx={{ animation: `${sildeSearchBar} 0.5s`, width: "80%" }}
+        sx={{
+          width: "80%",
+          "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: "transparent",
+            boxShadow: "none",
+          },
+        }}
         InputProps={{
           style: {
-            fontSize: "20px",
+            fontSize: "17px",
+
             color: "white",
-            borderBottom: "2px solid white",
+            borderRadius: "20px",
+            border: "1px solid white",
           },
-          disableUnderline: true,
-          endAdornment:
-            searchQuery.length > 0 ? (
-              <ClearInputIcon setSearchQuery={setSearchQuery} />
-            ) : null,
+          startAdornment: (
+            <AiOutlineSearch
+              size={40}
+              style={{ paddingRight: "10px" }}
+            />
+          ),
+          endAdornment: searchQuery.length > 0 && (
+            <ClearInputIcon setSearchQuery={setSearchQuery} />
+          ),
         }}
       />
     </Box>

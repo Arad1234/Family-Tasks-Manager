@@ -1,13 +1,13 @@
 {
-  "compilerOptions": {
-    "target": "es6",
-    "module": "CommonJS",
-    "outDir": "build",
-    "rootDir": "./",
-    "strict": true,
-    "moduleResolution": "Node",
-    "esModuleInterop": true,
-    "skipLibCheck": true
-  },
-  "exclude": ["./node_modules"]
+	"compilerOptions": {
+		"target": "es6",
+		"module": "CommonJS",
+		"outDir": "build",
+		"rootDir": "./",
+		"strict": true,
+		"moduleResolution": "Node",
+		"esModuleInterop": true,
+		"skipLibCheck": true
+	},
+	"exclude": ["./node_modules"]
 }

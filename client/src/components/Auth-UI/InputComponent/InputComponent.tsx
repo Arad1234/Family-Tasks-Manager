@@ -71,9 +71,8 @@ const InputComponent = ({
         InputProps={{
           sx: {
             fontSize: "17px",
-            width: "15rem",
-            borderBottom: "2px solid white",
-            color: "white",
+            width: "17.5rem",
+            borderBottom: "2px solid",
           },
           disableUnderline: true,
           endAdornment: inputIcon,

@@ -3,7 +3,6 @@ import JoinButton from "./JoinButton";
 import { IRoom } from "@Types/index";
 import ExploreButton from "./ExploreButton";
 import { useMemo } from "react";
-import variables from "@Sass/variables.module.scss";
 import { useAppSelector } from "@Redux/hooks";
 import RoomNameStyled from "./RoomName/RoomName.styled";
 
@@ -24,12 +23,14 @@ const Room = ({ room }: Props) => {
   return (
     <Box
       sx={{
-        borderRadius: "10px",
+        borderRadius: "40px",
         padding: "10px",
+        boxShadow: "0px 8px 20px -5px black",
         display: "flex",
-        background: variables.secondaryColor,
+        backgroundColor: "rgb(237, 237, 237)",
         flexDirection: "column",
         gap: "10px",
+        color: "black",
         height: "125px",
       }}
     >
@@ -38,12 +39,11 @@ const Room = ({ room }: Props) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          color: "white",
         }}
       >
         <RoomNameStyled roomName={room.roomName} />
         <Box sx={{ display: "flex" }}>
-          <Typography sx={{ fontSize: "20px" }}>
+          <Typography sx={{ fontSize: "20px", fontWeight: "600" }}>
             Members: {familyMembers.length}/{maxMembers}
           </Typography>
         </Box>
@@ -58,19 +58,13 @@ const Room = ({ room }: Props) => {
         }}
       >
         {isMember ? (
-          <Box sx={{ display: "flex", gap: "80px" }}>
-            <ExploreButton roomId={room._id} />
-          </Box>
+          <ExploreButton roomId={room._id} />
         ) : isRoomFull ? (
           <Typography sx={{ fontWeight: "600", color: "rgb(200, 100, 0)" }}>
             Room Is Full
           </Typography>
         ) : (
-          <Box
-            sx={{ display: "flex", justifyContent: "center", width: "100%" }}
-          >
-            <JoinButton room={room} />
-          </Box>
+          <JoinButton room={room} />
         )}
       </Box>
     </Box>

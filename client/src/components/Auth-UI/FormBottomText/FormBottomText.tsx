@@ -4,26 +4,30 @@ import { useNavigate } from "react-router-dom";
 
 interface Props {
   navigateTo: string;
-  whiteText?: string;
+  commonText?: string;
   actionText: string;
   marginTop?: string;
 }
 
 const FormBottomText = ({
   navigateTo,
-  whiteText,
+  commonText,
   actionText,
   marginTop,
 }: Props) => {
   const navigate = useNavigate();
 
   return (
-    <Typography sx={{ color: "white", marginTop: marginTop }}>
-      {whiteText}{" "}
+    <Typography sx={{ marginTop: marginTop, fontWeight: "600" }}>
+      {commonText}{" "}
       <Typography
         onClick={() => navigate(navigateTo)}
         component={"span"}
-        sx={{ color: variables.secondActionColor, fontSize: "18px" }}
+        sx={{
+          color: variables.secondActionColor,
+          fontSize: "18px",
+          fontWeight: "600",
+        }}
       >
         {actionText}
       </Typography>

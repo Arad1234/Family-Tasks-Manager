@@ -1,7 +1,6 @@
 .hr-lines {
   margin: 0;
   font-size: 20px;
-  color: white;
   margin-bottom: 7px;
   display: flex;
 }
@@ -9,19 +8,18 @@
   content: " ";
   display: block;
   height: 1px;
-  width: 100px;
+  width: 120px;
   margin-top: 17px;
   margin-right: 10px;
-  background: white;
+  background-color: black;
 }
 
 .hr-lines::after {
   content: " ";
   display: block;
   height: 1px;
-  width: 100px;
+  width: 120px;
   margin-left: 10px;
-
+  background-color: black;
   margin-top: 17px;
-  background: white;
 }

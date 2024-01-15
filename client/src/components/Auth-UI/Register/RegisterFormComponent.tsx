@@ -73,7 +73,7 @@ const RegisterFormComponent = ({ formik }: Props) => {
       <FormBottomText
         actionText="Log In"
         navigateTo="/"
-        whiteText="Already have an account?"
+        commonText="Already have an account?"
       />
     </FormStyled>
   );

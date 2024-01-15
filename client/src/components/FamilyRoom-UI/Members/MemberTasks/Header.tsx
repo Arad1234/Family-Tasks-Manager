@@ -43,7 +43,6 @@ const Header = () => {
           fontSize: "16px",
           background: "rgba(100, 150, 70, 0.8)",
           fontWeight: "600",
-          color: "white",
           ":hover": { background: "rgba(100, 150, 70, 0.6)" },
         }}
         onClick={handleGoBack}

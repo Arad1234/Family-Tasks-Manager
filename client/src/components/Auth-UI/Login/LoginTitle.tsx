@@ -4,14 +4,11 @@ import { DropDownBarStyled } from "../DropDownBar/DropDownBar.styled";
 const LoginTitle = () => {
   return (
     <DropDownBarStyled>
-      <Typography
-        sx={{ fontSize: "25px", color: "white", textAlign: "center" }}
-      >
+      <Typography sx={{ fontSize: "25px", textAlign: "center" }}>
         Welcome back!
         <Typography
           sx={{
             fontSize: "30px",
-            color: "white",
             fontWeight: "600",
             display: "block",
           }}

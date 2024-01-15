@@ -11,7 +11,7 @@ const ForgotPasswordText = () => {
         color: variables.secondActionColor,
         position: "fixed",
         top: "25.3rem",
-        right: "75px",
+        right: "58px",
       }}
       onClick={() => navigate("/forgotPassword")}
     >

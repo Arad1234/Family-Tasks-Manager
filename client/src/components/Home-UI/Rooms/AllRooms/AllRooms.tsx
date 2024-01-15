@@ -17,9 +17,9 @@ const AllRooms = forwardRef((_props, ref: Ref<HTMLDivElement>) => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        width: "90vw",
-        gap: "20px",
-        marginTop: "40px",
+        width: "85vw",
+        gap: "30px",
+        marginTop: "30px",
       }}
     >
       {rooms.map((room) => {
@@ -30,10 +30,10 @@ const AllRooms = forwardRef((_props, ref: Ref<HTMLDivElement>) => {
           />
         );
       })}
-      {isIntersecting ? (
-        <IntersectionLoader />
-      ) : isAllRooms ? (
+      {isAllRooms ? (
         <div style={observerTargetElementStyle}></div>
+      ) : isIntersecting ? (
+        <IntersectionLoader />
       ) : (
         <div
           style={observerTargetElementStyle}

@@ -17,7 +17,6 @@ const MenuIcon = () => {
   const menuIconStyle: SxProps = useMemo(() => {
     return isShowMenu
       ? {
-          color: "white",
           zIndex: "2",
           position: "absolute",
           right: "8px",
