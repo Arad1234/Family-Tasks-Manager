@@ -1,7 +1,8 @@
-import { Box, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import styled from 'styled-components';
+import FormTitleComponent from './FormTitleComponent';
 
-export const StyledFormTitleContainer = styled(Box)`
+export const StyledFormTitleComponent = styled(FormTitleComponent)`
 	display: flex;
 	justify-content: left;
 	width: 17.5rem;

@@ -4,12 +4,12 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { BiSolidUser } from 'react-icons/bi';
 import { MdEmail } from 'react-icons/md';
 import { useState } from 'react';
-import { InputErrorMessageStyled } from '../InputErrorMessage/InputErrorMessage.styled';
+import { StyledInputErrorMessage } from '../InputErrorMessage/InputErrorMessage.styled';
 
 type Props = {
 	formik: formikPropsType;
-	inputTouched: boolean | undefined;
-	inputError: string | undefined;
+	inputTouched?: boolean;
+	inputError?: string;
 	className?: string;
 } & TextFieldProps;
 
@@ -63,7 +63,7 @@ const InputComponent = ({ formik, inputTouched, inputError, className, ...props 
 				InputProps={{ ...textFieldInputProps, endAdornment: inputIcon }}
 			/>
 
-			{inputError && inputTouched && <InputErrorMessageStyled>{inputError}</InputErrorMessageStyled>}
+			{inputError && inputTouched && <StyledInputErrorMessage>{inputError}</StyledInputErrorMessage>}
 		</Box>
 	);
 };

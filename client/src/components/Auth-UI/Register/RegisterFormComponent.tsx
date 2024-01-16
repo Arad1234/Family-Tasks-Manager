@@ -1,10 +1,10 @@
-import FormTitleComponent from '../FormTitleComponent/FormTitleComponent';
-import { StyledInputComponent } from '../InputComponent/InputComponent.styled';
+import { StyledFormTitleComponent } from '../Common/FormTitleComponent/FormTitleComponent.styled';
+import { StyledInputComponent } from '../Common/InputComponent/InputComponent.styled';
 import { FormikProps } from 'formik';
-import FormBottomText from '../FormBottomText/FormBottomText';
+import FormBottomText from '../Common/FormBottomText/FormBottomText';
 import { inputLabelPropsStyle } from '@Utils/constants/genericConstants';
-import { FormStyled } from '../styles/form.styled';
-import { AuthButtonStyled } from '../AuthButton/AuthButton.styled';
+import { StyledForm } from '../Common/Form/Form.styled';
+import { StyledAuthButton } from '../Common/AuthButton/AuthButton.styled';
 
 interface Props {
 	formik: FormikProps<{
@@ -19,11 +19,11 @@ const RegisterFormComponent = ({ formik }: Props) => {
 	const { values, errors, touched, handleSubmit } = formik;
 
 	return (
-		<FormStyled
+		<StyledForm
 			className='register-form'
 			onSubmit={handleSubmit}
 		>
-			<FormTitleComponent>Sign Up</FormTitleComponent>
+			<StyledFormTitleComponent>Sign Up</StyledFormTitleComponent>
 
 			<StyledInputComponent
 				label='Username'
@@ -68,14 +68,14 @@ const RegisterFormComponent = ({ formik }: Props) => {
 				inputTouched={touched.confirmPassword}
 				inputError={errors.confirmPassword}
 			/>
-			<AuthButtonStyled>Sign Up</AuthButtonStyled>
+			<StyledAuthButton>Sign Up</StyledAuthButton>
 
 			<FormBottomText
 				actionText='Log In'
 				navigateTo='/'
 				commonText='Already have an account?'
 			/>
-		</FormStyled>
+		</StyledForm>
 	);
 };
 

@@ -3,12 +3,12 @@ import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import { object, string } from 'yup';
 import { useAppDispatch, useAppSelector } from '@Redux/hooks';
-import { LoginPayload, loginThunk } from '@Redux/thunk/Auth/auth-actions';
+import { loginThunk } from '@Redux/thunk/Auth/auth-actions';
 import Loader from '@Components/Common/Loader/Loader';
 import LoginTitle from '@Components/Auth-UI/Login/LoginTitle';
 import LoginFormComponent from '@Components/Auth-UI/Login/LoginFormComponent';
 import { SignInWithOAuth } from '@Supabase/OAuth';
-import { FormWrapperStyled } from '@Components/Auth-UI/Wrapper/Wrapper.styled';
+import { StyledFormWrapper } from '@Components/Auth-UI/Common/FormWrapper/FormWrapper.styled';
 
 const Login = () => {
 	const dispatch = useAppDispatch();
@@ -53,13 +53,13 @@ const Login = () => {
 	return loading ? (
 		<Loader />
 	) : (
-		<FormWrapperStyled
+		<StyledFormWrapper
 			height='auto'
 			gap='50px'
 		>
 			<LoginTitle />
 			<LoginFormComponent formik={formik} />
-		</FormWrapperStyled>
+		</StyledFormWrapper>
 	);
 };
 

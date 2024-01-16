@@ -1,11 +1,11 @@
-import FormTitleComponent from '../FormTitleComponent/FormTitleComponent';
-import { StyledInputComponent } from '../InputComponent/InputComponent.styled';
-import FormBottomText from '../FormBottomText/FormBottomText';
+import { StyledFormTitleComponent } from '../Common/FormTitleComponent/FormTitleComponent.styled';
+import { StyledInputComponent } from '../Common/InputComponent/InputComponent.styled';
+import FormBottomText from '../Common/FormBottomText/FormBottomText';
 import { FormikProps } from 'formik';
-import SendEmailMessage from './SendEmailMessage';
 import { inputLabelPropsStyle } from '@Utils/constants/genericConstants';
-import { FormStyled } from '../styles/form.styled';
-import { AuthButtonStyled } from '../AuthButton/AuthButton.styled';
+import { StyledForm } from '../Common/Form/Form.styled';
+import { StyledAuthButton } from '../Common/AuthButton/AuthButton.styled';
+import { StyledSendEmailMessage } from './ForgotPassword.styled';
 
 interface Props {
 	formik: FormikProps<{ email: string }>;
@@ -16,12 +16,12 @@ const ForgotPasswordForm = ({ formik, sentEmailMessage }: Props) => {
 	const { values, errors, touched, handleSubmit } = formik;
 
 	return (
-		<FormStyled onSubmit={handleSubmit}>
+		<StyledForm onSubmit={handleSubmit}>
 			{sentEmailMessage ? (
-				<SendEmailMessage>{sentEmailMessage}</SendEmailMessage>
+				<StyledSendEmailMessage>{sentEmailMessage}</StyledSendEmailMessage>
 			) : (
 				<>
-					<FormTitleComponent>Forgot Password</FormTitleComponent>
+					<StyledFormTitleComponent>Forgot Password</StyledFormTitleComponent>
 					<StyledInputComponent
 						formik={formik}
 						name='email'
@@ -33,14 +33,14 @@ const ForgotPasswordForm = ({ formik, sentEmailMessage }: Props) => {
 						inputError={errors.email}
 					/>
 
-					<AuthButtonStyled>Send</AuthButtonStyled>
+					<StyledAuthButton>Send</StyledAuthButton>
 					<FormBottomText
 						navigateTo='/'
 						actionText='Go back'
 					/>
 				</>
 			)}
-		</FormStyled>
+		</StyledForm>
 	);
 };
 

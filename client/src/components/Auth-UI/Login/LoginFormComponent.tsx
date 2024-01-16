@@ -1,25 +1,27 @@
-import FormTitleComponent from '../FormTitleComponent/FormTitleComponent';
-import { StyledInputComponent } from '../InputComponent/InputComponent.styled';
+import { StyledFormTitleComponent } from '../Common/FormTitleComponent/FormTitleComponent.styled';
+import { StyledInputComponent } from '../Common/InputComponent/InputComponent.styled';
 import './Login.scss';
 import { FormikProps } from 'formik';
 import { Box } from '@mui/material';
-import FormBottomText from '../FormBottomText/FormBottomText';
+import FormBottomText from '../Common/FormBottomText/FormBottomText';
 import { inputLabelPropsStyle } from '@Utils/constants/genericConstants';
-import ForgotPasswordText from './ForgotPasswordText';
-import { FormStyled } from '../styles/form.styled';
-import { AuthButtonStyled } from '../AuthButton/AuthButton.styled';
+import { StyledForm } from '../Common/Form/Form.styled';
+import { StyledAuthButton } from '../Common/AuthButton/AuthButton.styled';
 import { toast } from 'react-toastify';
+import { StyledForgotPasswordText } from './Login.styled';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
 	formik: FormikProps<{ email: string; password: string }>;
 }
 
 const LoginFormComponent = ({ formik }: Props) => {
+	const navigate = useNavigate();
 	const { handleSubmit, values, errors, touched } = formik;
 
 	return (
-		<FormStyled onSubmit={handleSubmit}>
-			<FormTitleComponent>Login</FormTitleComponent>
+		<StyledForm onSubmit={handleSubmit}>
+			<StyledFormTitleComponent>Login</StyledFormTitleComponent>
 
 			<StyledInputComponent
 				label='Email'
@@ -42,7 +44,7 @@ const LoginFormComponent = ({ formik }: Props) => {
 				inputError={errors.password}
 			/>
 
-			<ForgotPasswordText />
+			<StyledForgotPasswordText onClick={() => navigate('/forgotPassword')}>Forgot Password</StyledForgotPasswordText>
 
 			<Box
 				sx={{
@@ -53,18 +55,18 @@ const LoginFormComponent = ({ formik }: Props) => {
 					alignItems: 'center',
 				}}
 			>
-				<AuthButtonStyled>Login</AuthButtonStyled>
+				<StyledAuthButton>Login</StyledAuthButton>
 
 				<p className='hr-lines'>or</p>
 
-				<AuthButtonStyled
+				<StyledAuthButton
 					backgroundColor='#E5E4E2'
 					color='black'
 					type='button'
 					handleOnClick={() => toast.info('need to pass loginWithGoogle function')}
 				>
 					Login with google
-				</AuthButtonStyled>
+				</StyledAuthButton>
 
 				<FormBottomText
 					marginTop='20px'
@@ -73,7 +75,7 @@ const LoginFormComponent = ({ formik }: Props) => {
 					commonText="Haven't any account?"
 				/>
 			</Box>
-		</FormStyled>
+		</StyledForm>
 	);
 };
 

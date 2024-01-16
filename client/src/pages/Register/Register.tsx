@@ -6,7 +6,7 @@ import { useAppDispatch } from '@Redux/hooks';
 import { registerThunk } from '@Redux/thunk/Auth/auth-actions';
 import RegisterTitle from '@Components/Auth-UI/Register/RegisterTitle';
 import RegisterFormComponent from '@Components/Auth-UI/Register/RegisterFormComponent';
-import { FormWrapperStyled } from '@Components/Auth-UI/Wrapper/Wrapper.styled';
+import { StyledFormWrapper } from '@Components/Auth-UI/Common/FormWrapper/FormWrapper.styled';
 
 const Register = () => {
 	const navigate = useNavigate();
@@ -33,13 +33,13 @@ const Register = () => {
 	});
 
 	return (
-		<FormWrapperStyled
+		<StyledFormWrapper
 			height='auto'
 			gap='50px'
 		>
 			<RegisterTitle />
 			<RegisterFormComponent formik={formik} />
-		</FormWrapperStyled>
+		</StyledFormWrapper>
 	);
 };
 

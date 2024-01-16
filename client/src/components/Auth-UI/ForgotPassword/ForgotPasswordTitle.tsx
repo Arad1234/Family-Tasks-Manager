@@ -1,21 +1,12 @@
-import { Typography } from "@mui/material";
-import { DropDownBarStyled } from "../DropDownBar/DropDownBar.styled";
+import { StyledDropDownBar } from '../Common/DropDownBar/DropDownBar.styled';
+import { StyledForgotPasswordTitle } from './ForgotPassword.styled';
 
 const ForgotPasswordTitle = () => {
-  return (
-    <DropDownBarStyled>
-      <Typography
-        sx={{
-          fontSize: "25px",
-          textAlign: "center",
-          width: "75vw",
-          fontWeight: "500",
-        }}
-      >
-        Please enter your email to reset your password
-      </Typography>
-    </DropDownBarStyled>
-  );
+	return (
+		<StyledDropDownBar>
+			<StyledForgotPasswordTitle>Please enter your email to reset your password</StyledForgotPasswordTitle>
+		</StyledDropDownBar>
+	);
 };
 
 export default ForgotPasswordTitle;

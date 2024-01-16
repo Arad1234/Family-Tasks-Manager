@@ -12,6 +12,8 @@ import { VITE_API_KEY, VITE_SUPABASE_PROJECT_URL } from './utils/constants/gener
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { StyledEngineProvider } from '@mui/material';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './styles/theme';
 
 const supabase = createClient(VITE_SUPABASE_PROJECT_URL, VITE_API_KEY);
 
@@ -27,9 +29,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 						draggable={false}
 						autoClose={3200}
 					/>
-					<StyledEngineProvider injectFirst>
-						<RouterProvider router={router} />
-					</StyledEngineProvider>
+					<ThemeProvider theme={theme}>
+						<StyledEngineProvider injectFirst>
+							<RouterProvider router={router} />
+						</StyledEngineProvider>
+					</ThemeProvider>
 				</PersistGate>
 			</Provider>
 		</SessionContextProvider>

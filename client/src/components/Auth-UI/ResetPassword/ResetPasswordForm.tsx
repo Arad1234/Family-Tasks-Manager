@@ -1,10 +1,10 @@
 import { FormikProps } from 'formik';
-import { StyledInputComponent } from '../InputComponent/InputComponent.styled';
-import FormTitleComponent from '../FormTitleComponent/FormTitleComponent';
-import FormBottomText from '../FormBottomText/FormBottomText';
+import { StyledInputComponent } from '../Common/InputComponent/InputComponent.styled';
+import { StyledFormTitleComponent } from '../Common/FormTitleComponent/FormTitleComponent.styled';
+import FormBottomText from '../Common/FormBottomText/FormBottomText';
 import { inputLabelPropsStyle } from '@Utils/constants/genericConstants';
-import { FormStyled } from '../styles/form.styled';
-import { AuthButtonStyled } from '../AuthButton/AuthButton.styled';
+import { StyledForm } from '../Common/Form/Form.styled';
+import { StyledAuthButton } from '../Common/AuthButton/AuthButton.styled';
 
 interface Props {
 	formik: FormikProps<{ newPassword: string; confirmPassword: string }>;
@@ -14,8 +14,8 @@ const ResetPasswordForm = ({ formik }: Props) => {
 	const { values, errors, touched, handleSubmit } = formik;
 
 	return (
-		<FormStyled onSubmit={handleSubmit}>
-			<FormTitleComponent>Reset Your Pasword</FormTitleComponent>
+		<StyledForm onSubmit={handleSubmit}>
+			<StyledFormTitleComponent>Reset Your Pasword</StyledFormTitleComponent>
 			<StyledInputComponent
 				formik={formik}
 				name='newPassword'
@@ -38,12 +38,12 @@ const ResetPasswordForm = ({ formik }: Props) => {
 				inputError={errors.confirmPassword}
 			/>
 
-			<AuthButtonStyled>Create New Password</AuthButtonStyled>
+			<StyledAuthButton>Create New Password</StyledAuthButton>
 			<FormBottomText
 				actionText='Go To Login Page'
 				navigateTo='/'
 			/>
-		</FormStyled>
+		</StyledForm>
 	);
 };
 
