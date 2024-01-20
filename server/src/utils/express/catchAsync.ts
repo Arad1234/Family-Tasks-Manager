@@ -4,6 +4,6 @@ type AsyncFucntionMiddleware = (req: Request, res: Response, next: NextFunction)
 
 export const catchAsync = (fn: AsyncFucntionMiddleware) => {
 	return (req: Request, res: Response, next: NextFunction) => {
-		fn(req, res, next).catch((err: any) => next(err));
+		fn(req, res, next).catch(next);
 	};
 };

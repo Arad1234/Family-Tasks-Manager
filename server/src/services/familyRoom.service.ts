@@ -1,24 +1,14 @@
-import Room from '../models/room.model';
-import Task from '../models/task.model';
+import { Room, Task } from '../models/models';
 import User from '../models/user.model';
 import { DeleteMemberSchemaType } from '../schema/member/deleteMember.schema';
-import AppError from '../utils/appErrorClass';
-import { NOT_FOUND } from '../utils/constants';
+import { getOne } from './factory.service';
 
 export const deleteMember = async (payload: DeleteMemberSchemaType) => {
 	const { memberId, roomId } = payload;
 
-	const userToDelete = await User.findById(memberId);
+	const userToDelete = await getOne({ Model: User, id: memberId });
 
-	if (!userToDelete) {
-		throw new AppError('User not found', NOT_FOUND);
-	}
-
-	const room = await Room.findOne({ _id: roomId });
-
-	if (!room) {
-		throw new AppError('Room not found', NOT_FOUND);
-	}
+	const room = await getOne({ Model: Room, id: roomId });
 
 	await Task.deleteMany({ userId: memberId });
 
@@ -42,11 +32,7 @@ export const getMemberRooms = async (userId: string) => {
 
 export const getCurrentRoom = async (roomId: string) => {
 	// Populate the user tasks that match the current roomId.
-	const currentRoom = await Room.findOne({ _id: roomId }).populate('familyMembers.tasks');
-
-	if (!currentRoom) {
-		throw new AppError(`Room with id ${roomId} not found`, NOT_FOUND);
-	}
+	const currentRoom = await getOne({ Model: Room, id: roomId, populate: 'familyMembers.tasks' });
 
 	return currentRoom;
 };

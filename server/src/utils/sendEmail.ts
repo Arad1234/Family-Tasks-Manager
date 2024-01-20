@@ -23,7 +23,7 @@ const sendEmail = async (options: IMailOptions) => {
 		service: 'gmail',
 		auth: {
 			...mailAuthConfig,
-			accessToken: accessToken,
+			accessToken,
 		},
 	} as TransportOptions);
 

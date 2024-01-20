@@ -3,10 +3,11 @@ import { UserLoginDetails, UserRegisterDetails } from '../types/common';
 import bcrypt from 'bcrypt';
 import { generateToken } from '../utils/generateToken';
 import AppError from '../utils/appErrorClass';
-import { BAD_REQUEST, NOT_FOUND, UNAUTHORIZED } from '../utils/constants';
+import { BAD_REQUEST, UNAUTHORIZED } from '../utils/constants';
 import { config } from '../config/config';
 import { createNewPasswordSchemaType } from '../schema/user/newPassword.schema';
 import crypto from 'crypto';
+import { getOne } from './factory.service';
 
 export const createUser = async (userData: UserRegisterDetails) => {
 	const { username, email, password } = userData;
@@ -21,11 +22,7 @@ export const createUser = async (userData: UserRegisterDetails) => {
 export const loginUser = async (userInfo: UserLoginDetails) => {
 	const { email, password } = userInfo;
 
-	const user = await User.findOne({ email }).select('+password');
-
-	if (!user) {
-		throw new AppError('Wrong email or password', UNAUTHORIZED);
-	}
+	const user = await getOne({ Model: User, id: email, select: '+password' });
 
 	const isPasswordValid = await bcrypt.compare(password, user.password);
 
@@ -33,18 +30,14 @@ export const loginUser = async (userInfo: UserLoginDetails) => {
 		throw new AppError('Wrong email or password', UNAUTHORIZED);
 	}
 
-	const token = generateToken(user._id, user.username);
+	const token = generateToken(user._id.toString(), user.username);
 
 	return { user, token };
 };
 
 export const forgotPassword = async (email: string) => {
 	// 1) Get user based posted email
-	const user = await User.findOne({ email });
-
-	if (!user) {
-		throw new AppError('There is no user with email adress', NOT_FOUND);
-	}
+	const user = await getOne({ Model: User, id: email });
 
 	// 2) Generate the random reset token
 	const resetToken = user.createPasswordResetToken();

@@ -1,17 +1,15 @@
-import { Schema, model } from "mongoose";
-import { ITask } from "../types/mongoose";
+import { Ref, prop } from '@typegoose/typegoose';
+import { RoomClass } from './room.model';
 
-export const taskSchema = new Schema<ITask>(
-  {
-    name: String,
-    description: String,
-    startTime: Date,
-    endTime: Date,
-    roomId: { type: Schema.Types.ObjectId, ref: "Room" },
-  },
-  { versionKey: false, timestamps: true }
-);
-
-const Task = model<ITask>("Task", taskSchema);
-
-export default Task;
+export class TaskClass {
+	@prop()
+	name: string;
+	@prop()
+	description: string;
+	@prop()
+	startTime: Date;
+	@prop()
+	endTime: Date;
+	@prop({ ref: () => RoomClass })
+	roomId: Ref<RoomClass>;
+}

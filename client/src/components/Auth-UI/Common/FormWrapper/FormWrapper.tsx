@@ -10,9 +10,9 @@ interface Props {
 const FormWrapper = ({ children, height, gap, className }: Props) => {
 	return (
 		<Box
+			className={className}
 			height={height}
 			gap={gap}
-			className={className}
 		>
 			{children}
 		</Box>

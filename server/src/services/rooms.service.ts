@@ -1,10 +1,10 @@
-import Room from '../models/room.model';
-import Task from '../models/task.model';
+import { Room, Task } from '../models/models';
 import { RoomData } from '../types/common';
 import { JoinRoomPayload } from '../types/socket';
-import { NOT_FOUND, PAGE_LIMIT, UNAUTHORIZED } from '../utils/constants';
+import { PAGE_LIMIT, UNAUTHORIZED } from '../utils/constants';
 import AppError from '../utils/appErrorClass';
 import User from '../models/user.model';
+import { getOne } from './factory.service';
 
 export const getFamilyRooms = async (page: number) => {
 	// Paginate the rooms after intersecting the front with the last element.
@@ -45,11 +45,8 @@ export const createFamilyRoom = async (roomData: RoomData) => {
 };
 
 export const deleteFamilyRoom = async (roomId: string) => {
-	const room = await Room.findById({ _id: roomId });
+	const room = await getOne({ Model: Room, id: roomId });
 
-	if (!room) {
-		throw new AppError('Room not found', NOT_FOUND);
-	}
 	// Delete all the tasks of the members in this room.
 	room.familyMembers.map(async (member) => {
 		const userTasks = await Task.find({ userId: member.userId });
@@ -68,11 +65,7 @@ export const deleteFamilyRoom = async (roomId: string) => {
 export const joinFamilyRoom = async (joinRoomData: JoinRoomPayload) => {
 	const { roomId, userId, roomPassword } = joinRoomData;
 
-	const room = await Room.findOne({ _id: roomId }).select('+roomPassword');
-
-	if (!room) {
-		throw new AppError('Room not found', NOT_FOUND);
-	}
+	const room = await getOne({ Model: Room, id: roomId, select: '+roomPassword' });
 
 	const isPasswordValid = await room.validatePassword(roomPassword);
 
@@ -80,14 +73,10 @@ export const joinFamilyRoom = async (joinRoomData: JoinRoomPayload) => {
 		throw new AppError('Room password is not correct!', UNAUTHORIZED);
 	}
 
-	const user = await User.findOne({ _id: userId });
-
-	if (!user) {
-		throw new AppError('User not found', UNAUTHORIZED);
-	}
+	const user = await getOne({ Model: User, id: userId });
 
 	const newMember = {
-		userId: user._id,
+		userId: user._id.toString(),
 		username: user.username,
 	};
 

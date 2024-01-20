@@ -1,19 +1,19 @@
-import { Box } from "@mui/material";
+import { Box } from '@mui/material';
 
 interface Props {
-  children: React.ReactNode;
-  className?: string;
+	children: React.ReactNode;
+	className?: string;
 }
 
 const HeaderComponent = ({ children, className }: Props) => {
-  return (
-    <Box
-      component={"nav"}
-      className={className}
-    >
-      {children}
-    </Box>
-  );
+	return (
+		<Box
+			className={className}
+			component={'nav'}
+		>
+			{children}
+		</Box>
+	);
 };
 
 export default HeaderComponent;

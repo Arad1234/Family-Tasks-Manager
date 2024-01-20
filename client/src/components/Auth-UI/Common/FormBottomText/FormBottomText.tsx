@@ -1,6 +1,5 @@
-import { Typography } from '@mui/material';
-import variables from '@Sass/variables.module.scss';
 import { useNavigate } from 'react-router-dom';
+import { StyledActionText, StyledBottomText } from './FormBottomText.styled';
 
 interface Props {
 	navigateTo: string;
@@ -13,20 +12,15 @@ const FormBottomText = ({ navigateTo, commonText, actionText, marginTop }: Props
 	const navigate = useNavigate();
 
 	return (
-		<Typography sx={{ marginTop, fontWeight: '600' }}>
+		<StyledBottomText marginTop={marginTop}>
 			{commonText}{' '}
-			<Typography
+			<StyledActionText
 				onClick={() => navigate(navigateTo)}
 				component={'span'}
-				sx={{
-					color: variables.secondActionColor,
-					fontSize: '18px',
-					fontWeight: '600',
-				}}
 			>
 				{actionText}
-			</Typography>
-		</Typography>
+			</StyledActionText>
+		</StyledBottomText>
 	);
 };
 

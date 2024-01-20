@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 import styled from 'styled-components';
 
 export const StyledLoaderContainer = styled(Box)<{ height: string }>`
@@ -6,4 +6,8 @@ export const StyledLoaderContainer = styled(Box)<{ height: string }>`
 	justify-content: center;
 	align-items: center;
 	height: ${(props) => props.height ?? '100vh'};
+`;
+
+export const StyledCircularProgress = styled(CircularProgress)`
+	color: white;
 `;
